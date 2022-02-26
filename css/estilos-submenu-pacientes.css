@@ -1,0 +1,25 @@
+/* degradados */
+.nav{
+    box-shadow: 3px 0px 10px rgba(163, 163, 163, 0.4)
+}
+/* degradados */
+.nav{
+    background:#F4F4F2;
+    height:50px;
+    display:flex;
+}
+.nav a{
+    flex:1;
+    height: 100%;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    text-align: center;
+    color:#495464;
+    transition: 0.2s ease-in-out all;
+    font-weight: 300;
+}
+.nav a:hover{
+    background: #E8E8E8;
+}
+

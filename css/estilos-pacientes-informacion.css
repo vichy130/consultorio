@@ -1,0 +1,79 @@
+/* grid */
+.content{
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    grid-template-rows: 50px 1fr;
+    grid-template-areas: "content-informacion nav"
+                "content-informacion contenido";
+
+}
+.content-informacion{
+    grid-area:content-informacion;
+    background:#F4F4F2;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 0.2fr 0.4fr .2fr 1fr 1fr;
+}
+
+/* grid */
+
+/* degradados */
+.content-informacion{
+    box-shadow: 3px 0px 10px rgba(163, 163, 163, 0.4);
+}
+/* degradados */
+
+.content-informacion{
+    padding:15px 10px;
+}
+.content-informacion .icono.izquierda{
+    float:left;
+    margin-right: 10px;
+}
+.icono-paciente{
+    font-size:60px;
+    color:white;
+    background: #BBBFCA;
+    padding:5px;
+}
+.boton-nueva-consulta{
+    background: #dd9000;
+    height:35px;
+    line-height: 35px;
+    width:100%;
+    color: white;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: .1s ease all;
+    border-radius: 3px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    align-self: center;
+}
+
+.icono-paciente, .nombre-content-informacion{
+    justify-self: center;
+    align-self: center;
+}
+.iconos-content-informacion, .datos-content-informacion{
+    display: grid;
+    margin-top: 10px;
+}
+.iconos-content-informacion{
+    justify-self: center;
+}
+/* degradados */
+.consultas-content-informacion, .antecedentes-content-informacion{
+    background: white;
+    box-shadow: 3px 0px 10px rgba(163, 163, 163, 0.4);
+}
+/* degradados */
+
+
+
+
+
+
+
+

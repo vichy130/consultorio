@@ -1,0 +1,33 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+body{
+    line-height: 18px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+.contenedor  {
+    font-size: 16px;
+    color: #495464;
+    background: #E8E8E8;
+}
+.contenedor .contenido, .content-pacientes{
+    width:90%;
+    max-width: 1400px;
+}
+.nav, .contenido{
+    background: #fdfdfc;
+}
+.footer{
+    background: #BBBFCA;
+    color: #495464;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.logo img{
+    height:40px;
+    }

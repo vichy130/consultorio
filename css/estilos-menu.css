@@ -1,0 +1,77 @@
+/* grid */
+.logo{
+    display: grid;
+    grid-template-columns: .5fr 1fr;
+    color: #E8E8E8;
+}
+.logo .imagen{
+    justify-self: center;
+    align-self: end;
+}
+/* grid */
+.navI{
+    background: #495464;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    line-height: 18px;
+    display: inline-block;
+}
+.navI .menu li a:hover{
+    background:#E8E8E8;
+    color: #495464;
+}
+.navI .menu li a{
+    display: block;
+    padding:15px 20px;
+}
+.navI .menu .icono{
+    font-size: 12px;
+    line-height: 18px;
+}
+.navI .menu .icono.izquierda{
+float:left;
+margin-right: 10px;
+}
+.navI .menu .icono.derecha{
+    float:right;
+    margin-left: 10px;
+}
+
+.navI ul{
+    list-style:none; /* Remove dots*/
+}
+.navI .menu{
+    width:100%;
+}
+.navI .menu ul{
+    display:none; 
+}
+.navI .menu ul li a{
+    background:#BBBFCA;
+    color:#495464;
+}
+.navI .menu .activado > a{
+    background: #E8E8E8;
+    color: #495464;
+}
+.navI .menu a{
+    text-decoration: none; 
+    color:#F4F4F2;
+}
+.boton-menu{
+    padding:15px;
+    display: none;
+}
+.texto{
+    text-align: start;
+}
+.logo{
+    padding:10px;
+}
+
+/* degradados */
+.navI{
+    /* box-shadow: 3px 0px 10px rgba(163, 163, 163, 0.4);
+    position: relative; permite que la sombra despliegue a otras cajas */
+}
+/* degradados */
