@@ -27,10 +27,50 @@ if(!isset($_SESSION['username'])){
 <body>
     <div class="contenedor">
         <?php require("./layout/menu.php"); ?>
-        
-            <div class="content-pacientes">
-                <a href="./pacientes-informacion.php">ver / modificar</a>
-            </div>
+
+        <div class="content-pacientes">
+            <i class="fas fa-search"></i>
+            <input class="form_input" type="text">
+            <button class="boton">Buscar</button>
+
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nombre(s)</th>
+                        <th>Apellido paterno</th>
+                        <th>Apellido materno</th>
+                        <th>Editar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>test</td>
+                        <td>test</td>
+                        <td>test</td>
+                        <td><a href="./pacientes-informacion.php">ver/modificar</a></td>
+                        <td><i class="fas fa-trash"></i></td>
+                    </tr>
+                    <tr>
+                        <td>test</td>
+                        <td>test</td>
+                        <td>test</td>
+                        <td><a href="./pacientes-informacion.php">ver/modificar</a></td>
+                        <td><i class="fas fa-trash"></i></td>
+                    </tr>
+                    <tr>
+                        <td>test</td>
+                        <td>test</td>
+                        <td>test</td>
+                        <td><a href="./pacientes-informacion.php">ver/modificar</a></td>
+                        <td><i class="fas fa-trash"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <!-- end div content-pacientes -->
         <?php require("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->

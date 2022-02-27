@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
 html{
     scroll-behavior: smooth; /* se posiciona en la seccion de forma "smooth"*/
 }
@@ -27,6 +30,8 @@ html{
     justify-self: center;
     margin-top: 10px;
     background: rgb(255, 255, 255);
+    padding:20px;
+    display: grid;
 }
 .content .contenido{
     justify-self: center;
