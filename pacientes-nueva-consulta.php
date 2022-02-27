@@ -15,6 +15,7 @@ if(!isset($_SESSION['username'])){
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,26 +24,138 @@ if(!isset($_SESSION['username'])){
     <link rel="stylesheet" href="./css/estilos-pacientes.css">
     <title>Nueva consulta</title>
 </head>
+
 <body>
     <div class="contenedor">
-    <?php require("./layout/menu.php"); ?>
-    <div class="content">
-    <?php require("./layout/content-informacion.php"); ?>
-    <?php require("./layout/submenu-pacientes.php"); ?>
-        <div class="contenido">
-            <form class="form" action="">
+        <?php require("./layout/menu.php"); ?>
+        <div class="content">
+            <?php require("./layout/content-informacion.php"); ?>
+            <?php require("./layout/submenu-pacientes.php"); ?>
+            <div class="contenido">
+                <form class="form" action="" method="POST">
 
-            <div class="formulario_grupo">
-                        <label class="form_label" for="nombre-paciente">Nombre(s)</label>
-                        <input class="form_input" type="text" id="nombre-paciente" name="nombre-paciente">
+                    <label class="formulario_grupo span-4">Nueva consulta</label>
+
+                    <div class="formulario_grupo">
+                        <label class="form_label" for="consultafecha-paciente">Fecha</label>
+                        <input class="form_input" type="date" id="consultafecha-paciente" name="consultafecha-paciente">
                     </div><!-- end form-grupo -->
 
-            </form >
+                    <div class="formulario_grupo">
+                        <label class="form_label" for="consultamotivo-paciente">Motivo de consulta</label>
+                        <textarea class="form_textarea" type="text" id="consultamotivo-paciente"
+                            name="consultamotivo-paciente" rows="4" cols="50"> </textarea>
+                    </div><!-- end form-grupo -->
+
+                    <div class="formulario_grupo">
+                        <label class="form_label" for="consultaexploracion-paciente">Exploración</label>
+                        <textarea class="form_textarea" type="text" id="consultaexploracion-paciente"
+                            name="consultaexploracion-paciente" rows="4" cols="50"> </textarea>
+                    </div><!-- end form-grupo -->
+
+                    <div class="formulario_grupo">
+                        <label class="form_label" for="consultaprevia-paciente">Consultas previas</label>
+                        <textarea class="form_textarea" type="text" id="consultaprevia-paciente"
+                            name="consultaprevia-paciente" rows="4" cols="50"> </textarea>
+                    </div><!-- end form-grupo -->
+
+                    <div class="formulario_grupo">
+                        <label class="form_label" for="consultaindicaciones-paciente">Indicaciones</label>
+                        <textarea class="form_textarea" type="text" id="consultaindicaciones-paciente"
+                            name="consultaindicaciones-paciente" rows="4" cols="50"> </textarea>
+                    </div><!-- end form-grupo -->
+
+                    <div class="formulario_grupo">
+                        <label class="form_label" for="frecuencia-paciente">Nutrientes</label>
+                        <input class="form_input" type="text" id="frecuencia-paciente" name="frecuencia-paciente">
+                    </div><!-- end form-grupo -->
+
+                    <button class="boton azul"><i class="fas fa-plus"></i>Añadir</button>
+
+                    <table class="table span-4">
+                        <thead>
+                            <tr>
+                                <th>Nutriente</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td><i class="fas fa-trash"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <label class="formulario_grupo span-4">Medicamento</label>
+
+                    <div class="formulario_grupo">
+                        <label class="form_label" for="consultanombre-paciente">Nombre</label>
+                        <input class="form_input" type="text" id="consultanombre-paciente"
+                            name="consultanombre-paciente">
+                    </div><!-- end form-grupo -->
+
+                    <button class="boton azul"><i class="fas fa-plus"></i> Añadir medicamento</button>
+
+                    <div class="formulario_grupo">
+                        <label class="form_label" for="indicacionesmed-paciente">Indicaciones</label>
+                        <input class="form_input" type="text" id="indicacionesmed-paciente"
+                            name="indicacionesmed-paciente">
+                    </div><!-- end form-grupo -->
+
+                    <button class="boton azul"><i class="fas fa-plus"></i> Añadir</button>
+
+                    <table class="table span-4">
+                        <thead>
+                            <tr>
+                                <th>Medicamento</th>
+                                <th>Indicaciones</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td><i class="fas fa-trash"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="formulario_grupo">
+                        <label class="form_label" for="consultaterapia-paciente">Terapia</label>
+                        <input class="form_input" type="text" id="consultaterapia-paciente"
+                            name="consultaterapia-paciente">
+                    </div><!-- end form-grupo -->
+
+                    <button class="boton azul"><i class="fas fa-plus"></i> Añadir</button>
+
+                    <table class="table span-4">
+                        <thead>
+                            <tr>
+                                <th>Terapia aplicada</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td><i class="fas fa-trash"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <button class="input_submit boton amarillo span-2">Imprimir</button>
+                    <input class="input_submit boton azul span-2" type="submit" value="Guardar">
+
+                </form>
+                <!-- end FORM -->
+            </div>
+            <!-- end contenido -->
         </div>
-        <!-- end contenido -->
-    </div>
-    <?php require("./layout/footer.php"); ?>
+        <?php require("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
 </body>
+
 </html>

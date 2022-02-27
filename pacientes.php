@@ -31,7 +31,7 @@ if(!isset($_SESSION['username'])){
         <div class="content-pacientes">
             <i class="fas fa-search"></i>
             <input class="form_input" type="text">
-            <button class="boton">Buscar</button>
+            <button class="boton azul"><i class="fas fa-search"></i> Buscar</button>
 
 
             <table class="table">

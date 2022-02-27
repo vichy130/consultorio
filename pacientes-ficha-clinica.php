@@ -57,7 +57,26 @@ if(!isset($_SESSION['username'])){
                         <input type="radio" id="otro" name="otro">
                     </div><!-- end form-grupo -->
 
-                    <button class="boton"><i class="fas fa-plus"></i>Añadir</button>
+                    <button class="boton azul"><i class="fas fa-plus"></i> Añadir</button>
+
+                    <table class="table span-4">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Sexo</th>
+                                <th>Edad</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td></td>
+                                <td></td>
+                                <td><i class="fas fa-trash"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
 
                     <label class="formulario_grupo span-4">Antecedentes gineco-obstétricos</label>
 
@@ -283,7 +302,26 @@ if(!isset($_SESSION['username'])){
                             name="familiarenfermedad-paciente">
                     </div><!-- end form-grupo -->
 
-                    <button class="boton"><i class="fas fa-plus"></i>Añadir</button>
+                    <button class="boton azul"><i class="fas fa-plus"></i> Añadir</button>
+
+                    <table class="table span-4">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Parentesco</th>
+                                <th>Enfermedad</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td></td>
+                                <td></td>
+                                <td><i class="fas fa-trash"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
 
                     <label class="formulario_grupo span-4">Antecedentes del paciente</label>
 
@@ -292,7 +330,24 @@ if(!isset($_SESSION['username'])){
                         <input class="form_input" type="text" id="enfermedad-paciente" name="enfermedad-paciente">
                     </div><!-- end form-grupo -->
 
-                    <button class="boton"><i class="fas fa-plus"></i>Añadir</button>
+                    <button class="boton azul"><i class="fas fa-plus"></i> Añadir</button>
+
+                    <table class="table span-4">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Enfermedad</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td></td>
+                                <td><i class="fas fa-trash"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="firma-paciente">Firma</label>

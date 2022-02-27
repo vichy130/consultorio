@@ -34,20 +34,56 @@ if(!isset($_SESSION['username'])){
             <?php require("./layout/content-informacion.php"); ?>
             <?php require("./layout/submenu-pacientes.php"); ?>
 
-            <div class="contenido">
-                <form class="form">
+            
 
-                    <label class="">Informacion basica</label>
-
-                    <div class="formulario_grupo">
-                        <label class="form_label " for="nombre-paciente">Nombre(s)</label>
-                        <input class="form_input" type="text" id="nombre-paciente" name="nombre-paciente">
-                    </div>
-                    <a href="./pacientes-nueva-consulta.php"><i class="fas fa-plus"></i> Nueva consulta</a>
                 
-                </form>
-            </div>
-            <!-- end contenido -->
+
+                <div class="content-pacientes">
+
+                <a href="./pacientes-nueva-consulta.php"><i class="fas fa-plus"></i> Nueva consulta</a>
+                    <i class="fas fa-search"></i>
+                    <input class="form_input" type="date">
+                    <button class="boton azul">Buscar</button>
+
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nombre(s)</th>
+                                <th>Apellido paterno</th>
+                                <th>Apellido materno</th>
+                                <th>Editar</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>test</td>
+                                <td>test</td>
+                                <td>test</td>
+                                <td><a href="./pacientes-informacion.php">ver/modificar</a></td>
+                                <td><i class="fas fa-trash"></i></td>
+                            </tr>
+                            <tr>
+                                <td>test</td>
+                                <td>test</td>
+                                <td>test</td>
+                                <td><a href="./pacientes-informacion.php">ver/modificar</a></td>
+                                <td><i class="fas fa-trash"></i></td>
+                            </tr>
+                            <tr>
+                                <td>test</td>
+                                <td>test</td>
+                                <td>test</td>
+                                <td><a href="./pacientes-informacion.php">ver/modificar</a></td>
+                                <td><i class="fas fa-trash"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <!-- end div content-pacientes -->
+
         </div>
         <?php require("./layout/footer.php"); ?>
     </div>
