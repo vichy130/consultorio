@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,14 +37,14 @@
                         class="icono derecha fas fa-chevron-down"></i></a>
                 <ul>
                     <li><a href="./usuarios.php"><i class="icono izquierda fas fa-user-tie"></i>Usuarios</a></li>
-                    <li><a href="./consultorios.php"><i class="icono izquierda fas fa-stethoscope"></i>Consultorios</a></li>
+                    <li><a href="./consultorios.php"><i class="icono izquierda fas fa-stethoscope"></i>Consultorios</a>
+                    </li>
                 </ul>
             </li>
-            <li><a href=""><i class="icono izquierda fas fa-user-circle"></i>Mi Nombre<i
-                        class="icono derecha fas fa-chevron-down"></i></a>
+            <li><a href=""><i class="icono izquierda fas fa-user-circle"></i><?php if(isset($_SESSION['username'])){ echo $_SESSION['nombre']." ".$_SESSION['apellidoPaterno']; }?><i class="icono derecha fas fa-chevron-down"></i></a>
                 <ul>
                     <li><a href="./mi-perfil.php"><i class="icono izquierda fas fa-id-badge"></i>Mi perfil</a></li>
-                    <li><a href="./iniciar-sesion.php"><i class="icono izquierda fas fa-sign-out-alt"></i>Cerrar
+                    <li><a href="./php/cerrar-sesion.php"><i class="icono izquierda fas fa-sign-out-alt"></i>Cerrar
                             sesión</a></li>
                 </ul>
             </li>

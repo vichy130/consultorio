@@ -1,3 +1,18 @@
+<?php
+session_start(); 
+
+function redirect($url) {
+    ob_start();
+    header('Location:'.$url);
+    ob_end_flush();
+    die();
+}
+if(!isset($_SESSION['username'])){
+    redirect("./iniciar-sesion.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,14 +42,9 @@
                     <div class="formulario_grupo">
                         <label class="form_label " for="nombre-paciente">Nombre(s)</label>
                         <input class="form_input" type="text" id="nombre-paciente" name="nombre-paciente">
-
-                    </div><!-- end form-grupo -->
-                    <div class="formulario_grupo">
-                        <label class="form_label" for="apellidop-paciente">Apellido paterno</label>
-                        <input class="form_input" type="text" id="apellidop-paciente" name="apellidop-paciente">
-                    </div><!-- end form-grupo -->
-
-
+                    </div>
+                    <a href="./pacientes-nueva-consulta.php"><i class="fas fa-plus"></i> Nueva consulta</a>
+                
                 </form>
             </div>
             <!-- end contenido -->

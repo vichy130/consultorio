@@ -1,3 +1,19 @@
+<?php session_start();    
+
+if(isset($_SESSION['username'])){
+    echo $_SESSION['username'];
+}
+function redirect($url) {
+    ob_start();
+    header('Location: '.$url);
+    ob_end_flush();
+    die();
+}
+if(isset($_SESSION['username'] )){
+    redirect("./index.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +36,7 @@
     <div class="contenedor">
 
         <div class="content">
-            <form id="login" method="POST" action="./iniciar-sesion-ve.php">
+            <form id="login" method="POST" action="./php/iniciar-sesion-verificar.php">
                 <div class="formulario__grupo">
                     <label class="formulario_label">Usuario</label>
                     <div class="formulario__grupo-input">
@@ -31,7 +47,7 @@
                 <div class="formulario__grupo">
                     <label class="formulario_label">Contraseña</label>
                     <div class="formulario__grupo-input">
-                        <input class="formulario_input" type="password" value="" name="password" id="password">
+                        <input class="formulario_input" type="password" value="" name="contrasena" id="contrasena">
                     </div>
                 </div>
                 <div class="texto formulario_bloqueo">Cuenta bloqueada, <a href="">Desbloquea aquí</a></div>
