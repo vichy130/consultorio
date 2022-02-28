@@ -63,14 +63,14 @@ if(!isset($_SESSION['username'])){
                     <div class="formulario_grupo">
                         <label class="form_label" for="tipo-sangre"><i class="izquierda fas fa-tint"></i>Tipo de
                             sangre</label>
-                        <input class="form_input" type="text" id="tipo-sangre" name="tipo-sangre">
+                        <input class="form_input form_input_small" type="text" id="tipo-sangre" name="tipo-sangre">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo ">
                         <label class="form_label" for="nacimiento-paciente"><i
                                 class="izquierda fas fa-birthday-cake"></i>Fecha de
                             nacimiento</label>
-                        <input class="form_input" type="text" id="nacimiento-paciente" name="nacimiento-paciente">
+                        <input class="form_input" type="date" id="nacimiento-paciente" name="nacimiento-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo ">
@@ -97,7 +97,7 @@ if(!isset($_SESSION['username'])){
 
                 <div class="formulario_grupo grupo_cp">
                     <label class="form_label" for="cp-paciente">Codigo postal</label>
-                    <input class="form_input" type="text" id="cp-paciente" name="cp-paciente">
+                    <input class="form_input form_input_small" type="text" id="cp-paciente" name="cp-paciente">
                 </div><!-- end form-grupo -->
 
                 <label class="formulario_grupo span-4">Telefono de contacto</label>

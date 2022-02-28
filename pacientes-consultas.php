@@ -34,10 +34,6 @@ if(!isset($_SESSION['username'])){
             <?php require("./layout/content-informacion.php"); ?>
             <?php require("./layout/submenu-pacientes.php"); ?>
 
-            
-
-                
-
                 <div class="content-pacientes">
 
                 <a href="./pacientes-nueva-consulta.php"><i class="fas fa-plus"></i> Nueva consulta</a>
@@ -57,20 +53,20 @@ if(!isset($_SESSION['username'])){
                         </thead>
                         <tbody>
                             <tr>
-                                <td>test</td>
-                                <td>test</td>
-                                <td><a href="./pacientes-informacion.php">ver/modificar</a></td>
+                                <td></td>
+                                <td></td>
+                                <td><a href="./pacientes-nueva-consulta.php">Ver/modificar</a></td>
                                 <td><i class="fas fa-trash"></i></td>
                             </tr>
                             <tr>
-                                <td>test</td>
-                                <td>test</td>
-                                <td><a href="./pacientes-informacion.php">ver/modificar</a></td>
+                                <td></td>
+                                <td></td>
+                                <td><a href="./pacientes-nueva-consulta.php">Ver/modificar</a></td>
                                 <td><i class="fas fa-trash"></i></td>
                             </tr>
                             <tr>
-                                <td>test</td>
-                                <td>test</td>
+                                <td></td>
+                                <td></td>
                                 <td><a href="./pacientes-informacion.php">ver/modificar</a></td>
                                 <td><i class="fas fa-trash"></i></td>
                             </tr>

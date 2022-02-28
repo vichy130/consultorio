@@ -14,7 +14,6 @@
         <a href="./pacientes-informacion.php">Información básica</a>
         <a href="./pacientes-ficha-clinica.php">Ficha clinica</a>
         <a href="./pacientes-consultas.php">Consultas</a>
-        <a href="">Laboratorio</a>
         <span class="indicador" id="indicador"></span>
     </nav>
 </body>

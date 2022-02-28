@@ -45,7 +45,8 @@ if(!isset($_SESSION['username'])){
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="hijo-paciente">Edad</label>
-                        <input class="form_input" type="text" id="hijo-edad-paciente" name="hijo-edad-paciente">
+                        <input class="form_input form_input_small" type="text" id="hijo-edad-paciente"
+                            name="hijo-edad-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo radio span-2">
@@ -82,41 +83,45 @@ if(!isset($_SESSION['username'])){
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="embarazos-paciente">Embarazos</label>
-                        <input class="form_input" type="number" id="embarazos-paciente" name="embarazos-paciente"
-                            value="0">
+                        <input class="form_input form_input_small" type="number" id="embarazos-paciente"
+                            name="embarazos-paciente" value="0">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="partos-paciente">Partos</label>
-                        <input class="form_input" type="number" id="partos-paciente" name="partos-paciente" value="0">
+                        <input class="form_input form_input_small" type="number" id="partos-paciente"
+                            name="partos-paciente" value="0">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="cesareas-paciente">Cesáreas</label>
-                        <input class="form_input" type="number" id="cesareas-paciente" name="cesareas-paciente"
-                            value="0">
+                        <input class="form_input form_input_small" type="number" id="cesareas-paciente"
+                            name="cesareas-paciente" value="0">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="abortos-paciente">Abortos</label>
-                        <input class="form_input" type="number" id="abortos-paciente" name="abortos-paciente" value="0">
+                        <input class="form_input form_input_small" type="number" id="abortos-paciente"
+                            name="abortos-paciente" value="0">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="muertos-paciente">Muertos</label>
-                        <input class="form_input" type="number" id="muertos-paciente" name="muertos-paciente" value="0">
+                        <input class="form_input form_input_small" type="number" id="muertos-paciente"
+                            name="muertos-paciente" value="0">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="enfs-paciente">ENFS</label>
-                        <input class="form_input" type="number" id="enfs-paciente" name="enfs-paciente" value="0">
+                        <input class="form_input form_input_small" type="number" id="enfs-paciente" name="enfs-paciente"
+                            value="0">
                     </div><!-- end form-grupo -->
 
                     <label class="formulario_grupo span-4">Ginecología</label>
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="menstruacion-paciente">Fecha última menstruación</label>
-                        <input class="form_input" type="date" id="menstruacion-paciente" name="menstruacion-paciente">
+                        <input class="form_input " type="date" id="menstruacion-paciente" name="menstruacion-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
@@ -126,23 +131,28 @@ if(!isset($_SESSION['username'])){
                             name="menstruacionperiodicidad-paciente">
                     </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo">
+                    <div class="formulario_grupo span-2">
                         <label class="form_label" for="menstruacionmolestias-paciente">Molestias</label>
-                        <input class="form_input" type="text" id="menstruacionmolestias-paciente"
-                            name="menstruacionmolestias-paciente">
+                        <textarea class="form_textarea" id="menstruacionmolestias-paciente"
+                            name="menstruacionmolestias-paciente" rows="4" cols="50"> </textarea>
                     </div><!-- end form-grupo -->
 
                     <label class="formulario_grupo span-4">Antecedentes no patologicos</label>
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="fuma-paciente">Fuma</label>
-                        <input class="form_input" type="text" id="fuma-paciente" name="fuma-paciente">
+                        <select class="form_input" name="fuma-paciente" id="fuma-paciente">
+                            <option value="true">Si</option>
+                            <option value="false" selected="selected">No</option>
+                            <option value="true">A veces</option>
+                        </select>
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="cigarros-paciente"><i
                                 class="icono izquierda fas fa-smoking"></i>Cigarros al día</label>
-                        <input class="form_input" type="text" id="cigarros-paciente" name="cigarros-paciente">
+                        <input class="form_input form_input_small" type="text" id="cigarros-paciente"
+                            name="cigarros-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
@@ -151,9 +161,15 @@ if(!isset($_SESSION['username'])){
                             name="cigarros-antiguedad-paciente">
                     </div><!-- end form-grupo -->
 
+                    <div class=""></div>
+
                     <div class="formulario_grupo">
                         <label class="form_label" for="alcohol-paciente">Alcohol</label>
-                        <input class="form_input" type="text" id="alcohol-paciente" name="alcohol-paciente">
+                        <select class="form_input" name="alcohol-paciente" id="alcohol-paciente">
+                            <option value="true">Si</option>
+                            <option value="false" selected="selected">No</option>
+                            <option value="true">A veces</option>
+                        </select>
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
@@ -176,9 +192,12 @@ if(!isset($_SESSION['username'])){
                         <input class="form_input" type="text" id="addiciones-paciente" name="addiciones-paciente">
                     </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo">
+                    <div class="span-2"></div>
+
+                    <div class="formulario_grupo span-2">
                         <label class="form_label" for="alergias-paciente">Alergias</label>
-                        <input class="form_input" type="text" id="alergias-paciente" name="alergias-paciente">
+                        <textarea class="form_textarea" id="alergias-paciente" name="alergias-paciente" rows="4"
+                            cols="50"> </textarea>
                     </div><!-- end form-grupo -->
 
                     <label class="formulario_grupo span-4">Alimentación</label>
@@ -209,7 +228,7 @@ if(!isset($_SESSION['username'])){
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="agua-paciente">Vasos de agua al día</label>
-                        <input class="form_input" type="text" id="agua-paciente" name="agua-paciente">
+                        <input class="form_input form_input_small" type="text" id="agua-paciente" name="agua-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
@@ -246,8 +265,8 @@ if(!isset($_SESSION['username'])){
 
                     <div class="formulario_grupo span-2">
                         <label class="form_label" for="orinamolestias-paciente">Molestias</label>
-                        <input class="form_input" type="text" id="orinamolestias-paciente"
-                            name="orinamolestias-paciente">
+                        <textarea class="form_textarea" id="orinamolestias-paciente" name="orinamolestias-paciente" rows="4"
+                            cols="50"> </textarea>
                     </div><!-- end form-grupo -->
 
                     <label class="formulario_grupo span-4">Gastroenterólogia</label>
@@ -284,7 +303,7 @@ if(!isset($_SESSION['username'])){
 
                     <label class="formulario_grupo span-4">Ejercicio</label>
 
-                    <div class="formulario_grupo">
+                    <div class="formulario_grupo  span-2">
                         <label class="form_label" for="ejercicio-paciente">Ejercicio por semana</label>
                         <input class="form_input" type="text" id="ejercicio-paciente" name="ejercicio-paciente">
                     </div><!-- end form-grupo -->
@@ -354,6 +373,8 @@ if(!isset($_SESSION['username'])){
                         <input class="form_input" type="file" id="firma-paciente" name="firma-paciente">
                     </div><!-- end form-grupo -->
 
+                    <div class=""></div>
+                    <div class=""></div>
                     <button class="input_submit boton amarillo span-2">Imprimir</button>
                     <input class="input_submit boton azul span-2" type="submit" value="Guardar">
                 </form>

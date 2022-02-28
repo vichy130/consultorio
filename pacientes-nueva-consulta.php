@@ -41,25 +41,28 @@ if(!isset($_SESSION['username'])){
                         <input class="form_input" type="date" id="consultafecha-paciente" name="consultafecha-paciente">
                     </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo">
+                    <div class="span-2"></div>
+                    <div class=""></div>
+
+                    <div class="formulario_grupo span-4">
                         <label class="form_label" for="consultamotivo-paciente">Motivo de consulta</label>
                         <textarea class="form_textarea" type="text" id="consultamotivo-paciente"
                             name="consultamotivo-paciente" rows="4" cols="50"> </textarea>
                     </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo">
+                    <div class="formulario_grupo span-4">
                         <label class="form_label" for="consultaexploracion-paciente">Exploración</label>
                         <textarea class="form_textarea" type="text" id="consultaexploracion-paciente"
                             name="consultaexploracion-paciente" rows="4" cols="50"> </textarea>
                     </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo">
+                    <div class="formulario_grupo span-2">
                         <label class="form_label" for="consultaprevia-paciente">Consultas previas</label>
                         <textarea class="form_textarea" type="text" id="consultaprevia-paciente"
                             name="consultaprevia-paciente" rows="4" cols="50"> </textarea>
                     </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo">
+                    <div class="formulario_grupo span-4">
                         <label class="form_label" for="consultaindicaciones-paciente">Indicaciones</label>
                         <textarea class="form_textarea" type="text" id="consultaindicaciones-paciente"
                             name="consultaindicaciones-paciente" rows="4" cols="50"> </textarea>
@@ -99,8 +102,8 @@ if(!isset($_SESSION['username'])){
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="indicacionesmed-paciente">Indicaciones</label>
-                        <input class="form_input" type="text" id="indicacionesmed-paciente"
-                            name="indicacionesmed-paciente">
+                        <textarea class="form_textarea" id="indicacionesmed-paciente" name="indicacionesmed-paciente"
+                            rows="4" cols="50"> </textarea>
                     </div><!-- end form-grupo -->
 
                     <button class="boton azul"><i class="fas fa-plus"></i> Añadir</button>
@@ -124,8 +127,8 @@ if(!isset($_SESSION['username'])){
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="consultaterapia-paciente">Terapia</label>
-                        <input class="form_input" type="text" id="consultaterapia-paciente"
-                            name="consultaterapia-paciente">
+                        <textarea class="form_textarea" id="consultaterapia-paciente" name="consultaterapia-paciente"
+                            rows="4" cols="50"> </textarea>
                     </div><!-- end form-grupo -->
 
                     <button class="boton azul"><i class="fas fa-plus"></i> Añadir</button>

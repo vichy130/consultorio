@@ -99,3 +99,6 @@ body{
     cursor:pointer;
     font-size: 13px;
 }
+.form_input_small{
+ width:50%;
+}
