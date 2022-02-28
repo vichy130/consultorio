@@ -24,8 +24,8 @@ if(!isset($_SESSION['username'])){
 <body>
     <div class="contenedor">
     <?php require("./layout/menu.php"); ?>
-    <div class="content">
-
+    <div class="content-general">
+            <label for="">Consultorios</label>
     </div>
     <?php require("./layout/footer.php"); ?>
     </div>
