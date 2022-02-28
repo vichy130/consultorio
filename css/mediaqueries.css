@@ -17,11 +17,11 @@
         min-height: 100vh; /* Permite utilizar toda la pantalla, footer */
         display:grid;
         grid-template-columns: 1fr;
-        grid-template-rows: .07fr 1fr 30px;
+        grid-template-rows:  minmax(min-content, max-content) 1fr 30px;
         grid-template-areas: "navI"
                              "content"
                              "footer"       
-                        }
+    }
     .content .content-informacion{
         display: none;
     }
