@@ -49,9 +49,8 @@ if(!isset($_SESSION['username'])){
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Nombre(s)</th>
-                                <th>Apellido paterno</th>
-                                <th>Apellido materno</th>
+                                <th>Fecha</th>
+                                <th>Motivo de consulta</th>
                                 <th>Editar</th>
                                 <th>Eliminar</th>
                             </tr>
@@ -60,19 +59,16 @@ if(!isset($_SESSION['username'])){
                             <tr>
                                 <td>test</td>
                                 <td>test</td>
-                                <td>test</td>
                                 <td><a href="./pacientes-informacion.php">ver/modificar</a></td>
                                 <td><i class="fas fa-trash"></i></td>
                             </tr>
                             <tr>
                                 <td>test</td>
                                 <td>test</td>
-                                <td>test</td>
                                 <td><a href="./pacientes-informacion.php">ver/modificar</a></td>
                                 <td><i class="fas fa-trash"></i></td>
                             </tr>
                             <tr>
-                                <td>test</td>
                                 <td>test</td>
                                 <td>test</td>
                                 <td><a href="./pacientes-informacion.php">ver/modificar</a></td>

@@ -33,7 +33,7 @@ if(!isset($_SESSION['username'])){
             <input class="form_input" type="text">
             <button class="boton azul"><i class="fas fa-search"></i> Buscar</button>
 
-
+            <button class="boton azul"><i class="fas fa-user-plus"></i> Nuevo paciente</button>
             <table class="table">
                 <thead>
                     <tr>

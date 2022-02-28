@@ -1,18 +1,5 @@
 <?php session_start();    
 
-if(isset($_SESSION['username'])){
-    echo $_SESSION['username'];
-}
-function redirect($url) {
-    ob_start();
-    header('Location: '.$url);
-    ob_end_flush();
-    die();
-}
-if(isset($_SESSION['username'] )){
-    redirect("./index.php");
-    exit();
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,33 +16,36 @@ if(isset($_SESSION['username'] )){
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300&display=swap"
         rel="stylesheet">
     <!-- roboto -->
-    <title>Inicio de sesión</title>
+    <title>Resetear contraseña</title>
 </head>
 
 <body>
     <div class="contenedor">
 
         <div class="content">
-            <form id="login" method="POST" action="./php/iniciar-sesion-verificar.php">
-                <div class="formulario__grupo">
-                    <label class="formulario_label">Usuario</label>
-                    <div class="formulario__grupo-input">
-                        <input class="formulario_input" type="text" value="" name="username" id="username">
-                    </div>
-                </div>
+            <form id="login" method="POST" action="./iniciar-sesion.php">
+
+                <label class="formulario_grupo span-4">Nueva contraseña</label>
 
                 <div class="formulario__grupo">
                     <label class="formulario_label">Contraseña</label>
                     <div class="formulario__grupo-input">
-                        <input class="formulario_input" type="password" value="" name="contrasena" id="contrasena">
+                        <input class="formulario_input" type="password" value="" name="nuevacontrasena" id="nuevacontrasena">
                     </div>
                 </div>
-                <div class="texto formulario_bloqueo">Cuenta bloqueada, <a href="">Desbloquea aquí</a></div>
-                <div class="formulario__boton">
-                    <input class="boton" type="submit" value="Ingresar">
+
+                <div class="formulario__grupo">
+                    <label class="formulario_label">Repetir contraseña</label>
+                    <div class="formulario__grupo-input">
+                        <input class="formulario_input" type="password" value="" name="nuevacontrasena2" id="nuevacontrasena2">
+                    </div>
                 </div>
 
-                <div class="texto"><a class="" href="./resetear-contrasena.php"> ¿Olvidaste tu contraseña?</a></div>
+                <div class="formulario__boton">
+                    <input class="boton" type="submit" value="Enviar">
+                </div>
+
+
             </form>
             <!-- end form -->
         </div>
