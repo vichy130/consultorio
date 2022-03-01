@@ -117,3 +117,32 @@ body{
 .form_input_small{
  width:50%;
 }
+.boton{
+    height:35px;
+    line-height: 35px;
+    width:80%;
+    color: #F4F4F2;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: .1s ease all;
+    border-radius: 3px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    height: 40px;
+}
+.default-color{
+    background: #495464;
+}
+.azul{
+    background: #0d85ca;
+}
+.amarillo{
+    background: #dd9000;
+}
+.span-2{
+    grid-column: span 2;
+}
+.span-4{
+    grid-column: span 4;
+}

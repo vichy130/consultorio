@@ -11,6 +11,8 @@ if(!isset($_SESSION['username'])){
     redirect("./iniciar-sesion.php");
     exit();
 }
+
+require("./php/conexion.php");
 ?>
 
 <!DOCTYPE html>
@@ -32,10 +34,12 @@ if(!isset($_SESSION['username'])){
 
             <label class="span-4">Pacientes</label>
 
+
             <input class="form_input span-2" type="text">
             <button class="boton azul"><i class="fas fa-search"></i> Buscar</button>
 
-            <button class="boton azul"><i class="fas fa-user-plus"></i> Nuevo paciente</button>
+            <button class="boton azul" onClick="redirectNuevoPaciente()"><i class="fas fa-user-plus"></i> Nuevo
+                paciente</button>
             <table class="table span-4">
                 <thead>
                     <tr>
@@ -46,28 +50,23 @@ if(!isset($_SESSION['username'])){
                         <th>Eliminar</th>
                     </tr>
                 </thead>
+
                 <tbody>
+                    <?php
+            $stat= $dbh-> prepare ("select nombre, apellidoPaterno, apellidoMaterno from paciente; ");
+            $stat->execute();
+            while($datosPaciente=$stat->fetch(PDO::FETCH_OBJ)){
+                ?>
                     <tr>
-                        <td>test</td>
-                        <td>test</td>
-                        <td class="column-to-hide">test</td>
+                        <td><?php echo $datosPaciente->nombre;?></td>
+                        <td><?php echo $datosPaciente->apellidoPaterno;?></td>
+                        <td class="column-to-hide"><?php echo $datosPaciente->apellidoMaterno;?></td>
                         <td><a href="./pacientes-informacion.php">ver/modificar</a></td>
                         <td><i class="fas fa-trash"></i></td>
                     </tr>
-                    <tr>
-                        <td>test</td>
-                        <td>test</td>
-                        <td class="column-to-hide">test</td>
-                        <td><a href="./pacientes-informacion.php">ver/modificar</a></td>
-                        <td><i class="fas fa-trash"></i></td>
-                    </tr>
-                    <tr>
-                        <td>test</td>
-                        <td>test</td>
-                        <td class="column-to-hide">test</td>
-                        <td><a href="./pacientes-informacion.php">ver/modificar</a></td>
-                        <td><i class="fas fa-trash"></i></td>
-                    </tr>
+                    <?php 
+            }
+                ?>
                 </tbody>
             </table>
 
@@ -76,6 +75,7 @@ if(!isset($_SESSION['username'])){
         <?php require("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
+    <script src="./js/botones.js"></script>
 </body>
 
 </html>

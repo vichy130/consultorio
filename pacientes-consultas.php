@@ -44,7 +44,8 @@ if(!isset($_SESSION['username'])){
 
                 <div></div>
 
-                <button class="boton azul"><i class="fas fa-plus"></i> Nueva consulta</button>
+                <button class="boton azul" onClick="redirectNuevaConsulta()"><i class="fas fa-plus"></i> Nueva
+                    consulta</button>
 
                 <table class="table span-4">
                     <thead>
@@ -84,6 +85,7 @@ if(!isset($_SESSION['username'])){
         <?php require("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
+    <script src="./js/botones.js"></script>
 </body>
 
 </html>

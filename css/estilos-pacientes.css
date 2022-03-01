@@ -19,12 +19,7 @@ html{
 .input_submit{
     justify-self: center;
 }
-.span-2{
-    grid-column: span 2;
-}
-.span-4{
-    grid-column: span 4;
-}
+
 .content-pacientes{
     display: grid;
     grid-auto-rows: minmax(min-content, max-content);
@@ -36,34 +31,11 @@ html{
     justify-self: center;
     margin-top: 10px;
     background: rgb(255, 255, 255);
-    padding:20px;
+    padding: 20px;
 }
 .content .contenido{
     justify-self: center;
     margin-top: 10px;
-}
-.boton{
-    height:35px;
-    line-height: 35px;
-    width:80%;
-    color: #F4F4F2;
-    border: none;
-    font-weight: 500;
-    cursor: pointer;
-    transition: .1s ease all;
-    border-radius: 3px;
-    font-family: 'Roboto', sans-serif;
-    font-size: 14px;
-    height: 40px;
-}
-.default-color{
-    background: #495464;
-}
-.azul{
-    background: #0d85ca;
-}
-.amarillo{
-    background: #dd9000;
 }
 .izquierda{
     float:left;
