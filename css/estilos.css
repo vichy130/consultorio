@@ -8,6 +8,15 @@ body{
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
 }
+/* grid */
+.content-general{
+    display: grid;
+    grid-auto-rows: minmax(min-content, max-content);
+    grid-template-columns:1fr 1fr 1fr 1fr;
+    grid-gap:20px;
+    justify-self: center;
+}
+/* grid */
 .contenedor  {
     font-size: 16px;
     color: #495464;
@@ -21,18 +30,17 @@ body{
     background: #fdfdfc;
 }
 .contenedor .content-general{
-    justify-self: center;
     margin-top: 10px;
     background: rgb(255, 255, 255);
-    padding:20px;
     display: grid;
+    padding:50px;
 }
 .table{
     justify-self: center;
     align-self: start;
-    width:90%;
+    width:100%;
     border-collapse:collapse;
-    margin:25px 0;
+    /* margin:25px 0; */
     font-size: 0.9em;
     min-width:400px;
     font-family: 'Montserrat', sans-serif;

@@ -9,6 +9,13 @@
     .span-4{
         grid-column: span 1;
     }
+    .contenedor .content-general, .contenedor .content-pacientes{
+        display:grid;
+        grid-template-columns: 1fr;
+    }
+    .column-to-hide{
+        display:none;
+    }
 }
 
 @media screen and (max-width: 1020px){ /* cuando la pantalla sea menor que 1020 px*/
@@ -47,6 +54,9 @@
         display: none;
     }
 
+    .contenedor .content-general{
+        padding:20px;
+    }
 } /* End media querie*/
 
 

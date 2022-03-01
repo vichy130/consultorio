@@ -63,7 +63,17 @@ if(!isset($_SESSION['username'])){
                     <div class="formulario_grupo">
                         <label class="form_label" for="tipo-sangre"><i class="izquierda fas fa-tint"></i>Tipo de
                             sangre</label>
-                        <input class="form_input form_input_small" type="text" id="tipo-sangre" name="tipo-sangre">
+                            <select class="form_input" name="tipo-sangre" id="tipo-sangre">
+                                <option value="">Selecciona una opción</option>
+                                <option value="A+">A+</option>
+                                <option value="A+">B+</option>
+                                <option value="A+">O+</option>
+                                <option value="A+">AB+</option>
+                                <option value="A+">AB-</option>
+                                <option value="A+">A-</option>
+                                <option value="A+">B-</option>
+                                <option value="A+">O-</option>
+                            </select>
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo ">

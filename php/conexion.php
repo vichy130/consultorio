@@ -1,8 +1,8 @@
 <?php
 
-//$dbname="";
-//$user="";
-//$password="";
+//$dbname="proye200_consultorio";
+//$user="proye200_admin";
+//$password="Vacunacion12.";
 $dbname="consultorio";
 $user="root";
 $password="";

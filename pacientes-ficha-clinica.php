@@ -63,7 +63,7 @@ if(!isset($_SESSION['username'])){
                     <table class="table span-4">
                         <thead>
                             <tr>
-                                <th></th>
+                                <th class="column-to-hide"></th>
                                 <th>Sexo</th>
                                 <th>Edad</th>
                                 <th>Eliminar</th>
@@ -71,7 +71,7 @@ if(!isset($_SESSION['username'])){
                         </thead>
                         <tbody>
                             <tr>
-                                <td>1</td>
+                                <td class="column-to-hide">1</td>
                                 <td></td>
                                 <td></td>
                                 <td><i class="fas fa-trash"></i></td>
@@ -326,7 +326,7 @@ if(!isset($_SESSION['username'])){
                     <table class="table span-4">
                         <thead>
                             <tr>
-                                <th></th>
+                                <th class="column-to-hide"></th>
                                 <th>Parentesco</th>
                                 <th>Enfermedad</th>
                                 <th>Eliminar</th>
@@ -334,7 +334,7 @@ if(!isset($_SESSION['username'])){
                         </thead>
                         <tbody>
                             <tr>
-                                <td>1</td>
+                                <td class="column-to-hide">1</td>
                                 <td></td>
                                 <td></td>
                                 <td><i class="fas fa-trash"></i></td>
@@ -354,14 +354,14 @@ if(!isset($_SESSION['username'])){
                     <table class="table span-4">
                         <thead>
                             <tr>
-                                <th></th>
+                                <th class="column-to-hide"></th>
                                 <th>Enfermedad</th>
                                 <th>Eliminar</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>1</td>
+                                <td class="column-to-hide">1</td>
                                 <td></td>
                                 <td><i class="fas fa-trash"></i></td>
                             </tr>

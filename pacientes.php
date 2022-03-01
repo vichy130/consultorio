@@ -28,18 +28,20 @@ if(!isset($_SESSION['username'])){
     <div class="contenedor">
         <?php require("./layout/menu.php"); ?>
 
-        <div class="content-pacientes">
-            <i class="fas fa-search"></i>
-            <input class="form_input" type="text">
+        <div class="content-general">
+
+            <label class="span-4">Pacientes</label>
+
+            <input class="form_input span-2" type="text">
             <button class="boton azul"><i class="fas fa-search"></i> Buscar</button>
 
             <button class="boton azul"><i class="fas fa-user-plus"></i> Nuevo paciente</button>
-            <table class="table">
+            <table class="table span-4">
                 <thead>
                     <tr>
                         <th>Nombre(s)</th>
                         <th>Apellido paterno</th>
-                        <th>Apellido materno</th>
+                        <th class="column-to-hide">Apellido materno</th>
                         <th>Editar</th>
                         <th>Eliminar</th>
                     </tr>
@@ -48,21 +50,21 @@ if(!isset($_SESSION['username'])){
                     <tr>
                         <td>test</td>
                         <td>test</td>
-                        <td>test</td>
+                        <td class="column-to-hide">test</td>
                         <td><a href="./pacientes-informacion.php">ver/modificar</a></td>
                         <td><i class="fas fa-trash"></i></td>
                     </tr>
                     <tr>
                         <td>test</td>
                         <td>test</td>
-                        <td>test</td>
+                        <td class="column-to-hide">test</td>
                         <td><a href="./pacientes-informacion.php">ver/modificar</a></td>
                         <td><i class="fas fa-trash"></i></td>
                     </tr>
                     <tr>
                         <td>test</td>
                         <td>test</td>
-                        <td>test</td>
+                        <td class="column-to-hide">test</td>
                         <td><a href="./pacientes-informacion.php">ver/modificar</a></td>
                         <td><i class="fas fa-trash"></i></td>
                     </tr>

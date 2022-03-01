@@ -28,7 +28,7 @@
             <label class="">Genero</label>
             <label class="">Tipo de sangre</label>
         </div>
-        <button class="boton-nueva-consulta span-2">Nueva consulta</button>
+        <button class="boton-nueva-consulta span-2"><i class="fas fa-plus"></i> Nueva consulta</button>
         <div class="antecedentes-content-informacion span-2">
             <label>Antecedentes patologicos</label>
         </div>
