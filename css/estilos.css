@@ -41,8 +41,8 @@ body{
     width:100%;
     border-collapse:collapse;
     /* margin:25px 0; */
-    font-size: 0.9em;
-    min-width:400px;
+    font-size: 0.7em;
+    /* min-width:400px; */
     font-family: 'Montserrat', sans-serif;
     border-radius: 5px 5px 0 0;
     overflow: hidden;

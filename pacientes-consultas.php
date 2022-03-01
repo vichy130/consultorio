@@ -42,7 +42,9 @@ if(!isset($_SESSION['username'])){
 
                 <button class="boton azul"><i class="fas fa-search"></i> Buscar</button>
 
-                <a href="./pacientes-nueva-consulta.php"><i class="fas fa-plus"></i> Nueva consulta</a>
+                <div></div>
+
+                <button class="boton azul"><i class="fas fa-plus"></i> Nueva consulta</button>
 
                 <table class="table span-4">
                     <thead>
