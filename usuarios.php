@@ -39,9 +39,13 @@ require("./php/conexion.php");
             <table class="table span-4">
                 <thead>
                     <tr>
-                        <th>Nombre(s)</th>
-                        <th>Apellido paterno</th>
+                        <th>Usuario</th>
+                        <th class="column-to-hide">Nombre(s)</th>
+                        <th class="column-to-hide">Apellido paterno</th>
                         <th class="column-to-hide">Apellido materno</th>
+                        <th class="column-to-hide">Telefono</th>
+                        <th class="column-to-hide">Email</th>
+                        <th>Tipo de usuario</th>
                         <th>Editar</th>
                         <th>Eliminar</th>
                     </tr>
@@ -49,14 +53,18 @@ require("./php/conexion.php");
 
                 <tbody>
                     <?php
-                    $stat= $dbh-> prepare ("select nombre, apellidoPaterno, apellidoMaterno from paciente; ");
+                    $stat= $dbh-> prepare ("select username, nombre, apellidoPaterno, apellidoMaterno, telefono, correo, tipoUsuario from usuario; ");
                     $stat->execute();
-                    while($datosPaciente=$stat->fetch(PDO::FETCH_OBJ)){
+                    while($datosUsuario=$stat->fetch(PDO::FETCH_OBJ)){
                     ?>
                     <tr>
-                        <td><?php echo $datosPaciente->nombre;?></td>
-                        <td><?php echo $datosPaciente->apellidoPaterno;?></td>
-                        <td class="column-to-hide"><?php echo $datosPaciente->apellidoMaterno;?></td>
+                        <td><?php echo $datosUsuario->username;?></td>
+                        <td class="column-to-hide"><?php echo $datosUsuario->nombre;?></td>
+                        <td class="column-to-hide"><?php echo $datosUsuario->apellidoPaterno;?></td>
+                        <td class="column-to-hide"><?php echo $datosUsuario->apellidoMaterno;?></td>
+                        <td class="column-to-hide"><?php echo $datosUsuario->telefono;?></td>
+                        <td class="column-to-hide"><?php echo $datosUsuario->correo;?></td>
+                        <td><?php echo $datosUsuario->tipoUsuario;?></td>
                         <td><a href="./pacientes-informacion.php">ver/modificar</a></td>
                         <td><i class="fas fa-trash"></i></td>
                     </tr>

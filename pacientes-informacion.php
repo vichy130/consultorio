@@ -33,7 +33,7 @@ if(!isset($_SESSION['username'])){
             <?php require("./layout/submenu-pacientes.php"); ?>
             <div class="contenido">
 
-                <form action="" class="form" method="POST">
+                <form action="controller/nuevo-paciente.php" class="form" method="POST">
                     <label class="formulario_grupo span-4">Informacion basica</label>
 
                     <div class="formulario_grupo span-2">
@@ -53,11 +53,11 @@ if(!isset($_SESSION['username'])){
 
                     <div class="formulario_grupo radio span-4">
                         <label for="sexo-paciente"><i class="izquierda fas fa-male"></i>Hombre</label>
-                        <input type="radio" id="hombre" name="hombre">
+                        <input type="radio" id="hombre" name="sexo" value="2">
                         <label for="sexo-paciente"><i class="izquierda fas fa-female"></i>Mujer</label>
-                        <input type="radio" id="mujer" name="mujer">
+                        <input type="radio" id="mujer" name="sexo" value="1">
                         <label for="sexo-paciente">Otro</label>
-                        <input type="radio" id="otro" name="otro">
+                        <input type="radio" id="otro" name="sexo" value="3">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
