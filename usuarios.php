@@ -34,7 +34,7 @@ require("./php/conexion.php");
             <input class="form_input span-2" type="text">
             <button class="boton azul"><i class="fas fa-search"></i> Buscar</button>
 
-            <button class="boton azul" onClick="redirectNuevoPaciente()"><i class="fas fa-user-plus"></i> Nuevo
+            <button class="boton azul" onClick="redirectNuevoUsuario()"><i class="fas fa-user-plus"></i> Nuevo
                 Usuario</button>
             <table class="table span-4">
                 <thead>
@@ -77,6 +77,6 @@ require("./php/conexion.php");
         <?php require("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
+    <script src="./js/botones.js"></script>
 </body>
-
 </html>

@@ -7,3 +7,7 @@ function redirectNuevaConsulta(){
 function redirectNuevoPaciente(){
     window.location.href="./pacientes-informacion.php";
 }
+
+function redirectNuevoUsuario(){
+    window.location.href="./usuarios-nuevo.php";
+}

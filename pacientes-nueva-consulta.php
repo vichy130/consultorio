@@ -69,8 +69,8 @@ if(!isset($_SESSION['username'])){
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
-                        <label class="form_label" for="frecuencia-paciente">Nutrientes</label>
-                        <input class="form_input" type="text" id="frecuencia-paciente" name="frecuencia-paciente">
+                        <label class="form_label" for="nutrientes-paciente">Nutrientes</label>
+                        <input class="form_input" type="text" id="nutrientes-paciente" name="nutrientes-paciente">
                     </div><!-- end form-grupo -->
 
                     <button class="boton azul"><i class="fas fa-plus"></i>Añadir</button>
@@ -93,9 +93,9 @@ if(!isset($_SESSION['username'])){
                     <label class="formulario_grupo span-4">Medicamento</label>
 
                     <div class="formulario_grupo">
-                        <label class="form_label" for="consultanombre-paciente">Nombre</label>
-                        <input class="form_input" type="text" id="consultanombre-paciente"
-                            name="consultanombre-paciente">
+                        <label class="form_label" for="consultanombremed-paciente">Nombre</label>
+                        <input class="form_input" type="text" id="consultanombremed-paciente"
+                            name="consultanombremed-paciente">
                     </div><!-- end form-grupo -->
 
                     <button class="boton azul"><i class="fas fa-plus"></i> Añadir medicamento</button>

@@ -385,8 +385,13 @@ if(!isset($_SESSION['username'])){
                     </table>
 
                     <div class="formulario_grupo">
-                        <label class="form_label" for="firma-paciente">Firma</label>
+                        <label class="form_label" for="firma-paciente">Firma Paciente</label>
                         <input class="form_input" type="file" id="firma-paciente" name="firma-paciente">
+                    </div><!-- end form-grupo -->
+
+                    <div class="formulario_grupo">
+                        <label class="form_label" for="firma-usuario">Firma Médico</label>
+                        <input class="form_input" type="file" id="firma-usuario" name="firma-usuario">
                     </div><!-- end form-grupo -->
 
                     <div class=""></div>
