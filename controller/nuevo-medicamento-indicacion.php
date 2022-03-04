@@ -2,9 +2,9 @@
 include_once("../models/medicamento-indicacion.php");
 $medicamentoIndicacion = new medicamentoIndicacion();
 
-$medicamentoIndicacion->id  = $_POST[""];
-$medicamentoIndicacion->indicaciones  = $_POST[""];
-$medicamentoIndicacion->consulta  = $_POST[""];
+$medicamentoIndicacion->id  = null;
+$medicamentoIndicacion->indicaciones  = $_POST["indicacionesmed-paciente"];
+$medicamentoIndicacion->consulta  = null;
 
 if($medicamentoIndicacion->insertar()==1){
   echo "Indicaciones registradas";

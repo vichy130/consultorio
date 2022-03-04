@@ -2,9 +2,9 @@
 include_once("../models/terapia.php");
 $terapia = new terapia(); 
 
-$terapia->id = $_POST[""];
-$terapia->terapia = $_POST[""];
-$terapia->consulta = $_POST[""];
+$terapia->id = null;
+$terapia->terapia = $_POST["consultaterapia-paciente"];
+$terapia->consulta = null;
 
 if($terapia->insertar()==1){
   echo "Terapia registrado";

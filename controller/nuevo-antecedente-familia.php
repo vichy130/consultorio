@@ -2,10 +2,10 @@
 include_once("../models/antecedente-familia.php");
 $antecedenteFamilia = new antecedenteFamilia();
 
-$antecedenteFamilia->id = $_POST[""];
-$antecedenteFamilia->familiar = $_POST[""];
-$antecedenteFamilia->comentarios = $_POST[""];
-$antecedenteFamilia->ficha = $_POST[""];
+$antecedenteFamilia->id = null;
+$antecedenteFamilia->familiar = $_POST["parentesco-paciente"];
+$antecedenteFamilia->comentarios = $_POST["familiarenfermedad-paciente"];
+$antecedenteFamilia->ficha = null;
 
 if($antecedenteFamilia->insertar()==1){
   echo "Antecedente familia registrado";

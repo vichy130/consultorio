@@ -5,7 +5,7 @@
 
     $ficha->tipoSangre  = $_POST["tipo-sangre"];
     $ficha->quienRecomendo  = $_POST["recomendo-paciente"];
-    $ficha->hijo  = $_POST[""];
+    $ficha->hijo  = null;
     $ficha->embarazo  = $_POST["embarazos-paciente"];
     $ficha->partos  = $_POST["partos-paciente"];
     $ficha->cesareas  = $_POST["cesareas-paciente"];
@@ -43,12 +43,12 @@
     $ficha->mensMolestias  = $_POST["menstruacionmolestias-paciente"];
     $ficha->ejercicioSemana  = $_POST["ejercicio-paciente"];
     $ficha->fecha  = $_POST["tipo-sangre"];
-    $ficha->enfermedadesPadecidas  = $_POST[""];
-    $ficha->enfermedadesPresentes  = $_POST[""];
+    $ficha->enfermedadesPadecidas  = null;
+    $ficha->enfermedadesPresentes  = null;
     $ficha->firmaPaciente  = $_POST["firma-paciente"];
     $ficha->firmaUsuario  = $_POST["firma-usuario"];
-    $ficha->hora  = $_POST[""];
-    $ficha->usuario  = $_POST[""];
+    $ficha->hora  = null;
+    $ficha->usuario  = null;
 
     if($ficha->insertar()==1){
         echo "ficha registrada";

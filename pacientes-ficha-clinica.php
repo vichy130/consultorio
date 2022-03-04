@@ -60,9 +60,9 @@ if(!isset($_SESSION['username'])){
                     <label class="formulario_grupo span-4">Hijos</label>
 
                     <div class="formulario_grupo">
-                        <label class="form_label" for="hijo-paciente">Edad</label>
-                        <input class="form_input form_input_small" type="text" id="hijo-edad-paciente"
-                            name="hijo-edad-paciente">
+                        <label class="form_label" for="hijoedad-paciente">Edad</label>
+                        <input class="form_input form_input_small" type="text" id="hijoedad-paciente"
+                            name="hijoedad-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo radio span-2">
