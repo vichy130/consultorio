@@ -27,8 +27,7 @@ if(!isset($_SESSION['username'])){
     <div class="contenedor">
         <?php require("./layout/menu.php"); ?>
         <div class="content">
-            <div class="nav">Navegacion</div>
-            <div class="contenido">Contenido</div>
+            <div class="content-general">Bienvenido (a)</div>
 
         </div>
         <?php require("./layout/footer.php"); ?>

@@ -103,7 +103,7 @@ body{
     font-size: 13px;
     font-family: 'Roboto', sans-serif;
 }
-.form{
+.form, .form-general{
     padding:20px; /* padding del formulario de informacion */
 }
 .form_label{
@@ -117,6 +117,7 @@ body{
 .form_input_small{
  width:50%;
 }
+
 .boton{
     height:35px;
     line-height: 35px;

@@ -60,19 +60,19 @@ if(!isset($_SESSION['username'])){
                         <tr>
                             <td></td>
                             <td class="column-to-hide"></td>
-                            <td><a href="./pacientes-nueva-consulta.php">Ver/modificar</a></td>
+                            <td><a href="#">Ver/modificar</a></td>
                             <td><i class="fas fa-trash"></i></td>
                         </tr>
                         <tr>
                             <td></td>
                             <td class="column-to-hide"></td>
-                            <td><a href="./pacientes-nueva-consulta.php">Ver/modificar</a></td>
+                            <td><a href="#">Ver/modificar</a></td>
                             <td><i class="fas fa-trash"></i></td>
                         </tr>
                         <tr>
                             <td></td>
                             <td class="column-to-hide"></td>
-                            <td><a href="./pacientes-informacion.php">ver/modificar</a></td>
+                            <td><a href="#">ver/modificar</a></td>
                             <td><i class="fas fa-trash"></i></td>
                         </tr>
                     </tbody>

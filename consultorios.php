@@ -61,7 +61,7 @@ require("./php/conexion.php");
                         <td><?php echo $datosConsultorio->ciudad;?></td>
                         <td><?php echo $datosConsultorio->codigoPostal;?></td>
                         <td><?php echo $datosConsultorio->telefono;?></td>
-                        <td><a href="">ver/modificar</a></td>
+                        <td><a href="#">ver/modificar</a></td>
                         <td><i class="fas fa-trash"></i></td>
                     </tr>
                     <?php 

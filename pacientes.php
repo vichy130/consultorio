@@ -61,7 +61,7 @@ require("./php/conexion.php");
                         <td><?php echo $datosPaciente->nombre;?></td>
                         <td><?php echo $datosPaciente->apellidoPaterno;?></td>
                         <td class="column-to-hide"><?php echo $datosPaciente->apellidoMaterno;?></td>
-                        <td><a href="./pacientes-informacion.php">ver/modificar</a></td>
+                        <td><a href="#">ver/modificar</a></td>
                         <td><i class="fas fa-trash"></i></td>
                     </tr>
                     <?php 

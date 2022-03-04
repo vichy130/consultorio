@@ -4,6 +4,7 @@ $usuario = new usuario(); //Creamos al objeto
 //llenar al objeto con los valores del formulario
 
 $usuario->username = $_POST["username-usuario"];
+$usuario->nombre = $_POST["nombre-usuario"];
 $usuario->apellidoPaterno = $_POST["apellidoPaterno-usuario"];
 $usuario->apellidoMaterno = $_POST["apellidoMaterno-usuario"];
 $usuario->telefono = $_POST["telefono-usuario"];

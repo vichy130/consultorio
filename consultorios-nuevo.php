@@ -1,3 +1,4 @@
+
 <?php
 session_start(); 
 
@@ -21,18 +22,14 @@ if(!isset($_SESSION['username'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/estilos-pacientes.css">
-    <title>Nuevo Consultorio</title>
+    <title>Nuevo Usuario</title>
 </head>
 
 <body>
     <div class="contenedor">
         <?php require("./layout/menu.php"); ?>
-        <div class="content">
-            <?php require("./layout/content-informacion.php"); ?>
-            <?php require("./layout/submenu-pacientes.php"); ?>
-            <div class="contenido">
-                <form class="form" action="" method="POST">
-
+        
+                <form class="content-general" action="./controller/nuevo-consultorio.php" method="POST">
                     <label class="formulario_grupo span-4">Nuevo Consultorio</label>
 
                     <div class="formulario_grupo">
@@ -48,33 +45,23 @@ if(!isset($_SESSION['username'])){
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
-                        <label class="form_label" for="apellidoPaterno-usuario">Apellido paterno</label>
-                        <input class="form_input" type="text" id="apellidoPaterno-usuario" name="apellidoPaterno-usuario">
+                        <label class="form_label" for="colonia-consultorio">Colonia</label>
+                        <input class="form_input" type="text" id="colonia-consultorio" name="colonia-consultorio">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
-                        <label class="form_label" for="apellidoMaterno-usuario">Apellido materno</label>
-                        <input class="form_input" type="text" id="apellidoMaterno-usuario" name="apellidoMaterno-usuario">
+                        <label class="form_label" for="ciudad-consultorio">Ciudad</label>
+                        <input class="form_input" type="text" id="ciudad-consultorio" name="ciudad-consultorio">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
-                        <label class="form_label" for="telefono-usuario">Telefono</label>
-                        <input class="form_input" type="text" id="telefono-usuario" name="telefono-usuario">
+                        <label class="form_label" for="cp-consultorio">Codigo postal</label>
+                        <input class="form_input" type="text" id="cp-consultorio" name="cp-consultorio">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
-                        <label class="form_label" for="correo-usuario">Correo electronico</label>
-                        <input class="form_input" type="text" id="correo-usuario" name="correo-usuario">
-                    </div><!-- end form-grupo -->
-
-                    <div class="formulario_grupo">
-                        <label class="form_label" for="contrasena-usuario">Contraseña</label>
-                        <input class="form_input" type="text" id="contrasena-usuario" name="contrasena-usuario">
-                    </div><!-- end form-grupo -->
-
-                    <div class="formulario_grupo">
-                        <label class="form_label" for="tipo-usuario">Tipo de usuario</label>
-                        <input class="form_input" type="text" id="tipo-usuario" name="tipo-usuario-usuario">
+                        <label class="form_label" for="telefono-consultorio">Teléfono</label>
+                        <input class="form_input" type="text" id="telefono-consultorio" name="telefono-consultorio">
                     </div><!-- end form-grupo -->
 
                     <button class="input_submit boton amarillo span-2">Imprimir</button>
@@ -82,9 +69,7 @@ if(!isset($_SESSION['username'])){
 
                 </form>
                 <!-- end FORM -->
-            </div>
-            <!-- end contenido -->
-        </div>
+
         <?php require("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->

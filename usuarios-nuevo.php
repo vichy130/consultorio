@@ -27,11 +27,8 @@ if(!isset($_SESSION['username'])){
 <body>
     <div class="contenedor">
         <?php require("./layout/menu.php"); ?>
-        <div class="content">
-            <?php require("./layout/content-informacion.php"); ?>
-            <?php require("./layout/submenu-pacientes.php"); ?>
-            <div class="contenido">
-                <form class="form" action="" method="POST">
+
+                <form class="content-general" action="./controller/nuevo-usuario.php" method="POST">
 
                     <label class="formulario_grupo span-4">Nuevo usuario</label>
 
@@ -72,7 +69,7 @@ if(!isset($_SESSION['username'])){
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="tipo-usuario">Tipo de usuario</label>
-                        <input class="form_input" type="text" id="tipo-usuario" name="tipo-usuario-usuario">
+                        <input class="form_input" type="text" id="tipo-usuario" name="tipo-usuario">
                     </div><!-- end form-grupo -->
 
                     <button class="input_submit boton amarillo span-2">Imprimir</button>
@@ -80,9 +77,6 @@ if(!isset($_SESSION['username'])){
 
                 </form>
                 <!-- end FORM -->
-            </div>
-            <!-- end contenido -->
-        </div>
         <?php require("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
