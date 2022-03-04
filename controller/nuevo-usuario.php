@@ -11,7 +11,7 @@ $usuario->correo = $_POST["correo-usuario"];
 $usuario->contrasena = $_POST["contrasena-usuario"];
 $usuario->tipoUsuario = $_POST["tipo-usuario"];
 
-if($paciente->insertar()==1){
+if($usuario->insertar()==1){
   echo "Usuario registrado";
 }else{
     echo "Error al registrar, intentalo nuevamente";

@@ -3,6 +3,7 @@
 include_once("../models/consulta.php");
 $consulta = new consulta();
 
+$consulta->id = "";
 $consulta->fecha = $_POST['consultafecha-paciente'];
 $consulta->usuario = $_POST[''];
 $consulta->paciente = $_POST[''];

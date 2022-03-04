@@ -67,11 +67,11 @@ if(!isset($_SESSION['username'])){
 
                     <div class="formulario_grupo radio span-2">
                         <label for="sexo-hijo"><i class="izquierda fas fa-male"></i>Hombre</label>
-                        <input type="radio" id="hombre" name="hombre">
+                        <input type="radio" id="hombre" name="sexo-hijo">
                         <label for="sexo-hijo"><i class="izquierda fas fa-female"></i>Mujer</label>
-                        <input type="radio" id="mujer" name="mujer">
+                        <input type="radio" id="mujer" name="sexo-hijo">
                         <label for="sexo-hijo">Otro</label>
-                        <input type="radio" id="otro" name="otro">
+                        <input type="radio" id="otro" name="sexo-hijo">
                     </div><!-- end form-grupo -->
 
                     <button class="boton azul"><i class="fas fa-plus"></i> Añadir</button>

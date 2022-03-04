@@ -11,3 +11,7 @@ function redirectNuevoPaciente(){
 function redirectNuevoUsuario(){
     window.location.href="./usuarios-nuevo.php";
 }
+
+function redirectNuevoConsultorio(){
+    window.location.href="./consultorios-nuevo.php";
+}
