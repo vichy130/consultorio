@@ -11,6 +11,14 @@ if(!isset($_SESSION['username'])){
     redirect("./iniciar-sesion.php");
     exit();
 }
+$oP=null;
+if(isset($_REQUEST["id"])){
+
+include_once("models/paciente.php");
+$oP=new paciente();
+$oP->id = $_REQUEST["id"];
+$oP->buscarDatos();
+}
 ?>
 
 <!DOCTYPE html>
@@ -38,33 +46,33 @@ if(!isset($_SESSION['username'])){
 
                     <div class="formulario_grupo span-2">
                         <label class="form_label" for="nombre-paciente">Nombre(s)</label>
-                        <input class="form_input" type="text" id="nombre-paciente" name="nombre-paciente">
+                        <input class="form_input" type="text" id="nombre-paciente" name="nombre-paciente" value="<?php echo $oP==null? "": $oP->nombre; ?>">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo grupo_apellidop">
                         <label class="form_label" for="apellidop-paciente">Apellido paterno</label>
-                        <input class="form_input" type="text" id="apellidop-paciente" name="apellidop-paciente">
+                        <input class="form_input" type="text" id="apellidop-paciente" name="apellidop-paciente"  value="<?php echo $oP==null? "": $oP->apellidoPaterno; ?>">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo grupo_apellidom">
                         <label class="form_label" for="apellidom-paciente">Apellido materno</label>
-                        <input class="form_input" type="text" id="apellidom-paciente" name="apellidom-paciente">
+                        <input class="form_input" type="text" id="apellidom-paciente" name="apellidom-paciente" value="<?php echo $oP==null? "": $oP->apellidoMaterno; ?>">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo radio span-4">
                         <label for="sexo-paciente"><i class="izquierda fas fa-male"></i>Hombre</label>
-                        <input type="radio" id="hombre" name="sexo" value="2">
-                        <label for="sexo-paciente"><i class="izquierda fas fa-female"></i>Mujer</label>
-                        <input type="radio" id="mujer" name="sexo" value="1">
+                        <input type="radio" id="hombre" name="sexo" value="masculino" <?php echo $oP==null? "": ($oP->sexo == "masculino" ? "checked" : ""); ?>>
+                        <label for="sexo-paciente"><i class="izquierda fas fa-female" ></i>Mujer</label>
+                        <input type="radio" id="mujer" name="sexo" value="femenino" <?php echo $oP==null? "": ($oP->sexo == "femenino" ? "checked" : ""); ?>>
                         <label for="sexo-paciente">Otro</label>
-                        <input type="radio" id="otro" name="sexo" value="3">
+                        <input type="radio" id="otro" name="sexo" value="otro" <?php echo $oP==null? "": ($oP->sexo == "otro" ? "checked" : ""); ?>>
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo ">
                         <label class="form_label" for="nacimiento-paciente"><i
                                 class="izquierda fas fa-birthday-cake"></i>Fecha de
                             nacimiento</label>
-                        <input class="form_input" type="date" id="nacimiento-paciente" name="nacimiento-paciente">
+                        <input class="form_input" type="date" id="nacimiento-paciente" name="nacimiento-paciente" value="<?php echo $oP==null? "": $oP->fechaNacimiento; ?>">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo ">

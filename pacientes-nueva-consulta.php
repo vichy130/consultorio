@@ -32,7 +32,7 @@ if(!isset($_SESSION['username'])){
             <?php require("./layout/content-informacion.php"); ?>
             <?php require("./layout/submenu-pacientes.php"); ?>
             <div class="contenido">
-                <form class="form" action="" method="POST">
+                <form class="form" action="./controller/nueva-consulta.php" method="POST">
 
                     <label class="formulario_grupo span-4">Nueva consulta</label>
 

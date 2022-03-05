@@ -5,8 +5,8 @@ $consulta = new consulta();
 
 $consulta->id = null;
 $consulta->fecha = $_POST['consultafecha-paciente'];
-$consulta->usuario = null;
-$consulta->paciente = null;
+$consulta->usuario = "admin";
+$consulta->paciente = "1";
 $consulta->ta = $_POST["vitalesta-paciente"];
 $consulta->oxigeno = $_POST["vitalesoxigeno-paciente"];
 $consulta->pulso = $_POST["vitalespulso-paciente"];
@@ -16,7 +16,7 @@ $consulta->temperatura = $_POST["vitalestemperatura-paciente"];
 $consulta->motivoConsulta = $_POST['consultamotivo-paciente'];
 $consulta->exploracion = $_POST['consultaexploracion-paciente'];
 $consulta->indicaciones = $_POST['consultaindicaciones-paciente'];
-$consulta->consultorio = null;
+$consulta->consultorio = "1";
 
 if($consulta->insertar()==1){
     echo "Consulta registrada";

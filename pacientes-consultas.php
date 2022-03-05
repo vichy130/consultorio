@@ -11,6 +11,7 @@ if(!isset($_SESSION['username'])){
     redirect("./iniciar-sesion.php");
     exit();
 }
+require("./php/conexion.php");
 ?>
 
 <!DOCTYPE html>
@@ -57,24 +58,18 @@ if(!isset($_SESSION['username'])){
                         </tr>
                     </thead>
                     <tbody>
+                    <?php
+            $stat= $dbh-> prepare ("select fecha, motivoConsulta from consulta; ");
+            $stat->execute();
+            while($datosConsultas=$stat->fetch(PDO::FETCH_OBJ)){
+                ?>
                         <tr>
-                            <td></td>
-                            <td class="column-to-hide"></td>
+                            <td><?php echo $datosConsultas->fecha;?></td>
+                            <td class="column-to-hide"><?php echo $datosConsultas->motivoConsulta;?></td>
                             <td><a href="#">Ver/modificar</a></td>
                             <td><i class="fas fa-trash"></i></td>
                         </tr>
-                        <tr>
-                            <td></td>
-                            <td class="column-to-hide"></td>
-                            <td><a href="#">Ver/modificar</a></td>
-                            <td><i class="fas fa-trash"></i></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td class="column-to-hide"></td>
-                            <td><a href="#">ver/modificar</a></td>
-                            <td><i class="fas fa-trash"></i></td>
-                        </tr>
+                <?php } ?>
                     </tbody>
                 </table>
 
