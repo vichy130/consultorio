@@ -18,6 +18,24 @@ class usuario{
         return $stmt->execute();
     }
 
+    function buscarDatos(){
+        include_once("./php/conexion.php");
+        $query="SELECT * FROM usuario WHERE username='$this->username'; ";
+        $stmt = $dbh->prepare($query);
+        $stmt->execute();
+         $datos = null;
+          while( $datos = $stmt->fetch(PDO::FETCH_ASSOC) ){ 
+              $this->username = $datos["username"];
+              $this->nombre = $datos["nombre"];
+              $this->apellidoPaterno = $datos["apellidoPaterno"];
+              $this->apellidoMaterno = $datos["apellidoMaterno"];
+              $this->telefono = $datos["telefono"];
+              $this->correo = $datos["correo"];
+              $this->contrasena = $datos["contrasena"];
+              $this->tipoUsuario = $datos["tipoUsuario"];
+          }
+          return $this;
+    }
 }
 
 ?>

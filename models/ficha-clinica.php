@@ -70,5 +70,66 @@ class ficha{
         $stmt=$dbh->prepare($query);
         return $stmt->excecute();
     }
+
+    function buscarDatos(){
+        include_once("./php/conexion.php");
+        $query="SELECT * FROM ficha WHERE paciente= ; ";
+        $stmt = $dbh->prepare($query);
+        $stmt->execute();
+         $datos = null;
+          while( $datos = $stmt->fetch(PDO::FETCH_ASSOC) ){ 
+              $this->id = $datos["id"];
+              $this->paciente = $datos["paciente"];
+              $this->tipoSangre = $datos["tipoSangre"];
+              $this->quienRecomendo = $datos["quienRecomendo"];
+              $this->hijo = $datos["hijo"];
+              $this->embarazo = $datos["embarazo"];
+              $this->partos = $datos["partos"];
+              $this->cesareas = $datos["cesareas"];
+              $this->abortos = $datos["abortos"];
+              $this->muertos = $datos["muertos"];
+              $this->enfs = $datos["enfs"];
+              $this->fuma = $datos["fuma"];
+              $this->cigarrosDia = $datos["cigarrosDia"];
+              $this->fumaAntiguedad = $datos["fumaAntiguedad"];
+              $this->alcohol = $datos["alcohol"];
+              $this->alcFrecuencia = $datos["alcFrecuencia"];
+              $this->alcoholCantidad = $datos["alcoholCantidad"];
+              $this->alcoholTipos = $datos["alcoholTipos"];
+              $this->adicciones = $datos["adicciones"];
+              $this->alergias = $datos["alergias"];
+              $this->desayuno = $datos["desayuno"];
+              $this->comida = $datos["comida"];
+              $this->cena = $datos["cena"];
+              $this->entreComidas = $datos["entreComidas"];
+              $this->vasoAguaDia = $datos["vasoAguaDia"];
+              $this->otrosLiquidos = $datos["otrosLiquidos"];
+              $this->intolerancias = $datos["intolerancias"];
+              $this->orinaDia = $datos["orinaDia"];
+              $this->orinaNoche = $datos["orinaNoche"];
+              $this->orinaColor = $datos["orinaColor"];
+              $this->orinaOlor = $datos["orinaOlor"];
+              $this->orinaMolestias = $datos["orinaMolestias"];
+              $this->excrementoDia = $datos["excrementoDia"];
+              $this->exConsistencia = $datos["exConsistencia"];
+              $this->exOlor = $datos["exOlor"];
+              $this->exColor = $datos["exColor"];
+              $this->exDolor = $datos["exDolor"];
+              $this->fechaMenstruacion = $datos["fechaMenstruacion"];
+              $this->mensPeriodicidad = $datos["mensPeriodicidad"];
+              $this->mensMolestias = $datos["mensMolestias"];
+              $this->ejercicioSemana = $datos["ejercicioSemana"];
+              $this->fecha = $datos["fecha"];
+              $this->enfermedadesPadecidas = $datos["enfermedadesPadecidas"];
+              $this->enfermedadesPresentes = $datos["enfermedadesPresentes"];
+              $this->firmaUsuario = $datos["firmaUsuario"];
+              $this->hora = $datos["hora"];
+              $this->mensMolestias = $datos["mensMolestias"];
+              $this->mensMolestias = $datos["mensMolestias"];
+              $this->usuario = $datos["usuario"];
+
+          }
+          return $this;
+    }
 }
 ?>

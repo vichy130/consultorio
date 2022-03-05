@@ -11,6 +11,15 @@ if(!isset($_SESSION['username'])){
     redirect("./iniciar-sesion.php");
     exit();
 }
+
+$oU=null;
+if(isset($_REQUEST["id"])){
+
+include_once("./models/usuario.php");
+$oU=new usuario();
+$oU->username= $_REQUEST["id"];
+$oU->buscarDatos();
+}
 ?>
 
 <!DOCTYPE html>
@@ -28,55 +37,55 @@ if(!isset($_SESSION['username'])){
     <div class="contenedor">
         <?php require("./layout/menu.php"); ?>
 
-                <form class="content-general" action="./controller/nuevo-usuario.php" method="POST">
+        <form class="content-general" action="./controller/nuevo-usuario.php" method="POST">
 
-                    <label class="formulario_grupo span-4">Nuevo usuario</label>
+            <label class="formulario_grupo span-4">Nuevo usuario</label>
 
-                    <div class="formulario_grupo">
-                        <label class="form_label" for="username-usuario">Nombre de usuario</label>
-                        <input class="form_input" type="text" id="username-usuario" name="username-usuario">
+            <div class="formulario_grupo">
+                <label class="form_label" for="username-usuario">Nombre de usuario</label>
+                <input class="form_input" type="text" id="username-usuario" name="username-usuario" value="<?php echo $oU==null? "": $oU->username; ?>">
                     </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo">
-                        <label class="form_label" for="nombre-usuario">Nombre</label>
-                        <input class="form_input" type="text" id="nombre-usuario" name="nombre-usuario">
-                    </div><!-- end form-grupo -->
+                    <div class=" formulario_grupo">
+                <label class="form_label" for="nombre-usuario">Nombre</label>
+                <input class="form_input" type="text" id="nombre-usuario" name="nombre-usuario" value="<?php echo $oU==null? "": $oU->nombre; ?>">
+            </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo">
-                        <label class="form_label" for="apellidoPaterno-usuario">Apellido paterno</label>
-                        <input class="form_input" type="text" id="apellidoPaterno-usuario" name="apellidoPaterno-usuario">
-                    </div><!-- end form-grupo -->
+            <div class="formulario_grupo">
+                <label class="form_label" for="apellidoPaterno-usuario">Apellido paterno</label>
+                <input class="form_input" type="text" id="apellidoPaterno-usuario" name="apellidoPaterno-usuario" value="<?php echo $oU==null? "": $oU->apellidoPaterno; ?>">
+            </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo">
-                        <label class="form_label" for="apellidoMaterno-usuario">Apellido materno</label>
-                        <input class="form_input" type="text" id="apellidoMaterno-usuario" name="apellidoMaterno-usuario">
-                    </div><!-- end form-grupo -->
+            <div class="formulario_grupo">
+                <label class="form_label" for="apellidoMaterno-usuario">Apellido materno</label>
+                <input class="form_input" type="text" id="apellidoMaterno-usuario" name="apellidoMaterno-usuario" value="<?php echo $oU==null? "": $oU->apellidoMaterno; ?>">
+            </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo">
-                        <label class="form_label" for="telefono-usuario">Telefono</label>
-                        <input class="form_input" type="text" id="telefono-usuario" name="telefono-usuario">
-                    </div><!-- end form-grupo -->
+            <div class="formulario_grupo">
+                <label class="form_label" for="telefono-usuario">Telefono</label>
+                <input class="form_input" type="text" id="telefono-usuario" name="telefono-usuario" value="<?php echo $oU==null? "": $oU->telefono; ?>">
+            </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo">
-                        <label class="form_label" for="correo-usuario">Correo electronico</label>
-                        <input class="form_input" type="text" id="correo-usuario" name="correo-usuario">
-                    </div><!-- end form-grupo -->
+            <div class="formulario_grupo">
+                <label class="form_label" for="correo-usuario">Correo electronico</label>
+                <input class="form_input" type="text" id="correo-usuario" name="correo-usuario" value="<?php echo $oU==null? "": $oU->correo; ?>">
+            </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo">
-                        <label class="form_label" for="contrasena-usuario">Contraseña</label>
-                        <input class="form_input" type="text" id="contrasena-usuario" name="contrasena-usuario">
-                    </div><!-- end form-grupo -->
+            <div class="formulario_grupo">
+                <label class="form_label" for="contrasena-usuario">Contraseña</label>
+                <input class="form_input" type="text" id="contrasena-usuario" name="contrasena-usuario">
+            </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo">
-                        <label class="form_label" for="tipo-usuario">Tipo de usuario</label>
-                        <input class="form_input" type="text" id="tipo-usuario" name="tipo-usuario">
-                    </div><!-- end form-grupo -->
+            <div class="formulario_grupo">
+                <label class="form_label" for="tipo-usuario">Tipo de usuario</label>
+                <input class="form_input" type="text" id="tipo-usuario" name="tipo-usuario" value="<?php echo $oU==null? "": $oU->tipoUsuario; ?>">
+            </div><!-- end form-grupo -->
 
-                    <button class="input_submit boton amarillo span-2">Imprimir</button>
-                    <input class="input_submit boton azul span-2" type="submit" value="Guardar">
+            <button class="input_submit boton amarillo span-2">Imprimir</button>
+            <input class="input_submit boton azul span-2" type="submit" value="Guardar">
 
-                </form>
-                <!-- end FORM -->
+        </form>
+        <!-- end FORM -->
         <?php require("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
