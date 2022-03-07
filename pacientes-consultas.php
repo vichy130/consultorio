@@ -11,7 +11,11 @@ if(!isset($_SESSION['username'])){
     redirect("./iniciar-sesion.php");
     exit();
 }
-require("./php/conexion.php");
+$id_paciente=0;
+if(isset($_SESSION["id_paciente"])){
+    $id_paciente=$_SESSION["id_paciente"];
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -59,17 +63,23 @@ require("./php/conexion.php");
                     </thead>
                     <tbody>
                     <?php
-            $stat= $dbh-> prepare ("select fecha, motivoConsulta from consulta; ");
-            $stat->execute();
-            while($datosConsultas=$stat->fetch(PDO::FETCH_OBJ)){
-                ?>
+                    include_once("models/consulta.php");
+                    $oC=new consulta();
+                    $oC->paciente=$id_paciente;
+                    $arr = $oC->listarConsultas();
+                    if($arr!=null){
+                        foreach($arr as $datosConsultas){
+                    ?>
                         <tr>
                             <td><?php echo $datosConsultas->fecha;?></td>
                             <td class="column-to-hide"><?php echo $datosConsultas->motivoConsulta;?></td>
                             <td><a href="#">Ver/modificar</a></td>
                             <td><i class="fas fa-trash"></i></td>
                         </tr>
-                <?php } ?>
+                    <?php 
+                        } 
+                    }
+                    ?>
                     </tbody>
                 </table>
 

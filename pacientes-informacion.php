@@ -18,6 +18,7 @@ include_once("models/paciente.php");
 $oP=new paciente();
 $oP->id = $_REQUEST["id"];
 $oP->buscarDatos();
+$_SESSION["id_paciente"]=$oP->id;
 }
 ?>
 

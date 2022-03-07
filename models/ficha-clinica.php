@@ -73,7 +73,7 @@ class ficha{
 
     function buscarDatos(){
         include_once("./php/conexion.php");
-        $query="SELECT * FROM ficha WHERE paciente= ; ";
+        $query="SELECT * FROM ficha WHERE paciente= $this->paciente; ";
         $stmt = $dbh->prepare($query);
         $stmt->execute();
          $datos = null;
@@ -124,8 +124,6 @@ class ficha{
               $this->enfermedadesPresentes = $datos["enfermedadesPresentes"];
               $this->firmaUsuario = $datos["firmaUsuario"];
               $this->hora = $datos["hora"];
-              $this->mensMolestias = $datos["mensMolestias"];
-              $this->mensMolestias = $datos["mensMolestias"];
               $this->usuario = $datos["usuario"];
 
           }
