@@ -337,7 +337,7 @@ if(isset($_SESSION["id_paciente"])){
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="parentesco-paciente">Parentesco</label>
-                        <input class="form_input" type="text" id="parentesco-paciente" name="parentesco-paciente" value="<?php echo $oF==null? "": $oF->exDolor; ?>">
+                        <input class="form_input" type="text" id="parentesco-paciente" name="parentesco-paciente" value="<?php /*echo $oF==null? "": $oF->exDolor; */?>">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo span-2">

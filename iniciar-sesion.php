@@ -29,6 +29,7 @@ if(isset($_SESSION['username'] )){
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300&display=swap"
         rel="stylesheet">
     <!-- roboto -->
+    <script src="https://kit.fontawesome.com/0d1f50c390.js" crossorigin="anonymous"></script>
     <title>Inicio de sesión</title>
 </head>
 
@@ -36,20 +37,26 @@ if(isset($_SESSION['username'] )){
     <div class="contenedor">
 
         <div class="content">
-            <form id="login" method="POST" action="./php/iniciar-sesion-verificar.php">
-                <div class="formulario__grupo">
+            <form id="form" method="POST" action="./php/iniciar-sesion-verificar.php" class="form">
+                <!-- Grupo usuario -->
+                <div class="formulario__grupo formulario__grupo-incorrecto" id="grupo__usuario">
                     <label class="formulario_label">Usuario</label>
                     <div class="formulario__grupo-input">
                         <input class="formulario_input" type="text" value="" name="username" id="username">
+                        <i class="formulario__validacion-estado fas fa-times"></i>
                     </div>
+                    <p class="formulario__input-error">El usuario tiene que ser de 4 a 16 dígitos.</p>
                 </div>
-
-                <div class="formulario__grupo">
+                <!-- Grupo Contraseña    -->
+                <div class="formulario__grupo" id="grupo__contrasena">
                     <label class="formulario_label">Contraseña</label>
                     <div class="formulario__grupo-input">
                         <input class="formulario_input" type="password" value="" name="contrasena" id="contrasena">
+                        <i class="formulario__validacion-estado fas fa-times"></i>
                     </div>
+                    <p class="formulario__input-error">La contraseña tiene que ser de 4 a 12 dígitos.</p>
                 </div>
+
                 <div class="texto formulario_bloqueo">Cuenta bloqueada, <a href="">Desbloquea aquí</a></div>
                 <div class="formulario__boton">
                     <input class="boton" type="submit" value="Ingresar">
