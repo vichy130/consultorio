@@ -39,13 +39,13 @@ if(isset($_SESSION['username'] )){
         <div class="content">
             <form id="form" method="POST" action="./php/iniciar-sesion-verificar.php" class="form">
                 <!-- Grupo usuario -->
-                <div class="formulario__grupo formulario__grupo-incorrecto" id="grupo__usuario">
+                <div class="formulario__grupo" id="grupo__usuario">
                     <label class="formulario_label">Usuario</label>
                     <div class="formulario__grupo-input">
                         <input class="formulario_input" type="text" value="" name="username" id="username">
                         <i class="formulario__validacion-estado fas fa-times"></i>
                     </div>
-                    <p class="formulario__input-error">El usuario tiene que ser de 4 a 16 dígitos.</p>
+                    <p class="formulario__input-error">El usuario tiene que ser de 4 a 16 dígitos y solo puede contener números, letras y guion bajo.</p>
                 </div>
                 <!-- Grupo Contraseña    -->
                 <div class="formulario__grupo" id="grupo__contrasena">
@@ -78,6 +78,7 @@ if(isset($_SESSION['username'] )){
         </div>
     </div>
     <!-- end contenedor -->
+    <script src="./js/form-iniciar-sesion.js"></script>
 </body>
 
 </html>

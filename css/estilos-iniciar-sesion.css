@@ -98,7 +98,7 @@
     bottom:12px;
     z-index:100;
     font-size:16px;
-    /* opacity:0; */
+    opacity:0; 
 }
 .formulario__boton{
     padding:20px;

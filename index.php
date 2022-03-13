@@ -26,12 +26,10 @@ if(!isset($_SESSION['username'])){
 <body>
     <div class="contenedor">
         <?php require("./layout/menu.php"); ?>
-        <div class="content">
+
             <div class="content-general">Bienvenido (a)</div>
 
-        </div>
         <?php require("./layout/footer.php"); ?>
-    </div>
     <!-- END contenedor -->
 </body>
 
