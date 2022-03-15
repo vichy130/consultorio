@@ -45,6 +45,9 @@
 .formulario_bloqueo{
     display:none;
 }
+.formulario_datos-incorrectos{
+    display:none;
+}
 .formulario_label{
     display: block;
     padding-bottom:5px;
@@ -142,7 +145,8 @@ height:40px;
    padding:10px;
 }
 .texto{
-    font-size: 14px;
+    font-size: 12px;
+    margin-top:10px;
 }
 
 

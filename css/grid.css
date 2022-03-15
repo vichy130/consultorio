@@ -9,10 +9,22 @@
     /*align-items:start; Alinea verticalmente solo el espacio requerido*/
     }
 
-.contenedor .content{ /*Contenido */
+.contenedor .content, .contenedor-no .content{ /*Contenido */
     grid-area:content;
     display:grid;
 }
-.contenedor .footer{
+.contenedor-no{ /* Master Grid */
+    min-height: 100vh; /* Permite utilizar toda la pantalla, footer */
+    display:grid;
+    grid-template-columns: 230px 1fr;
+    grid-template-rows: 1fr 30px;
+    grid-template-areas: 
+                         "navI  content"
+                         "footer footer";
+    /*align-items:start; Alinea verticalmente solo el espacio requerido*/
+    }
+
+
+.contenedor .footer, .contenedor-no .footer{
     grid-area:footer;
 }

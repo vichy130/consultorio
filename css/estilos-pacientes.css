@@ -27,7 +27,7 @@ html{
     grid-gap:20px;
 }
 /* grid */
-.contenedor .content-pacientes{
+.contenedor .content-pacientes, .contenedor-no .content-pacientes{
     justify-self: center;
     margin-top: 10px;
     background: rgb(255, 255, 255);

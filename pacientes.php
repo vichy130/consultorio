@@ -12,6 +12,10 @@ if(!isset($_SESSION['username'])){
     exit();
 }
 
+if(isset($_SESSION["id_paciente"])){
+    unset($_SESSION["id_paciente"]);
+}
+
 require("./php/conexion.php");
 ?>
 

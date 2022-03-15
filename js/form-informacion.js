@@ -50,6 +50,7 @@ inputs.forEach((input)=>{
 
 formulario.addEventListener('submit', (e)=>{
     // e.preventDefault();
+    validarFormulario();
     if(campos.usuario && campos.contrasena){
         document.querySelectorAll('formulario__grupo-correcto').forEach((icono) => {
             icono.classList.remove('formulario__grupo-correcto');

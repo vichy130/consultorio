@@ -33,7 +33,7 @@ if(isset($_SESSION["id_paciente"])){
 </head>
 
 <body>
-    <div class="contenedor">
+    <div class="<?php if(isset($_SESSION["id_paciente"])){ echo "contenedor"; }else {echo "contenedor-no"; }?>">
         <?php require("./layout/menu.php"); ?>
         <div class="content">
             <?php require("./layout/content-informacion.php"); ?>

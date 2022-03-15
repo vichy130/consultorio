@@ -1,5 +1,5 @@
-const formulario=document.getElementById('form');
-const inputs=document.querySelectorAll('#form input');
+const formulario=document.getElementById('form-iniciar-sesion');
+const inputs=document.querySelectorAll('#form-iniciar-sesion input');
 
 const expresiones = {
 	usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
@@ -42,11 +42,13 @@ const validarCampo = (expresion, input, campo) => {
 inputs.forEach((input)=>{
     input.addEventListener('keyup',validarFormulario);
     input.addEventListener('blur',validarFormulario);
+    
 });
 
 
 formulario.addEventListener('submit', (e)=>{
     // e.preventDefault();
+    validarFormulario();
     if(campos.usuario && campos.contrasena){
         document.querySelectorAll('formulario__grupo-correcto').forEach((icono) => {
             icono.classList.remove('formulario__grupo-correcto');

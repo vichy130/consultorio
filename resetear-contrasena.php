@@ -16,6 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300&display=swap"
         rel="stylesheet">
     <!-- roboto -->
+    <script src="https://kit.fontawesome.com/0d1f50c390.js" crossorigin="anonymous"></script>
     <title>Resetear contraseña</title>
 </head>
 
@@ -23,22 +24,26 @@
     <div class="contenedor">
 
         <div class="content">
-            <form id="login" method="POST" action="./iniciar-sesion.php">
+            <form id="form-nueva-contrasena" method="POST" action="./iniciar-sesion.php">
 
                 <label class="formulario_grupo span-4">Nueva contraseña</label>
 
-                <div class="formulario__grupo">
+                <div class="formulario__grupo" id="grupo__nuevacontrasena">
                     <label class="formulario_label">Contraseña</label>
                     <div class="formulario__grupo-input">
                         <input class="formulario_input" type="password" value="" name="nuevacontrasena" id="nuevacontrasena">
+                        <i class="formulario__validacion-estado fas fa-times"></i>
                     </div>
+                    <p class="formulario__input-error">La contraseña tiene que ser de 4 a 12 dígitos.</p>
                 </div>
 
-                <div class="formulario__grupo">
+                <div class="formulario__grupo" id="grupo__nuevacontrasena2">
                     <label class="formulario_label">Repetir contraseña</label>
                     <div class="formulario__grupo-input">
                         <input class="formulario_input" type="password" value="" name="nuevacontrasena2" id="nuevacontrasena2">
+                        <i class="formulario__validacion-estado fas fa-times"></i>
                     </div>
+                    <p class="formulario__input-error">La contraseñas deben coincidir</p>
                 </div>
 
                 <div class="formulario__boton">
@@ -61,6 +66,7 @@
         </div>
     </div>
     <!-- end contenedor -->
+    <script src="./js/form-nueva-contrasena.js"></script>
 </body>
 
 </html>

@@ -37,7 +37,7 @@ if(isset($_SESSION['username'] )){
     <div class="contenedor">
 
         <div class="content">
-            <form id="form" method="POST" action="./php/iniciar-sesion-verificar.php" class="form">
+            <form id="form-iniciar-sesion" method="POST" action="./php/iniciar-sesion-verificar.php" class="form">
                 <!-- Grupo usuario -->
                 <div class="formulario__grupo" id="grupo__usuario">
                     <label class="formulario_label">Usuario</label>
@@ -56,7 +56,7 @@ if(isset($_SESSION['username'] )){
                     </div>
                     <p class="formulario__input-error">La contraseña tiene que ser de 4 a 12 dígitos.</p>
                 </div>
-
+                <div class="texto formulario_datos-incorrectos">Usuario o contraseña incorrecta, por favor intenta de nuevo.</div>
                 <div class="texto formulario_bloqueo">Cuenta bloqueada, <a href="">Desbloquea aquí</a></div>
                 <div class="formulario__boton">
                     <input class="boton" type="submit" value="Ingresar">
