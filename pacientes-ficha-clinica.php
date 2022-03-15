@@ -19,6 +19,8 @@ if(isset($_SESSION["id_paciente"])){
     $oF=new ficha();
     $oF->paciente = $id_paciente;
     $oF->buscarDatos();
+}else {
+    redirect("./pacientes-informacion.php");
 }
 ?>
 

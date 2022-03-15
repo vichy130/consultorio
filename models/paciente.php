@@ -63,6 +63,14 @@ class paciente{
         return $this;
     }
 
+    function crearFicha(){
+        include_once("./php/conexion.php");
+        $query="insert into ficha (paciente) values ($this->$id); ";
+        $stmt = $dbh->prepare($query);
+        return $stmt->execute();
+
+    }
+
 }
 
 ?>

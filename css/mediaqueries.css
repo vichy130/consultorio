@@ -9,7 +9,7 @@
     .span-4{
         grid-column: span 1;
     }
-    .contenedor .content-general, .contenedor .content-pacientes{
+    .contenedor .content-general, .contenedor .content-pacientes, .contenedor-no .content-general, .contenedor-no .content-pacientes{
         display:grid;
         grid-template-columns: 1fr;
     }
@@ -20,7 +20,7 @@
 
 @media screen and (max-width: 1020px){ /* cuando la pantalla sea menor que 1020 px*/
 
-    .contenedor{ /* Master Grid */
+    .contenedor, .contenedor-no{ /* Master Grid */
         min-height: 100vh; /* Permite utilizar toda la pantalla, footer */
         display:grid;
         grid-template-columns: 1fr;
@@ -44,7 +44,7 @@
         display: none;
     }
 
-    .contenedor .content-general{
+    .contenedor .content-general, .contenedor-no .content-general{
         padding:20px;
     }
 } /* End media querie*/
@@ -53,16 +53,16 @@
     .content .content-informacion{
         display: none;
     }
-    .content{
+    .contenedor .content{
         display:grid;
         grid-template-columns: 1fr;
         grid-template-rows: 50px 1fr;
         grid-template-areas: "nav"
-                             "contenido"                       
+                             "contenido"  ;                   
         }
 }
 @media screen and (min-width: 1700px){ /* cuando la pantalla sea mayor que 1700 px*/
-.form, .contenedor .content-pacientes{
+.form, .contenedor .content-pacientes, .contenedor-no .content-pacientes{
     padding:50px; /* padding del formulario de informacion */
 }
 }
