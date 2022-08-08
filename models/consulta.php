@@ -21,9 +21,11 @@ function insertar(){
     include_once("../php/conexion.php");
     $query="INSERT INTO consulta (fecha, usuario, paciente,ta,oxigeno,pulso,peso,estatura,temperatura, motivoConsulta, exploracion, indicaciones, consultorio) 
     VALUES ('$this->fecha','$this->usuario','$this->paciente','$this->ta','$this->oxigeno','$this->pulso','$this->peso','$this->estatura','$this->temperatura','$this->motivoConsulta','$this->exploracion','$this->indicaciones','$this->consultorio'); ";
-    echo $query;
+  
     $stmt = $dbh->prepare($query);
-    return $stmt->execute();
+    $stmt->execute();
+    $id= $dbh->lastInsertId();
+    return $id;
 }
 function listarConsultas(){
     include_once("php/conexion.php");

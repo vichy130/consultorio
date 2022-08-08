@@ -11,6 +11,15 @@ if(!isset($_SESSION['username'])){
     redirect("./iniciar-sesion.php");
     exit();
 }
+$oP=null;
+$id_paciente=0;
+if(isset($_SESSION["id_paciente"])){
+    $id_paciente=$_SESSION["id_paciente"];
+    include_once("models/paciente.php");
+    $oP=new paciente();
+    $oP->id = $id_paciente;
+    $oP->buscarDatos();
+}
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +42,7 @@ if(!isset($_SESSION['username'])){
             <?php require("./layout/submenu-pacientes.php"); ?>
             <div class="contenido">
                 <form class="form" action="./controller/nueva-consulta.php" method="POST">
-
+                     <label class="formulario_grupo span-4"><h1><?php echo $oP->nombre.' '. $oP->apellidoPaterno.' '. $oP->apellidoMaterno;?></h1></label>       
                     <label class="formulario_grupo span-4">Nueva consulta</label>
 
                     <div class="formulario_grupo">
@@ -72,8 +81,8 @@ if(!isset($_SESSION['username'])){
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
-                        <label class="form_label" for="vitalestalla-paciente">Temperatura</label>
-                        <input class="form_input" type="text" id="vitalestalla-paciente" name="vitalestalla-paciente">
+                        <label class="form_label" for="vitalestemperatura-paciente">Temperatura</label>
+                        <input class="form_input" type="text" id="vitalestemperatura-paciente" name="vitalestemperatura-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo span-4">

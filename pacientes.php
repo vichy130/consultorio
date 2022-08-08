@@ -65,8 +65,8 @@ require("./php/conexion.php");
                         <td><?php echo $datosPaciente->nombre;?></td>
                         <td><?php echo $datosPaciente->apellidoPaterno;?></td>
                         <td class="column-to-hide"><?php echo $datosPaciente->apellidoMaterno;?></td>
-                        <td><a href="pacientes-informacion.php?id=<?php echo $datosPaciente->id?>">ver/modificar</a></td>
-                        <td><i class="fas fa-trash"></i></td>
+                        <td><a href="pacientes-informacion.php?id=<?php echo $datosPaciente->id?>"><i class="far fa-edit"></i></a></td>
+                        <td><a href="./controller/eliminar-paciente.php?id=<?php echo $datosPaciente->id?>"><i class="fas fa-trash"></i></td>
                     </tr>
                     <?php 
             }

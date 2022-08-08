@@ -73,7 +73,7 @@ if(isset($_SESSION["id_paciente"])){
                         <tr>
                             <td><?php echo $datosConsultas->fecha;?></td>
                             <td class="column-to-hide"><?php echo $datosConsultas->motivoConsulta;?></td>
-                            <td><a href="#">Ver/modificar</a></td>
+                            <td><a href="#"><i class="far fa-edit"></i></a></td>
                             <td><i class="fas fa-trash"></i></td>
                         </tr>
                     <?php 

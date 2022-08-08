@@ -12,7 +12,7 @@ $username = $_POST['username'];
 $contrasena = $_POST['contrasena'];
 
 if ($dbh != null) {
-    $stat = $dbh->prepare(" select username, nombre, apellidoPaterno, contrasena from usuario where
+    $stat = $dbh->prepare(" select username, nombre, apellidoPaterno, apellidoMaterno, telefono, correo, contrasena, tipoUsuario from usuario where
      username=:username and contrasena=:contrasena; ");
    
 
@@ -26,7 +26,11 @@ if ($dbh != null) {
         $_SESSION['username'] = $datos['username'];
         $_SESSION['nombre'] = $datos['nombre'];
         $_SESSION['apellidoPaterno'] = $datos['apellidoPaterno'];
+        $_SESSION['apellidoMaterno'] = $datos['apellidoMaterno'];
+        $_SESSION['telefono'] = $datos['telefono'];
+        $_SESSION['correo'] = $datos['correo'];
         $_SESSION['contrasena'] = $datos['contrasena'];
+        $_SESSION['tipoUsuario'] = $datos['tipoUsuario'];
 
         echo  $_SESSION['username'];
         echo $_SESSION['nombre'];

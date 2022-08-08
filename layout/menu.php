@@ -36,7 +36,13 @@
             <li><a href="#"><i class="icono izquierda fas fa-cog"></i>Configuración<i
                         class="icono derecha fas fa-chevron-down"></i></a>
                 <ul>
-                    <li><a href="./usuarios.php"><i class="icono izquierda fas fa-user-tie"></i>Usuarios</a></li>
+                <?php if(isset($_SESSION['username'])){ 
+                    if($_SESSION['tipoUsuario']=='A'){
+                    ?>
+                        <li><a href="./usuarios.php"><i class="icono izquierda fas fa-user-tie"></i>Usuarios</a></li>
+                    <?php
+                    }
+                 }?>  
                     <li><a href="./consultorios.php"><i class="icono izquierda fas fa-stethoscope"></i>Consultorios</a>
                     </li>
                 </ul>

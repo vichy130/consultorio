@@ -45,8 +45,8 @@ if(isset($_SESSION["id_paciente"])){
             <?php require("./layout/content-informacion.php"); ?>
             <?php require("./layout/submenu-pacientes.php"); ?>
             <div class="contenido">
-
-                <form action="controller/nuevo-paciente.php" class="form" method="POST">
+                
+                <form action="<?php /*editado 04 08 22 */if(isset($_SESSION["id_paciente"])) { echo "controller/editar-paciente.php"; }else {echo "controller/nuevo-paciente.php"; } ?>" class="form" method="POST">
                     <label class="formulario_grupo span-4">Informacion basica</label>
 
                     <div class="formulario_grupo span-2">
@@ -179,7 +179,7 @@ if(isset($_SESSION["id_paciente"])){
                     </div><!-- end form-grupo -->
 
                     <button class="input_submit boton amarillo span-2">Imprimir</button>
-                    <input class="input_submit boton azul span-2" type="submit" value="Guardar">
+                    <input class="input_submit boton azul span-2" type="submit" value="<?php /*editado 04 08 22 */if(isset($_SESSION["id_paciente"])) {echo "Actualizar datos"; } else {echo "Guardar"; } ?>">
                 </form>
                 <!-- end form -->
             </div>
