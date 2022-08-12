@@ -11,14 +11,17 @@ if(!isset($_SESSION['username'])){
     redirect("./iniciar-sesion.php");
     exit();
 }
-$oP=null;
-$id_paciente=0;
-if(isset($_SESSION["id_paciente"])){
-    $id_paciente=$_SESSION["id_paciente"];
-    include_once("models/paciente.php");
-    $oP=new paciente();
-    $oP->id = $id_paciente;
-    $oP->buscarDatos();
+if(isset($_REQUEST["id2"])){
+    $_SESSION["id_consulta"]= $_REQUEST["id2"];
+}
+
+$consulta=null;
+$id_consulta=0;
+if(isset($_SESSION["id_consulta"])){
+    include_once("models/consulta.php");
+    $consulta= new consulta;
+    $consulta->id=$_SESSION["id_consulta"];
+    $consulta->buscarDatos();
 }
 ?>
 
@@ -42,7 +45,7 @@ if(isset($_SESSION["id_paciente"])){
             <?php require("./layout/submenu-pacientes.php"); ?>
             <div class="contenido">
                 <form class="form" action="./controller/nueva-consulta.php" method="POST">
-                     <label class="formulario_grupo span-4"><h1><?php echo $oP->nombre.' '. $oP->apellidoPaterno.' '. $oP->apellidoMaterno;?></h1></label>       
+                     <label class="formulario_grupo span-4"><h1><?php //echo $oP->nombre.' '. $oP->apellidoPaterno.' '. $oP->apellidoMaterno;?></h1></label>       
                     <label class="formulario_grupo span-4">Nueva consulta</label>
 
                     <div class="formulario_grupo">
@@ -57,7 +60,7 @@ if(isset($_SESSION["id_paciente"])){
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="vitalesta-paciente">TA</label>
-                        <input class="form_input" type="text" id="vitalesta-paciente" name="vitalesta-paciente">
+                        <input class="form_input" type="text" id="vitalesta-paciente" name="vitalesta-paciente" value="">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
@@ -94,9 +97,8 @@ if(isset($_SESSION["id_paciente"])){
                     <div class="formulario_grupo span-4">
                         <label class="form_label" for="consultaexploracion-paciente">Exploración</label>
                         <textarea class="form_textarea" type="text" id="consultaexploracion-paciente"
-                            name="consultaexploracion-paciente" rows="4" cols="50"> </textarea>
+                            name="consultaexploracion-paciente" rows="4" cols="50" value=""><?php echo $consulta==null? "": $consulta->motivoConsulta; ?></textarea>
                     </div><!-- end form-grupo -->
-
                     <label class="formulario_grupo span-4">Consultas previas</label>
 
                     <div class="formulario_grupo span-2">

@@ -1,7 +1,7 @@
 
 
 function redirectNuevaConsulta(){
-    window.location.href="./pacientes-nueva-consulta.php";
+    window.location.href="./pacientes-consulta.php";
 }
 
 function redirectNuevoPaciente(){

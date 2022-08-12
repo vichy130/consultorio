@@ -30,7 +30,6 @@ function insertar(){
 function listarConsultas(){
     include_once("php/conexion.php");
    
-    
      $stmt =null;
      $query ="select * from consulta where paciente=$this->paciente";
      $stmt =  $dbh->prepare($query);
@@ -60,5 +59,34 @@ function listarConsultas(){
       }
       return $arrConsultas;
     }
+
+    function buscarDatos(){
+        include_once("php/conexion.php");
+        $query="SELECT * FROM consulta where id=$this->id; ";
+        $stmt = $dbh->prepare($query);
+        $stmt->execute();
+        $datos = null;
+        while( $datos = $stmt->fetch(PDO::FETCH_ASSOC) ){ 
+ 
+            $this->fecha = $datos["fecha"];
+            $this->usuario = $datos["usuario"];
+            $this->paciente = $datos["paciente"];
+            $this->ta = $datos["ta"];
+            $this->oxigeno = $datos["oxigeno"];
+            $this->pulso = $datos["pulso"];
+            $this->peso = $datos["peso"];
+            $this->estatura = $datos["estatura"];
+            $this->temperatura = $datos["temperatura"];
+            $this->motivoConsulta = $datos["motivoConsulta"];
+            $this->exploracion = $datos["exploracion"];
+            $this->indicaciones = $datos["indicaciones"];
+            $this->consultorio = $datos["consultorio"];
+        }
+        return $this;
+    }
+
 }
+
+
+
 ?>

@@ -16,6 +16,10 @@ if(isset($_SESSION["id_paciente"])){
     $id_paciente=$_SESSION["id_paciente"];
 }
 
+if(isset($_SESSION["id_consulta"])){
+    unset($_SESSION["id_consulta"]);
+    unset($_REQUEST["id2"]);
+}
 ?>
 
 <!DOCTYPE html>
@@ -73,8 +77,8 @@ if(isset($_SESSION["id_paciente"])){
                         <tr>
                             <td><?php echo $datosConsultas->fecha;?></td>
                             <td class="column-to-hide"><?php echo $datosConsultas->motivoConsulta;?></td>
-                            <td><a href="#"><i class="far fa-edit"></i></a></td>
-                            <td><i class="fas fa-trash"></i></td>
+                            <td><a href="./pacientes-consulta.php?id2=<?php echo $datosConsultas->id?>"><i class="far fa-edit"></i></a></td>
+                            <td><a href="./controller/eliminar-consulta.php?id2=<?php echo $datosConsultas->id?>"><i class="fas fa-trash"></i></td>
                         </tr>
                     <?php 
                         } 
