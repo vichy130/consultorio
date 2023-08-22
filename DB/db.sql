@@ -1,13 +1,16 @@
+/*Updated on Aug 22 2023: New table Receta*/
+
 create database consultorio;
 use consultorio;
+
 create table usuario ( username varchar(20) primary key not null, nombre varchar(45), apellidoPaterno varchar(45), apellidoMaterno varchar(45), 
 telefono varchar(45), correo varchar(45), contrasena varchar(45), tipoUsuario char(1));
 
 create table paciente ( id int(10) primary key not null auto_increment, nombre varchar(45), apellidoPaterno varchar(45), apellidoMaterno varchar(45), fechaNacimiento date, 
 sexo varchar(45), lugarNacimiento varchar(45), calle varchar(45), colonia varchar(45), ciudad varchar(45), codigoPostal int(5), telCasa varchar(45), telOficina varchar(45), celular varchar(45), edoCivil varchar(45),
  ocupacion varchar(45), escolaridad varchar(45), correo varchar(45));
-
-create table ficha (id int(10) primary key not null auto_increment, paciente int(10), tipoSangre varchar(3), quienRecomendo varchar(100), hijo int(10), embarazo int(2), 
+ 
+ create table ficha (id int(10) primary key not null auto_increment, paciente int(10), tipoSangre varchar(3), quienRecomendo varchar(100), hijo int(10), embarazo int(2), 
 partos int(2), cesareas int(2), abortos int(2), muertos int(2), enfs int(2), fuma bool, cigarrosDia int(2), fumaAntiguedad varchar(45), alcohol bool, 
 alcFrecuencia varchar(45), alcoholCantidad varchar(45), alcoholTipos varchar(100), adicciones varchar(1000), alergias varchar(1000), desayuno varchar(200),
 comida varchar(200), cena varchar(200), entreComidas varchar(200), vasoAguaDia int(1), otrosLiquidos varchar(200), intolerancias varchar(1000), orinaDia varchar(200),
@@ -20,23 +23,25 @@ create table antecedentesFamilia (id int(10) primary key auto_increment, familia
 create table antecedentesPaciente (id int(10) primary key not null auto_increment, tipo varchar(200), ficha int(10));
 
 create table consulta (id int(10) primary key not null auto_increment, fecha date, usuario varchar(20), paciente int(10), ta varchar(7), oxigeno int(3), pulso int(3), peso double(5,2), estatura double(5,2), 
-temperatura double(4,2), motivoConsulta varchar(5000), exploracion varchar(5000), indicaciones varchar(5000), consultorio int(10));
+temperatura double(4,2), motivoConsulta varchar(5000), exploracion varchar(5000), receta int(10), consultorio int(10));
  
 create table consultaPrevia (id int(10) primary key not null auto_increment, comentarios varchar(1000), diagnostico varchar(2000), estudios varchar(2000), tratamiento varchar(2000), consulta int(10));
 
-create table nutrientes (id int(10) primary key not null auto_increment, nutriente varchar(100), consulta int(10));
-
-create table estudiosSolicitados (id int(10) primary key not null auto_increment, estudio varchar(100), consulta int(10));
+create table estudiosSolicitados (id int(10) primary key not null auto_increment, estudio varchar(100), receta int(10));
 
  create table terapiasAplicadas (id int(10) primary key not null auto_increment, terapia varchar(500), consulta int(10));
  
- create table medicamentoIndicacion (id int(10) primary key not null auto_increment, indicaciones varchar(500), consulta int(10));
+ create table medicamentoIndicacion (id int(10) primary key not null auto_increment, medicamento int(10), hora time, indicaciones varchar(500), receta int(10));
  
- create table medicamento (id int(10) primary key not null auto_increment, medicamento varchar(100), medicamentoIndicacion int(10));
+create table medicamento (id int(10) primary key not null auto_increment, medicamento varchar(100), tipo varchar(500), descripcion varchar(500));
  
  create table consultorio (id int(10) primary key not null auto_increment, nombre varchar(100),calle varchar(45), colonia varchar(45), ciudad varchar(45), codigoPostal int(5), telefono varchar(45));
 
 create table hijo (id int(10) primary key not null auto_increment, sexo varchar(45), edad int(2), ficha int(10));
+
+create table receta (id int(10) primary key not null auto_increment);
+
+
 
 /* FOREIGN KEYS*/
 alter table ficha add constraint fk_usuario_ficha foreign key (usuario) references usuario(username) on update cascade on delete cascade;
@@ -46,18 +51,14 @@ alter table ficha add constraint fk_ficha_paciente foreign key (paciente) refere
 alter table consulta add constraint fk_consulta_usuario foreign key (usuario) references usuario(username) on update cascade on delete cascade;
 alter table consulta add constraint fk_consulta_paciente foreign key (paciente) references paciente(id) on update cascade on delete cascade;
 alter table consultaPrevia add constraint fk_consultaPrevia_consulta foreign key (consulta) references consulta(id) on update cascade on delete cascade;
-alter table nutrientes add constraint fk_nutrientes_consulta foreign key (consulta) references consulta(id) on update cascade on delete cascade;
-alter table estudiosSolicitados add constraint fk_estudiosSolicitados_consulta foreign key (consulta) references consulta(id) on update cascade on delete cascade;
+alter table estudiosSolicitados add constraint fk_estudiosSolicitados_consulta foreign key (receta) references receta(id) on update cascade on delete cascade;
 alter table terapiasAplicadas add constraint fk_terapiasAplicadas_consulta foreign key (consulta) references consulta(id) on update cascade on delete cascade;
-alter table medicamentoIndicacion add constraint fk_medicamentoIndicacion_consulta foreign key (consulta) references consulta(id) on update cascade on delete cascade;
-alter table medicamento add constraint fk_medicamento foreign key (medicamentoIndicacion) references medicamentoIndicacion(id) on update cascade on delete cascade;
+alter table medicamentoIndicacion add constraint fk_medicamentoIndicacion_consulta foreign key (receta) references receta(id) on update cascade on delete cascade;
 alter table consulta add constraint fk_consulta_consultorio foreign key (consultorio) references consultorio(id) on update cascade on delete cascade;
 alter table hijo add constraint fk_hijo_ficha foreign key (ficha) references ficha(id) on update cascade on delete cascade;
-
-
+alter table consulta add constraint fk_receta foreign key (receta) references receta(id) on update cascade on delete cascade;
+alter table medicamentoIndicacion add constraint fk_medicamentoIndicacion_medicamento foreign key (medicamento) references medicamento(id) on update cascade on delete cascade;
 /* FOREIGN KEYS*/
-
-
 
 /* INSERT ITEMS*/
 insert into paciente (nombre, apellidoPaterno, apellidoMaterno, sexo, lugarNacimiento, calle, colonia, ciudad, codigoPostal, telCasa,telOficina,celular, edoCivil, ocupacion, escolaridad, correo) values ("Alfonso", "Perez", "Gomez",
@@ -66,7 +67,7 @@ insert into paciente (nombre, apellidoPaterno, apellidoMaterno, sexo, lugarNacim
 "masculino", "Zapopan", "Los reyes 22", "Lomas altas", "Guadalajara", "45433",33,33,33,"soltero", "Costurera", "Preparatoria", "josefinaMontes@aol.com");
 
 insert into usuario values ("admin", "Victoria", "Cruz", "Gutierrez", "3322597920", "viki_ccg@hotmail.com", "admin", "A");
-insert into usuario values ("Usuario1", "Jane", "Miller", "", "5566776655", "janemiller@aol.com", "pass123", "M");
+insert into usuario values ("UsuarioJane", "Jane", "Miller", "", "5566776655", "janemiller@aol.com", "pass123", "M");
 
  insert into consultorio (nombre,calle,colonia,ciudad,codigoPostal,telefono) values ("Consultorio Homeopatico Zapopan", "Lazaro Cardenas 54", "El zapote","Zapopan","45000","3366556677");
 
@@ -74,12 +75,6 @@ insert into ficha (paciente,tipoSangre,quienRecomendo,embarazo,partos,cesareas,a
 cena,entrecomidas,vasoAguaDia,otrosLiquidos,intolerancias,orinaDia,orinaNoche,orinaColor,orinaOlor,orinaMolestias,excrementoDia,exConsistencia,exOlor,exColor,exDolor,fechaMenstruacion,mensPeriodicidad,mensMolestias,
 ejercicioSemana,fecha) values (1,"B+","German Gomez",1,1,0,0,0,0,1,5,"3 años",1,"1 vez al mes","2 cervezas","cerveza","ninguna","ninguna","Huevos, sandwich","carnes, caldos con tortilla","cereal, leche","frutos",
 5,"ninguno","ninguno","normal","normal","normal","normal","ninguna","1 vez al dia","normal","normal","normal","normal","2022/02/22","1 vez al mes","ninguna","1 vez a la semana","2022/02/22");
+
+
 /* INSERT ITEMS*/
-
-/* UPDATE ITEMS*/
- UPDATE paciente SET nombre='MANUEL', apellidoPaterno='GOMEZ', apellidoMaterno='MIRANDA', fechaNacimiento='2020-03-25', sexo='HOMBRE', lugarNacimiento='ZAPOPAN', calle='CIRCUNVALACION 15', colonia='OBLATOS', 
- ciudad='ZAPOPAN', codigoPostal='40050', telCasa='3345099009', telOficina='3309090909', celular='3389786556', edoCivil='SOLTERO', ocupacion='EMPLEADO', escolaridad='LICENCIATURA', correo='MANUEL@AOL.COM' where id=7;
-/* UPDATE ITEMS*/
-
-select * from ficha;
-select * from antecedentes
