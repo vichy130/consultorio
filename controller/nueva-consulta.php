@@ -16,7 +16,7 @@ $consulta->estatura = $_POST["vitalesestatura-paciente"];
 $consulta->temperatura = $_POST["vitalestemperatura-paciente"];
 $consulta->motivoConsulta = $_POST['consultamotivo-paciente'];
 $consulta->exploracion = $_POST['consultaexploracion-paciente'];
-$consulta->indicaciones = $_POST['consultaindicaciones-paciente'];
+$consulta->receta = $_POST['consultareceta-paciente'];
 $consulta->consultorio = "1";
 $id=$consulta->insertar();
 

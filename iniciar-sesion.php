@@ -74,7 +74,7 @@ if(isset($_SESSION['username'] )){
                     <p>Consultorio Homeopático</p>
                 </div>
             </div>
-            <div class="texto-footer">Zapopan Jalisco, México. 2022</div>
+            <div class="texto-footer">Zapopan Jalisco, México. 2023</div>
         </div>
     </div>
     <!-- end contenedor -->

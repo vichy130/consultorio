@@ -4,7 +4,8 @@ $medicamento = new medicamento();
 
 $medicamento->id = null;
 $medicamento->medicamento = $_POST["consultanombremed-paciente"];
-$medicamento->medicmanetoIndicacion = null;
+$medicamento->tipo = $_POST["consultatipomed-paciente"];
+$medicamento->descripcion = $_POST["consultadescripcionmed-paciente"];
 
 if($medicamento->insertar()==1){
   echo "medicamento registrado";
