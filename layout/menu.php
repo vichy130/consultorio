@@ -27,7 +27,7 @@
         <div class="boton-menu"><a href="#"><i class="fas fa-bars"></i></a></div>
         <ul class="menu">
             <div class="logo">
-                <div class="imagen"><img src="./img/logowb.png" alt=""></div>
+                <div class="imagen"><img src="./img/agakhan.png" alt=""></div>
                 <div class="texto">Aga-Khan</div>
             </div>
             <li><a href="./index.php"><i class="icono izquierda fas fa-home"></i>Inicio</a></li>
