@@ -4,11 +4,12 @@ class medicamento{
 
     var $id;
     var $medicamento;
-    var $medicamentoIndicacion;
+    var $tipo;
+    var $descripcion;
 
     function insertar(){
         include_once("../php/conexion.php");
-        $query="INSERT INTO medicamento (medicamento, medicamentoIndicacion) VALUES ('$this->medicamento','$this->medicamentoIndicacion'); ";
+        $query="INSERT INTO medicamento (medicamento, tipo, descripcion) VALUES ('$this->medicamento','$this->tipo','$this->descripcion'); ";
         echo $query;
         $stmt = $dbh->prepare($query);
         return $stmt->execute();

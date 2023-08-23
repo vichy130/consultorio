@@ -14,13 +14,13 @@ var $estatura;
 var $temperatura;
 var $motivoConsulta;
 var $exploracion;
-var $indicaciones;
+var $receta;
 var $consultorio;
 
 function insertar(){
     include_once("../php/conexion.php");
-    $query="INSERT INTO consulta (fecha, usuario, paciente,ta,oxigeno,pulso,peso,estatura,temperatura, motivoConsulta, exploracion, indicaciones, consultorio) 
-    VALUES ('$this->fecha','$this->usuario','$this->paciente','$this->ta','$this->oxigeno','$this->pulso','$this->peso','$this->estatura','$this->temperatura','$this->motivoConsulta','$this->exploracion','$this->indicaciones','$this->consultorio'); ";
+    $query="INSERT INTO consulta (fecha, usuario, paciente,ta,oxigeno,pulso,peso,estatura,temperatura, motivoConsulta, exploracion, receta, consultorio) 
+    VALUES ('$this->fecha','$this->usuario','$this->paciente','$this->ta','$this->oxigeno','$this->pulso','$this->peso','$this->estatura','$this->temperatura','$this->motivoConsulta','$this->exploracion','$this->receta','$this->consultorio'); ";
   
     $stmt = $dbh->prepare($query);
     $stmt->execute();
@@ -51,7 +51,7 @@ function listarConsultas(){
          $consulta->temperatura = $datos["temperatura"];
          $consulta->motivoConsulta = $datos["motivoConsulta"];
          $consulta->exploracion = $datos["exploracion"];
-         $consulta->indicaciones = $datos["indicaciones"];
+         $consulta->receta = $datos["receta"];
          $consulta->consultorio = $datos["consultorio"];
          $arrConsultas[$indice] = $consulta;
          $indice = $indice + 1;
@@ -79,7 +79,7 @@ function listarConsultas(){
             $this->temperatura = $datos["temperatura"];
             $this->motivoConsulta = $datos["motivoConsulta"];
             $this->exploracion = $datos["exploracion"];
-            $this->indicaciones = $datos["indicaciones"];
+            $this->receta = $datos["receta"];
             $this->consultorio = $datos["consultorio"];
         }
         return $this;

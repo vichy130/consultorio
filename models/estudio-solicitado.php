@@ -4,11 +4,11 @@ class estudioSolicitado{
 
     var $id;
     var $estudio;
-    var $consulta;
+    var $receta;
 
     function insertar(){
         include_once("../php/conexion.php");
-        $query="INSERT INTO estudiossolicitados (estudio, consulta) VALUES ('$this->estudio','$this->consulta'); ";
+        $query="INSERT INTO estudiossolicitados (estudio, receta) VALUES ('$this->estudio','$this->receta'); ";
         echo $query;
         $stmt = $dbh->prepare($query);
         return $stmt->execute();
