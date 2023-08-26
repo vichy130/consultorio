@@ -3,8 +3,11 @@
 
 let anadirHijo=document.getElementById("agregarHijo");
 
-const saludar = () => alert("Hola");
-anadirHijo.addEventListener("click", saludar);
+function ingresarHijos (){
+alert("Ingresaste un hijo");
+
+}
+anadirHijo.addEventListener("click", ingresarHijos);
 
 
 // Añadir un nuevo hijo
