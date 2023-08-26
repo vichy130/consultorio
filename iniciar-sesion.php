@@ -69,10 +69,6 @@ if(isset($_SESSION['username'] )){
         <!-- end wrapper -->
         <div class="footer">
             <div class="logo">
-                <div class="logo1"><img src="./img/logowb.png" alt=""></div>
-                <div class="texto-footer">
-                    <p>Consultorio Homeopático</p>
-                </div>
             </div>
             <div class="texto-footer">Zapopan Jalisco, México. 2023</div>
         </div>

@@ -85,7 +85,7 @@ if(isset($_SESSION["id_paciente"])){
                         <input type="radio" id="otro" name="sexo-hijo">
                     </div><!-- end form-grupo -->
 
-                    <button class="boton azul"><i class="fas fa-plus"></i> Añadir</button>
+                    <button class="boton azul" id="agregarHijo" ><i class="fas fa-plus"></i> Añadir Hijo</button>
 
                     <table class="table span-4">
                         <thead>
@@ -416,6 +416,7 @@ if(isset($_SESSION["id_paciente"])){
         <?php require("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
+    <script src="./js/form-ficha-clinica.js"></script>
 </body>
 
 </html>

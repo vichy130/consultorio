@@ -23,6 +23,8 @@ $paciente->correo = $_POST["email-paciente"];
 
 if($paciente->insertar()==1){
   echo "Paciente registrado";
+ 
+
 }else{
     echo "Error al registrar, intentalo nuevamente";
 }

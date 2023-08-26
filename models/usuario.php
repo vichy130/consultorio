@@ -39,7 +39,7 @@ class usuario{
 
     function eliminar(){
         include_once("../php/conexion.php");
-        $query = ""
+        $query = "DELETE FROM usuario where username='$this->username'; ";
 
     }
 }

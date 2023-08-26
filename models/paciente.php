@@ -30,6 +30,8 @@ class paciente{
         echo $query;
         $stmt = $dbh->prepare($query);
         return $stmt->execute();
+        /*$stmt->execute();
+        echo $dbh->lastInsertID();*/
     }
 
     function buscarDatos(){
