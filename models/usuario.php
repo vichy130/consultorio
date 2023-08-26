@@ -9,7 +9,7 @@ class usuario{
     var $correo;
     var $contrasena;
     var $tipoUsuario;
-
+∫
     function insertar(){
         include_once("../php/conexion.php");
         $query = "INSERT INTO usuario values ('$this->username','$this->nombre','$this->apellidoPaterno','$this->apellidoMaterno','$this->telefono','$this->correo','$this->contrasena','$this->tipoUsuario'); ";
@@ -35,6 +35,12 @@ class usuario{
               $this->tipoUsuario = $datos["tipoUsuario"];
           }
           return $this;
+    }
+
+    function eliminar(){
+        include_once("../php/conexion.php");
+        $query = ""
+
     }
 }
 
