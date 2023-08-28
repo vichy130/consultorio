@@ -2,7 +2,8 @@
 // Añadir un nuevo hijo
 
 let anadirHijo=document.getElementById("agregarHijo");
-
+let tablaHijos= document.getElementById("tabla-hijos");
+tablaHijos.innerHTML= "testing";
 class Hijo {
     
     constructor(id, sexo, edad){
@@ -21,11 +22,10 @@ class Hijo {
     }
 }
 
-
 function ingresarHijos (){
-    
-   let hijo= new Hijo();
 
+   let hijo= new Hijo();
+    alert("Hijo ingresado");
 }
 anadirHijo.addEventListener("click", ingresarHijos);
 

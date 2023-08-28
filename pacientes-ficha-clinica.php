@@ -85,10 +85,10 @@ if(isset($_SESSION["id_paciente"])){
                         <input type="radio" id="otro" name="sexo-hijo">
                     </div><!-- end form-grupo -->
 
-                    <button class="boton azul" id="agregarHijo" ><i class="fas fa-plus"></i> Añadir Hijo</button>
+                    <button class="boton azul" id="agregarHijo" type="button"><i class="fas fa-plus"></i> Añadir Hijo</button>
 
-                    <table class="table span-4">
-                        <thead>
+                    <table class="table span-4" >
+                    <thead>
                             <tr>
                                 <th class="column-to-hide"></th>
                                 <th>Sexo</th>
@@ -97,7 +97,7 @@ if(isset($_SESSION["id_paciente"])){
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr id="tabla-hijos">
                                 <td class="column-to-hide">1</td>
                                 <td></td>
                                 <td></td>
