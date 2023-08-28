@@ -96,13 +96,8 @@ if(isset($_SESSION["id_paciente"])){
                                 <th>Eliminar</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr id="tabla-hijos">
-                                <td class="column-to-hide">1</td>
-                                <td></td>
-                                <td></td>
-                                <td><i class="fas fa-trash"></i></td>
-                            </tr>
+                        <tbody id="tabla-hijos">
+
                         </tbody>
                     </table>
 
