@@ -6,16 +6,17 @@ let tablaHijos= document.getElementById("tabla-hijos");
 var arrayHijos=[];
 
 
-
 class Hijo {
-    
-    constructor(id, sexo, edad){
-        this._id=id;
+
+    constructor(sexo, edad){
         this._sexo= sexo;
         this._edad= edad;
     }
     get id(){
         return this._id;
+    }
+    set id(numero){
+        this._id=numero;
     }
     get sexo(){
         return this._sexo;
@@ -26,22 +27,46 @@ class Hijo {
 }
 
 function ingresarHijos (){
-    var i=0;
-    let hijo= new Hijo(1, "Mujer", 22);
+    var hijo= new Hijo("Mujer", 22);
     arrayHijos.push(hijo);
-    alert("Hijo agregado!");
-    tablaHijos.innerHTML+= `<tr>
-    <td class="column-to-hide">`+arrayHijos[i]._id+`</td>
-    <td>`+arrayHijos[i]._sexo+`</td>
-    <td>`+arrayHijos[i]._edad+`</td>
-    <td><i class="fas fa-trash" onclick =eliminarHijo(`+arrayHijos[i]+`)></i></td>
-    </tr>`;
+    hijo.id=Object.keys(arrayHijos).length;
+    console.log(Object.keys(arrayHijos).length);
+    actualizarTablaHijos();
 }
 
-function eliminarHijo(hijo){
-    alert("hijo eliminado"+ hijo._id);
-    arrayHijos= arrayHijos.filter(objeto => {return objeto._id =! i})
+function cleardiv(div){
+    div.replaceChildren();
 }
+function actualizarTablaHijos(){
+    cleardiv(tablaHijos);
+    for(hijo of arrayHijos){
+        tablaHijos.innerHTML+= `<tr>
+        <td class="column-to-hide">`+hijo.id+`</td>
+        <td>`+hijo.sexo+`</td>
+        <td>`+hijo.edad+`</td>
+        <td><i class="fas fa-trash" onclick =eliminarHijo(`+hijo.id+`)></i></td>
+        </tr>`;
+    }
+    console.log(arrayHijos);
+}
+
+function eliminarHijo(i){
+    const filteredArray= arrayHijos.filter(function(hijo){ return hijo.id != i});
+    
+    const mappedArray= filteredArray.map(({id}) =>{ 
+        function findItem(item){
+            return item.id===id;
+        }
+        id= arrayHijos.findIndex(findItem);
+        console.log(id);
+        return id;
+    });
+    
+    arrayHijos= mappedArray;
+    actualizarTablaHijos();
+}
+
+
 
 anadirHijo.addEventListener("click", ingresarHijos);
 
