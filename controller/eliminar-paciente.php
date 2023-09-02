@@ -18,9 +18,10 @@ function eliminarDatos(paciente $paciente){
 }
 
 if(eliminarDatos($paciente)==1){
-    echo "DATOS ELIMINADOS";
+    echo("<script>console.log('Datos eliminados');</script>");
+    header("location:pacientes.php");
 }else{
-    echo "ERROR. DATOS NO ELIMINADOS";
+    echo("<script>console.log('Datos NO eliminados');</script>");
 }
 
 ?>

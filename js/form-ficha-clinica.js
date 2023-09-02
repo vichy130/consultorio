@@ -46,23 +46,22 @@ function actualizarTablaHijos(){
         <td>`+hijo.edad+`</td>
         <td><i class="fas fa-trash" onclick =eliminarHijo(`+hijo.id+`)></i></td>
         </tr>`;
+        console.log(arrayHijos[0].id);
     }
-    console.log(arrayHijos);
+    
 }
 
 function eliminarHijo(i){
     const filteredArray= arrayHijos.filter(function(hijo){ return hijo.id != i});
-    
-    const mappedArray= filteredArray.map(({id}) =>{ 
-        function findItem(item){
-            return item.id===id;
-        }
-        id= arrayHijos.findIndex(findItem);
-        console.log(id);
-        return id;
-    });
-    
-    arrayHijos= mappedArray;
+    arrayHijos=filteredArray;
+    var j=0;
+    do{/*
+        arrayHijos[j].id=j+1;
+        j++*/
+        console.log(arrayHijos[j].id);
+        j++
+    }while (j<= Object.keys(arrayHijos).length);
+    console.log(arrayHijos);
     actualizarTablaHijos();
 }
 
