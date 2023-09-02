@@ -45,7 +45,7 @@ if(isset($_SESSION["id_paciente"])){
             <?php require("./layout/content-informacion.php"); ?>
             <?php require("./layout/submenu-pacientes.php"); ?>
             <div class="contenido">
-                <form class="form">
+                <form class="form" action="controller/ficha-test.php" method="POST">
 
                     <div class="formulario_grupo span-2">
                         <label class="form_label" for="recomendo-paciente">¿Quién le recomendo?</label>
@@ -78,11 +78,11 @@ if(isset($_SESSION["id_paciente"])){
 
                     <div class="formulario_grupo radio span-2">
                         <label for="sexo-hijo"><i class="izquierda fas fa-male"></i>Hombre</label>
-                        <input type="radio" id="hombre" name="sexo-hijo">
+                        <input type="radio" id="hombre" name="sexo-hijo" value="Hombre">
                         <label for="sexo-hijo"><i class="izquierda fas fa-female"></i>Mujer</label>
-                        <input type="radio" id="mujer" name="sexo-hijo">
+                        <input type="radio" id="mujer" name="sexo-hijo" value="Mujer">
                         <label for="sexo-hijo">Otro</label>
-                        <input type="radio" id="otro" name="sexo-hijo">
+                        <input type="radio" id="otro" name="sexo-hijo" checked="checked" value="Otro">
                     </div><!-- end form-grupo -->
 
                     <button class="boton azul" id="agregarHijo" type="button"><i class="fas fa-plus"></i> Añadir Hijo</button>
@@ -97,7 +97,7 @@ if(isset($_SESSION["id_paciente"])){
                             </tr>
                         </thead>
                         <tbody id="tabla-hijos">
-
+                            
                         </tbody>
                     </table>
 

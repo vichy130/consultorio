@@ -19,7 +19,7 @@ function eliminarDatos(paciente $paciente){
 
 if(eliminarDatos($paciente)==1){
     echo("<script>console.log('Datos eliminados');</script>");
-    header("location:pacientes.php");
+    /*header("location:../pacientes.php");*/
 }else{
     echo("<script>console.log('Datos NO eliminados');</script>");
 }

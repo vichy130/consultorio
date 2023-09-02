@@ -27,10 +27,11 @@ class Hijo {
 }
 
 function ingresarHijos (){
-    var hijo= new Hijo("Mujer", 22);
+    let edad=document.getElementById("hijoedad-paciente").value;
+    let sexo=document.querySelector('input[name="sexo-hijo"]:checked').value;
+    var hijo= new Hijo(sexo,edad);
     arrayHijos.push(hijo);
     hijo.id=Object.keys(arrayHijos).length;
-    console.log(Object.keys(arrayHijos).length);
     actualizarTablaHijos();
 }
 
@@ -42,30 +43,21 @@ function actualizarTablaHijos(){
     for(hijo of arrayHijos){
         tablaHijos.innerHTML+= `<tr>
         <td class="column-to-hide">`+hijo.id+`</td>
-        <td>`+hijo.sexo+`</td>
-        <td>`+hijo.edad+`</td>
+        <td name="hijo-sexo"><input type="text" value="`+hijo.sexo+`">`+hijo.sexo+`</td>
+        <td name="hijo-edad"><input type="text" value="`+hijo.edad+`">`+hijo.edad+`</td>
         <td><i class="fas fa-trash" onclick =eliminarHijo(`+hijo.id+`)></i></td>
         </tr>`;
-        console.log(arrayHijos[0].id);
+        
     }
-    
-}
-
-function eliminarHijo(i){
-    const filteredArray= arrayHijos.filter(function(hijo){ return hijo.id != i});
-    arrayHijos=filteredArray;
-    var j=0;
-    do{/*
-        arrayHijos[j].id=j+1;
-        j++*/
-        console.log(arrayHijos[j].id);
-        j++
-    }while (j<= Object.keys(arrayHijos).length);
     console.log(arrayHijos);
-    actualizarTablaHijos();
 }
 
+function eliminarHijo(id){
+    const filteredArray= arrayHijos.filter(function(hijo){ return hijo.id != id});
+    arrayHijos=filteredArray;
+    actualizarTablaHijos();
 
+}
 
 anadirHijo.addEventListener("click", ingresarHijos);
 
