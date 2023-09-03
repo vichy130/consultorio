@@ -31,7 +31,7 @@ function ingresarHijos (){
     let sexo=document.querySelector('input[name="sexo-hijo"]:checked').value;
     var hijo= new Hijo(sexo,edad);
     arrayHijos.push(hijo);
-    hijo.id=Object.keys(arrayHijos).length;
+    hijo.id=new Date().getTime();
     actualizarTablaHijos();
 }
 
@@ -40,21 +40,23 @@ function cleardiv(div){
 }
 function actualizarTablaHijos(){
     cleardiv(tablaHijos);
+    let contador=0;
     for(hijo of arrayHijos){
+        contador++
         tablaHijos.innerHTML+= `<tr>
-        <td class="column-to-hide">`+hijo.id+`</td>
-        <td name="hijo-sexo"><input type="text" value="`+hijo.sexo+`">`+hijo.sexo+`</td>
-        <td name="hijo-edad"><input type="text" value="`+hijo.edad+`">`+hijo.edad+`</td>
+        <td class="column-to-hide">`+contador+`</td>
+        <td name="hijo-sexo">`+hijo.sexo+`</td>
+        <td name="hijo-edad">`+hijo.edad+`</td>
         <td><i class="fas fa-trash" onclick =eliminarHijo(`+hijo.id+`)></i></td>
         </tr>`;
-        
     }
     console.log(arrayHijos);
 }
-
+ 
 function eliminarHijo(id){
-    const filteredArray= arrayHijos.filter(function(hijo){ return hijo.id != id});
+    const filteredArray= arrayHijos.filter(hijo=> hijo.id != id);
     arrayHijos=filteredArray;
+    /*const mappedArray= arrayHijos.map(hijo=>({...hijo,id: hijo.id+1}))*/
     actualizarTablaHijos();
 
 }

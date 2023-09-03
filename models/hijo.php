@@ -9,7 +9,7 @@ class hijo{
 
     function insertar(){
         include_once("../php/conexion.php");
-        $query="INSERT INTO hijo (sexo,edad,ficha) VALUES ('$this->sexo','$this->edad','$this->ficha'); ";
+        $query="INSERT INTO hijo (sexo,edad) VALUES ('$this->sexo','$this->edad'); ";
         echo $query;
         $stmt = $dbh->prepare($query);
         return $stmt->execute();
