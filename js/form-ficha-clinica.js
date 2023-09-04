@@ -26,6 +26,7 @@ class Hijo {
     }
 }
 
+//Array de Objetos llamado "ArrayHijos"
 function ingresarHijos (){
     let edad=document.getElementById("hijoedad-paciente").value;
     let sexo=document.querySelector('input[name="sexo-hijo"]:checked').value;
@@ -78,18 +79,20 @@ formFicha.addEventListener('submit', function(e){
     console.log('click enviar');
 
     var datosFicha = new FormData(formFicha);
-    var arrayHijosJson= JSON.stringify(arrayHijos)
 
-    /*console.log(datosFicha.get('tipo-sangre'));*/
 
+    // Convierte el array de objetos a JSON
+    var jsonData = JSON.stringify(arrayHijos);
+
+    console.log(datosFicha.get('tipo-sangre'));
+    console.log(jsonData);
+
+    datosFicha.append('json_data', jsonData);
   
     // Enviar los datos a PHP utilizando fetch
     fetch('./controller/ficha-test.php', {
         method: 'POST',
-        body: arrayHijosJson, // El JSON que contiene los datos
-        headers: {
-        'Content-Type': 'application/json'
-        }
+        body: datosFicha // El JSON que contiene los datos y el formulario
     })
     .then(function(response) {
         return response.text();
