@@ -45,7 +45,9 @@ if(isset($_SESSION["id_paciente"])){
             <?php require("./layout/content-informacion.php"); ?>
             <?php require("./layout/submenu-pacientes.php"); ?>
             <div class="contenido">
-                <form class="form" action="controller/ficha-test.php" method="POST">
+                <!-- FORM POST PHP 
+                <form class="form" action="controller/ficha-test.php" method="POST">-->
+                <form class="form" id="form-ficha">
 
                     <div class="formulario_grupo span-2">
                         <label class="form_label" for="recomendo-paciente">¿Quién le recomendo?</label>
@@ -58,13 +60,13 @@ if(isset($_SESSION["id_paciente"])){
                             <select class="form_input" name="tipo-sangre" id="tipo-sangre">
                                 <option value="">Selecciona una opción</option>
                                 <option value="A+">A+</option>
-                                <option value="A+">B+</option>
-                                <option value="A+">O+</option>
-                                <option value="A+">AB+</option>
-                                <option value="A+">AB-</option>
-                                <option value="A+">A-</option>
-                                <option value="A+">B-</option>
-                                <option value="A+">O-</option>
+                                <option value="B+">B+</option>
+                                <option value="O+">O+</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="A-">A-</option>
+                                <option value="B-">B-</option>
+                                <option value="O-">O-</option>
                             </select>
                     </div><!-- end form-grupo -->
 

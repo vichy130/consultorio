@@ -33,6 +33,7 @@ function ingresarHijos (){
     arrayHijos.push(hijo);
     hijo.id=new Date().getTime();
     actualizarTablaHijos();
+
 }
 
 function cleardiv(div){
@@ -57,6 +58,7 @@ function eliminarHijo(id){
     const filteredArray= arrayHijos.filter(hijo=> hijo.id != id);
     arrayHijos=filteredArray;
     /*const mappedArray= arrayHijos.map(hijo=>({...hijo,id: hijo.id+1}))*/
+    
     actualizarTablaHijos();
 
 }
@@ -65,3 +67,40 @@ anadirHijo.addEventListener("click", ingresarHijos);
 
 
 // Añadir un nuevo hijo
+
+
+//FETCH
+
+var formFicha = document.getElementById('form-ficha');
+
+formFicha.addEventListener('submit', function(e){
+    e.preventDefault();
+    console.log('click enviar');
+
+    var datosFicha = new FormData(formFicha);
+    var arrayHijosJson= JSON.stringify(arrayHijos)
+
+    /*console.log(datosFicha.get('tipo-sangre'));*/
+
+  
+    // Enviar los datos a PHP utilizando fetch
+    fetch('./controller/ficha-test.php', {
+        method: 'POST',
+        body: arrayHijosJson, // El JSON que contiene los datos
+        headers: {
+        'Content-Type': 'application/json'
+        }
+    })
+    .then(function(response) {
+        return response.text();
+    })
+    .then(function(data) {
+        console.log(data); 
+    })
+    .catch(function(error) {
+        console.error('Error:', error);
+    });
+
+
+})
+
