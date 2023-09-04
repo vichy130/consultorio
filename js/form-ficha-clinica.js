@@ -70,7 +70,7 @@ anadirHijo.addEventListener("click", ingresarHijos);
 // Añadir un nuevo hijo
 
 
-//FETCH
+//FETCH formulario y arrays
 
 var formFicha = document.getElementById('form-ficha');
 
@@ -82,12 +82,12 @@ formFicha.addEventListener('submit', function(e){
 
 
     // Convierte el array de objetos a JSON
-    var jsonData = JSON.stringify(arrayHijos);
+    var jsonHijos = JSON.stringify(arrayHijos);
 
-    console.log(datosFicha.get('tipo-sangre'));
-    console.log(jsonData);
+   /*console.log(datosFicha.get('tipo-sangre'));
+    console.log(jsonHijos);*/
 
-    datosFicha.append('json_data', jsonData);
+    datosFicha.append('json_hijos', jsonHijos);
   
     // Enviar los datos a PHP utilizando fetch
     fetch('./controller/ficha-test.php', {

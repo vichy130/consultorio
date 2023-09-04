@@ -7,13 +7,16 @@
         $tipoSangre = $_POST['tipo-sangre'];
       
         // Datos JSON
-        $jsonData = $_POST['json_data'];
-        $data = json_decode($jsonData);
-      
-        $data=  json_encode($data);
+        $jsonHijos = $_POST['json_hijos'];
+        $hijos = json_decode($jsonHijos);
 
-        echo "PHP DATA  ".$data;
+        foreach ($hijos as $hijo){
+            echo $hijo->_sexo;
+            echo $hijo->_edad;
+        }
+
         echo "PHP ".$tipoSangre;
+
 
     }
       
