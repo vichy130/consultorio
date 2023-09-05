@@ -17,7 +17,7 @@
 
         echo "PHP ".$tipoSangre;
 
-
+        
     }
       
 ?>
