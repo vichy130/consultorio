@@ -67,7 +67,7 @@
     $ficha->firmaUsuario  = $_POST["firma-usuario"];
     $ficha->hora  = date("H:i:s");
 
-    $ficha->usuario  ="admin";
+    $ficha->usuario  =$_SESSION['username'];
 
 
     $ficha->insertar2();

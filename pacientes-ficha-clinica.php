@@ -220,7 +220,7 @@ if(isset($_SESSION["id_paciente"])){
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="addiciones-paciente">Addiciones</label>
-                        <input class="form_input" type="text" id="addiciones-paciente" name="addiciones-paciente " value="<?php echo $oF==null? "": $oF->adicciones; ?>">
+                        <input class="form_input" type="text" id="addiciones-paciente" name="addiciones-paciente" value="<?php echo $oF==null? "": $oF->adicciones; ?>">
                     </div><!-- end form-grupo -->
 
                     <div class="span-2"></div>

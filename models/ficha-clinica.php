@@ -54,31 +54,10 @@ class ficha{
         include_once("../php/conexion.php");
         //conexion:
         /*
-        $query="insert into ficha (paciente,tipoSangre,quienRecomendo,embarazo,partos,cesareas,abortos,muertos,enfs,fuma,cigarrosDia,fumaAntiguedad,alcohol,alcFrecuencia,alcoholCantidad,alcoholTipos,
-        adicciones,alergias,desayuno,comida,cena,entreComidas,vasoAguaDia,otrosLiquidos,intolerancias,orinaDia,orinaNoche,orinaColor,orinaOlor,orinaMolestias,excrementoDia,exConsistencia,exOlor,
-        exColor,exDolor,fechaMenstruacion,mensPeriodicidad,mensMolestias,ejercicioSemana,fecha,enfermedadesPadecidas,enfermedadesPresentes,hora,usuario) values (1,'B+','Pariente',2,2,2,2,2,2,1,3,
-        'desde hace 3 meses',1,'cada semana','2 botellas','brandy y tequila','fumar y tomar','polvo','sandwich','pollo','cereal','fruta',5,'coca-cola','lactosa','3 veces','2 veces','amarillo',
-        'normal','ninguna','1 vez','regular','normal','cafe','no','2022/02/22','cada 30 dias', 'ninguna', '1 vez por semana', '2022/02/22', 'ninguna enfermedad padecida', 'ninguna enfermedad presente',
-        '12:30:00','admin' ); ";*/
-        /*
-        $query="insert into ficha (paciente,tipoSangre,quienRecomendo,embarazo,partos,cesareas,abortos,muertos,enfs,fuma,cigarrosDia,fumaAntiguedad,alcohol,alcFrecuencia,alcoholCantidad,alcoholTipos,
-        adicciones,alergias,desayuno,comida,cena,entreComidas,vasoAguaDia,otrosLiquidos,intolerancias,orinaDia,orinaNoche,orinaColor,orinaOlor,orinaMolestias,excrementoDia,exConsistencia,exOlor,
-        exColor,exDolor,fechaMenstruacion,mensPeriodicidad,mensMolestias,ejercicioSemana,fecha,enfermedadesPadecidas,enfermedadesPresentes,hora,usuario) values ('$this->paciente',
-        '$this->tipoSangre','$this->quienRecomendo','$this->embarazo','$this->partos','$this->cesareas','$this->abortos','$this->muertos'
-        ,'$this->enfs','$this->fuma','$this->cigarrosDia','$this->fumaAntiguedad','$this->alcohol','$this->alcFrecuencia,'$this->alcoholCantidad,
-        ,'$this->alcoholTipos','$this->adicciones','$this->alergias','$this->desayuno','$this->comida','$this->cena','$this->entreComidas','$this->vasoAguaDia',
-        '$this->otrosLiquidos','$this->intolerancias','$this->orinaDia','$this->orinaNoche','$this->orinaColor','$this->orinaOlor','$this->orinaMolestias'
-        ,'$this->excrementoDia','$this->exConsistencia','$this->exOlor','$this->exColor','$this->exDolor','$this->fechaMenstruacion','$this->mensPeriodicidad',
-        '$this->mensMolestias','$this->ejercicioSemana','$this->fecha','$this->enfermedadesPadecidas','$this->enfermedadesPresentes',
-        '$this->hora','$this->usuario')";
-        
-
-, fumaAntiguedad, alcohol, alcoholCantidad, alcoholTipos, adicciones, alergias
-        , '$this->fumaAntiguedad', '$this->alcohol', '$this->alcFrecuencia', '$this->alcoholCantidad', '$this->alcoholTipos', '$this->adicciones', '$this->alergias'
+        $query="insert into ficha (paciente,tipoSangre, quienRecomendo, embarazo, partos, cesareas, abortos, muertos, enfs, fuma, cigarrosDia, fumaAntiguedad, alcohol, alcFrecuencia, alcoholCantidad, alcoholTipos, adicciones, alergias, desayuno, comida, cena, entreComidas, vasoAguaDia, otrosLiquidos, intolerancias, orinaDia, orinaNoche, orinaColor, orinaOlor, orinaMolestias, excrementoDia, exConsistencia, exOlor, exColor, exDolor,mensPeriodicidad, mensMolestias, ejercicioSemana, usuario) values ('$this->paciente', '$this->tipoSangre', '$this->quienRecomendo', '$this->embarazo', '$this->partos', '$this->cesareas','$this->abortos','$this->muertos', '$this->enfs', '$this->fuma',  '$this->cigarrosDia', '$this->fumaAntiguedad', '$this->alcohol', '$this->alcFrecuencia, '$this->alcoholCantidad', '$this->alcoholTipos', '$this->adicciones', '$this->alergias', '$this->desayuno', '$this->comida', '$this->cena', '$this->entreComidas', '$this->vasoAguaDia', '$this->otrosLiquidos', '$this->intolerancias', '$this->orinaDia', '$this->orinaNoche', '$this->orinaColor', '$this->orinaOlor', '$this->orinaMolestias', '$this->excrementoDia', '$this->exConsistencia', '$this->exOlor', '$this->exColor', '$this->exDolor', '$this->mensPeriodicidad','$this->mensMolestias','$this->ejercicioSemana', '$this->usuario'); ";
         */
 
-        $query="insert into ficha (paciente, usuario, tipoSangre, quienRecomendo, embarazo, partos, cesareas, abortos, muertos, enfs, fuma, cigarrosDia,fumaAntiguedad,alcohol,alcFrecuencia,alcoholCantidad,alcoholTipos,adicciones,alergias,desayuno,comida,cena,entreComidas,vasoAguaDia,otrosLiquidos,intolerancias,orinaDia,orinaNoche,orinaColor,orinaOlor,orinaMolestias,excrementoDia,exConsistencia,exOlor,exColor,exDolor,mensPeriodicidad,mensMolestias,ejercicioSemana,usuario) values ('$this->paciente','$this->usuario', '$this->tipoSangre', '$this->quienRecomendo', '$this->embarazo', '$this->partos', '$this->cesareas','$this->abortos','$this->muertos', '$this->enfs', '$this->fuma', '$this->cigarrosDia','$this->fumaAntiguedad','$this->alcohol','$this->alcFrecuencia,'$this->alcoholCantidad','$this->alcoholTipos','$this->adicciones','$this->alergias','$this->desayuno','$this->comida','$this->cena','$this->entreComidas','$this->vasoAguaDia','$this->otrosLiquidos','$this->intolerancias','$this->orinaDia','$this->orinaNoche','$this->orinaColor','$this->orinaOlor','$this->orinaMolestias','$this->excrementoDia','$this->exConsistencia','$this->exOlor','$this->exColor','$this->exDolor','$this->mensPeriodicidad','$this->mensMolestias','$this->ejercicioSemana','$this->usuario'); ";
-        
+        $query="insert into ficha (paciente,tipoSangre, quienRecomendo, embarazo, partos, cesareas, abortos, muertos,enfs, fuma, cigarrosDia, fumaAntiguedad,  alcohol, alcFrecuencia, alcoholCantidad, alcoholTipos, adicciones, alergias, desayuno, comida, cena, entreComidas, usuario) values ('$this->paciente', '$this->tipoSangre', '$this->quienRecomendo', '$this->embarazo', '$this->partos', '$this->cesareas', '$this->abortos', '$this->muertos', '$this->enfs', '$this->fuma', '$this->cigarrosDia', '$this->fumaAntiguedad', '$this->alcohol', '$this->alcFrecuencia', '$this->alcoholCantidad', '$this->alcoholTipos','$this->adicciones', '$this->alergias', '$this->desayuno', '$this->comida', '$this->cena', '$this->entreComidas', '$this->usuario'); ";
         echo $query;
         $stmt=$dbh->prepare($query);
         return $stmt->execute();
