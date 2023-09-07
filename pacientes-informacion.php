@@ -23,6 +23,7 @@ if(isset($_SESSION["id_paciente"])){
     $paciente=new paciente();
     $paciente->id = $id_paciente;
     $paciente->buscarDatos();
+    echo $_SESSION["id_paciente"];
 }
 ?>
 

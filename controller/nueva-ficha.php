@@ -1,11 +1,28 @@
 <?php
+    session_start();
     include_once("../models/ficha-clinica.php");
 
-    $ficha= new ficha();
+    // arreglo para hijos de paciente
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Datos del formulario
+        
+        // Datos JSON
+        $jsonHijos = $_POST['json_hijos'];
+        $hijos = json_decode($jsonHijos);
 
+        foreach ($hijos as $hijo){
+            echo $hijo->_sexo;
+            echo $hijo->_edad;
+        }
+    }
+    $tipo=$_POST["tipo-sangre"];
+    echo $tipo;
+
+    $ficha= new ficha();
+    $id_paciente=$_SESSION["id_paciente"];
+    $ficha->paciente = $id_paciente;
     $ficha->tipoSangre  = $_POST["tipo-sangre"];
     $ficha->quienRecomendo  = $_POST["recomendo-paciente"];
-    $ficha->hijo  = null;
     $ficha->embarazo  = $_POST["embarazos-paciente"];
     $ficha->partos  = $_POST["partos-paciente"];
     $ficha->cesareas  = $_POST["cesareas-paciente"];
@@ -38,18 +55,23 @@
     $ficha->exOlor  = $_POST["excrementoolor-paciente"];
     $ficha->exColor  = $_POST["excrementocolor-paciente"];
     $ficha->exDolor  = $_POST["excrementodolor-paciente"];
-    $ficha->fechaMenstruacion  = $_POST["menstruacion-paciente"];
+    $fechaMenstruacion  = $_POST["menstruacion-paciente"];
+    $ficha->fechaMenstruacion  = date("Y-m-d", strtotime($fechaMenstruacion));
+
     $ficha->mensPeriodicidad  = $_POST["menstruacionperiodicidad-paciente"];
     $ficha->mensMolestias  = $_POST["menstruacionmolestias-paciente"];
     $ficha->ejercicioSemana  = $_POST["ejercicio-paciente"];
-    $ficha->fecha  = $_POST["tipo-sangre"];
-    $ficha->enfermedadesPadecidas  = null;
-    $ficha->enfermedadesPresentes  = null;
+    $ficha->fecha  = date("Y-m-d");
+
     $ficha->firmaPaciente  = $_POST["firma-paciente"];
     $ficha->firmaUsuario  = $_POST["firma-usuario"];
-    $ficha->hora  = null;
-    $ficha->usuario  = null;
+    $ficha->hora  = date("H:i:s");
 
+    $ficha->usuario  ="admin";
+
+
+    $ficha->insertar2();
+    
     if($ficha->insertar()==1){
         echo "ficha registrada";
       }else{

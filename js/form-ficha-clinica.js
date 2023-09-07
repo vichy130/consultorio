@@ -90,7 +90,7 @@ formFicha.addEventListener('submit', function(e){
     datosFicha.append('json_hijos', jsonHijos);
   
     // Enviar los datos a PHP utilizando fetch
-    fetch('./controller/ficha-test.php', {
+    fetch('./controller/nueva-ficha.php', {
         method: 'POST',
         body: datosFicha // El JSON que contiene los datos y el formulario
     })

@@ -10,11 +10,12 @@ function redirect($url) {
 if(!isset($_SESSION['username'])){
     redirect("./iniciar-sesion.php");
     exit();
-}
+} else echo "ID del usuario ".$_SESSION['username'];
 $id_paciente=0;
 $oF=null;
 if(isset($_SESSION["id_paciente"])){
     $id_paciente=$_SESSION["id_paciente"];
+    echo "ID del paciente ".$id_paciente;
     include_once("models/ficha-clinica.php");
     $oF=new ficha();
     $oF->paciente = $id_paciente;
@@ -48,6 +49,12 @@ if(isset($_SESSION["id_paciente"])){
                 <!-- FORM POST PHP 
                 <form class="form" action="controller/ficha-test.php" method="POST">-->
                 <form class="form" id="form-ficha">
+
+                <div class="formulario_grupo">
+                        <label class="form_label" for="menstruacion-paciente">Fecha</label>
+                        <input class="form_input " type="date" id="menstruacion-paciente" name="menstruacion-paciente" value="<?php echo $oF==null? "": date("Y-m-d", strtotime($oF->fecha)); ?>">
+                        <?php echo $ficha->fecha; echo $ficha->hora; ?>
+                    </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo span-2">
                         <label class="form_label" for="recomendo-paciente">¿Quién le recomendo?</label>
@@ -166,9 +173,9 @@ if(isset($_SESSION["id_paciente"])){
                     <div class="formulario_grupo">
                         <label class="form_label" for="fuma-paciente">Fuma</label>
                         <select class="form_input" name="fuma-paciente" id="fuma-paciente">
-                            <option value="true">Si</option>
-                            <option value="false" selected="selected">No</option>
-                            <option value="true">A veces</option>
+                            <option value="1">Si</option>
+                            <option value="0" selected="selected">No</option>
+                            <option value="1">A veces</option>
                         </select>
                     </div><!-- end form-grupo -->
 
@@ -190,9 +197,9 @@ if(isset($_SESSION["id_paciente"])){
                     <div class="formulario_grupo">
                         <label class="form_label" for="alcohol-paciente">Alcohol</label>
                         <select class="form_input" name="alcohol-paciente" id="alcohol-paciente">
-                            <option value="true">Si</option>
-                            <option value="false" selected="selected">No</option>
-                            <option value="true">A veces</option>
+                            <option value="1">Si</option>
+                            <option value="0" selected="selected">No</option>
+                            <option value="1">A veces</option>
                         </select>
                     </div><!-- end form-grupo -->
 

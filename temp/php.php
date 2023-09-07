@@ -1,4 +1,6 @@
 <?php
+
+/*
 // Recibe los datos JSON del cliente
 $data = json_decode(file_get_contents('php://input'));
 
@@ -10,4 +12,12 @@ if ($data) {
 } else {
   echo 'No se recibieron datos JSON.';
 }
+*/
+$horaActual = date("H:i:s"); // Formato de 24 horas: HH:MM:SS
+echo "La hora actual es: " . $horaActual;
+
+$fechaActual = date("Y-m-d"); // Formato: YYYY-MM-DD
+echo "La fecha actual es: " . $fechaActual;
+
+
 ?>
