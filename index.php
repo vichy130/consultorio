@@ -29,8 +29,13 @@ if(!isset($_SESSION['username'])){
 
             <div class="content-general">Bienvenido (a)</div>
 
+            <div id="calendario">Calendario</div>
+
+
         <?php require("./layout/footer.php"); ?>
     <!-- END contenedor -->
 </body>
+<script src="https://apis.google.com/js/api.js"></script>
+<script src="./js/calendario.js"></script>
 
 </html>

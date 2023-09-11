@@ -82,6 +82,38 @@
 }
 /* degradados */
 
+/*MODAL MODAL MODAL*/
+/* Estilos para el modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    z-index: 1;
+}
+
+.modal-contenido {
+    background-color:#86bada;  /* #83bc8a;*/
+    margin: 10% auto;
+    padding: 20px;
+    width: 60%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+    color:#3b486e; /*#3b486e; #254e38 */
+}
+
+.cerrar-modal {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    cursor: pointer;
+}
+/*MODAL MODAL MODAL*/
+
 
 
 

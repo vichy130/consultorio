@@ -23,6 +23,9 @@ $paciente->correo = $_POST["email-paciente"];
 
 if($paciente->insertar()==1){
   echo "Paciente registrado";
+  echo $paciente->id();
+  $id=$paciente->id();
+  header("Location: ../pacientes-informacion.php?exito=1&id=$id");
 
 }else{
     echo "Error al registrar, intentalo nuevamente";

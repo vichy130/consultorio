@@ -1,5 +1,5 @@
 <?php
-
+include_once("../models/hijo.php");
 class ficha{
 
     var $id;
@@ -50,6 +50,12 @@ class ficha{
     var $hora;
     var $usuario;
 
+    var $hijos=array();
+
+    var $antecedentes=array();
+
+    var $antecedentesFam=array();
+
     function insertar(){
         include_once("../php/conexion.php");
         //conexion:
@@ -57,16 +63,33 @@ class ficha{
         $query="insert into ficha (paciente,tipoSangre, quienRecomendo, embarazo, partos, cesareas, abortos, muertos, enfs, fuma, cigarrosDia, fumaAntiguedad, alcohol, alcFrecuencia, alcoholCantidad, alcoholTipos, adicciones, alergias, desayuno, comida, cena, entreComidas, vasoAguaDia, otrosLiquidos, intolerancias, orinaDia, orinaNoche, orinaColor, orinaOlor, orinaMolestias, excrementoDia, exConsistencia, exOlor, exColor, exDolor,mensPeriodicidad, mensMolestias, ejercicioSemana, usuario) values ('$this->paciente', '$this->tipoSangre', '$this->quienRecomendo', '$this->embarazo', '$this->partos', '$this->cesareas','$this->abortos','$this->muertos', '$this->enfs', '$this->fuma',  '$this->cigarrosDia', '$this->fumaAntiguedad', '$this->alcohol', '$this->alcFrecuencia, '$this->alcoholCantidad', '$this->alcoholTipos', '$this->adicciones', '$this->alergias', '$this->desayuno', '$this->comida', '$this->cena', '$this->entreComidas', '$this->vasoAguaDia', '$this->otrosLiquidos', '$this->intolerancias', '$this->orinaDia', '$this->orinaNoche', '$this->orinaColor', '$this->orinaOlor', '$this->orinaMolestias', '$this->excrementoDia', '$this->exConsistencia', '$this->exOlor', '$this->exColor', '$this->exDolor', '$this->mensPeriodicidad','$this->mensMolestias','$this->ejercicioSemana', '$this->usuario'); ";
         */
 
-        $query="insert into ficha (paciente,tipoSangre, quienRecomendo, embarazo, partos, cesareas, abortos, muertos,enfs, fuma, cigarrosDia, fumaAntiguedad,  alcohol, alcFrecuencia, alcoholCantidad, alcoholTipos, adicciones, alergias, desayuno, comida, cena, entreComidas, usuario) values ('$this->paciente', '$this->tipoSangre', '$this->quienRecomendo', '$this->embarazo', '$this->partos', '$this->cesareas', '$this->abortos', '$this->muertos', '$this->enfs', '$this->fuma', '$this->cigarrosDia', '$this->fumaAntiguedad', '$this->alcohol', '$this->alcFrecuencia', '$this->alcoholCantidad', '$this->alcoholTipos','$this->adicciones', '$this->alergias', '$this->desayuno', '$this->comida', '$this->cena', '$this->entreComidas', '$this->usuario'); ";
+        $query="insert into ficha (paciente,tipoSangre, quienRecomendo, embarazo, partos, cesareas, abortos, muertos,enfs, fuma, cigarrosDia, fumaAntiguedad,  alcohol, alcFrecuencia, alcoholCantidad, alcoholTipos, adicciones, alergias, desayuno, comida, cena, entreComidas, vasoAguaDia, otrosLiquidos, intolerancias, orinaDia, orinaNoche, orinaColor, orinaOlor, orinaMolestias, excrementoDia, exConsistencia, exOlor, exColor, exDolor, fechaMenstruacion, mensPeriodicidad, mensMolestias, ejercicioSemana, fecha, hora, usuario) values ('$this->paciente', '$this->tipoSangre', '$this->quienRecomendo', '$this->embarazo', '$this->partos', '$this->cesareas', '$this->abortos', '$this->muertos', '$this->enfs', '$this->fuma', '$this->cigarrosDia', '$this->fumaAntiguedad', '$this->alcohol', '$this->alcFrecuencia', '$this->alcoholCantidad', '$this->alcoholTipos','$this->adicciones', '$this->alergias', '$this->desayuno', '$this->comida', '$this->cena', '$this->entreComidas', '$this->vasoAguaDia', '$this->otrosLiquidos', '$this->intolerancias', '$this->orinaDia', '$this->orinaNoche', '$this->orinaColor', '$this->orinaOlor', '$this->orinaMolestias', '$this->excrementoDia', '$this->exConsistencia', '$this->exOlor', '$this->exColor', '$this->exDolor', '$this->fechaMenstruacion', '$this->mensPeriodicidad', '$this->mensMolestias', '$this->ejercicioSemana', '$this->fecha', '$this->hora', '$this->usuario'); ";
         echo $query;
         $stmt=$dbh->prepare($query);
-        return $stmt->execute();
+        $return= $stmt->execute();
+        $this->id= $dbh->lastInsertId();
+        return $return;
     }
 
-    function insertar2(){
+    function insertarHijos($hijos, $id){
+        foreach ($hijos as $i) {
+            $hijo = new hijo();
+            $hijo->sexo = $i->_sexo;
+            $hijo->edad = $i->_edad;
+            $hijo->ficha = $id;
+            $this->hijos[] = $hijo;
+            $hijo->insertar();
+        }
+        return $this->hijos;
+    }
 
-        echo $this->hora;
-        echo $this->fecha;
+    function insertarAntecedentes($antecedentes, $id){
+        return $this->antecedentes;
+    }
+
+    function insertarAntecedentesFam($antecedentesFam, $id){
+        $this->antecedentesFam;
+        return $this->antecedentesFam;
     }
 
     function buscarDatos(){
@@ -125,6 +148,10 @@ class ficha{
 
           }
           return $this;
+    }
+
+    function id(){
+        return $this->id;
     }
 }
 ?>

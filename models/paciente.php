@@ -29,9 +29,11 @@ class paciente{
         ";
         echo $query;
         $stmt = $dbh->prepare($query);
-        return $stmt->execute();
-        /*$stmt->execute();
-        echo $dbh->lastInsertID();*/
+        $i=$stmt->execute();
+        /*$stmt->execute()*/
+        $this->id= $dbh->lastInsertID();
+        echo $this->id;
+        return $i;
     }
 
     function buscarDatos(){
@@ -65,12 +67,8 @@ class paciente{
         return $this;
     }
 
-    function crearFicha(){
-        include_once("./php/conexion.php");
-        $query="insert into ficha (paciente) values ($this->$id); ";
-        $stmt = $dbh->prepare($query);
-        return $stmt->execute();
-
+    function Id (){
+        return $this->id;
     }
 
 }
