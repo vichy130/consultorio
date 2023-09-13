@@ -1,20 +1,17 @@
-
+//LOAD HTML
 document.addEventListener('DOMContentLoaded', function () {
     var fecha = document.getElementById("fecha-ficha");
     var fechaHoy = new Date();
     var dia = fechaHoy.getDate();
     var mes = fechaHoy.getMonth() + 1;
     var anio = fechaHoy.getFullYear();
-
     if (mes < 10) {
         mes = "0" + mes;
     }
     if (dia < 10) {
         dia = "0" + dia;
     }
-
     var format = anio + "-" + mes + "-" + dia;
-
     if (typeof fecha === 'undefined' || fecha === null || fecha.value === '') {
         // Habilita el campo temporalmente
         fecha.disabled = false;
@@ -25,14 +22,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-// Añadir un nuevo hijo
-
-let anadirHijo = document.getElementById("agregarHijo");
-let tablaHijos = document.getElementById("tabla-hijos");
-var arrayHijos = [];
+//FECHA
 var fecha = document.getElementById("fecha-ficha");
 var ocultoFecha = document.getElementById("oculto-fecha-ficha");
 
+// Añadir un nuevo hijo
+let anadirHijo = document.getElementById("agregarHijo"); //BOTON ANADIR HIJO
+let tablaHijos = document.getElementById("tabla-hijos"); //TABLA HIJOS
+var arrayHijos = [];
 //Array de Objetos llamado "ArrayHijos"
 function ingresarHijos() {
     let edad = document.getElementById("hijoedad-paciente").value;
@@ -44,46 +41,38 @@ function ingresarHijos() {
 }
 
 //Añadir nuevo antecedente
-let agregarAntecedente = document.getElementById("agregarAntecedente");
-let tablaAntecedentes = document.getElementById("tabla-antecedentes");
+let anadirAntecedente = document.getElementById("agregarAntecedente"); //BOTON
+let tablaAntecedentes = document.getElementById("tabla-antecedentes"); //TABLA
 var arrayAntecedentes = [];
+// Añadir nuevo antedecente familia
+let anadirAntecedenteFam = document.getElementById("agregarAntecedenteFam"); //Boton agregar antecedenteFam
+let tablaAntecedentesFam = document.getElementById("tabla-antecedentesFam"); //TABLA
+var arrayAntecedentesFam = [];
 
-// Array de Objetos llamado "ArrayAntecedentes"
 function ingresarAntecedentes() {
-    let enfermedad = document.getElementById().value;
-    let descripcion = document.getElementById().value;
-    let estaActiva = document.getElementById().value;
-    let ficha = document.getElementById().value;
-    var antecedente = new Antecedente(enfermedad, descripcion, estaActiva, ficha);
+    let enfermedad = document.getElementById('enfermedad-paciente').value;
+    let descripcion = document.getElementById('enfermedad-descripcion-paciente').value;
+    let estaActiva = document.getElementById('enfermedad-activa').value;
+    var antecedente = new Antecedente(enfermedad, descripcion, estaActiva);
     arrayAntecedentes.push(antecedente);
     antecedente.id = new Date().getTime();
     actualizarTablaAntecedentes();
 }
-
-
-// Añadir nuevo antedecente familia
-let agregarAntecedenteFam = document.getElementById("agregarAntecedenteFam"); //Boton agregar antecedenteFam
-let tablaAntecedentesFam = document.getElementById("tabla-AntecedentesFam");
-var ArrayAntecedentesFam = [];
-
 //Array de Objetos llamado "ArrayAntecedentesFam"
 function ingresarAntecedentesFam() {
-    let familiar = document.getElementById().value;
-    let enfermedad = document.getElementById().value;
-    let descripcion = document.getElementById().value;
-    let ficha = document.getElementById().value;
-    var antecedenteFam = new AntecedenteFam(familiar, enfermedad, descripcion, ficha);
+    let familiar = document.getElementById('parentesco-paciente').value;
+    let enfermedad = document.getElementById('familiarenfermedad-paciente').value;
+    let descripcion = document.getElementById('familiarenfermedad-descripcion-paciente').value;
+    var antecedenteFam = new AntecedenteFam(familiar, enfermedad, descripcion);
     arrayAntecedentesFam.push(antecedenteFam);
     antecedenteFam.id = new Date().getTime();
     actualizarTablaAntecedentesFam();
 }
-
+//FUNCION BORRAR TABLA
 function cleardiv(div) {
     div.replaceChildren();
 }
-
-
-// HIJOS functions//
+// FUNCION ACTUALIZAR
 function actualizarTablaHijos() {
     cleardiv(tablaHijos);
     let contador = 0;
@@ -96,56 +85,74 @@ function actualizarTablaHijos() {
         <td><i class="fas fa-trash" onclick =eliminarHijo(`+ hijo.id + `)></i></td>
         </tr>`;
     }
-    console.log(arrayHijos);
 }
-function actualizarTablaAntecedentes(){
+function actualizarTablaAntecedentes() {
+    console.log(arrayAntecedentesFam);
     cleardiv(tablaAntecedentes);
-    let contador=0;
-    for (antecedente of arrayAntecedentes)
+    let contador = 0;
+    for (antecedente of arrayAntecedentes) {
+        contador++
+        tablaAntecedentes.innerHTML += `<tr>
+        <td class="column-to-hide">`+ contador + `</td>
+        <td name="antecedente-enfermedad">`+ antecedente.enfermedad + `</td>
+        <td name="antecedente-descripcion">`+ antecedente.descripcion + `</td>
+        <td name="antecedente-estaActivo">`+ antecedente.estaActiva + `</td>
+        <td><i class="fas fa-trash" onclick =eliminarAntecedente(`+ antecedente.id + `)></i></td>
+        </tr>`;
+    }
 }
-function actualizarTablaAntecedentesFam(){
+function actualizarTablaAntecedentesFam() {
     cleardiv(tablaAntecedentesFam);
-    let contador=0;
+    let contador = 0;
+    for (antecedente of arrayAntecedentesFam) {
+        contador++
+        tablaAntecedentesFam.innerHTML += `<tr>
+        <td class="column-to-hide">`+ contador + `</td>
+        <td name="antecedenteFam-familiar">`+ antecedente.familiar + `</td>
+        <td name="antecedenteFam-enfermedad">`+ antecedente.enfermedad + `</td>
+        <td name="antecedenteFam-descripcion">`+ antecedente.descripcion + `</td>
+        <td><i class="fas fa-trash" onclick =eliminarantecedenteFam(`+ antecedente.id + `)></i></td>
+        </tr>`;
+    }
 }
-
-
+//ELIMINAR VALORES DE ARRAY
 function eliminarHijo(id) {
     const filteredArray = arrayHijos.filter(hijo => hijo.id != id);
     arrayHijos = filteredArray;
     /*const mappedArray= arrayHijos.map(hijo=>({...hijo,id: hijo.id+1}))*/
-
     actualizarTablaHijos();
-
 }
+function eliminarAntecedente(id) {
+    const filterdArray = arrayAntecedentes.filter(antecedente => antecedente.id != id);
+    arrayAntecedentes = filterdArray;
+    actualizarTablaAntecedentes();
+}
+function eliminarantecedenteFam(id) {
+    const filterdArray = arrayAntecedentesFam.filter(antecedenteFam => antecedenteFam.id != id);
+    arrayAntecedentesFam = filterdArray;
+    actualizarTablaAntecedentesFam();
+}
+
+// EVENT LISTENERS
 anadirHijo.addEventListener("click", ingresarHijos);
+anadirAntecedente.addEventListener("click", ingresarAntecedentes);
+anadirAntecedenteFam.addEventListener("click", ingresarAntecedentesFam);
 
-// HIJOS functions//
 
-//FETCH formulario y arrays
-
+//FETCH FORMULARIO Y ARRAYS
 var formFicha = document.getElementById('form-ficha');
-
 formFicha.addEventListener('submit', function (e) {
     e.preventDefault();
-    console.log('click enviar');
-
     var datosFicha = new FormData(formFicha);
-
-
-    // Convierte el array de objetos a JSON
     var jsonHijos = JSON.stringify(arrayHijos);
     var jsonAntecedentes = JSON.stringify(arrayAntecedentes);
     var jsonAntecedentesFam = JSON.stringify(arrayAntecedentesFam);
-
     /*console.log(datosFicha.get('tipo-sangre'));
      console.log(jsonHijos);*/
-
     datosFicha.append('json-hijos', jsonHijos);
-    datosFicha.append('json-antecedentes', arrayAntecedentes);
-    datosFicha.append('json-antecedentesFam', arrayAntecedentesFam);
-
-    // Enviar los datos a PHP utilizando fetch
-    fetch('./controller/nueva-ficha.php', {
+    datosFicha.append('json-antecedentes', jsonAntecedentes);
+    datosFicha.append('json-antecedentesFam', jsonAntecedentesFam);
+    fetch('./controller/nueva-ficha.php', {// Enviar los datos a PHP utilizando fetch
         method: 'POST',
         body: datosFicha // El JSON que contiene los datos y el formulario
     })
@@ -158,15 +165,10 @@ formFicha.addEventListener('submit', function (e) {
         .catch(function (error) {
             console.error('Error:', error);
         });
-
-
 })
 
 if (typeof tipoSangre !== "undefined") {
-    // OPCION TIPO SANGRE
-    // Obtener una referencia al elemento <select> por su ID
     var select = document.getElementById("tipo-sangre");
-
     for (var i = 0; i < select.options.length; i++) {
         var option = select.options[i];
         if (option.value === tipoSangre) {
@@ -175,12 +177,10 @@ if (typeof tipoSangre !== "undefined") {
             break;
         }
     }
-}
-// OPCION TIPO SANGRE
+}// OPCION TIPO SANGRE
 
-//CLASES //
 
-class Hijo {
+class Hijo { //CLASES //
 
     constructor(sexo, edad) {
         this._sexo = sexo;
@@ -200,11 +200,10 @@ class Hijo {
     }
 }
 class Antecedente {
-    constructor(enfermedad, descripcion, estaActiva, ficha) {
+    constructor(enfermedad, descripcion, estaActiva) {
         this._enfermedad = enfermedad;
         this._descripcion = descripcion;
         this._estaActiva = estaActiva;
-        this._ficha = ficha;
     }
     get id() {
         return this._id;
@@ -212,13 +211,24 @@ class Antecedente {
     set id(numero) {
         this._id = numero;
     }
+    get enfermedad() {
+        return this._enfermedad;
+    }
+    get descripcion() {
+        return this._descripcion;
+    }
+    get estaActiva() {
+        return this._estaActiva;
+    }
+    get ficha() {
+        return this._ficha;
+    }
 }
-
 class AntecedenteFam {
-    constructor(enfermedad, descripcion, ficha) {
+    constructor(familiar, enfermedad, descripcion) {
+        this._familiar = familiar;
         this._enfermedad = enfermedad;
         this._descripcion = descripcion;
-        this._ficha = ficha;
     }
     get id() {
         return this._id;
@@ -226,9 +236,17 @@ class AntecedenteFam {
     set id(numero) {
         this._id = numero;
     }
-}
-
-
-
-// CLASES //
+    get familiar() {
+        return this._familiar;
+    }
+    get enfermedad() {
+        return this._enfermedad;
+    }
+    get descripcion() {
+        return this._descripcion;
+    }
+    get ficha() {
+        return this._ficha;
+    }
+}// CLASES //
 

@@ -1,5 +1,7 @@
 <?php
 include_once("../models/hijo.php");
+include_once("../models/antecedente-paciente.php");
+include_once("../models/antecedente-familia.php");
 class ficha{
 
     var $id;
@@ -64,7 +66,6 @@ class ficha{
         */
 
         $query="insert into ficha (paciente,tipoSangre, quienRecomendo, embarazo, partos, cesareas, abortos, muertos,enfs, fuma, cigarrosDia, fumaAntiguedad,  alcohol, alcFrecuencia, alcoholCantidad, alcoholTipos, adicciones, alergias, desayuno, comida, cena, entreComidas, vasoAguaDia, otrosLiquidos, intolerancias, orinaDia, orinaNoche, orinaColor, orinaOlor, orinaMolestias, excrementoDia, exConsistencia, exOlor, exColor, exDolor, fechaMenstruacion, mensPeriodicidad, mensMolestias, ejercicioSemana, fecha, hora, usuario) values ('$this->paciente', '$this->tipoSangre', '$this->quienRecomendo', '$this->embarazo', '$this->partos', '$this->cesareas', '$this->abortos', '$this->muertos', '$this->enfs', '$this->fuma', '$this->cigarrosDia', '$this->fumaAntiguedad', '$this->alcohol', '$this->alcFrecuencia', '$this->alcoholCantidad', '$this->alcoholTipos','$this->adicciones', '$this->alergias', '$this->desayuno', '$this->comida', '$this->cena', '$this->entreComidas', '$this->vasoAguaDia', '$this->otrosLiquidos', '$this->intolerancias', '$this->orinaDia', '$this->orinaNoche', '$this->orinaColor', '$this->orinaOlor', '$this->orinaMolestias', '$this->excrementoDia', '$this->exConsistencia', '$this->exOlor', '$this->exColor', '$this->exDolor', '$this->fechaMenstruacion', '$this->mensPeriodicidad', '$this->mensMolestias', '$this->ejercicioSemana', '$this->fecha', '$this->hora', '$this->usuario'); ";
-        echo $query;
         $stmt=$dbh->prepare($query);
         $return= $stmt->execute();
         $this->id= $dbh->lastInsertId();
@@ -73,7 +74,7 @@ class ficha{
 
     function insertarHijos($hijos, $id){
         foreach ($hijos as $i) {
-            $hijo = new hijo();
+            $hijo = new Hijo();
             $hijo->sexo = $i->_sexo;
             $hijo->edad = $i->_edad;
             $hijo->ficha = $id;
@@ -84,11 +85,31 @@ class ficha{
     }
 
     function insertarAntecedentes($antecedentes, $id){
+        foreach ($antecedentes as $i) {
+            $antecedente = new AntecedentePaciente();
+            $antecedente->enfermedad = $i->_enfermedad;
+            echo $i->_enfermedad;
+            $antecedente->descripcion= $i->_descripcion;
+            echo $i->_descripcion;
+            $antecedente->estaActiva= $i->_estaActiva;
+            echo $i->_estaActiva;
+            $antecedente->ficha = $id;
+            $this->antecedentes[] = $antecedente;
+            $antecedente->insertar();
+        }
         return $this->antecedentes;
     }
 
     function insertarAntecedentesFam($antecedentesFam, $id){
-        $this->antecedentesFam;
+        foreach ($antecedentesFam as $i) {
+            $antecedenteFam = new AntecedenteFamilia();
+            $antecedenteFam->familiar = $i->_familiar;
+            $antecedenteFam->enfermedad = $i->_enfermedad;
+            $antecedenteFam->enfermedad = $i->_descripcion;
+            $antecedenteFam->ficha = $id;
+            $this->antecedentesFam[] = $antecedenteFam;
+            $antecedenteFam->insertar();
+        }
         return $this->antecedentesFam;
     }
 

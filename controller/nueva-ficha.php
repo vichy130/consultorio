@@ -4,10 +4,8 @@ include_once("../models/ficha-clinica.php");
 
 $jsonHijos = $_POST['json-hijos'];
 $hijos = json_decode($jsonHijos);
-
 $jsonAntecedentes = $_POST['json-antecedentes'];
 $antecedentes = json_decode($jsonAntecedentes);
-
 $jsonAntecedentesFam = $_POST['json-antecedentesFam'];
 $antecedentesFam = json_decode($jsonAntecedentesFam);
 
@@ -17,7 +15,6 @@ $id_paciente = $_SESSION["id_paciente"];
 $ficha->paciente = $id_paciente;
 $ficha->tipoSangre = $_POST["tipo-sangre"];
 $ficha->quienRecomendo = $_POST["recomendo-paciente"];
-
 if($_POST["embarazos-paciente"]!=null){
     $ficha->embarazo = $_POST["embarazos-paciente"];
 }else{
@@ -48,7 +45,6 @@ if($_POST["enfs-paciente"]!=null){
 }else{
     $ficha->enfs =0;
 }
-
 $ficha->fuma = $_POST["fuma-paciente"];
 $ficha->cigarrosDia = $_POST["cigarros-paciente"];
 $ficha->fumaAntiguedad = $_POST["cigarros-antiguedad-paciente"];
@@ -97,6 +93,12 @@ if ($ficha->insertar() == 1) {
     $ficha->id = $ficha->id();
     if (!empty($hijos)) {
         $ficha->hijos= $ficha->insertarHijos($hijos, $ficha->id);
+    }
+    if (!empty($antecedentes)){
+        $ficha->antecedentes= $ficha->insertarAntecedentes($antecedentes, $ficha->id);
+    }
+    if(!empty($antecedentesFam)){
+        $ficha->antecedentesFamilia= $ficha->insertarAntecedentesFam($antecedentesFam, $ficha->id);
     }
 } else {
     echo "Error al registrar, intentalo nuevamente";

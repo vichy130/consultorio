@@ -389,7 +389,7 @@ if (isset($_SESSION["id_paciente"])) {
                             name="familiarenfermedad-descripcion-paciente">
                     </div><!-- end form-grupo -->
 
-                    <button class="boton azul" type="button" id="agregarAntecedente"><i class="fas fa-plus"></i>Añadir</button>
+                    <button class="boton azul" type="button" id="agregarAntecedenteFam"><i class="fas fa-plus"></i>Añadir</button>
 
                     <table class="table span-4">
                         <thead>
@@ -402,13 +402,7 @@ if (isset($_SESSION["id_paciente"])) {
                             </tr>
                         </thead>
                         <tbody id=tabla-antecedentesFam>
-                            <tr>
-                                <td class="column-to-hide"></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><i class="fas fa-trash"></i></td>
-                            </tr>
+ 
                         </tbody>
                     </table>
 
@@ -423,6 +417,7 @@ if (isset($_SESSION["id_paciente"])) {
                         <input class="form_input" type="text" id="enfermedad-descripcion-paciente"
                             name="enfermedad-descripcion-paciente">
                     </div><!-- end form-grupo -->
+                    
                     <div class="formulario_grupo span-2">
                         <label class="form_label" for="enfermedad-activa">Está Activa</label>
                         <select class="form_input" name="enfermedad-activa" id="enfermedad-activa">
@@ -431,7 +426,7 @@ if (isset($_SESSION["id_paciente"])) {
                             <option value="2" selected="selected">No lo sé</option>
                         </select>
                     </div><!-- end form-grupo -->
-                    <button class="boton azul" type="button" id="agregarAntecedenteFam"><i class="fas fa-plus"></i> Añadir</button>
+                    <button class="boton azul" type="button" id="agregarAntecedente"><i class="fas fa-plus"></i> Añadir</button>
 
                     <table class="table span-4">
                         <thead>
@@ -444,13 +439,7 @@ if (isset($_SESSION["id_paciente"])) {
                             </tr>
                         </thead>
                         <tbody id="tabla-antecedentes">
-                            <tr>
-                                <td class="column-to-hide"></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><i class="fas fa-trash"></i></td>
-                            </tr>
+ 
                         </tbody>
                     </table>
 

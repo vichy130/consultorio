@@ -1,6 +1,6 @@
 <?php
 
-class hijo
+class Hijo
 {
 
     var $id;
@@ -30,7 +30,9 @@ class hijo
         $query = "INSERT INTO hijo (sexo,edad,ficha) VALUES ('$this->sexo','$this->edad','$this->ficha'); ";
         echo $query;
         $stmt = $dbh->prepare($query);
-        return $stmt->execute();
+        $return = $stmt->execute();
+        $this->id= $dbh->lastInsertId();
+        return $return;
     }
 
 
