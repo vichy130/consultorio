@@ -28,6 +28,15 @@ if(!isset($_SESSION['username'])){
 <body>
     <div class="contenedor">
         <?php require("./layout/menu.php"); ?>
+
+        <div id="modalExito" class="modal">
+                    <div class="modal-contenido">
+                        <span class="cerrar-modal" id="cerrarModal">&times;</span>
+                        <h2>¡consultorio creado!</h2>
+                        <br>
+                        <p>Los datos se han guardado con éxito.</p>
+                    </div>
+                </div>
         
                 <form class="content-general" action="./controller/nuevo-consultorio.php" method="POST">
                     <label class="formulario_grupo span-4">Nuevo Consultorio</label>
@@ -71,6 +80,7 @@ if(!isset($_SESSION['username'])){
                 <!-- end FORM -->
 
         <?php require("./layout/footer.php"); ?>
+        <script src="./js/form-validacion-guardar.js"></script>
     </div>
     <!-- end contenedor -->
 </body>

@@ -55,7 +55,7 @@ if (isset($_SESSION["id_paciente"])) {
                 <div id="modalExito" class="modal">
                     <div class="modal-contenido">
                         <span class="cerrar-modal" id="cerrarModal">&times;</span>
-                        <h2>¡Éxito!</h2>
+                        <h2>¡Paciente creado!</h2>
                         <br>
                         <p>Los datos se han guardado con éxito.</p>
                     </div>
@@ -212,7 +212,7 @@ if (isset($_SESSION["id_paciente"])) {
         <?php require("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
-    <script src="./js/form-informacion.js"></script>
+    <script src="./js/form-validacion-guardar.js"></script>
 </body>
 
 </html>

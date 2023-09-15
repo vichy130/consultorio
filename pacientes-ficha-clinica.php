@@ -21,7 +21,7 @@ if (isset($_SESSION["id_paciente"])) {
     include_once("models/ficha-clinica.php");
     $oF = new ficha();
     $oF->paciente = $id_paciente;
-    $oF->buscarDatos();
+    $oF->mostrar();
     echo "<script> var tipoSangre='" . $oF->tipoSangre . "'</script>";
 } else {
     redirect("./pacientes-informacion.php");
@@ -55,16 +55,22 @@ if (isset($_SESSION["id_paciente"])) {
             <div class="contenido">
                 <!-- FORM POST PHP 
                 <form class="form" action="controller/ficha-test.php" method="POST">-->
-                <form class="form" id="form-ficha">
 
+                <!-- Modal de confirmación (oculto por defecto) -->
+                <div id="modalConfirmacion" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick="cerrarModal()">&times;</span>
+                        <p id="mensajeModal">Mensaje de confirmación aquí.</p>
+                    </div>
+                </div>
+
+                <form class="form" id="form-ficha">
                     <div class="formulario_grupo">
                         <label class="form_label" for="fecha-ficha">Fecha</label>
                         <input class="form_input " type="date" id="fecha-ficha" name="fecha-ficha"
                             value="<?php echo $oF == null ? "" : $oF->fecha; ?>" disabled>
                         <input type="hidden" name="oculto-fecha-ficha" id="oculto-fecha-ficha"
                             value="<?php echo $oF == null ? "" : $oF->fecha; ?>">
-                        <?php echo $oF->fecha;
-                        echo $oF->hora; ?>
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo span-2">
@@ -389,7 +395,8 @@ if (isset($_SESSION["id_paciente"])) {
                             name="familiarenfermedad-descripcion-paciente">
                     </div><!-- end form-grupo -->
 
-                    <button class="boton azul" type="button" id="agregarAntecedenteFam"><i class="fas fa-plus"></i>Añadir</button>
+                    <button class="boton azul" type="button" id="agregarAntecedenteFam"><i
+                            class="fas fa-plus"></i>Añadir</button>
 
                     <table class="table span-4">
                         <thead>
@@ -402,7 +409,7 @@ if (isset($_SESSION["id_paciente"])) {
                             </tr>
                         </thead>
                         <tbody id=tabla-antecedentesFam>
- 
+
                         </tbody>
                     </table>
 
@@ -417,7 +424,7 @@ if (isset($_SESSION["id_paciente"])) {
                         <input class="form_input" type="text" id="enfermedad-descripcion-paciente"
                             name="enfermedad-descripcion-paciente">
                     </div><!-- end form-grupo -->
-                    
+
                     <div class="formulario_grupo span-2">
                         <label class="form_label" for="enfermedad-activa">Está Activa</label>
                         <select class="form_input" name="enfermedad-activa" id="enfermedad-activa">
@@ -426,7 +433,8 @@ if (isset($_SESSION["id_paciente"])) {
                             <option value="2" selected="selected">No lo sé</option>
                         </select>
                     </div><!-- end form-grupo -->
-                    <button class="boton azul" type="button" id="agregarAntecedente"><i class="fas fa-plus"></i> Añadir</button>
+                    <button class="boton azul" type="button" id="agregarAntecedente"><i class="fas fa-plus"></i>
+                        Añadir</button>
 
                     <table class="table span-4">
                         <thead>
@@ -439,24 +447,30 @@ if (isset($_SESSION["id_paciente"])) {
                             </tr>
                         </thead>
                         <tbody id="tabla-antecedentes">
- 
+
                         </tbody>
                     </table>
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="firma-paciente">Firma Paciente</label>
-                        <input class="form_input" type="file" id="firma-paciente" name="firma-paciente">
+                        <input class="form_input" type="file" id="firma-paciente" name="firma-paciente"
+                            accept=".jpg, .jpeg, .png">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="firma-usuario">Firma Médico</label>
-                        <input class="form_input" type="file" id="firma-usuario" name="firma-usuario">
+                        <input class="form_input" type="file" id="firma-usuario" name="firma-usuario"
+                            accept=".jpg, .jpeg, .png">
                     </div><!-- end form-grupo -->
 
                     <div class=""></div>
                     <div class=""></div>
                     <button class="input_submit boton amarillo span-2">Imprimir</button>
-                    <input class="input_submit boton azul span-2" type="submit" value="Guardar">
+                    <input class="input_submit boton azul span-2" type="submit" value="<?php if (isset($_SESSION["id_paciente"])) {
+                            echo "Actualizar Ficha";
+                        } else {
+                            echo "Guardar";
+                        } ?>">
                 </form>
             </div>
 
@@ -465,6 +479,7 @@ if (isset($_SESSION["id_paciente"])) {
     </div>
     <!-- end contenedor -->
     <script src="./js/form-ficha-clinica.js"></script>
+
 </body>
 
 </html>

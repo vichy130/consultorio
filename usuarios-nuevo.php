@@ -37,6 +37,15 @@ $oU->buscarDatos();
     <div class="contenedor">
         <?php require("./layout/menu.php"); ?>
 
+        <div id="modalExito" class="modal">
+                    <div class="modal-contenido">
+                        <span class="cerrar-modal" id="cerrarModal">&times;</span>
+                        <h2>¡Usuario creado!</h2>
+                        <br>
+                        <p>Los datos se han guardado con éxito.</p>
+                    </div>
+                </div>
+
         <form class="content-general" action="./controller/nuevo-usuario.php" method="POST">
 
             <label class="formulario_grupo span-4">Nuevo usuario</label>
@@ -89,6 +98,7 @@ $oU->buscarDatos();
         <?php require("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
+    <script src="./js/form-validacion-guardar.js"></script>
 </body>
 
 </html>

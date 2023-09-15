@@ -35,7 +35,6 @@ if(!isset($_SESSION['username'])){
         <?php require("./layout/footer.php"); ?>
     <!-- END contenedor -->
 </body>
-<script src="https://apis.google.com/js/api.js"></script>
-<script src="./js/calendario.js"></script>
+
 
 </html>

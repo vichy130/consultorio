@@ -1,12 +1,16 @@
 <?php
+
 session_start();
 include_once("../models/ficha-clinica.php");
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 
 $jsonHijos = $_POST['json-hijos'];
 $hijos = json_decode($jsonHijos);
 $jsonAntecedentes = $_POST['json-antecedentes'];
 $antecedentes = json_decode($jsonAntecedentes);
 $jsonAntecedentesFam = $_POST['json-antecedentesFam'];
+echo "echo".$jsonAntecedentesFam;
 $antecedentesFam = json_decode($jsonAntecedentesFam);
 
 $ficha = new ficha();
@@ -100,6 +104,7 @@ if ($ficha->insertar() == 1) {
     if(!empty($antecedentesFam)){
         $ficha->antecedentesFamilia= $ficha->insertarAntecedentesFam($antecedentesFam, $ficha->id);
     }
+
 } else {
     echo "Error al registrar, intentalo nuevamente";
 }

@@ -152,6 +152,8 @@ formFicha.addEventListener('submit', function (e) {
     datosFicha.append('json-hijos', jsonHijos);
     datosFicha.append('json-antecedentes', jsonAntecedentes);
     datosFicha.append('json-antecedentesFam', jsonAntecedentesFam);
+    console.log("JSON DESDE JS".jsonAntecedentes);
+    console.log("JSON DESDE JS".jsonAntecedentesFam);
     fetch('./controller/nueva-ficha.php', {// Enviar los datos a PHP utilizando fetch
         method: 'POST',
         body: datosFicha // El JSON que contiene los datos y el formulario
@@ -198,6 +200,12 @@ class Hijo { //CLASES //
     get edad() {
         return this._edad;
     }
+    set ficha(numero) {
+        this._ficha=numero;
+    }
+    get ficha() {
+        return this._ficha;
+    }
 }
 class Antecedente {
     constructor(enfermedad, descripcion, estaActiva) {
@@ -223,6 +231,9 @@ class Antecedente {
     get ficha() {
         return this._ficha;
     }
+    set ficha(numero) {
+        this._ficha=numero;
+    }
 }
 class AntecedenteFam {
     constructor(familiar, enfermedad, descripcion) {
@@ -247,6 +258,9 @@ class AntecedenteFam {
     }
     get ficha() {
         return this._ficha;
+    }
+    set ficha(numero) {
+        this._ficha=numero;
     }
 }// CLASES //
 
