@@ -1,23 +1,17 @@
 <?php
+// Un ejemplo de array en PHP
+$datos = array(
+    'nombre' => 'Juan',
+    'edad' => 30,
+    'ciudad' => 'Ejemploville',
+);
 
-/*
-// Recibe los datos JSON del cliente
-$data = json_decode(file_get_contents('php://input'));
+// Codifica el array en formato JSON
+$datos_json = json_encode($datos);
 
-if ($data) {
-  // Haz lo que necesites con los datos, por ejemplo, imprimirlos
-  foreach ($data as $objeto) {
-    echo 'Nombre: ' . $objeto->nombre . ', Edad: ' . $objeto->edad . '<br>';
-  }
-} else {
-  echo 'No se recibieron datos JSON.';
-}
-*/
-$horaActual = date("H:i:s"); // Formato de 24 horas: HH:MM:SS
-echo "La hora actual es: " . $horaActual;
+// Configura las cabeceras para indicar que estás enviando JSON
+header('Content-Type: application/json');
 
-$fechaActual = date("Y-m-d"); // Formato: YYYY-MM-DD
-echo "La fecha actual es: " . $fechaActual;
-
-
+// Envía los datos JSON como respuesta
+echo $datos_json;
 ?>

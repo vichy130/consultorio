@@ -11,6 +11,21 @@ class AntecedentePaciente
     function insertar()
     {
         include_once(".../php/conexion.php");
+        $dbname = "consultorio";
+        $user = "root";
+        $password = "";
+        $options = array(
+            PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8mb4'",
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
+        );
+        $dbh = null;
+        try {
+            $dsn = "mysql:host=localhost; dbname=$dbname";
+            $dbh = new PDO($dsn, $user, $password, $options);
+
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
         $query = "INSERT INTO antecedentes (id, enfermedad, descripcion, estaActiva, ficha) VALUES ('$this->id','$this->enfermedad','$this->descripcion', '$this->estaActiva', '$this->ficha'); ";
         echo $query;
         $stmt = $dbh->prepare($query);
@@ -19,22 +34,24 @@ class AntecedentePaciente
         return $return;
     }
 
-    function buscarDatos()
+    function mostrar()
     {
-        /*include_once("./php/conexion.php");
-        $query = "SELECT * FROM antecedentes WHERE ficha= $this->ficha; ";
-        $stmt = $dbh->prepare($query);
-        $stmt->execute();
-        $datos = null;
-        while ($datos = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $this->id = $datos["id"];
-            $this->enfermedad = $datos["enfermedad"];
-            $this->descripcion = $datos["descripcion"];
-            $this->estaActiva = $datos["estaActiva"];
-            $this->ficha = $datos["ficha"];
+        include_once("../php/conexion.php");
+        $dbname = "consultorio";
+        $user = "root";
+        $password = "";
+        $options = array(
+            PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8mb4'",
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
+        );
+        $dbh = null;
+        try {
+            $dsn = "mysql:host=localhost; dbname=$dbname";
+            $dbh = new PDO($dsn, $user, $password, $options);
+
+        } catch (PDOException $e) {
+            echo $e->getMessage();
         }
-        return $this;*/
-        include_once("./php/conexion.php");
         $query = "SELECT * FROM antecedentes WHERE ficha = :ficha";
         $stmt = $dbh->prepare($query);
         $stmt->bindParam(":ficha", $this->ficha, PDO::PARAM_INT);
@@ -55,7 +72,7 @@ class AntecedentePaciente
         }
     }
 
-    function eliminarDatos()
+    function eliminar()
     {
         include_once("../php/conexion.php");
         try {
@@ -73,7 +90,7 @@ class AntecedentePaciente
         }
     }
 
-    
+
 
 }
 

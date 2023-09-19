@@ -1,5 +1,5 @@
 <?php
-
+include_once("../php/conexion.php");
 class AntecedenteFamilia
 {
     var $id;
@@ -26,6 +26,7 @@ class AntecedenteFamilia
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
+
         $query = "INSERT INTO antecedentesFamilia (id,familiar,enfermedad,descripcion,ficha) VALUES ('$this->id','$this->familiar','$this->enfermedad','$this->descripcion','$this->ficha'); ";
         echo $query;
         $stmt = $dbh->prepare($query);
@@ -34,21 +35,24 @@ class AntecedenteFamilia
         return $return;
     }
 
-    function buscarDatos()
+    function mostrar()
     {
-        include_once("./php/conexion.php");
-        /*$query="SELECT * FROM antecedentesFamilia WHERE ficha= $this->ficha; ";
-        $stmt = $dbh->prepare($query);
-        $stmt->execute();
-         $datos = null;
-          while( $datos = $stmt->fetch(PDO::FETCH_ASSOC) ){
-              $this->id = $datos["id"];
-              $this->familiar = $datos["familiar"];
-              $this->enfermedad = $datos["enfermedad"];
-              $this->descripcion = $datos["descripcion"];
-              $this->ficha = $datos["ficha"];
-          }
-          return $this;*/
+        include_once("../php/conexion.php");
+        $dbname = "consultorio";
+        $user = "root";
+        $password = "";
+        $options = array(
+            PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8mb4'",
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
+        );
+        $dbh = null;
+        try {
+            $dsn = "mysql:host=localhost; dbname=$dbname";
+            $dbh = new PDO($dsn, $user, $password, $options);
+
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
         $query = "SELECT * FROM antecedentesFamilia WHERE ficha = :ficha";
         $stmt = $dbh->prepare($query);
         $stmt->bindParam(":ficha", $this->ficha, PDO::PARAM_INT);
@@ -71,9 +75,24 @@ class AntecedenteFamilia
 
     }
 
-    function eliminarDatos()
+    function eliminar()
     {
         include_once("../php/conexion.php");
+        $dbname = "consultorio";
+        $user = "root";
+        $password = "";
+        $options = array(
+            PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8mb4'",
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
+        );
+        $dbh = null;
+        try {
+            $dsn = "mysql:host=localhost; dbname=$dbname";
+            $dbh = new PDO($dsn, $user, $password, $options);
+
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
         try {
             $query = "DELETE FROM antecedentesFamilia WHERE id = :id";
             $stmt = $dbh->prepare($query);

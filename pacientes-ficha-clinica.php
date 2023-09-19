@@ -19,9 +19,9 @@ if (isset($_SESSION["id_paciente"])) {
     $id_paciente = $_SESSION["id_paciente"];
     echo "ID del paciente " . $id_paciente;
     include_once("models/ficha-clinica.php");
-    $oF = new ficha();
+    $oF = new Ficha();
     $oF->paciente = $id_paciente;
-    $oF->mostrar();
+    $oF->obtener();
     echo "<script> var tipoSangre='" . $oF->tipoSangre . "'</script>";
 } else {
     redirect("./pacientes-informacion.php");
@@ -125,7 +125,9 @@ if (isset($_SESSION["id_paciente"])) {
                             </tr>
                         </thead>
                         <tbody id="tabla-hijos">
-
+                            <?php
+                                echo $oF->hijos=null? "": $oF->hijos;
+                            ?>
                         </tbody>
                     </table>
 
@@ -467,10 +469,10 @@ if (isset($_SESSION["id_paciente"])) {
                     <div class=""></div>
                     <button class="input_submit boton amarillo span-2">Imprimir</button>
                     <input class="input_submit boton azul span-2" type="submit" value="<?php if (isset($_SESSION["id_paciente"])) {
-                            echo "Actualizar Ficha";
-                        } else {
-                            echo "Guardar";
-                        } ?>">
+                        echo "Actualizar Ficha";
+                    } else {
+                        echo "Guardar";
+                    } ?>">
                 </form>
             </div>
 

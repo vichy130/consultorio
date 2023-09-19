@@ -35,20 +35,7 @@ class Hijo
         return $return;
     }
 
-    function buscarDatos(){
-        include_once("./php/conexion.php");
-        $query="SELECT * FROM hijo WHERE ficha= $this->ficha; ";
-        $stmt = $dbh->prepare($query);
-        $stmt->execute();
-         $datos = null;
-          while( $datos = $stmt->fetch(PDO::FETCH_ASSOC) ){
-              $this->id = $datos["id"];
-              $this->sexo = $datos["sexo"];
-              $this->edad = $datos["edad"];
-              $this->ficha = $datos["ficha"];
-          }
-          return $this;
-    }
+
 
     
 

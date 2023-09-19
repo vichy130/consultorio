@@ -1,5 +1,6 @@
 //LOAD HTML
 document.addEventListener('DOMContentLoaded', function () {
+   
     var fecha = document.getElementById("fecha-ficha");
     var fechaHoy = new Date();
     var dia = fechaHoy.getDate();
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
         ocultoFecha.value = fecha.value;
     }
 });
+
 
 //FECHA
 var fecha = document.getElementById("fecha-ficha");
@@ -87,7 +89,6 @@ function actualizarTablaHijos() {
     }
 }
 function actualizarTablaAntecedentes() {
-    console.log(arrayAntecedentesFam);
     cleardiv(tablaAntecedentes);
     let contador = 0;
     for (antecedente of arrayAntecedentes) {
@@ -181,6 +182,7 @@ if (typeof tipoSangre !== "undefined") {
     }
 }// OPCION TIPO SANGRE
 
+console.log(arrayDatos);
 
 class Hijo { //CLASES //
 
