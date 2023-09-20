@@ -5,7 +5,6 @@ include_once("../models/antecedente-familia.php");
 
 class Ficha
 {
-
     var $id;
     var $paciente;
     var $tipoSangre;
@@ -53,14 +52,10 @@ class Ficha
     var $firmaUsuario;
     var $hora;
     var $usuario;
-
     var $hijos = array();
-
     var $antecedentes = array();
-
     var $antecedentesFam = array();
     private $dbh;
-
     public function __construct()
     {
         try {
@@ -80,7 +75,6 @@ class Ficha
     function insertar()
     {
         $query = "insert into ficha (paciente,tipoSangre, quienRecomendo, embarazo, partos, cesareas, abortos, muertos,enfs, fuma, cigarrosDia, fumaAntiguedad,  alcohol, alcFrecuencia, alcoholCantidad, alcoholTipos, adicciones, alergias, desayuno, comida, cena, entreComidas, vasoAguaDia, otrosLiquidos, intolerancias, orinaDia, orinaNoche, orinaColor, orinaOlor, orinaMolestias, excrementoDia, exConsistencia, exOlor, exColor, exDolor, fechaMenstruacion, mensPeriodicidad, mensMolestias, ejercicioSemana, fecha, firmaUsuario, firmaPaciente, hora, usuario) values ('$this->paciente', '$this->tipoSangre', '$this->quienRecomendo', '$this->embarazo', '$this->partos', '$this->cesareas', '$this->abortos', '$this->muertos', '$this->enfs', '$this->fuma', '$this->cigarrosDia', '$this->fumaAntiguedad', '$this->alcohol', '$this->alcFrecuencia', '$this->alcoholCantidad', '$this->alcoholTipos','$this->adicciones', '$this->alergias', '$this->desayuno', '$this->comida', '$this->cena', '$this->entreComidas', '$this->vasoAguaDia', '$this->otrosLiquidos', '$this->intolerancias', '$this->orinaDia', '$this->orinaNoche', '$this->orinaColor', '$this->orinaOlor', '$this->orinaMolestias', '$this->excrementoDia', '$this->exConsistencia', '$this->exOlor', '$this->exColor', '$this->exDolor', '$this->fechaMenstruacion', '$this->mensPeriodicidad', '$this->mensMolestias', '$this->ejercicioSemana', '$this->fecha', '$this->firmaUsuario', '$this->firmaPaciente', '$this->hora', '$this->usuario'); ";
-        echo $query;
         $stmt = $this->dbh->prepare($query);
         $return = $stmt->execute();
         $this->id = $this->dbh->lastInsertId();
@@ -130,9 +124,9 @@ class Ficha
         return $this->antecedentesFam;
     }
 
-    public function obtener()
+    function obtener()
     {
-        $query = "SELECT * FROM ficha WHERE paciente = :paciente";
+        $query ="SELECT * FROM ficha WHERE paciente = :paciente; ";
         $stmt = $this->dbh->prepare($query);
         $stmt->bindParam(":paciente", $this->paciente, PDO::PARAM_INT);
         $stmt->execute();
@@ -186,18 +180,16 @@ class Ficha
         $this->obtenerHijos();
         $this->obtenerAntecedentes();
         $this->obtenerAntecedentesFam();
-
     }
 
     function obtenerHijos()
     {
         include_once("./models/hijo.php");
-        $query = "SELECT * FROM hijo WHERE ficha = :id";
+        $query ="SELECT * FROM hijo WHERE ficha = :id";
         $stmt = $this->dbh->prepare($query);
         $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
         $stmt->execute();
         $hijos = null;
-
         while ($hijos = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $hijo = new Hijo();
             $hijo->id = $hijos["id"];
@@ -207,16 +199,14 @@ class Ficha
             $this->hijos[] = $hijo;
         }
     }
-
     function obtenerAntecedentes()
     {
         include_once("./models/antecedente-paciente.php");
-        $query = "SELECT * FROM antecedentes WHERE ficha = :id";
+        $query = "SELECT * FROM antecedentes WHERE ficha = :id; ";
         $stmt = $this->dbh->prepare($query);
         $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
         $stmt->execute();
         $antecedentes = null;
-
         while ($antecedentes = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $antecedente = new AntecedentePaciente();
             $antecedente->id = $antecedentes["id"];
@@ -230,18 +220,14 @@ class Ficha
     function obtenerAntecedentesFam()
     {
         include_once("./models/antecedente-familia.php");
-        $query = "SELECT * FROM antecedentes WHERE ficha = :id";
-        echo $query;
-        echo $this->id;
+        $query = "SELECT * FROM antecedentes WHERE ficha = :id; ";
         $stmt = $this->dbh->prepare($query);
         $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
         $stmt->execute();
         $antecedentesFam = null;
-
         while ($antecedentesFam = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $antecedenteFam = new AntecedenteFamilia();
             $antecedenteFam->id = $antecedentesFam["id"];
-            echo $antecedentesFam["id"];
             $antecedenteFam->familiar = $$antecedentesFam["familiar"];
             $antecedenteFam->enfermedad = $antecedentesFam["enfermedad"];
             $antecedenteFam->descripcion = $antecedentes["descripcion"];
@@ -249,8 +235,6 @@ class Ficha
             $this->antecedentesFam[] = $antecedenteFam;
         }
     }
-
-
     function id()
     {
         return $this->id;
@@ -303,12 +287,16 @@ class Ficha
         hora = '$this->hora', 
         usuario = '$this->usuario' 
         WHERE id = '$this->id'; ";
-
-        echo $query;
         $stmt = $this->dbh->prepare($query);
         return $stmt->execute();
     }
+    public function getId()
+    {
+        return $this->id;
+    }
+    public function getQuienRecomendo()
+    {
+        return $this->quienRecomendo;
+    }
 }
-
-
 ?>

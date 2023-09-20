@@ -212,7 +212,7 @@ if (isset($_SESSION["id_paciente"])) {
         <?php require("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
-    <script src="./js/form-validacion-guardar.js"></script>
+    <script src="./js/form-informacion.js"></script>
 </body>
 
 </html>

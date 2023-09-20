@@ -1,6 +1,63 @@
+// Añadir un nuevo hijo
+var anadirHijo = document.getElementById("agregarHijo"); //BOTON ANADIR HIJO
+var tablaHijos = document.getElementById("tabla-hijos"); //TABLA HIJOS
+var arrayHijos = [];//ARRAY DE HIJOS
+//Añadir nuevo antecedente
+let anadirAntecedente = document.getElementById("agregarAntecedente"); //BOTON
+let tablaAntecedentes = document.getElementById("tabla-antecedentes"); //TABLA
+var arrayAntecedentes = [];
+// Añadir nuevo antedecente familia
+let anadirAntecedenteFam = document.getElementById("agregarAntecedenteFam"); //Boton agregar antecedenteFam
+let tablaAntecedentesFam = document.getElementById("tabla-antecedentesFam"); //TABLA
+var arrayAntecedentesFam = []; //ARREGLO DE ANTECEDENTES FAMILIARES
+var tipoSangre; // VARIABLE TIPO SANGRE
+window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
+    fetch('./controller/obtener-ficha.php')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (data.id != null) {
+                document.getElementById("fecha-ficha").value = data.fecha;
+                document.getElementById("recomendo-paciente").value = data.quienRecomendo;
+                document.getElementById("tipo-sangre").value = data.tipoSangre;
+                tipoSangre = data.tipoSangre;
+                data.hijos.forEach(function (elemento) {// crea una instancia tipo hijo y la añade a un array
+                    var hijo = new Hijo(elemento.sexo, elemento.edad);
+                    hijo.id = elemento.id;
+                    arrayHijos.push(hijo);
+                    actualizarTablaHijos();
+                });
+                document.getElementById("embarazos-paciente").value = data.embarazo;
+                document.getElementById("partos-paciente").value = data.partos;
+                document.getElementById("cesareas-paciente").value = data.cesareas;
+                document.getElementById("abortos-paciente").value = data.abortos;
+                document.getElementById("muertos-paciente").value = data.muertos;
+                document.getElementById("enfs-paciente").value = data.enfs;
+                document.getElementById("menstruacion-paciente").value = data.fechaMenstruacion;
+                document.getElementById("menstruacionperiodicidad-paciente").value = data.mensPeriodicidad;
+                document.getElementById("menstruacionmolestias-paciente").value = data.mensMolestias;
+                data.antecedentes.forEach(function (elemento) {
+                    var antecedentes = new Antecedente(elemento.enfermedad, elemento.descripcion, elemento.estaActiva);
+                    antecedentes.id = elemento.id;
+                    arrayAntecedentes.push(antecedentes);
+                    actualizarTablaAntecedentes();
+                });
+                data.antecedentesFam.forEach(function (elemento) {
+                    var antecedentesFam = new AntecedenteFam(elemento.familiar, elemento.enfermedad, elemento.descripcion);
+                    antecedentesFam.id = elemento.id;
+                    arrayAntecedentesFam.push(antecedentesFam);
+                    actualizarTablaAntecedentesFam();
+                });
+            }// SI ID DE DATA ESTA NULL NO MANDAR VALORES A HTML
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+};
+
 //LOAD HTML
-document.addEventListener('DOMContentLoaded', function () {
-   
+document.addEventListener('DOMContentLoaded', function () {// SE EJECUTA AUNQUE LOS RECURSOS NO HAN SIDO CARGADOS POR COMPLETO
+
     var fecha = document.getElementById("fecha-ficha");
     var fechaHoy = new Date();
     var dia = fechaHoy.getDate();
@@ -14,24 +71,16 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     var format = anio + "-" + mes + "-" + dia;
     if (typeof fecha === 'undefined' || fecha === null || fecha.value === '') {
-        // Habilita el campo temporalmente
         fecha.disabled = false;
-        fecha.value = format; // Establece el valor
-        // Vuelve a deshabilitar el campo si es necesario
+        fecha.value = format;
         fecha.disabled = true;
         ocultoFecha.value = fecha.value;
     }
 });
-
-
 //FECHA
 var fecha = document.getElementById("fecha-ficha");
 var ocultoFecha = document.getElementById("oculto-fecha-ficha");
 
-// Añadir un nuevo hijo
-let anadirHijo = document.getElementById("agregarHijo"); //BOTON ANADIR HIJO
-let tablaHijos = document.getElementById("tabla-hijos"); //TABLA HIJOS
-var arrayHijos = [];
 //Array de Objetos llamado "ArrayHijos"
 function ingresarHijos() {
     let edad = document.getElementById("hijoedad-paciente").value;
@@ -41,15 +90,6 @@ function ingresarHijos() {
     hijo.id = new Date().getTime();
     actualizarTablaHijos();
 }
-
-//Añadir nuevo antecedente
-let anadirAntecedente = document.getElementById("agregarAntecedente"); //BOTON
-let tablaAntecedentes = document.getElementById("tabla-antecedentes"); //TABLA
-var arrayAntecedentes = [];
-// Añadir nuevo antedecente familia
-let anadirAntecedenteFam = document.getElementById("agregarAntecedenteFam"); //Boton agregar antecedenteFam
-let tablaAntecedentesFam = document.getElementById("tabla-antecedentesFam"); //TABLA
-var arrayAntecedentesFam = [];
 
 function ingresarAntecedentes() {
     let enfermedad = document.getElementById('enfermedad-paciente').value;
@@ -144,6 +184,8 @@ anadirAntecedenteFam.addEventListener("click", ingresarAntecedentesFam);
 var formFicha = document.getElementById('form-ficha');
 formFicha.addEventListener('submit', function (e) {
     e.preventDefault();
+
+
     var datosFicha = new FormData(formFicha);
     var jsonHijos = JSON.stringify(arrayHijos);
     var jsonAntecedentes = JSON.stringify(arrayAntecedentes);
@@ -153,8 +195,6 @@ formFicha.addEventListener('submit', function (e) {
     datosFicha.append('json-hijos', jsonHijos);
     datosFicha.append('json-antecedentes', jsonAntecedentes);
     datosFicha.append('json-antecedentesFam', jsonAntecedentesFam);
-    console.log("JSON DESDE JS".jsonAntecedentes);
-    console.log("JSON DESDE JS".jsonAntecedentesFam);
     fetch('./controller/nueva-ficha.php', {// Enviar los datos a PHP utilizando fetch
         method: 'POST',
         body: datosFicha // El JSON que contiene los datos y el formulario
@@ -182,7 +222,6 @@ if (typeof tipoSangre !== "undefined") {
     }
 }// OPCION TIPO SANGRE
 
-console.log(arrayDatos);
 
 class Hijo { //CLASES //
 
@@ -203,7 +242,7 @@ class Hijo { //CLASES //
         return this._edad;
     }
     set ficha(numero) {
-        this._ficha=numero;
+        this._ficha = numero;
     }
     get ficha() {
         return this._ficha;
@@ -234,7 +273,7 @@ class Antecedente {
         return this._ficha;
     }
     set ficha(numero) {
-        this._ficha=numero;
+        this._ficha = numero;
     }
 }
 class AntecedenteFam {
@@ -262,7 +301,7 @@ class AntecedenteFam {
         return this._ficha;
     }
     set ficha(numero) {
-        this._ficha=numero;
+        this._ficha = numero;
     }
 }// CLASES //
 

@@ -26,9 +26,7 @@ class Hijo
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
-
         $query = "INSERT INTO hijo (id,sexo,edad,ficha) VALUES ('$this->id','$this->sexo','$this->edad','$this->ficha'); ";
-        echo $query;
         $stmt = $dbh->prepare($query);
         $return = $stmt->execute();
         $this->id= $dbh->lastInsertId();

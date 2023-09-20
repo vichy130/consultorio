@@ -11,21 +11,13 @@ function redirect($url)
 if (!isset($_SESSION['username'])) {
     redirect("./iniciar-sesion.php");
     exit();
-} else
-    echo "ID del usuario " . $_SESSION['username'];
-$id_paciente = 0;
-$oF = null;
+}
 if (isset($_SESSION["id_paciente"])) {
-    $id_paciente = $_SESSION["id_paciente"];
-    echo "ID del paciente " . $id_paciente;
-    include_once("models/ficha-clinica.php");
-    $oF = new Ficha();
-    $oF->paciente = $id_paciente;
-    $oF->obtener();
-    echo "<script> var tipoSangre='" . $oF->tipoSangre . "'</script>";
+
 } else {
     redirect("./pacientes-informacion.php");
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -67,16 +59,13 @@ if (isset($_SESSION["id_paciente"])) {
                 <form class="form" id="form-ficha">
                     <div class="formulario_grupo">
                         <label class="form_label" for="fecha-ficha">Fecha</label>
-                        <input class="form_input " type="date" id="fecha-ficha" name="fecha-ficha"
-                            value="<?php echo $oF == null ? "" : $oF->fecha; ?>" disabled>
-                        <input type="hidden" name="oculto-fecha-ficha" id="oculto-fecha-ficha"
-                            value="<?php echo $oF == null ? "" : $oF->fecha; ?>">
+                        <input class="form_input " type="date" id="fecha-ficha" name="fecha-ficha" disabled>
+                        <input type="hidden" name="oculto-fecha-ficha" id="oculto-fecha-ficha">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo span-2">
                         <label class="form_label" for="recomendo-paciente">¿Quién le recomendo?</label>
-                        <input class="form_input" type="text" id="recomendo-paciente" name="recomendo-paciente"
-                            value="<?php echo $oF == null ? "" : $oF->quienRecomendo; ?>">
+                        <input class="form_input" type="text" id="recomendo-paciente" name="recomendo-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
@@ -125,9 +114,7 @@ if (isset($_SESSION["id_paciente"])) {
                             </tr>
                         </thead>
                         <tbody id="tabla-hijos">
-                            <?php
-                                echo $oF->hijos=null? "": $oF->hijos;
-                            ?>
+
                         </tbody>
                     </table>
 
@@ -136,60 +123,57 @@ if (isset($_SESSION["id_paciente"])) {
                     <div class="formulario_grupo">
                         <label class="form_label" for="embarazos-paciente">Embarazos</label>
                         <input class="form_input form_input_small" type="number" id="embarazos-paciente"
-                            name="embarazos-paciente" value="<?php echo $oF == null ? "0" : $oF->embarazo; ?>">
+                            name="embarazos-paciente">
                     </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo">
+                    <div class=" formulario_grupo">
                         <label class="form_label" for="partos-paciente">Partos</label>
                         <input class="form_input form_input_small" type="number" id="partos-paciente"
-                            name="partos-paciente" value="<?php echo $oF == null ? "0" : $oF->partos; ?>">
+                            name="partos-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="cesareas-paciente">Cesáreas</label>
                         <input class="form_input form_input_small" type="number" id="cesareas-paciente"
-                            name="cesareas-paciente" value="<?php echo $oF == null ? "0" : $oF->cesareas; ?>">
+                            name="cesareas-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="abortos-paciente">Abortos</label>
                         <input class="form_input form_input_small" type="number" id="abortos-paciente"
-                            name="abortos-paciente" value="<?php echo $oF == null ? "0" : $oF->abortos; ?>">
+                            name="abortos-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="muertos-paciente">Muertos</label>
                         <input class="form_input form_input_small" type="number" id="muertos-paciente"
-                            name="muertos-paciente" value="<?php echo $oF == null ? "0" : $oF->muertos; ?>">
+                            name="muertos-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="enfs-paciente">ENFS</label>
-                        <input class="form_input form_input_small" type="number" id="enfs-paciente" name="enfs-paciente"
-                            value="<?php echo $oF == null ? "0" : $oF->enfs; ?>">
+                        <input class="form_input form_input_small" type="number" id="enfs-paciente"
+                            name="enfs-paciente">
                     </div><!-- end form-grupo -->
 
                     <label class="formulario_grupo span-4">Ginecología</label>
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="menstruacion-paciente">Fecha última menstruación</label>
-                        <input class="form_input " type="date" id="menstruacion-paciente" name="menstruacion-paciente"
-                            value="<?php echo $oF == null ? "" : $oF->fechaMenstruacion; ?>">
+                        <input class="form_input " type="date" id="menstruacion-paciente" name="menstruacion-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="menstruacionperiodicidad-paciente"><i
                                 class="icono izquierda fas fa-calendar"></i>Periodicidad</label>
                         <input class="form_input" type="text" id="menstruacionperiodicidad-paciente"
-                            name="menstruacionperiodicidad-paciente"
-                            value="<?php echo $oF == null ? "" : $oF->mensPeriodicidad; ?>">
+                            name="menstruacionperiodicidad-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo span-2">
                         <label class="form_label" for="menstruacionmolestias-paciente">Molestias</label>
                         <textarea class="form_textarea" id="menstruacionmolestias-paciente"
-                            name="menstruacionmolestias-paciente" rows="4"
-                            cols="50"><?php echo $oF == null ? "" : $oF->mensMolestias; ?></textarea>
+                            name="menstruacionmolestias-paciente" rows="4" cols="50"></textarea>
                     </div><!-- end form-grupo -->
 
                     <label class="formulario_grupo span-4">Antecedentes no patologicos</label>
@@ -207,14 +191,13 @@ if (isset($_SESSION["id_paciente"])) {
                         <label class="form_label" for="cigarros-paciente"><i
                                 class="icono izquierda fas fa-smoking"></i>Cigarros al día</label>
                         <input class="form_input form_input_small" type="number" id="cigarros-paciente"
-                            name="cigarros-paciente" value="<?php echo $oF == null ? "" : $oF->cigarrosDia; ?>">
+                            name="cigarros-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="cigarros-antiguedad-paciente">Antiguedad</label>
                         <input class="form_input" type="text" id="cigarros-antiguedad-paciente"
-                            name="cigarros-antiguedad-paciente"
-                            value="<?php echo $oF == null ? "" : $oF->fumaAntiguedad; ?>">
+                            name="cigarros-antiguedad-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class=""></div>
@@ -230,26 +213,22 @@ if (isset($_SESSION["id_paciente"])) {
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="frecuencia-paciente">Frecuencia</label>
-                        <input class="form_input" type="text" id="frecuencia-paciente" name="frecuencia-paciente"
-                            value="<?php echo $oF == null ? "" : $oF->alcFrecuencia; ?>">
+                        <input class="form_input" type="text" id="frecuencia-paciente" name="frecuencia-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="cantidad-paciente">Cantidad</label>
-                        <input class="form_input" type="text" id="cantidad-paciente" name="cantidad-paciente"
-                            value="<?php echo $oF == null ? "" : $oF->alcoholCantidad; ?>">
+                        <input class="form_input" type="text" id="cantidad-paciente" name="cantidad-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="tipos-paciente">Tipos</label>
-                        <input class="form_input" type="text" id="tipos-paciente" name="tipos-paciente"
-                            value="<?php echo $oF == null ? "" : $oF->alcoholTipos; ?>">
+                        <input class="form_input" type="text" id="tipos-paciente" name="tipos-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="addiciones-paciente">Addiciones</label>
-                        <input class="form_input" type="text" id="addiciones-paciente" name="addiciones-paciente"
-                            value="<?php echo $oF == null ? "" : $oF->adicciones; ?>">
+                        <input class="form_input" type="text" id="addiciones-paciente" name="addiciones-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="span-2"></div>
@@ -257,7 +236,7 @@ if (isset($_SESSION["id_paciente"])) {
                     <div class="formulario_grupo span-2">
                         <label class="form_label" for="alergias-paciente">Alergias</label>
                         <textarea class="form_textarea" id="alergias-paciente" name="alergias-paciente" rows="4"
-                            cols="50"><?php echo $oF == null ? "" : $oF->alergias; ?></textarea>
+                            cols="50"></textarea>
                     </div><!-- end form-grupo -->
 
                     <label class="formulario_grupo span-4">Alimentación</label>
@@ -265,75 +244,68 @@ if (isset($_SESSION["id_paciente"])) {
                     <div class="formulario_grupo span-2">
                         <label class="form_label" for="desayuno-paciente">Desayuno</label>
                         <textarea class="form_textarea" id="desayuno-paciente" name="desayuno-paciente" rows="4"
-                            cols="50"><?php echo $oF == null ? "" : $oF->desayuno; ?></textarea>
+                            cols="50"></textarea>
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo span-2">
                         <label class="form_label" for="comida-paciente">Comida</label>
                         <textarea class="form_textarea" id="comida-paciente" name="comida-paciente" rows="4"
-                            cols="50"><?php echo $oF == null ? "" : $oF->comida; ?></textarea>
+                            cols="50"></textarea>
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo span-2">
                         <label class="form_label" for="cena-paciente">Cena</label>
                         <textarea class="form_textarea" id="cena-paciente" name="cena-paciente" rows="4"
-                            cols="50"><?php echo $oF == null ? "" : $oF->cena; ?></textarea>
+                            cols="50"></textarea>
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo span-2">
                         <label class="form_label" for="entrecomidas-paciente">Entre comidas</label>
                         <textarea class="form_textarea" id="entrecomidas-paciente" name="entrecomidas-paciente" rows="4"
-                            cols="50"><?php echo $oF == null ? "" : $oF->entreComidas; ?></textarea>
+                            cols="50"></textarea>
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="agua-paciente">Vasos de agua al día</label>
-                        <input class="form_input form_input_small" type="number" id="agua-paciente" name="agua-paciente"
-                            value="<?php echo $oF == null ? "" : $oF->vasoAguaDia; ?>">
+                        <input class="form_input form_input_small" type="number" id="agua-paciente" name="agua-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="otrosliquidos-paciente">Otros liquidos</label>
-                        <input class="form_input" type="text" id="otrosliquidos-paciente" name="otrosliquidos-paciente"
-                            value="<?php echo $oF == null ? "" : $oF->otrosLiquidos; ?>">
+                        <input class="form_input" type="text" id="otrosliquidos-paciente" name="otrosliquidos-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo span-2">
                         <label class="form_label" for="intolerancias-paciente">Intolerancias</label>
-                        <input class="form_input" type="text" id="intolerancias-paciente" name="intolerancias-paciente"
-                            value="<?php echo $oF == null ? "" : $oF->intolerancias; ?>">
+                        <input class="form_input" type="text" id="intolerancias-paciente" name="intolerancias-paciente">
                     </div><!-- end form-grupo -->
 
                     <label class="formulario_grupo span-4">Urología</label>
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="orinadia-paciente">Orina: día</label>
-                        <input class="form_input" type="text" id="orinadia-paciente" name="orinadia-paciente"
-                            value="<?php echo $oF == null ? "" : $oF->orinaDia; ?>">
+                        <input class="form_input" type="text" id="orinadia-paciente" name="orinadia-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="orinanoche-paciente">Orina: noche</label>
-                        <input class="form_input" type="text" id="orinanoche-paciente" name="orinanoche-paciente"
-                            value="<?php echo $oF == null ? "" : $oF->orinaNoche; ?>">
+                        <input class="form_input" type="text" id="orinanoche-paciente" name="orinanoche-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="orinacolor-paciente">Orina: color</label>
-                        <input class="form_input" type="text" id="orinacolor-paciente" name="orinacolor-paciente"
-                            value="<?php echo $oF == null ? "" : $oF->orinaColor; ?>">
+                        <input class="form_input" type="text" id="orinacolor-paciente" name="orinacolor-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="orinaolor-paciente">Orina: olor</label>
-                        <input class="form_input" type="text" id="orinaolor-paciente" name="orinaolor-paciente"
-                            value="<?php echo $oF == null ? "" : $oF->orinaOlor; ?>">
+                        <input class="form_input" type="text" id="orinaolor-paciente" name="orinaolor-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo span-2">
                         <label class="form_label" for="orinamolestias-paciente">Molestias</label>
                         <textarea class="form_textarea" id="orinamolestias-paciente" name="orinamolestias-paciente"
-                            rows="4" cols="50"><?php echo $oF == null ? "" : $oF->orinaMolestias; ?></textarea>
+                            rows="4" cols="50"></textarea>
                     </div><!-- end form-grupo -->
 
                     <label class="formulario_grupo span-4">Gastroenterólogia</label>
@@ -341,42 +313,38 @@ if (isset($_SESSION["id_paciente"])) {
                     <div class="formulario_grupo">
                         <label class="form_label" for="excrementoaldia-paciente">Excremento al día</label>
                         <input class="form_input" type="text" id="excrementoaldia-paciente"
-                            name="excrementoaldia-paciente"
-                            value="<?php echo $oF == null ? "" : $oF->excrementoDia; ?>">
+                            name="excrementoaldia-paciente" >
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="excrementoconsistencia-paciente">Consistencia</label>
                         <input class="form_input" type="text" id="excrementoconsistencia-paciente"
-                            name="excrementoconsistencia-paciente"
-                            value="<?php echo $oF == null ? "" : $oF->exConsistencia; ?>">
+                            name="excrementoconsistencia-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
-                        <label class="form_label" for="excrementoolor-paciente">Olor</label
-                            value="<?php echo $oF == null ? "" : $oF->exOlor; ?>">
+                        <label class="form_label" for="excrementoolor-paciente">Olor</label>
                         <input class="form_input" type="text" id="excrementoolor-paciente"
-                            name="excrementoolor-paciente" value="<?php echo $oF == null ? "" : $oF->exOlor; ?>">
+                            name="excrementoolor-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="excrementocolor-paciente">Color</label>
                         <input class="form_input" type="text" id="excrementocolor-paciente"
-                            name="excrementocolor-paciente" value="<?php echo $oF == null ? "" : $oF->exColor; ?>">
+                            name="excrementocolor-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="excrementodolor-paciente">Dolor</label>
                         <input class="form_input" type="text" id="excrementodolor-paciente"
-                            name="excrementodolor-paciente" value="<?php echo $oF == null ? "" : $oF->exDolor; ?>">
+                            name="excrementodolor-paciente">
                     </div><!-- end form-grupo -->
 
                     <label class="formulario_grupo span-4">Ejercicio</label>
 
                     <div class="formulario_grupo  span-2">
                         <label class="form_label" for="ejercicio-paciente">Ejercicio por semana</label>
-                        <input class="form_input" type="text" id="ejercicio-paciente" name="ejercicio-paciente"
-                            value="<?php echo $oF == null ? "" : $oF->ejercicioSemana; ?>">
+                        <input class="form_input" type="text" id="ejercicio-paciente" name="ejercicio-paciente">
                     </div><!-- end form-grupo -->
 
                     <label class="formulario_grupo span-4">Antecedentes familiares</label>
