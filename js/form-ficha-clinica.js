@@ -11,12 +11,17 @@ let anadirAntecedenteFam = document.getElementById("agregarAntecedenteFam"); //B
 let tablaAntecedentesFam = document.getElementById("tabla-antecedentesFam"); //TABLA
 var arrayAntecedentesFam = []; //ARREGLO DE ANTECEDENTES FAMILIARES
 var tipoSangre; // VARIABLE TIPO SANGRE
+var fetchedData;
+var id;
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
+    fetchedData = null;
+    id = null;
     fetch('./controller/obtener-ficha.php')
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             if (data.id != null) {
+                fetchedData = data;
+                console.log(fetchedData);
                 document.getElementById("fecha-ficha").value = data.fecha;
                 document.getElementById("recomendo-paciente").value = data.quienRecomendo;
                 document.getElementById("tipo-sangre").value = data.tipoSangre;
@@ -36,6 +41,34 @@ window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CAR
                 document.getElementById("menstruacion-paciente").value = data.fechaMenstruacion;
                 document.getElementById("menstruacionperiodicidad-paciente").value = data.mensPeriodicidad;
                 document.getElementById("menstruacionmolestias-paciente").value = data.mensMolestias;
+                document.getElementById("fuma-paciente").value = data.fuma;
+                document.getElementById("cigarros-paciente").value = data.cigarrosDia;
+                document.getElementById("cigarros-antiguedad-paciente").value = data.fumaAntiguedad;
+                document.getElementById("alcohol-paciente").value = data.alcohol;
+                document.getElementById("frecuencia-paciente").value = data.alcFrecuencia;
+                document.getElementById("cantidad-paciente").value = data.alcoholCantidad;
+                document.getElementById("tipos-paciente").value = data.alcoholTipos;
+                document.getElementById("adicciones-paciente").value = data.adicciones;
+                document.getElementById("alergias-paciente").value = data.alergias;
+                document.getElementById("desayuno-paciente").value = data.desayuno;
+                document.getElementById("comida-paciente").value = data.comida;
+                document.getElementById("cena-paciente").value = data.cena;
+                document.getElementById("entrecomidas-paciente").value = data.entreComidas;
+                document.getElementById("agua-paciente").value = data.vasoAguaDia;
+                document.getElementById("otrosliquidos-paciente").value = data.otrosLiquidos;
+                document.getElementById("intolerancias-paciente").value = data.intolerancias;
+                document.getElementById("orinadia-paciente").value = data.orinaDia;
+                document.getElementById("orinanoche-paciente").value = data.orinaNoche;
+                document.getElementById("orinacolor-paciente").value = data.orinaColor;
+                document.getElementById("orinaolor-paciente").value = data.orinaOlor;
+                document.getElementById("orinamolestias-paciente").value = data.orinaMolestias;
+                document.getElementById("excrementoaldia-paciente").value = data.excrementoDia;
+                document.getElementById("excrementoconsistencia-paciente").value = data.exConsistencia;
+                document.getElementById("excrementoolor-paciente").value = data.exOlor;
+                document.getElementById("excrementocolor-paciente").value = data.exColor;
+                document.getElementById("excrementodolor-paciente").value = data.exDolor;
+                document.getElementById("ejercicio-paciente").value = data.ejercicioSemana;
+                id = data.id;
                 data.antecedentes.forEach(function (elemento) {
                     var antecedentes = new Antecedente(elemento.enfermedad, elemento.descripcion, elemento.estaActiva);
                     antecedentes.id = elemento.id;
@@ -49,7 +82,7 @@ window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CAR
                     actualizarTablaAntecedentesFam();
                 });
             }// SI ID DE DATA ESTA NULL NO MANDAR VALORES A HTML
-        })
+        })// FIN FETCH
         .catch(error => {
             console.error('Error:', error);
         });
@@ -184,30 +217,52 @@ anadirAntecedenteFam.addEventListener("click", ingresarAntecedentesFam);
 var formFicha = document.getElementById('form-ficha');
 formFicha.addEventListener('submit', function (e) {
     e.preventDefault();
-
-
     var datosFicha = new FormData(formFicha);
     var jsonHijos = JSON.stringify(arrayHijos);
     var jsonAntecedentes = JSON.stringify(arrayAntecedentes);
     var jsonAntecedentesFam = JSON.stringify(arrayAntecedentesFam);
+    var jsonId;
     /*console.log(datosFicha.get('tipo-sangre'));
      console.log(jsonHijos);*/
     datosFicha.append('json-hijos', jsonHijos);
     datosFicha.append('json-antecedentes', jsonAntecedentes);
     datosFicha.append('json-antecedentesFam', jsonAntecedentesFam);
-    fetch('./controller/nueva-ficha.php', {// Enviar los datos a PHP utilizando fetch
-        method: 'POST',
-        body: datosFicha // El JSON que contiene los datos y el formulario
-    })
-        .then(function (response) {
-            return response.text();
+    
+
+    if (fetchedData != null) {
+        console.log("DATA ESTA DEFINIDO");
+        jsonId=JSON.stringify(id);
+        datosFicha.append('id', jsonId);
+        fetch('./controller/editar-ficha.php', {// Enviar los datos a PHP utilizando fetch
+            method: 'POST',
+            body: datosFicha // El JSON que contiene los datos y el formulario
         })
-        .then(function (data) {
-            console.log(data);
+            .then(function (response) {
+                return response.text();
+            })
+            .then(function (data) {
+                console.log(data);
+            })
+            .catch(function (error) {
+                console.error('Error:', error);
+            });
+    } else {
+        console.log("NUEVA FICHAAAAAA");
+        fetch('./controller/nueva-ficha.php', {// Enviar los datos a PHP utilizando fetch
+            method: 'POST',
+            body: datosFicha // El JSON que contiene los datos y el formulario
         })
-        .catch(function (error) {
-            console.error('Error:', error);
-        });
+            .then(function (response) {
+                return response.text();
+            })
+            .then(function (data) {
+                console.log(data);
+            })
+            .catch(function (error) {
+                console.error('Error:', error);
+            });
+    }
+
 })
 
 if (typeof tipoSangre !== "undefined") {

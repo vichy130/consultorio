@@ -2,19 +2,17 @@
 
 session_start();
 include_once("../models/ficha-clinica.php");
-/*
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-*/
-
 $jsonHijos = $_POST['json-hijos'];
 $hijos = json_decode($jsonHijos);
 $jsonAntecedentes = $_POST['json-antecedentes'];
 $antecedentes = json_decode($jsonAntecedentes);
 $jsonAntecedentesFam = $_POST['json-antecedentesFam'];
 $antecedentesFam = json_decode($jsonAntecedentesFam);
+$id=$_POST["id"];
+echo $_SESSION["id_paciente"];
 $id_paciente = $_SESSION["id_paciente"];
-$paciente = $id_paciente;
 $tipoSangre = $_POST["tipo-sangre"];
 $quienRecomendo = $_POST["recomendo-paciente"];
 $embarazo = $_POST["embarazos-paciente"];
@@ -30,7 +28,7 @@ $alcohol = $_POST["alcohol-paciente"];
 $alcFrecuencia = $_POST["frecuencia-paciente"];
 $alcoholCantidad = $_POST["cantidad-paciente"];
 $alcoholTipos = $_POST["tipos-paciente"];
-$adicciones = $_POST["addiciones-paciente"];
+$adicciones = $_POST["adicciones-paciente"];
 $alergias = $_POST["alergias-paciente"];
 $desayuno = $_POST["desayuno-paciente"];
 $comida = $_POST["comida-paciente"];
@@ -54,19 +52,30 @@ $mensPeriodicidad = $_POST["menstruacionperiodicidad-paciente"];
 $mensMolestias = $_POST["menstruacionmolestias-paciente"];
 $ejercicioSemana = $_POST["ejercicio-paciente"];
 $fecha = $_POST['oculto-fecha-ficha'];
+/*
 $firmaPaciente = $_POST["firma-paciente"];
-$firmaUsuario = $_POST["firma-usuario"];
+$ficha->firmaUsuario = $_POST["firma-usuario"];
+*/
 $hora = date("H:i:s");
 $usuario = $_SESSION['username'];
 $ficha = new ficha();
-$ficha->setValues($paciente, $tipoSangre, $quienRecomendo, $embarazo, $partos, $cesareas, $abortos, $muertos, $enfs, $fuma, $cigarrosDia, $fumaAntiguedad, $alcohol, $alcFrecuencia, $alcoholCantidad, $alcoholTipos, $adicciones, $alergias, $desayuno, $comida, $cena, $entreComidas, $vasoAguaDia, $otrosLiquidos, $intolerancias, $orinaDia, $orinaNoche, $orinaColor, $orinaOlor, $orinaMolestias, $excrementoDia, $exConsistencia, $exOlor, $exColor, $exDolor, $fechaMenstruacion, $mensPeriodicidad, $mensMolestias, $ejercicioSemana, $fecha, $firmaUsuario, $firmaPaciente, $hora, $usuario);
+$ficha->setId($id);
+$ficha->setValues($id_paciente, $tipoSangre, $quienRecomendo, $embarazo, $partos, $cesareas, $abortos, $muertos, $enfs, $fuma, $cigarrosDia, $fumaAntiguedad, $alcohol, $alcFrecuencia, $alcoholCantidad, $alcoholTipos, $adicciones, $alergias, $desayuno, $comida, $cena, $entreComidas, $vasoAguaDia, $otrosLiquidos, $intolerancias, $orinaDia, $orinaNoche, $orinaColor, $orinaOlor, $orinaMolestias, $excrementoDia, $exConsistencia, $exOlor, $exColor, $exDolor, $fechaMenstruacion, $mensPeriodicidad, $mensMolestias, $ejercicioSemana, $fecha, /*$firmaUsuario, $firmaPaciente, */$hora, $usuario);
 
-if ($ficha->insertar() == 1) {
-    $ficha->setHijos($hijos);
-    $ficha->setAntecedentes($antecedentes);
-    $ficha->setAntecedentesFam($antecedentesFam);
+if ($ficha->actualizar() == 1) {
+    echo "ficha actualizada NUMERO: ".$ficha->getId();
+    /*if (!empty($hijos)) {
+        $ficha->hijos= $ficha->actualizarHijos($hijos, $ficha->id);
+    }
+    if (!empty($antecedentes)){
+        $ficha->antecedentes= $ficha->actualizarAntecedentes($antecedentes, $ficha->id);
+    }
+    if(!empty($antecedentesFam)){
+        $ficha->antecedentesFamilia= $ficha->actualizarAntecedentesFam($antecedentesFam, $ficha->id);
+    }
+*/
 } else {
-    echo "Error al registrar, intentalo nuevamente";
+    echo "Error al actualizar Ficha, intentalo nuevamente";
 }
 
 ?>

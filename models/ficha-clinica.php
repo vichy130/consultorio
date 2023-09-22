@@ -2,62 +2,59 @@
 include_once("../models/hijo.php");
 include_once("../models/antecedente-paciente.php");
 include_once("../models/antecedente-familia.php");
-
 class Ficha
 {
-    var $id;
-    var $paciente;
-    var $tipoSangre;
-    var $quienRecomendo;
-    var $embarazo;
-    var $partos;
-    var $cesareas;
-    var $abortos;
-    var $muertos;
-    var $enfs;
-    var $fuma;
-    var $cigarrosDia;
-    var $fumaAntiguedad;
-    var $alcohol;
-    var $alcFrecuencia;
-    var $alcoholCantidad;
-    var $alcoholTipos;
-    var $adicciones;
-    var $alergias;
-    var $desayuno;
-    var $comida;
-    var $cena;
-    var $entreComidas;
-    var $vasoAguaDia;
-    var $otrosLiquidos;
-    var $intolerancias;
-    var $orinaDia;
-    var $orinaNoche;
-    var $orinaColor;
-    var $orinaOlor;
-    var $orinaMolestias;
-    var $excrementoDia;
-    var $exConsistencia;
-    var $exOlor;
-    var $exColor;
-    var $exDolor;
-    var $fechaMenstruacion;
-    var $mensPeriodicidad;
-    var $mensMolestias;
-    var $ejercicioSemana;
-    var $fecha;
-    var $enfermedadesPadecidas;
-    var $enfermedadesPresentes;
-    var $firmaPaciente;
-    var $firmaUsuario;
-    var $hora;
-    var $usuario;
-    var $hijos = array();
-    var $antecedentes = array();
-    var $antecedentesFam = array();
+    private $id;
+    private $paciente;
+    private $tipoSangre;
+    private $quienRecomendo;
+    private $embarazo;
+    private $partos;
+    private $cesareas;
+    private $abortos;
+    private $muertos;
+    private $enfs;
+    private $fuma;
+    private $cigarrosDia;
+    private $fumaAntiguedad;
+    private $alcohol;
+    private $alcFrecuencia;
+    private $alcoholCantidad;
+    private $alcoholTipos;
+    private $adicciones;
+    private $alergias;
+    private $desayuno;
+    private $comida;
+    private $cena;
+    private $entreComidas;
+    private $vasoAguaDia;
+    private $otrosLiquidos;
+    private $intolerancias;
+    private $orinaDia;
+    private $orinaNoche;
+    private $orinaColor;
+    private $orinaOlor;
+    private $orinaMolestias;
+    private $excrementoDia;
+    private $exConsistencia;
+    private $exOlor;
+    private $exColor;
+    private $exDolor;
+    private $fechaMenstruacion;
+    private $mensPeriodicidad;
+    private $mensMolestias;
+    private $ejercicioSemana;
+    private $fecha;
+    private $firmaPaciente;
+    private $firmaUsuario;
+    private $hora;
+    private $usuario;
+    private $hijos = array();
+    private $antecedentes = array();
+    private $antecedentesFam = array();
     private $dbh;
-    public function __construct()
-    {
+    public function __construct(
+    ) {
         try {
             $dbname = "consultorio";
             $user = "root";
@@ -72,51 +69,208 @@ class Ficha
             echo $e->getMessage();
         }
     }
+    //SET GET
+    public function getId()
+    {
+        return $this->id;
+    }
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+    public function setPaciente($paciente){
+        $this->paciente=$paciente;
+    }
+    public function setValues($paciente, $tipoSangre, $quienRecomendo, $embarazo, $partos, $cesareas, $abortos, $muertos, $enfs, $fuma, $cigarrosDia, $fumaAntiguedad, $alcohol, $alcFrecuencia, $alcoholCantidad, $alcoholTipos, $adicciones, $alergias, $desayuno, $comida, $cena, $entreComidas, $vasoAguaDia, $otrosLiquidos, $intolerancias, $orinaDia, $orinaNoche, $orinaColor, $orinaOlor, $orinaMolestias, $excrementoDia, $exConsistencia, $exOlor, $exColor, $exDolor, $fechaMenstruacion, $mensPeriodicidad, $mensMolestias, $ejercicioSemana, $fecha, /*$firmaUsuario, $firmaPaciente, */$hora, $usuario)
+    {
+        $this->paciente = $paciente;
+        $this->tipoSangre = $tipoSangre;
+        $this->quienRecomendo = $quienRecomendo;
+        $this->embarazo = $embarazo;
+        $this->partos = $partos;
+        $this->cesareas = $cesareas;
+        $this->abortos = $abortos;
+        $this->muertos = $muertos;
+        $this->enfs = $enfs;
+        $this->fuma = $fuma;
+        $this->cigarrosDia = $cigarrosDia;
+        $this->fumaAntiguedad = $fumaAntiguedad;
+        $this->alcohol = $alcohol;
+        $this->alcFrecuencia = $alcFrecuencia;
+        $this->alcoholCantidad = $alcoholCantidad;
+        $this->alcoholTipos = $alcoholTipos;
+        $this->adicciones = $adicciones;
+        $this->alergias = $alergias;
+        $this->desayuno = $desayuno;
+        $this->comida = $comida;
+        $this->cena = $cena;
+        $this->entreComidas = $entreComidas;
+        $this->vasoAguaDia = $vasoAguaDia;
+        $this->otrosLiquidos = $otrosLiquidos;
+        $this->intolerancias = $intolerancias;
+        $this->orinaDia = $orinaDia;
+        $this->orinaNoche = $orinaNoche;
+        $this->orinaColor = $orinaColor;
+        $this->orinaOlor = $orinaOlor;
+        $this->orinaMolestias = $orinaMolestias;
+        $this->excrementoDia = $excrementoDia;
+        $this->exConsistencia = $exConsistencia;
+        $this->exOlor = $exOlor;
+        $this->exColor = $exColor;
+        $this->exDolor = $exDolor;
+        $this->fechaMenstruacion = $fechaMenstruacion;
+        $this->mensPeriodicidad = $mensPeriodicidad;
+        $this->mensMolestias = $mensMolestias;
+        $this->ejercicioSemana = $ejercicioSemana;
+        $this->fecha = $fecha;/*
+        $this->firmaUsuario = $firmaUsuario;
+        echo $firmaUsuario;
+        $this->firmaPaciente = $firmaPaciente;
+        echo $firmaPaciente;*/
+        $this->hora = $hora;
+        $this->usuario = $usuario;
+    }
+    public function getValues()
+    {
+        return [
+            'id' => $this->id,
+            'paciente' => $this->paciente,
+            'tipoSangre' => $this->tipoSangre,
+            'quienRecomendo' => $this->quienRecomendo,
+            'embarazo' => $this->embarazo,
+            'partos' => $this->partos,
+            'cesareas' => $this->cesareas,
+            'abortos' => $this->abortos,
+            'muertos' => $this->muertos,
+            'enfs' => $this->enfs,
+            'fuma' => $this->fuma,
+            'cigarrosDia' => $this->cigarrosDia,
+            'fumaAntiguedad' => $this->fumaAntiguedad,
+            'alcohol' => $this->alcohol,
+            'alcFrecuencia' => $this->alcFrecuencia,
+            'alcoholCantidad' => $this->alcoholCantidad,
+            'alcoholTipos' => $this->alcoholTipos,
+            'adicciones' => $this->adicciones,
+            'alergias' => $this->alergias,
+            'desayuno' => $this->desayuno,
+            'comida' => $this->comida,
+            'cena' => $this->cena,
+            'entreComidas' => $this->entreComidas,
+            'vasoAguaDia' => $this->vasoAguaDia,
+            'otrosLiquidos' => $this->otrosLiquidos,
+            'intolerancias' => $this->intolerancias,
+            'orinaDia' => $this->orinaDia,
+            'orinaNoche' => $this->orinaNoche,
+            'orinaColor' => $this->orinaColor,
+            'orinaOlor' => $this->orinaOlor,
+            'orinaMolestias' => $this->orinaMolestias,
+            'excrementoDia' => $this->excrementoDia,
+            'exConsistencia' => $this->exConsistencia,
+            'exOlor' => $this->exOlor,
+            'exColor' => $this->exColor,
+            'exDolor' => $this->exDolor,
+            'fechaMenstruacion' => $this->fechaMenstruacion,
+            'mensPeriodicidad' => $this->mensPeriodicidad,
+            'mensMolestias' => $this->mensMolestias,
+            'ejercicioSemana' => $this->ejercicioSemana,
+            'fecha' => $this->fecha,
+            'firmaPaciente' => $this->firmaPaciente,
+            'firmaUsuario' => $this->firmaUsuario,
+            'hora' => $this->hora,
+            'usuario' => $this->usuario,
+            'hijos' => $this->hijos,
+            'antecedentes' => $this->antecedentes,
+            'antecedentesFam' => $this->antecedentesFam
+        ];
+    }
+    //SET GET
     function insertar()
     {
-        $query = "insert into ficha (paciente,tipoSangre, quienRecomendo, embarazo, partos, cesareas, abortos, muertos,enfs, fuma, cigarrosDia, fumaAntiguedad,  alcohol, alcFrecuencia, alcoholCantidad, alcoholTipos, adicciones, alergias, desayuno, comida, cena, entreComidas, vasoAguaDia, otrosLiquidos, intolerancias, orinaDia, orinaNoche, orinaColor, orinaOlor, orinaMolestias, excrementoDia, exConsistencia, exOlor, exColor, exDolor, fechaMenstruacion, mensPeriodicidad, mensMolestias, ejercicioSemana, fecha, firmaUsuario, firmaPaciente, hora, usuario) values ('$this->paciente', '$this->tipoSangre', '$this->quienRecomendo', '$this->embarazo', '$this->partos', '$this->cesareas', '$this->abortos', '$this->muertos', '$this->enfs', '$this->fuma', '$this->cigarrosDia', '$this->fumaAntiguedad', '$this->alcohol', '$this->alcFrecuencia', '$this->alcoholCantidad', '$this->alcoholTipos','$this->adicciones', '$this->alergias', '$this->desayuno', '$this->comida', '$this->cena', '$this->entreComidas', '$this->vasoAguaDia', '$this->otrosLiquidos', '$this->intolerancias', '$this->orinaDia', '$this->orinaNoche', '$this->orinaColor', '$this->orinaOlor', '$this->orinaMolestias', '$this->excrementoDia', '$this->exConsistencia', '$this->exOlor', '$this->exColor', '$this->exDolor', '$this->fechaMenstruacion', '$this->mensPeriodicidad', '$this->mensMolestias', '$this->ejercicioSemana', '$this->fecha', '$this->firmaUsuario', '$this->firmaPaciente', '$this->hora', '$this->usuario'); ";
+        $query = "INSERT INTO ficha (paciente, tipoSangre, quienRecomendo, embarazo, partos, cesareas, abortos, muertos, enfs, fuma, cigarrosDia, fumaAntiguedad, alcohol, alcFrecuencia, alcoholCantidad, alcoholTipos, adicciones, alergias, desayuno, comida, cena, entreComidas, vasoAguaDia, otrosLiquidos, intolerancias, orinaDia, orinaNoche, orinaColor, orinaOlor, orinaMolestias, excrementoDia, exConsistencia, exOlor, exColor, exDolor, fechaMenstruacion, mensPeriodicidad, mensMolestias, ejercicioSemana, fecha, firmaUsuario, firmaPaciente, hora, usuario) 
+                  VALUES (:paciente, :tipoSangre, :quienRecomendo, :embarazo, :partos, :cesareas, :abortos, :muertos, :enfs, :fuma, :cigarrosDia, :fumaAntiguedad, :alcohol, :alcFrecuencia, :alcoholCantidad, :alcoholTipos, :adicciones, :alergias, :desayuno, :comida, :cena, :entreComidas, :vasoAguaDia, :otrosLiquidos, :intolerancias, :orinaDia, :orinaNoche, :orinaColor, :orinaOlor, :orinaMolestias, :excrementoDia, :exConsistencia, :exOlor, :exColor, :exDolor, :fechaMenstruacion, :mensPeriodicidad, :mensMolestias, :ejercicioSemana, :fecha, :firmaUsuario, :firmaPaciente, :hora, :usuario)";
+
         $stmt = $this->dbh->prepare($query);
+        // Vincula los parámetros con los valores reales
+        $stmt->bindParam(':paciente', $this->paciente);
+        $stmt->bindParam(':tipoSangre', $this->tipoSangre);
+        $stmt->bindParam(':quienRecomendo', $this->quienRecomendo);
+        $stmt->bindParam(':embarazo', $this->embarazo);
+        $stmt->bindParam(':partos', $this->partos);
+        $stmt->bindParam(':cesareas', $this->cesareas);
+        $stmt->bindParam(':abortos', $this->abortos);
+        $stmt->bindParam(':muertos', $this->muertos);
+        $stmt->bindParam(':enfs', $this->enfs);
+        $stmt->bindParam(':fuma', $this->fuma);
+        $stmt->bindParam(':cigarrosDia', $this->cigarrosDia);
+        $stmt->bindParam(':fumaAntiguedad', $this->fumaAntiguedad);
+        $stmt->bindParam(':alcohol', $this->alcohol);
+        $stmt->bindParam(':alcFrecuencia', $this->alcFrecuencia);
+        $stmt->bindParam(':alcoholCantidad', $this->alcoholCantidad);
+        $stmt->bindParam(':alcoholTipos', $this->alcoholTipos);
+        $stmt->bindParam(':adicciones', $this->adicciones);
+        $stmt->bindParam(':alergias', $this->alergias);
+        $stmt->bindParam(':desayuno', $this->desayuno);
+        $stmt->bindParam(':comida', $this->comida);
+        $stmt->bindParam(':cena', $this->cena);
+        $stmt->bindParam(':entreComidas', $this->entreComidas);
+        $stmt->bindParam(':vasoAguaDia', $this->vasoAguaDia);
+        $stmt->bindParam(':otrosLiquidos', $this->otrosLiquidos);
+        $stmt->bindParam(':intolerancias', $this->intolerancias);
+        $stmt->bindParam(':orinaDia', $this->orinaDia);
+        $stmt->bindParam(':orinaNoche', $this->orinaNoche);
+        $stmt->bindParam(':orinaColor', $this->orinaColor);
+        $stmt->bindParam(':orinaOlor', $this->orinaOlor);
+        $stmt->bindParam(':orinaMolestias', $this->orinaMolestias);
+        $stmt->bindParam(':excrementoDia', $this->excrementoDia);
+        $stmt->bindParam(':exConsistencia', $this->exConsistencia);
+        $stmt->bindParam(':exOlor', $this->exOlor);
+        $stmt->bindParam(':exColor', $this->exColor);
+        $stmt->bindParam(':exDolor', $this->exDolor);
+        $stmt->bindParam(':fechaMenstruacion', $this->fechaMenstruacion);
+        $stmt->bindParam(':mensPeriodicidad', $this->mensPeriodicidad);
+        $stmt->bindParam(':mensMolestias', $this->mensMolestias);
+        $stmt->bindParam(':ejercicioSemana', $this->ejercicioSemana);
+        $stmt->bindParam(':fecha', $this->fecha);
+        $stmt->bindParam(':firmaUsuario', $this->firmaUsuario);
+        $stmt->bindParam(':firmaPaciente', $this->firmaPaciente);
+        $stmt->bindParam(':hora', $this->hora);
+        $stmt->bindParam(':usuario', $this->usuario);
         $return = $stmt->execute();
         $this->id = $this->dbh->lastInsertId();
         return $return;
     }
 
-    function insertarHijos($hijos, $idFicha)
+    public function setHijos($hijos)
     {
         foreach ($hijos as $i) {
-            $hijo = new Hijo();
-            $hijo->sexo = $i->_sexo;
-            $hijo->edad = $i->_edad;
-            $hijo->id = $i->_id;
-            $hijo->ficha = $idFicha;
+            $hijo = new Hijo($i->_id, $i->_sexo, $i->_edad, $this->id);
             $this->hijos[] = $hijo;
             $hijo->insertar();
         }
         return $this->hijos;
     }
-    function insertarAntecedentes($antecedentes, $idFicha)
+    function setAntecedentes($antecedentes)
     {
         foreach ($antecedentes as $i) {
             $antecedente = new AntecedentePaciente();
             $antecedente->enfermedad = $i->_enfermedad;
             $antecedente->descripcion = $i->_descripcion;
             $antecedente->estaActiva = $i->_estaActiva;
-            $antecedente->ficha = $idFicha;
+            $antecedente->ficha = $this->id;
             $antecedente->id = $i->_id;
             $this->antecedentes[] = $antecedente;
             $antecedente->insertar();
         }
         return $this->antecedentes;
     }
-
-    function insertarAntecedentesFam($antecedentesFam, $idFicha)
+    function setAntecedentesFam($antecedentesFam)
     {
         foreach ($antecedentesFam as $i) {
             $antecedenteFam = new AntecedenteFamilia();
             $antecedenteFam->familiar = $i->_familiar;
             $antecedenteFam->enfermedad = $i->_enfermedad;
             $antecedenteFam->descripcion = $i->_descripcion;
-            $antecedenteFam->ficha = $idFicha;
+            $antecedenteFam->ficha = $this->id;
             $antecedenteFam->id = $i->_id;
             $this->antecedentesFam[] = $antecedenteFam;
             $antecedenteFam->insertar();
@@ -124,9 +278,9 @@ class Ficha
         return $this->antecedentesFam;
     }
 
-    function obtener()
+    public function obtener()
     {
-        $query ="SELECT * FROM ficha WHERE paciente = :paciente; ";
+        $query = "SELECT * FROM ficha WHERE paciente = :paciente; ";
         $stmt = $this->dbh->prepare($query);
         $stmt->bindParam(":paciente", $this->paciente, PDO::PARAM_INT);
         $stmt->execute();
@@ -171,32 +325,28 @@ class Ficha
             $this->mensPeriodicidad = $datos["mensPeriodicidad"];
             $this->mensMolestias = $datos["mensMolestias"];
             $this->ejercicioSemana = $datos["ejercicioSemana"];
-            $this->fecha = $datos["fecha"];
+            $this->fecha = $datos["fecha"];/*
             $this->firmaUsuario = $datos["firmaUsuario"];
-            $this->firmaPaciente = $datos["firmaPaciente"];
+            $this->firmaPaciente = $datos["firmaPaciente"];*/
             $this->hora = $datos["hora"];
             $this->usuario = $datos["usuario"];
         }
         $this->obtenerHijos();
         $this->obtenerAntecedentes();
         $this->obtenerAntecedentesFam();
+        
     }
-
     function obtenerHijos()
     {
         include_once("./models/hijo.php");
-        $query ="SELECT * FROM hijo WHERE ficha = :id";
+        $query = "SELECT * FROM hijo WHERE ficha = :id";
         $stmt = $this->dbh->prepare($query);
         $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
         $stmt->execute();
         $hijos = null;
         while ($hijos = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $hijo = new Hijo();
-            $hijo->id = $hijos["id"];
-            $hijo->edad = $hijos["edad"];
-            $hijo->sexo = $hijos["sexo"];
-            $hijo->ficha = $hijos["ficha"];
-            $this->hijos[] = $hijo;
+            $hijo = new Hijo($hijos["id"],$hijos["sexo"],$hijos["edad"],$hijos["ficha"]);
+            $this->hijos[] = $hijo->getValues();
         }
     }
     function obtenerAntecedentes()
@@ -228,75 +378,144 @@ class Ficha
         while ($antecedentesFam = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $antecedenteFam = new AntecedenteFamilia();
             $antecedenteFam->id = $antecedentesFam["id"];
-            $antecedenteFam->familiar = $$antecedentesFam["familiar"];
+            $antecedenteFam->familiar = $antecedentesFam["familiar"];
             $antecedenteFam->enfermedad = $antecedentesFam["enfermedad"];
             $antecedenteFam->descripcion = $antecedentes["descripcion"];
             $antecedenteFam->ficha = $antecedentesFam["ficha"];
             $this->antecedentesFam[] = $antecedenteFam;
         }
     }
-    function id()
-    {
-        return $this->id;
-    }
     function actualizar()
     {
         $query = "UPDATE ficha SET 
-        paciente = '$this->paciente', 
-        tipoSangre = '$this->tipoSangre', 
-        quienRecomendo = '$this->quienRecomendo', 
-        embarazo = '$this->embarazo', 
-        partos = '$this->partos', 
-        cesareas = '$this->cesareas', 
-        abortos = '$this->abortos', 
-        muertos = '$this->muertos', 
-        enfs = '$this->enfs', 
-        fuma = '$this->fuma', 
-        cigarrosDia = '$this->cigarrosDia', 
-        fumaAntiguedad = '$this->fumaAntiguedad', 
-        alcohol = '$this->alcohol', 
-        alcFrecuencia = '$this->alcFrecuencia', 
-        alcoholCantidad = '$this->alcoholCantidad', 
-        alcoholTipos = '$this->alcoholTipos', 
-        adicciones = '$this->adicciones', 
-        alergias = '$this->alergias', 
-        desayuno = '$this->desayuno', 
-        comida = '$this->comida', 
-        cena = '$this->cena', 
-        entreComidas = '$this->entreComidas', 
-        vasoAguaDia = '$this->vasoAguaDia', 
-        otrosLiquidos = '$this->otrosLiquidos', 
-        intolerancias = '$this->intolerancias', 
-        orinaDia = '$this->orinaDia', 
-        orinaNoche = '$this->orinaNoche', 
-        orinaColor = '$this->orinaColor', 
-        orinaOlor = '$this->orinaOlor', 
-        orinaMolestias = '$this->orinaMolestias', 
-        excrementoDia = '$this->excrementoDia', 
-        exConsistencia = '$this->exConsistencia', 
-        exOlor = '$this->exOlor', 
-        exColor = '$this->exColor', 
-        exDolor = '$this->exDolor', 
-        fechaMenstruacion = '$this->fechaMenstruacion', 
-        mensPeriodicidad = '$this->mensPeriodicidad', 
-        mensMolestias = '$this->mensMolestias', 
-        ejercicioSemana = '$this->ejercicioSemana', 
-        fecha = '$this->fecha', 
-        firmaUsuario = '$this->firmaUsuario', 
-        firmaPaciente = '$this->firmaPaciente', 
-        hora = '$this->hora', 
-        usuario = '$this->usuario' 
-        WHERE id = '$this->id'; ";
+            paciente = :paciente, 
+            tipoSangre = :tipoSangre, 
+            quienRecomendo = :quienRecomendo, 
+            embarazo = :embarazo, 
+            partos = :partos, 
+            cesareas = :cesareas, 
+            abortos = :abortos, 
+            muertos = :muertos, 
+            enfs = :enfs, 
+            fuma = :fuma, 
+            cigarrosDia = :cigarrosDia, 
+            fumaAntiguedad = :fumaAntiguedad, 
+            alcohol = :alcohol, 
+            alcFrecuencia = :alcFrecuencia, 
+            alcoholCantidad = :alcoholCantidad, 
+            alcoholTipos = :alcoholTipos, 
+            adicciones = :adicciones, 
+            alergias = :alergias, 
+            desayuno = :desayuno, 
+            comida = :comida, 
+            cena = :cena, 
+            entreComidas = :entreComidas, 
+            vasoAguaDia = :vasoAguaDia, 
+            otrosLiquidos = :otrosLiquidos, 
+            intolerancias = :intolerancias, 
+            orinaDia = :orinaDia, 
+            orinaNoche = :orinaNoche, 
+            orinaColor = :orinaColor, 
+            orinaOlor = :orinaOlor, 
+            orinaMolestias = :orinaMolestias, 
+            excrementoDia = :excrementoDia, 
+            exConsistencia = :exConsistencia, 
+            exOlor = :exOlor, 
+            exColor = :exColor, 
+            exDolor = :exDolor, 
+            fechaMenstruacion = :fechaMenstruacion, 
+            mensPeriodicidad = :mensPeriodicidad, 
+            mensMolestias = :mensMolestias, 
+            ejercicioSemana = :ejercicioSemana, 
+            fecha = :fecha, /*
+            firmaUsuario = :firmaUsuario, 
+            firmaPaciente = :firmaPaciente, */
+            hora = :hora, 
+            usuario = :usuario 
+            WHERE id = :id";
+
         $stmt = $this->dbh->prepare($query);
+
+        // Bind de los valores
+        $stmt->bindParam(':paciente', $this->paciente);
+        $stmt->bindParam(':tipoSangre', $this->tipoSangre);
+        $stmt->bindParam(':quienRecomendo', $this->quienRecomendo);
+        $stmt->bindParam(':embarazo', $this->embarazo);
+        $stmt->bindParam(':partos', $this->partos);
+        $stmt->bindParam(':cesareas', $this->cesareas);
+        $stmt->bindParam(':abortos', $this->abortos);
+        $stmt->bindParam(':muertos', $this->muertos);
+        $stmt->bindParam(':enfs', $this->enfs);
+        $stmt->bindParam(':fuma', $this->fuma);
+        $stmt->bindParam(':cigarrosDia', $this->cigarrosDia);
+        $stmt->bindParam(':fumaAntiguedad', $this->fumaAntiguedad);
+        $stmt->bindParam(':alcohol', $this->alcohol);
+        $stmt->bindParam(':alcFrecuencia', $this->alcFrecuencia);
+        $stmt->bindParam(':alcoholCantidad', $this->alcoholCantidad);
+        $stmt->bindParam(':alcoholTipos', $this->alcoholTipos);
+        $stmt->bindParam(':adicciones', $this->adicciones);
+        $stmt->bindParam(':alergias', $this->alergias);
+        $stmt->bindParam(':desayuno', $this->desayuno);
+        $stmt->bindParam(':comida', $this->comida);
+        $stmt->bindParam(':cena', $this->cena);
+        $stmt->bindParam(':entreComidas', $this->entreComidas);
+        $stmt->bindParam(':vasoAguaDia', $this->vasoAguaDia);
+        $stmt->bindParam(':otrosLiquidos', $this->otrosLiquidos);
+        $stmt->bindParam(':intolerancias', $this->intolerancias);
+        $stmt->bindParam(':orinaDia', $this->orinaDia);
+        $stmt->bindParam(':orinaNoche', $this->orinaNoche);
+        $stmt->bindParam(':orinaColor', $this->orinaColor);
+        $stmt->bindParam(':orinaOlor', $this->orinaOlor);
+        $stmt->bindParam(':orinaMolestias', $this->orinaMolestias);
+        $stmt->bindParam(':excrementoDia', $this->excrementoDia);
+        $stmt->bindParam(':exConsistencia', $this->exConsistencia);
+        $stmt->bindParam(':exOlor', $this->exOlor);
+        $stmt->bindParam(':exColor', $this->exColor);
+        $stmt->bindParam(':exDolor', $this->exDolor);
+        $stmt->bindParam(':fechaMenstruacion', $this->fechaMenstruacion);
+        $stmt->bindParam(':mensPeriodicidad', $this->mensPeriodicidad);
+        $stmt->bindParam(':mensMolestias', $this->mensMolestias);
+        $stmt->bindParam(':ejercicioSemana', $this->ejercicioSemana);
+        $stmt->bindParam(':fecha', $this->fecha); /*
+        $stmt->bindParam(':firmaUsuario', $this->firmaUsuario);
+        $stmt->bindParam(':firmaPaciente', $this->firmaPaciente);*/
+        $stmt->bindParam(':hora', $this->hora);
+        $stmt->bindParam(':usuario', $this->usuario);
+
+        // Bind del ID
+        $stmt->bindParam(':id', $this->id);
+        //llama a funciones actualizar tablas ligadas
+        /*
+        $this->actualizarHijos();
+        $this->actualizarAntecedentes();
+        $this->actualizarAntecedentesFam();*/
         return $stmt->execute();
     }
-    public function getId()
+
+    function actualizarHijos()
     {
-        return $this->id;
+        $query = "UPDATE ficha SET id = :id, 
+        sexo = :sexo, 
+        edad = :edad,
+        WHERE ficha = :id";
+        $stmt = $this->dbh->prepare($query);
+
+        /*
+        // Bind de los valores
+        $stmt->bindParam(':id', $hijo->id);
+        $stmt->bindParam(':tipoSangre', $hijo->tipoSangre);
+        $stmt->bindParam(':quienRecomendo', $hijo->quienRecomendo);
+        */
+
     }
-    public function getQuienRecomendo()
+    function actualizarAntecedentes()
     {
-        return $this->quienRecomendo;
+
     }
+    function actualizarAntecedentesFam()
+    {
+
+    }
+
 }
 ?>
