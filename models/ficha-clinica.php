@@ -249,6 +249,7 @@ class Ficha
         }
         return $this->hijos;
     }
+    
     function setAntecedentes($antecedentes)
     {
         foreach ($antecedentes as $i) {

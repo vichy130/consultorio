@@ -64,6 +64,7 @@ $ficha->setValues($id_paciente, $tipoSangre, $quienRecomendo, $embarazo, $partos
 
 if ($ficha->actualizar() == 1) {
     echo "ficha actualizada NUMERO: ".$ficha->getId();
+    
     /*if (!empty($hijos)) {
         $ficha->hijos= $ficha->actualizarHijos($hijos, $ficha->id);
     }

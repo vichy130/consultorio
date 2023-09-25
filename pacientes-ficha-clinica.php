@@ -449,6 +449,7 @@ if (isset($_SESSION["id_paciente"])) {
     </div>
     <!-- end contenedor -->
     <script src="./js/form-ficha-clinica.js"></script>
+  
 
 </body>
 
