@@ -21,7 +21,7 @@ window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CAR
         .then(data => {
             if (data.id != null) {
                 fetchedData = data;
-                console.log(fetchedData);
+                console.log(data);
                 document.getElementById("fecha-ficha").value = data.fecha;
                 document.getElementById("recomendo-paciente").value = data.quienRecomendo;
                 document.getElementById("tipo-sangre").value = data.tipoSangre;

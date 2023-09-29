@@ -10,5 +10,4 @@ if (isset($_SESSION['id_paciente'])) {
 header('Content-Type: application/json');
 $jsonFicha = json_encode($fichaDatos);
 echo $jsonFicha;
-
 ?>

@@ -3,28 +3,33 @@ include_once("../models/paciente.php");
 $paciente = new paciente(); //Creamos al objeto
 //llenar al objeto con los valores del formulario
 
-$paciente->nombre  = $_POST["nombre-paciente"];
-$paciente->apellidoPaterno = $_POST["apellidop-paciente"];
-$paciente->apellidoMaterno = $_POST["apellidom-paciente"];
-$paciente->sexo = $_POST["sexo"];
-$paciente->fechaNacimiento = $_POST["nacimiento-paciente"];
-$paciente->lugarNacimiento = $_POST["lugar-paciente"];
-$paciente->calle= $_POST["calle-paciente"];
-$paciente->colonia = $_POST["colonia-paciente"];
-$paciente->ciudad = $_POST["ciudad-paciente"];
-$paciente->codigoPostal = $_POST["cp-paciente"];
-$paciente->telCasa = $_POST["telefono-casa-paciente"];
-$paciente->telOficina = $_POST["telefono-oficina-paciente"];
-$paciente->celular = $_POST["telefono-cel-paciente"];
-$paciente->edoCivil = $_POST["civil-paciente"];
-$paciente->ocupacion = $_POST["ocupacion-paciente"];
-$paciente->escolaridad = $_POST["escolaridad-paciente"];
-$paciente->correo = $_POST["email-paciente"];
+$nombre  = $_POST["nombre-paciente"];
+$apellidoPaterno = $_POST["apellidop-paciente"];
+$apellidoMaterno = $_POST["apellidom-paciente"];
+$fechaNacimiento = $_POST["nacimiento-paciente"];
+$sexo = $_POST["sexo"];
+$lugarNacimiento = $_POST["lugar-paciente"];
+$calle= $_POST["calle-paciente"];
+$colonia = $_POST["colonia-paciente"];
+$ciudad = $_POST["ciudad-paciente"];
+$codigoPostal = $_POST["cp-paciente"];
+$telCasa = $_POST["telefono-casa-paciente"];
+$telOficina = $_POST["telefono-oficina-paciente"];
+$celular = $_POST["telefono-cel-paciente"];
+$edoCivil = $_POST["civil-paciente"];
+$ocupacion = $_POST["ocupacion-paciente"];
+$escolaridad = $_POST["escolaridad-paciente"];
+$correo = $_POST["email-paciente"];
 
-if($paciente->insertar()==1){
+$paciente->setValues($nombre, $apellidoPaterno, $apellidoMaterno,
+$fechaNacimiento, $sexo, $lugarNacimiento, $calle,
+$colonia, $ciudad, $codigoPostal, $telCasa, $telOficina,
+$celular, $edoCivil, $ocupacion, $escolaridad, $correo);
+
+if($paciente->insertar()==true){
   echo "Paciente registrado";
-  echo $paciente->id();
-  $id=$paciente->id();
+  echo $paciente->getid();
+  $id=$paciente->getid();
   header("Location: ../pacientes-informacion.php?exito=1&id=$id");
 
 }else{
