@@ -371,7 +371,7 @@ class Ficha
     function obtenerAntecedentesFam()
     {
         include_once("./models/antecedente-familia.php");
-        $query = "SELECT * FROM antecedentes WHERE ficha = :id; ";
+        $query = "SELECT * FROM antecedentesFamilia WHERE ficha = :id; ";
         $stmt = $this->dbh->prepare($query);
         $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
         $stmt->execute();
