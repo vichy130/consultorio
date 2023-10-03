@@ -35,6 +35,9 @@ class Hijo
             'ficha'=>$this->ficha
         ];
     }
+    public function getId(){
+        return $this->id;
+    }
     function insertar() {
         $query = "INSERT INTO hijo (id, sexo, edad, ficha) VALUES (:id, :sexo, :edad, :ficha); ";
         $stmt = $this->dbh->prepare($query);
@@ -44,8 +47,19 @@ class Hijo
         $stmt->bindParam(':edad', $this->edad, PDO::PARAM_INT);
         $stmt->bindParam(':ficha', $this->ficha, PDO::PARAM_INT);
         // Ejecuta la consulta
-        $return = $stmt->execute();
-        return $return;
+        return $stmt->execute();
+    }
+    function eliminar(){
+        $query = "DELETE FROM hijo where id= :id; ";
+        $stmt = $this->dbh->prepare($query);
+        $stmt->bindParam(':id',$this->id);
+        try{
+            $stmt->execute();
+            echo "HIJO ELIMINADO".$this->id;
+        }
+        catch (PDOException $e){
+            echo "Error al eliminar Hijo".$e->getMessage();
+        }
     }
 }
 ?>

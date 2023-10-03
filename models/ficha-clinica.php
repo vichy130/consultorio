@@ -78,8 +78,9 @@ class Ficha
     {
         $this->id = $id;
     }
-    public function setPaciente($paciente){
-        $this->paciente=$paciente;
+    public function setPaciente($paciente)
+    {
+        $this->paciente = $paciente;
     }
     public function setValues($paciente, $tipoSangre, $quienRecomendo, $embarazo, $partos, $cesareas, $abortos, $muertos, $enfs, $fuma, $cigarrosDia, $fumaAntiguedad, $alcohol, $alcFrecuencia, $alcoholCantidad, $alcoholTipos, $adicciones, $alergias, $desayuno, $comida, $cena, $entreComidas, $vasoAguaDia, $otrosLiquidos, $intolerancias, $orinaDia, $orinaNoche, $orinaColor, $orinaOlor, $orinaMolestias, $excrementoDia, $exConsistencia, $exOlor, $exColor, $exDolor, $fechaMenstruacion, $mensPeriodicidad, $mensMolestias, $ejercicioSemana, $fecha, /*$firmaUsuario, $firmaPaciente, */$hora, $usuario)
     {
@@ -122,11 +123,11 @@ class Ficha
         $this->mensPeriodicidad = $mensPeriodicidad;
         $this->mensMolestias = $mensMolestias;
         $this->ejercicioSemana = $ejercicioSemana;
-        $this->fecha = $fecha;/*
-        $this->firmaUsuario = $firmaUsuario;
-        echo $firmaUsuario;
-        $this->firmaPaciente = $firmaPaciente;
-        echo $firmaPaciente;*/
+        $this->fecha = $fecha; /*
+$this->firmaUsuario = $firmaUsuario;
+echo $firmaUsuario;
+$this->firmaPaciente = $firmaPaciente;
+echo $firmaPaciente;*/
         $this->hora = $hora;
         $this->usuario = $usuario;
     }
@@ -178,7 +179,7 @@ class Ficha
             'firmaUsuario' => $this->firmaUsuario,
             'hora' => $this->hora,
             'usuario' => $this->usuario,
-            'hijos' => $this->hijos,
+            'hijos' => $this->getHijos(),
             'antecedentes' => $this->antecedentes,
             'antecedentesFam' => $this->antecedentesFam
         ];
@@ -187,7 +188,7 @@ class Ficha
     function insertar()
     {
         $query = "INSERT INTO ficha (paciente, tipoSangre, quienRecomendo, embarazo, partos, cesareas, abortos, muertos, enfs, fuma, cigarrosDia, fumaAntiguedad, alcohol, alcFrecuencia, alcoholCantidad, alcoholTipos, adicciones, alergias, desayuno, comida, cena, entreComidas, vasoAguaDia, otrosLiquidos, intolerancias, orinaDia, orinaNoche, orinaColor, orinaOlor, orinaMolestias, excrementoDia, exConsistencia, exOlor, exColor, exDolor, fechaMenstruacion, mensPeriodicidad, mensMolestias, ejercicioSemana, fecha, firmaUsuario, firmaPaciente, hora, usuario) 
-                  VALUES (:paciente, :tipoSangre, :quienRecomendo, :embarazo, :partos, :cesareas, :abortos, :muertos, :enfs, :fuma, :cigarrosDia, :fumaAntiguedad, :alcohol, :alcFrecuencia, :alcoholCantidad, :alcoholTipos, :adicciones, :alergias, :desayuno, :comida, :cena, :entreComidas, :vasoAguaDia, :otrosLiquidos, :intolerancias, :orinaDia, :orinaNoche, :orinaColor, :orinaOlor, :orinaMolestias, :excrementoDia, :exConsistencia, :exOlor, :exColor, :exDolor, :fechaMenstruacion, :mensPeriodicidad, :mensMolestias, :ejercicioSemana, :fecha, :firmaUsuario, :firmaPaciente, :hora, :usuario)";
+                  VALUES (:paciente, :tipoSangre, :quienRecomendo, :embarazo, :partos, :cesareas, :abortos, :muertos, :enfs, :fuma, :cigarrosDia, :fumaAntiguedad, :alcohol, :alcFrecuencia, :alcoholCantidad, :alcoholTipos, :adicciones, :alergias, :desayuno, :comida, :cena, :entreComidas, :vasoAguaDia, :otrosLiquidos, :intolerancias, :orinaDia, :orinaNoche, :orinaColor, :orinaOlor, :orinaMolestias, :excrementoDia, :exConsistencia, :exOlor, :exColor, :exDolor, :fechaMenstruacion, :mensPeriodicidad, :mensMolestias, :ejercicioSemana, :fecha, :firmaUsuario, :firmaPaciente, :hora, :usuario); ";
 
         $stmt = $this->dbh->prepare($query);
         // Vincula los parámetros con los valores reales
@@ -249,7 +250,15 @@ class Ficha
         }
         return $this->hijos;
     }
-    
+    public function getHijos()
+    {
+        $hijos = array();
+        foreach ($this->hijos as $hijo) {
+            $hijos[] = $hijo->getValues();
+        }
+        return $hijos;
+    }
+
     function setAntecedentes($antecedentes)
     {
         foreach ($antecedentes as $i) {
@@ -326,63 +335,61 @@ class Ficha
             $this->mensPeriodicidad = $datos["mensPeriodicidad"];
             $this->mensMolestias = $datos["mensMolestias"];
             $this->ejercicioSemana = $datos["ejercicioSemana"];
-            $this->fecha = $datos["fecha"];/*
-            $this->firmaUsuario = $datos["firmaUsuario"];
-            $this->firmaPaciente = $datos["firmaPaciente"];*/
+            $this->fecha = $datos["fecha"]; /*
+$this->firmaUsuario = $datos["firmaUsuario"];
+$this->firmaPaciente = $datos["firmaPaciente"];*/
             $this->hora = $datos["hora"];
             $this->usuario = $datos["usuario"];
         }
         $this->obtenerHijos();
         $this->obtenerAntecedentes();
         $this->obtenerAntecedentesFam();
-        
+
     }
     function obtenerHijos()
     {
-        include_once("./models/hijo.php");
         $query = "SELECT * FROM hijo WHERE ficha = :id";
         $stmt = $this->dbh->prepare($query);
         $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
         $stmt->execute();
         $hijos = null;
         while ($hijos = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $hijo = new Hijo($hijos["id"],$hijos["sexo"],$hijos["edad"],$hijos["ficha"]);
-            $this->hijos[] = $hijo->getValues();
+            $hijo = new Hijo($hijos["id"], $hijos["sexo"], $hijos["edad"], $hijos["ficha"]);
+            $this->hijos[] = $hijo;
         }
+        return $hijos;
     }
     function obtenerAntecedentes()
     {
-        include_once("./models/antecedente-paciente.php");
         $query = "SELECT * FROM antecedentes WHERE ficha = :id; ";
         $stmt = $this->dbh->prepare($query);
         $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
         $stmt->execute();
         $antecedentes = null;
-        while ($antecedentes = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        while ($ant = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $antecedente = new AntecedentePaciente();
-            $antecedente->id = $antecedentes["id"];
-            $antecedente->enfermedad = $antecedentes["enfermedad"];
-            $antecedente->descripcion = $antecedentes["descripcion"];
-            $antecedente->estaActiva = $antecedentes["estaActiva"];
-            $antecedente->ficha = $antecedentes["ficha"];
+            $antecedente->id = $ant["id"];
+            $antecedente->enfermedad = $ant["enfermedad"];
+            $antecedente->descripcion = $ant["descripcion"];
+            $antecedente->estaActiva = $ant["estaActiva"];
+            $antecedente->ficha = $ant["ficha"];
             $this->antecedentes[] = $antecedente;
         }
     }
     function obtenerAntecedentesFam()
     {
-        include_once("./models/antecedente-familia.php");
         $query = "SELECT * FROM antecedentesFamilia WHERE ficha = :id; ";
         $stmt = $this->dbh->prepare($query);
         $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
         $stmt->execute();
         $antecedentesFam = null;
-        while ($antecedentesFam = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        while ($antFam = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $antecedenteFam = new AntecedenteFamilia();
-            $antecedenteFam->id = $antecedentesFam["id"];
-            $antecedenteFam->familiar = $antecedentesFam["familiar"];
-            $antecedenteFam->enfermedad = $antecedentesFam["enfermedad"];
-            $antecedenteFam->descripcion = $antecedentes["descripcion"];
-            $antecedenteFam->ficha = $antecedentesFam["ficha"];
+            $antecedenteFam->id = $antFam["id"];
+            $antecedenteFam->familiar = $antFam["familiar"];
+            $antecedenteFam->enfermedad = $antFam["enfermedad"];
+            $antecedenteFam->descripcion = $antFam["descripcion"];
+            $antecedenteFam->ficha = $antFam["ficha"];
             $this->antecedentesFam[] = $antecedenteFam;
         }
     }
@@ -433,7 +440,7 @@ class Ficha
             firmaPaciente = :firmaPaciente, */
             hora = :hora, 
             usuario = :usuario 
-            WHERE id = :id";
+            WHERE id = :id; ";
 
         $stmt = $this->dbh->prepare($query);
 
@@ -478,8 +485,8 @@ class Ficha
         $stmt->bindParam(':mensMolestias', $this->mensMolestias);
         $stmt->bindParam(':ejercicioSemana', $this->ejercicioSemana);
         $stmt->bindParam(':fecha', $this->fecha); /*
-        $stmt->bindParam(':firmaUsuario', $this->firmaUsuario);
-        $stmt->bindParam(':firmaPaciente', $this->firmaPaciente);*/
+$stmt->bindParam(':firmaUsuario', $this->firmaUsuario);
+$stmt->bindParam(':firmaPaciente', $this->firmaPaciente);*/
         $stmt->bindParam(':hora', $this->hora);
         $stmt->bindParam(':usuario', $this->usuario);
 
@@ -492,28 +499,50 @@ class Ficha
         $this->actualizarAntecedentesFam();*/
         return $stmt->execute();
     }
-
-    function actualizarHijos()
+    function actualizarHijos($hijosNuevo)
     {
-        $query = "UPDATE ficha SET id = :id, 
-        sexo = :sexo, 
-        edad = :edad,
-        WHERE ficha = :id";
-        $stmt = $this->dbh->prepare($query);
-
-        /*
-        // Bind de los valores
-        $stmt->bindParam(':id', $hijo->id);
-        $stmt->bindParam(':tipoSangre', $hijo->tipoSangre);
-        $stmt->bindParam(':quienRecomendo', $hijo->quienRecomendo);
-        */
+        $this->obtenerHijos();
+        $hijosViejo = array();
+        $hijosViejo = $this->hijos;
+        $idsViejo = array();
+        $idsNuevo = array();
+        $idsViejosNONuevos = array();
+        $idsNuevosNOViejos = array();
+        $arrayHijosInsertar=array();
+        foreach ($hijosViejo as $elemento) {
+            $idsViejo[] = $elemento->getId();
+        }
+        foreach ($hijosNuevo as $elemento) {
+            $idsNuevo[] = $elemento->_id;
+        }
+        // revisa que ids estan el el viejo pero no en el nuevo array
+        $idsViejosNONuevos = array_diff($idsViejo, $idsNuevo);
+        //revisa que ids estan en el nuevo array pero no en el viejo array
+        $idsNuevosNOViejos = array_diff($idsNuevo, $idsViejo);
+        foreach ($idsViejosNONuevos as $id) {
+            foreach ($this->hijos as $hijo) {
+                if ($hijo->getId() == $id) {
+                    $hijo->eliminar();
+                }
+            }
+        }
+        foreach ($idsNuevosNOViejos as $id) {
+            foreach ($hijosNuevo as $hijo) {
+                if ($hijo->_id == $id) {
+                    $arrayHijosInsertar[]=$hijo;
+                }
+            }
+        }
+        if(!empty($arrayHijosInsertar)){
+            $this->setHijos($arrayHijosInsertar);
+        }
+        var_dump($arrayHijosInsertar);
+    }
+    function actualizarAntecedentes($antecedentesNuevo)
+    {
 
     }
-    function actualizarAntecedentes()
-    {
-
-    }
-    function actualizarAntecedentesFam()
+    function actualizarAntecedentesFam($antecedentesFamNuevo)
     {
 
     }

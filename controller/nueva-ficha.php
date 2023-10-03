@@ -30,7 +30,7 @@ $alcohol = $_POST["alcohol-paciente"];
 $alcFrecuencia = $_POST["frecuencia-paciente"];
 $alcoholCantidad = $_POST["cantidad-paciente"];
 $alcoholTipos = $_POST["tipos-paciente"];
-$adicciones = $_POST["addiciones-paciente"];
+$adicciones = $_POST["adicciones-paciente"];
 $alergias = $_POST["alergias-paciente"];
 $desayuno = $_POST["desayuno-paciente"];
 $comida = $_POST["comida-paciente"];
@@ -57,9 +57,11 @@ $fecha = $_POST['oculto-fecha-ficha'];
 $firmaPaciente = $_POST["firma-paciente"];
 $firmaUsuario = $_POST["firma-usuario"];
 $hora = date("H:i:s");
+echo $hora;
 $usuario = $_SESSION['username'];
+echo $usuario;
 $ficha = new ficha();
-$ficha->setValues($paciente, $tipoSangre, $quienRecomendo, $embarazo, $partos, $cesareas, $abortos, $muertos, $enfs, $fuma, $cigarrosDia, $fumaAntiguedad, $alcohol, $alcFrecuencia, $alcoholCantidad, $alcoholTipos, $adicciones, $alergias, $desayuno, $comida, $cena, $entreComidas, $vasoAguaDia, $otrosLiquidos, $intolerancias, $orinaDia, $orinaNoche, $orinaColor, $orinaOlor, $orinaMolestias, $excrementoDia, $exConsistencia, $exOlor, $exColor, $exDolor, $fechaMenstruacion, $mensPeriodicidad, $mensMolestias, $ejercicioSemana, $fecha, $firmaUsuario, $firmaPaciente, $hora, $usuario);
+$ficha->setValues($paciente, $tipoSangre, $quienRecomendo, $embarazo, $partos, $cesareas, $abortos, $muertos, $enfs, $fuma, $cigarrosDia, $fumaAntiguedad, $alcohol, $alcFrecuencia, $alcoholCantidad, $alcoholTipos, $adicciones, $alergias, $desayuno, $comida, $cena, $entreComidas, $vasoAguaDia, $otrosLiquidos, $intolerancias, $orinaDia, $orinaNoche, $orinaColor, $orinaOlor, $orinaMolestias, $excrementoDia, $exConsistencia, $exOlor, $exColor, $exDolor, $fechaMenstruacion, $mensPeriodicidad, $mensMolestias, $ejercicioSemana, $fecha, /*$firmaUsuario, $firmaPaciente,*/ $hora, $usuario);
 
 if ($ficha->insertar() == 1) {
     $ficha->setHijos($hijos);
