@@ -63,6 +63,8 @@ $ficha->setValues($id_paciente, $tipoSangre, $quienRecomendo, $embarazo, $partos
 
 if ($ficha->actualizar() == 1) {
     $ficha->actualizarHijos($hijos);
+    $ficha->actualizarAntecedentes($antecedentes);
+    $ficha->actualizarAntecedentesFam($antecedentesFam);
 } else {
     echo "Error al actualizar Ficha, intentalo nuevamente";
 }

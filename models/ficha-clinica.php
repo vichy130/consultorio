@@ -180,8 +180,8 @@ echo $firmaPaciente;*/
             'hora' => $this->hora,
             'usuario' => $this->usuario,
             'hijos' => $this->getHijos(),
-            'antecedentes' => $this->antecedentes,
-            'antecedentesFam' => $this->antecedentesFam
+            'antecedentes' => $this->getAntecedentes(),
+            'antecedentesFam' => $this->getAntecedentesFam()
         ];
     }
     //SET GET
@@ -248,7 +248,6 @@ echo $firmaPaciente;*/
             $this->hijos[] = $hijo;
             $hijo->insertar();
         }
-        return $this->hijos;
     }
     public function getHijos()
     {
@@ -258,36 +257,36 @@ echo $firmaPaciente;*/
         }
         return $hijos;
     }
-
     function setAntecedentes($antecedentes)
     {
         foreach ($antecedentes as $i) {
-            $antecedente = new AntecedentePaciente();
-            $antecedente->enfermedad = $i->_enfermedad;
-            $antecedente->descripcion = $i->_descripcion;
-            $antecedente->estaActiva = $i->_estaActiva;
-            $antecedente->ficha = $this->id;
-            $antecedente->id = $i->_id;
+            $antecedente = new AntecedentePaciente($i->_id,$i->_enfermedad,$i->_descripcion,$i->_estaActiva,$this->id);
             $this->antecedentes[] = $antecedente;
             $antecedente->insertar();
         }
-        return $this->antecedentes;
+    }
+    function getAntecedentes(){
+        $antecedentes=array();
+        foreach($this->antecedentes as $ant){
+            $antecedentes[]=$ant->getValues();
+        }
+        return $antecedentes;
     }
     function setAntecedentesFam($antecedentesFam)
     {
         foreach ($antecedentesFam as $i) {
-            $antecedenteFam = new AntecedenteFamilia();
-            $antecedenteFam->familiar = $i->_familiar;
-            $antecedenteFam->enfermedad = $i->_enfermedad;
-            $antecedenteFam->descripcion = $i->_descripcion;
-            $antecedenteFam->ficha = $this->id;
-            $antecedenteFam->id = $i->_id;
+            $antecedenteFam = new AntecedenteFamilia($i->_id,$i->_familiar,$i->_enfermedad,$i->_descripcion,$this->id);
             $this->antecedentesFam[] = $antecedenteFam;
             $antecedenteFam->insertar();
         }
-        return $this->antecedentesFam;
     }
-
+    function getAntecedentesFam(){
+        $antecedentesFam=array();
+        foreach($this->antecedentesFam as $ant){
+            $antecedentesFam[]=$ant->getValues();
+        }
+        return $antecedentesFam;
+    }
     public function obtener()
     {
         $query = "SELECT * FROM ficha WHERE paciente = :paciente; ";
@@ -365,16 +364,12 @@ $this->firmaPaciente = $datos["firmaPaciente"];*/
         $stmt = $this->dbh->prepare($query);
         $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
         $stmt->execute();
-        $antecedentes = null;
+        $ant= null;
         while ($ant = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $antecedente = new AntecedentePaciente();
-            $antecedente->id = $ant["id"];
-            $antecedente->enfermedad = $ant["enfermedad"];
-            $antecedente->descripcion = $ant["descripcion"];
-            $antecedente->estaActiva = $ant["estaActiva"];
-            $antecedente->ficha = $ant["ficha"];
+            $antecedente = new AntecedentePaciente($ant["id"],$ant["enfermedad"],$ant["descripcion"],$ant["estaActiva"],$ant["ficha"]);
             $this->antecedentes[] = $antecedente;
         }
+        return $ant;
     }
     function obtenerAntecedentesFam()
     {
@@ -384,14 +379,10 @@ $this->firmaPaciente = $datos["firmaPaciente"];*/
         $stmt->execute();
         $antecedentesFam = null;
         while ($antFam = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $antecedenteFam = new AntecedenteFamilia();
-            $antecedenteFam->id = $antFam["id"];
-            $antecedenteFam->familiar = $antFam["familiar"];
-            $antecedenteFam->enfermedad = $antFam["enfermedad"];
-            $antecedenteFam->descripcion = $antFam["descripcion"];
-            $antecedenteFam->ficha = $antFam["ficha"];
+            $antecedenteFam = new AntecedenteFamilia($antFam["id"],$antFam["familiar"],$antFam["enfermedad"],$antFam["descripcion"],$antFam["ficha"]);
             $this->antecedentesFam[] = $antecedenteFam;
         }
+        return $antFam;
     }
     function actualizar()
     {
@@ -536,16 +527,73 @@ $stmt->bindParam(':firmaPaciente', $this->firmaPaciente);*/
         if(!empty($arrayHijosInsertar)){
             $this->setHijos($arrayHijosInsertar);
         }
-        var_dump($arrayHijosInsertar);
     }
-    function actualizarAntecedentes($antecedentesNuevo)
+    function actualizarAntecedentes($antsNuevo)
     {
-
+        $this->obtenerAntecedentes();
+        $idsViejo = array_map(function ($antViejo) {
+            return $antViejo->getId();
+        }, $this->antecedentes);
+        $idsNuevo = array_map(function ($antNuevo) {
+            return $antNuevo->_id;
+        }, $antsNuevo);
+        $idsViejosNoNuevos = array_diff($idsViejo, $idsNuevo);
+        $idsNuevosNoViejos = array_diff($idsNuevo, $idsViejo);
+        foreach ($idsViejosNoNuevos as $id) {
+            foreach ($this->antecedentes as $ant) {
+                if ($ant->getId() == $id) {
+                    $ant->eliminar();
+                }
+            }
+        }
+        $arrayAntecedentesInsertar = [];
+        foreach ($idsNuevosNoViejos as $id) {
+            foreach ($antsNuevo as $antNuevo) {
+                if ($antNuevo->_id == $id) {
+                    $arrayAntecedentesInsertar[] = $antNuevo;
+                }
+            }
+        }
+        if (!empty($arrayAntecedentesInsertar)) {
+            $this->setAntecedentes($arrayAntecedentesInsertar);
+        }
     }
-    function actualizarAntecedentesFam($antecedentesFamNuevo)
+    
+    function actualizarAntecedentesFam($antsFamNuevo)
     {
-
+        $this->obtenerAntecedentesFam();
+        $antsFamViejo=array();
+        $antsFamViejo=$this->antecedentesFam;
+        $idsViejo=array();
+        $idsNuevo=array();
+        $arrayAntecentesFamInsertar=array();
+        $idsViejosNoNuevos=array();
+        $idsNuevosNoViejos=array();
+        foreach ($antsFamViejo as $antFamViejo){
+            $idsViejo[]=$antFamViejo->getId();
+        }
+        foreach ($antsFamNuevo as $antFamNuevo){
+            $idsNuevo[]=$antFamNuevo->_id;
+        }
+        $idsViejosNoNuevos=array_diff($idsViejo,$idsNuevo);
+        $idsNuevosNoViejos=array_diff($idsNuevo,$idsViejo);
+        foreach($idsViejosNoNuevos as $id){
+            foreach($this->antecedentesFam as $antFam){
+                if($antFam->getId() == $id){
+                    $antFam->eliminar();
+                }
+            }
+        }
+        foreach($idsNuevosNoViejos as $id){
+            foreach($antsFamNuevo as $antFam){
+                if($antFam->_id==$id){
+                    $arrayAntecentesFamInsertar[]=$antFam;
+                }
+            }
+        }
+        if (!empty($arrayAntecentesFamInsertar)){
+            $this->setAntecedentesFam($arrayAntecentesFamInsertar);
+        }
     }
-
 }
 ?>

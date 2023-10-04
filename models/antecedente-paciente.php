@@ -8,7 +8,7 @@ class AntecedentePaciente
     private $estaActiva;
     private $ficha;
     private $dbh;
-    public function __construct($id, $enfermedad, $descripcion, $estaActiva, $ficha)
+    public function __construct($id,$enfermedad,$descripcion,$estaActiva,$ficha)
     {
         $dbname = "consultorio";
         $user = "root";
@@ -26,7 +26,7 @@ class AntecedentePaciente
             echo $e->getMessage();
         }
         $this->id = $id;
-        $this->$enfermedad = $enfermedad;
+        $this->enfermedad = $enfermedad;
         $this->descripcion = $descripcion;
         $this->estaActiva = $estaActiva;
         $this->ficha = $ficha;
