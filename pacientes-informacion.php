@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 function redirect($url)
 {
     ob_start();
@@ -42,9 +41,9 @@ if (!isset($_SESSION['username'])) {
                 <div id="modalExito" class="modal">
                     <div class="modal-contenido">
                         <span class="cerrar-modal" id="cerrarModal">&times;</span>
-                        <h2>¡Paciente creado!</h2>
+                        <h2>¡Paciente guardado!</h2>
                         <br>
-                        <p>Los datos se han guardado con éxito.</p>
+                        <p>Los datos se han registrado con éxito.</p>
                     </div>
                 </div>
 
@@ -62,8 +61,7 @@ if (!isset($_SESSION['username'])) {
                     <div class="formulario_grupo grupo_apellidop">
                         <label class="form_label" for="apellidop-paciente">Apellido paterno</label>
                         <div class="formulario__grupo-input">
-                            <input class="form_input" type="text" id="apellidop-paciente" name="apellidop-paciente"
-                                value="">
+                            <input class="form_input" type="text" id="apellidop-paciente" name="apellidop-paciente">
                         </div>
                     </div><!-- end form-grupo -->
 
@@ -79,7 +77,7 @@ if (!isset($_SESSION['username'])) {
                         <label for="sexo-paciente"><i class=" fas fa-female"></i> Mujer</label>
                         <input type="radio" id="mujer" name="sexo" value="femenino">
                         <label for="sexo-paciente">Otro</label>
-                        <input type="radio" id="otro" name="sexo" value="">
+                        <input type="radio" id="otro" name="sexo" value="Otro">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo ">
@@ -168,19 +166,16 @@ if (!isset($_SESSION['username'])) {
                     <div class="formulario_grupo">
                         <label class="form_label" for="escolaridad-paciente"><i
                                 class="izquierda fas fa-graduation-cap"></i>Escolaridad</label>
-                        <input class="form_input" type="text" id="escolaridad-paciente" name="escolaridad-paciente"
-                            value="">
+                        <input class="form_input" type="text" id="escolaridad-paciente" name="escolaridad-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="email-paciente"><i class="izquierda fas fa-at"></i>Email</label>
-                        <input class="form_input" type="email" id="email-paciente" name="email-paciente"
-                            value="">
+                        <input class="form_input" type="email" id="email-paciente" name="email-paciente">
                     </div><!-- end form-grupo -->
 
                     <button class="input_submit boton amarillo span-2">Imprimir</button>
-                    <input class="input_submit boton azul span-2" type="submit"
-                        value="Guardar Paciente">
+                    <input class="input_submit boton azul span-2" type="submit" value="Guardar Paciente">
                 </form>
                 <!-- end form -->
             </div>

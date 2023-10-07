@@ -1,8 +1,7 @@
 <?php 
 include_once("../models/paciente.php");
-$paciente = new paciente(); //Creamos al objeto
+$paciente = new Paciente(); //Creamos al objeto
 //llenar al objeto con los valores del formulario
-
 $nombre  = $_POST["nombre-paciente"];
 $apellidoPaterno = $_POST["apellidop-paciente"];
 $apellidoMaterno = $_POST["apellidom-paciente"];
@@ -27,11 +26,7 @@ $colonia, $ciudad, $codigoPostal, $telCasa, $telOficina,
 $celular, $edoCivil, $ocupacion, $escolaridad, $correo);
 
 if($paciente->insertar()==true){
-  echo "Paciente registrado";
-  echo $paciente->getid();
-  $id=$paciente->getid();
-  header("Location: ../pacientes-informacion.php?exito=1&id=$id");
-
+  echo "paciente agregado";
 }else{
     echo "Error al registrar, intentalo nuevamente";
 }

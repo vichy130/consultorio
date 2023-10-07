@@ -113,7 +113,6 @@ document.addEventListener('DOMContentLoaded', function () {// SE EJECUTA AUNQUE 
 //FECHA
 var fecha = document.getElementById("fecha-ficha");
 var ocultoFecha = document.getElementById("oculto-fecha-ficha");
-
 //Array de Objetos llamado "ArrayHijos"
 function ingresarHijos() {
     let edad = document.getElementById("hijoedad-paciente").value;
@@ -123,7 +122,6 @@ function ingresarHijos() {
     hijo.id = new Date().getTime();
     actualizarTablaHijos();
 }
-
 function ingresarAntecedentes() {
     let enfermedad = document.getElementById('enfermedad-paciente').value;
     let descripcion = document.getElementById('enfermedad-descripcion-paciente').value;
@@ -206,13 +204,10 @@ function eliminarantecedenteFam(id) {
     arrayAntecedentesFam = filterdArray;
     actualizarTablaAntecedentesFam();
 }
-
 // EVENT LISTENERS
 anadirHijo.addEventListener("click", ingresarHijos);
 anadirAntecedente.addEventListener("click", ingresarAntecedentes);
 anadirAntecedenteFam.addEventListener("click", ingresarAntecedentesFam);
-
-
 //FETCH FORMULARIO Y ARRAYS
 var formFicha = document.getElementById('form-ficha');
 formFicha.addEventListener('submit', function (e) {
@@ -227,11 +222,9 @@ formFicha.addEventListener('submit', function (e) {
     datosFicha.append('json-hijos', jsonHijos);
     datosFicha.append('json-antecedentes', jsonAntecedentes);
     datosFicha.append('json-antecedentesFam', jsonAntecedentesFam);
-    
-
     if (fetchedData != null) {
         console.log("DATA ESTA DEFINIDO");
-        jsonId=JSON.stringify(id);
+        jsonId = JSON.stringify(id);
         datosFicha.append('id', jsonId);
         fetch('./controller/editar-ficha.php', {// Enviar los datos a PHP utilizando fetch
             method: 'POST',
@@ -262,9 +255,7 @@ formFicha.addEventListener('submit', function (e) {
                 console.error('Error:', error);
             });
     }
-
 })
-
 if (typeof tipoSangre !== "undefined") {
     var select = document.getElementById("tipo-sangre");
     for (var i = 0; i < select.options.length; i++) {
@@ -276,10 +267,11 @@ if (typeof tipoSangre !== "undefined") {
         }
     }
 }// OPCION TIPO SANGRE
-
-
+class Ficha {
+    constructor() {
+    }
+}
 class Hijo { //CLASES //
-
     constructor(sexo, edad) {
         this._sexo = sexo;
         this._edad = edad;

@@ -38,14 +38,10 @@ require("./php/conexion.php");
         <?php require("./layout/menu.php"); ?>
 
         <div class="content-general">
-
             <label class="span-4">Pacientes</label>
-
-
             <input class="form_input span-2" type="text">
             <button class="boton azul"><i class="fas fa-search"></i> Buscar</button>
-
-            <button class="boton azul" onClick="redirectNuevoPaciente()"><i class="fas fa-user-plus"></i> Nuevo
+            <button class="boton azul" id="nuevo-paciente-boton"><i class="fas fa-user-plus"></i> Nuevo
                 paciente</button>
             <table class="table span-4">
                 <thead>
@@ -57,7 +53,6 @@ require("./php/conexion.php");
                         <th>Eliminar</th>
                     </tr>
                 </thead>
-
                 <tbody>
                     <?php
             $stat= $dbh-> prepare ("select id, nombre, apellidoPaterno, apellidoMaterno from paciente; ");
@@ -82,7 +77,6 @@ require("./php/conexion.php");
         <?php require("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
-    <script src="./js/botones.js"></script>
 </body>
 
 </html>

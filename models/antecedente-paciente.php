@@ -46,7 +46,6 @@ class AntecedentePaciente
     function insertar()
     {
         $query = "INSERT INTO antecedentes (id, enfermedad, descripcion, estaActiva, ficha) VALUES ('$this->id','$this->enfermedad','$this->descripcion', '$this->estaActiva', '$this->ficha'); ";
-        echo $query;
         $stmt = $this->dbh->prepare($query);
         $return = $stmt->execute();
         $this->id = $this->dbh->lastInsertId();

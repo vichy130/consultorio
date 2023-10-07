@@ -47,7 +47,6 @@ if (isset($_SESSION["id_paciente"])) {
             <div class="contenido">
                 <!-- FORM POST PHP 
                 <form class="form" action="controller/ficha-test.php" method="POST">-->
-
                 <!-- Modal de confirmación (oculto por defecto) -->
                 <div id="modalConfirmacion" class="modal">
                     <div class="modal-content">
@@ -267,7 +266,8 @@ if (isset($_SESSION["id_paciente"])) {
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="agua-paciente">Vasos de agua al día</label>
-                        <input class="form_input form_input_small" type="number" id="agua-paciente" name="agua-paciente">
+                        <input class="form_input form_input_small" type="number" id="agua-paciente"
+                            name="agua-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
@@ -313,7 +313,7 @@ if (isset($_SESSION["id_paciente"])) {
                     <div class="formulario_grupo">
                         <label class="form_label" for="excrementoaldia-paciente">Excremento al día</label>
                         <input class="form_input" type="text" id="excrementoaldia-paciente"
-                            name="excrementoaldia-paciente" >
+                            name="excrementoaldia-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
@@ -443,14 +443,11 @@ if (isset($_SESSION["id_paciente"])) {
                     } ?>">
                 </form>
             </div>
-
         </div>
         <?php require("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
     <script src="./js/form-ficha-clinica.js"></script>
-  
-
 </body>
 
 </html>
