@@ -44,18 +44,12 @@ if(isset($_SESSION["id_consulta"])){
             <?php require("./layout/submenu-pacientes.php"); ?>
 
             <div class="content-pacientes">
-
                 <label class="span-4" for="">Consultas</label>
-
                 <input class="form_input" type="date">
-
                 <button class="boton azul"><i class="fas fa-search"></i> Buscar</button>
-
                 <div></div>
-
                 <button class="boton azul" onClick="redirectNuevaConsulta()"><i class="fas fa-plus"></i> Nueva
                     consulta</button>
-
                 <table class="table span-4">
                     <thead>
                         <tr>

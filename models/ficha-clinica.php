@@ -54,7 +54,7 @@ class Ficha
     private $antecedentesFam = array();
     private $dbh;
     public function __construct(
-    ) {
+    ){
         try {
             $dbname = "consultorio";
             $user = "root";

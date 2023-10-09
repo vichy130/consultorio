@@ -8,9 +8,9 @@ id = null;
 antecedentes = null;
 fetchedDataPaciente = null;
 // Obtener la URL actual
-const url = new URL(window.location.href);
+/*const url = new URL(window.location.href);
 // Verificar si existe el parámetro "ID" en la URL
-if (url.searchParams.has('id')) {
+if (url.searchParams.has('id')) {*/
     fetch('./controller/obtener-ficha.php')
         .then(response => response.json())
         .then(data => {
@@ -41,10 +41,10 @@ if (url.searchParams.has('id')) {
         })
         .catch(error => {
             console.error('Error:', error);
-        });
+        });/*
 } else {
     console.log('No existe usuario aun');
-}
+}*/
 
 
 

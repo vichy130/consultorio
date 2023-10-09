@@ -1,6 +1,7 @@
 
 var fetchedData;
 var id;
+const sexo={femenino: "femenino", masculino:"masculino", otro:"otro"};
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     fetchedData = null;
     id = null;
@@ -11,8 +12,29 @@ window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CAR
             if (data && data.id != null) {
                 fetchedData = data;
                 console.log(data);
-                // Procesa los datos y actualiza el HTML aquí
-            }
+                var paciente = new Paciente(data.nombre, data.apellidoPaterno, data.apellidoMaterno, data.sexo, data.fechaNacimiento, data.lugarNacimiento, data.calle, data.colonia, data.ciudad, data.codigoPostal, data.telCasa, data.telOficina, data.celular, data.edoCivil, data.ocupacion, data.escolaridad, data.correo);
+                document.getElementById('nombre-paciente').value = paciente.nombre;
+                document.getElementById('apellidop-paciente').value = paciente.apellidoPaterno;
+                document.getElementById('apellidom-paciente').value = paciente.apellidoMaterno;
+                for(const i in sexo){
+                    if (i==paciente.sexo){
+                        document.getElementById(sexo[i]).checked=true;
+                    }
+                }
+                document.getElementById('nacimiento-paciente').value = paciente.fechaNacimiento;
+                document.getElementById('lugar-paciente').value=paciente.lugarNacimiento;
+                document.getElementById('calle-paciente').value=paciente.calle;
+                document.getElementById('colonia-paciente').value=paciente.colonia;
+                document.getElementById('ciudad-paciente').value=paciente.ciudad;
+                document.getElementById('cp-paciente').value=paciente.codigoPostal;
+                document.getElementById('telefono-casa-paciente').value=paciente.telCasa;
+                document.getElementById('telefono-oficina-paciente').value=paciente.telOficina;
+                document.getElementById('telefono-cel-paciente').value=paciente.celular;
+                document.getElementById('civil-paciente').value=paciente.edoCivil;
+                document.getElementById('ocupacion-paciente').value=paciente.ocupacion;
+                document.getElementById('escolaridad-paciente').value=paciente.escolaridad;
+                document.getElementById('email-paciente').value=paciente.correo;
+        }
         })// FIN FETCH
         .catch(error => {
             console.error('Error:', error);
@@ -26,12 +48,12 @@ document.addEventListener('DOMContentLoaded', function () {// SE EJECUTA AUNQUE 
 var formPaciente = document.getElementById('form-paciente');
 formPaciente.addEventListener('submit', function (e) {
     e.preventDefault();
-    var datosFicha = new FormData(formFicha);
+    var datosPaciente = new FormData(formPaciente);
     if (fetchedData != null) {
         console.log("DATA ESTA DEFINIDO");
         fetch('./controller/editar-paciente.php', {// Enviar los datos a PHP utilizando fetch
             method: 'POST',
-            body: datosFicha // El JSON que contiene los datos y el formulario
+            body: datosPaciente // El JSON que contiene los datos y el formulario
         })
             .then(function (response) {
                 return response.text();
@@ -43,10 +65,10 @@ formPaciente.addEventListener('submit', function (e) {
                 console.error('Error:', error);
             });
     } else {
-        console.log("NUEVo PACIENTE");
-        fetch('./controller/nuevp-paciente.php', {// Enviar los datos a PHP utilizando fetch
+        console.log("NUEVO PACIENTE");
+        fetch('./controller/nuevo-paciente.php', {// Enviar los datos a PHP utilizando fetch
             method: 'POST',
-            body: datosFicha // El JSON que contiene los datos y el formulario
+            body: datosPaciente // El JSON que contiene los datos y el formulario
         })
             .then(function (response) {
                 return response.text();
@@ -61,25 +83,8 @@ formPaciente.addEventListener('submit', function (e) {
 })
 //CLASES
 class Paciente {
-    id;
     constructor(
-        nombre,
-        apellidoPaterno,
-        apellidoMaterno,
-        sexo,
-        fechaNacimiento,
-        lugarNacimiento,
-        calle,
-        colonia,
-        ciudad,
-        codigoPostal,
-        telCasa,
-        telOficina,
-        celular,
-        edoCivil,
-        ocupacion,
-        escolaridad,
-        correo
+        nombre, apellidoPaterno, apellidoMaterno, sexo, fechaNacimiento, lugarNacimiento, calle, colonia, ciudad, codigoPostal, telCasa, telOficina, celular, edoCivil, ocupacion, escolaridad, correo
     ) {
         this._nombre = nombre;
         this._apellidoPaterno = apellidoPaterno;
@@ -98,6 +103,12 @@ class Paciente {
         this._ocupacion = ocupacion;
         this._escolaridad = escolaridad;
         this._correo = correo;
+    }
+    set id(id) {
+        this._id = id;
+    }
+    get id() {
+        return this._id;
     }
     get nombre() {
         return this._nombre;

@@ -46,11 +46,28 @@ class Paciente
     {
         $this->id = $id;
     }
-    public function getNombre(){
+    public function getNombre()
+    {
         return $this->nombre;
     }
     public function setValues(
-        $nombre,$apellidoPaterno,$apellidoMaterno,$fechaNacimiento,$sexo,$lugarNacimiento,$calle,$colonia,$ciudad,$codigoPostal,$telCasa,$telOficina,$celular,$edoCivil,$ocupacion,$escolaridad,$correo
+        $nombre,
+        $apellidoPaterno,
+        $apellidoMaterno,
+        $fechaNacimiento,
+        $sexo,
+        $lugarNacimiento,
+        $calle,
+        $colonia,
+        $ciudad,
+        $codigoPostal,
+        $telCasa,
+        $telOficina,
+        $celular,
+        $edoCivil,
+        $ocupacion,
+        $escolaridad,
+        $correo
     ) {
         $this->nombre = $nombre;
         $this->apellidoPaterno = $apellidoPaterno;
@@ -73,7 +90,24 @@ class Paciente
     public function getValues()
     {
         return [
-            'id' => $this->id,'nombre' => $this->nombre,'apellidoPaterno' => $this->apellidoPaterno,'apellidoMaterno' => $this->apellidoMaterno,'fechaNacimiento' => $this->fechaNacimiento,'sexo' => $this->sexo,'lugarNacimiento' => $this->lugarNacimiento,'calle' => $this->calle,'colonia' => $this->colonia,'ciudad' => $this->ciudad,'codigoPostal' => $this->codigoPostal,'telCasa' => $this->telCasa,'telOficina' => $this->telOficina,'celular' => $this->celular,'edoCivil' => $this->edoCivil,'ocupacion' => $this->ocupacion,'escolaridad' => $this->escolaridad,'correo' => $this->correo
+            'id' => $this->id,
+            'nombre' => $this->nombre,
+            'apellidoPaterno' => $this->apellidoPaterno,
+            'apellidoMaterno' => $this->apellidoMaterno,
+            'fechaNacimiento' => $this->fechaNacimiento,
+            'sexo' => $this->sexo,
+            'lugarNacimiento' => $this->lugarNacimiento,
+            'calle' => $this->calle,
+            'colonia' => $this->colonia,
+            'ciudad' => $this->ciudad,
+            'codigoPostal' => $this->codigoPostal,
+            'telCasa' => $this->telCasa,
+            'telOficina' => $this->telOficina,
+            'celular' => $this->celular,
+            'edoCivil' => $this->edoCivil,
+            'ocupacion' => $this->ocupacion,
+            'escolaridad' => $this->escolaridad,
+            'correo' => $this->correo
         ];
     }
     public function insertar()
@@ -175,6 +209,13 @@ class Paciente
             echo "Error en la actualización: " . $e->getMessage();
             return false;
         }
-    } 
+    }
+    function eliminar()
+    {
+        $query = "DELETE FROM paciente WHERE id=:id;";
+        $stmt = $this->dbh->prepare($query);
+        $stmt->bindParam(':id',$this->getId());
+        return $stmt->execute();
+    }
 }
 ?>

@@ -43,33 +43,16 @@ require("./php/conexion.php");
             <button class="boton azul"><i class="fas fa-search"></i> Buscar</button>
             <button class="boton azul" id="nuevo-paciente-boton"><i class="fas fa-user-plus"></i> Nuevo
                 paciente</button>
-            <table class="table span-4">
+            <table class="table span-4" id="tabla-pacientes">
                 <thead>
                     <tr>
                         <th>Nombre(s)</th>
-                        <th>Apellido paterno</th>
-                        <th class="column-to-hide">Apellido materno</th>
+                        <th>Apellidos</th>
+                        <th class="column-to-hide">Telefono</th>
                         <th>Editar</th>
                         <th>Eliminar</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <?php
-            $stat= $dbh-> prepare ("select id, nombre, apellidoPaterno, apellidoMaterno from paciente; ");
-            $stat->execute();
-            while($datosPaciente=$stat->fetch(PDO::FETCH_OBJ)){
-                ?>
-                    <tr>
-                        <td><?php echo $datosPaciente->nombre;?></td>
-                        <td><?php echo $datosPaciente->apellidoPaterno;?></td>
-                        <td class="column-to-hide"><?php echo $datosPaciente->apellidoMaterno;?></td>
-                        <td><a href="pacientes-informacion.php?id=<?php echo $datosPaciente->id?>"><i class="far fa-edit"></i></a></td>
-                        <td><a href="./controller/eliminar-paciente.php?id=<?php echo $datosPaciente->id?>"><i class="fas fa-trash"></i></td>
-                    </tr>
-                    <?php 
-            }
-                ?>
-                </tbody>
             </table>
 
         </div>
@@ -78,5 +61,5 @@ require("./php/conexion.php");
     </div>
     <!-- end contenedor -->
 </body>
-
+<script src="./js/form-pacientes.js"></script>
 </html>

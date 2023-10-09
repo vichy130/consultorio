@@ -10,7 +10,7 @@ function redirect($url)
 if (!isset($_SESSION['username'])) {
     redirect("./iniciar-sesion.php");
     exit();
-}else if (isset($_REQUEST["id"])) {
+} else if (isset($_REQUEST["id"])) {
     $_SESSION["id_paciente"] = $_REQUEST["id"];
 }
 ?>
@@ -46,15 +46,12 @@ if (!isset($_SESSION['username'])) {
                         <p>Los datos se han registrado con éxito.</p>
                     </div>
                 </div>
-
                 <form class="form" id="form-paciente">
                     <label class="formulario_grupo span-4">Informacion basica</label>
-
                     <div class="formulario_grupo span-2">
                         <label class="form_label" for="nombre-paciente">Nombre(s)</label>
                         <div class="formulario__grupo-input">
-                            <input class="form_input" type="text" id="nombre-paciente" name="nombre-paciente"
-                                value="">
+                            <input class="form_input" type="text" id="nombre-paciente" name="nombre-paciente" value="">
                         </div>
                     </div><!-- end form-grupo -->
 
@@ -67,17 +64,16 @@ if (!isset($_SESSION['username'])) {
 
                     <div class="formulario_grupo grupo_apellidom">
                         <label class="form_label" for="apellidom-paciente">Apellido materno</label>
-                        <input class="form_input" type="text" id="apellidom-paciente" name="apellidom-paciente"
-                            value="">
+                        <input class="form_input" type="text" id="apellidom-paciente" name="apellidom-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo radio span-4">
                         <label for="sexo-paciente"><i class=" fas fa-male"></i> Hombre</label>
-                        <input type="radio" id="hombre" name="sexo" value="masculino">
+                        <input type="radio" id="masculino" name="sexo" value="masculino">
                         <label for="sexo-paciente"><i class=" fas fa-female"></i> Mujer</label>
-                        <input type="radio" id="mujer" name="sexo" value="femenino">
+                        <input type="radio" id="femenino" name="sexo" value="femenino">
                         <label for="sexo-paciente">Otro</label>
-                        <input type="radio" id="otro" name="sexo" value="Otro">
+                        <input type="radio" id="otro" name="sexo" value="otro">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo ">
@@ -91,8 +87,7 @@ if (!isset($_SESSION['username'])) {
 
                     <div class="formulario_grupo ">
                         <label class="form_label" for="lugar-paciente">Lugar de nacimiento</label>
-                        <input class="form_input" type="text" id="lugar-paciente" name="lugar-paciente"
-                            value="">
+                        <input class="form_input" type="text" id="lugar-paciente" name="lugar-paciente" value="">
                     </div><!-- end form-grupo -->
 
                     <label class=" formulario_grupo span-4">Domicilio</label>
@@ -100,22 +95,19 @@ if (!isset($_SESSION['username'])) {
                     <div class="formulario_grupo span-2">
                         <label class="form_label" for="calle-paciente">Calle y número</label>
                         <div class="formulario__grupo-input">
-                            <input class="form_input" type="text" id="calle-paciente" name="calle-paciente"
-                                value="">
+                            <input class="form_input" type="text" id="calle-paciente" name="calle-paciente" value="">
                         </div>
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo grupo_colonia">
                         <label class="form_label" for="colonia-paciente">Colonia</label>
-                        <input class="form_input" type="text" id="colonia-paciente" name="colonia-paciente"
-                            value="">
+                        <input class="form_input" type="text" id="colonia-paciente" name="colonia-paciente" value="">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo grupo_ciudad">
                         <label class="form_label" for="ciudad-paciente">ciudad</label>
                         <div class="formulario__grupo-input">
-                            <input class="form_input" type="text" id="ciudad-paciente" name="ciudad-paciente"
-                                value="">
+                            <input class="form_input" type="text" id="ciudad-paciente" name="ciudad-paciente" value="">
                         </div>
                     </div><!-- end form-grupo -->
 
@@ -138,8 +130,7 @@ if (!isset($_SESSION['username'])) {
                         <label class="form_label" for="telefono-oficina-paciente"><i
                                 class="izquierda fas fa-phone-alt"></i>Oficina</label>
                         <input class="form_input" type="text" id="telefono-oficina-paciente"
-                            name="telefono-oficina-paciente"
-                            value="">
+                            name="telefono-oficina-paciente" value="">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo ">
@@ -153,8 +144,7 @@ if (!isset($_SESSION['username'])) {
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="civil-paciente">Estado civil</label>
-                        <input class="form_input" type="text" id="civil-paciente" name="civil-paciente"
-                            value="">
+                        <input class="form_input" type="text" id="civil-paciente" name="civil-paciente" value="">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
