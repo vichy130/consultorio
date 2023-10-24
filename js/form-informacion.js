@@ -5,10 +5,12 @@ const sexo={femenino: "femenino", masculino:"masculino", otro:"otro"};
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     fetchedData = null;
     id = null;
+    obtenerPaciente();
+};
+function obtenerPaciente(){
     fetch('./controller/obtener-paciente.php')
         .then(response => response.json())
         .then(data => {
-            console.log("FETCHH");
             if (data && data.id != null) {
                 fetchedData = data;
                 console.log(data);
@@ -40,17 +42,25 @@ window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CAR
             console.error('Error:', error);
             console.log("catch");
         });
-};
+}
 //LOAD HTML
 document.addEventListener('DOMContentLoaded', function () {// SE EJECUTA AUNQUE LOS RECURSOS NO HAN SIDO CARGADOS POR COMPLETO
 });
+const modalExito=document.getElementById('modalExito');//MODAL EXITO
+const botonCerrarModal=document.getElementById('cerrarModal');
+function mostrarModalExito(){
+    modalExito.style.display="block";
+}
+function cerrarModalExito(){
+    modalExito.style.display="none";
+}
+botonCerrarModal.addEventListener('click', cerrarModalExito);
 //FETCH FORMULARIO Y ARRAYS
 var formPaciente = document.getElementById('form-paciente');
 formPaciente.addEventListener('submit', function (e) {
     e.preventDefault();
     var datosPaciente = new FormData(formPaciente);
     if (fetchedData != null) {
-        console.log("DATA ESTA DEFINIDO");
         fetch('./controller/editar-paciente.php', {// Enviar los datos a PHP utilizando fetch
             method: 'POST',
             body: datosPaciente // El JSON que contiene los datos y el formulario
@@ -60,12 +70,14 @@ formPaciente.addEventListener('submit', function (e) {
             })
             .then(function (data) {
                 console.log(data);
+                if (data!=null){
+                    mostrarModalExito();
+                }
             })
             .catch(function (error) {
                 console.error('Error:', error);
             });
     } else {
-        console.log("NUEVO PACIENTE");
         fetch('./controller/nuevo-paciente.php', {// Enviar los datos a PHP utilizando fetch
             method: 'POST',
             body: datosPaciente // El JSON que contiene los datos y el formulario
@@ -74,7 +86,14 @@ formPaciente.addEventListener('submit', function (e) {
                 return response.text();
             })
             .then(function (data) {
-                console.log(data);
+                if (data==true){
+                    mostrarModalExito();
+                    fetchedData=data;
+                    console.log(data);
+                }else{
+                    console.log("error");
+                    mostrarModalError();
+                }
             })
             .catch(function (error) {
                 console.error('Error:', error);

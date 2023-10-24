@@ -1,2 +1,11 @@
 /* grid */
 
+/* grid */
+
+#hide{
+    display: none;
+}
+#display{
+    display:block;
+}
+

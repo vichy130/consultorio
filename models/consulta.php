@@ -2,7 +2,6 @@
 
 class consulta
 {
-
     var $id;
     var $fecha;
     var $usuario;
@@ -48,7 +47,6 @@ class consulta
     function listarConsultas()
     {
         include_once("php/conexion.php");
-
         $stmt = null;
         $query = "select * from consulta where paciente=$this->paciente";
         $stmt = $dbh->prepare($query);
@@ -78,7 +76,6 @@ class consulta
         }
         return $arrConsultas;
     }
-
     function mostrar()
     {
         include_once("php/conexion.php");
@@ -103,9 +100,5 @@ class consulta
         }
         return $this;
     }
-
 }
-
-
-
 ?>

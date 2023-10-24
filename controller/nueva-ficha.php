@@ -66,7 +66,8 @@ if ($ficha->insertar() == 1) {
     $ficha->setHijos($hijos);
     $ficha->setAntecedentes($antecedentes);
     $ficha->setAntecedentesFam($antecedentesFam);
+    echo "1";
 } else {
-    echo "Error al registrar, intentalo nuevamente";
+    echo "0";
 }
 ?>

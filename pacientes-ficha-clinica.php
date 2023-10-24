@@ -13,7 +13,6 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 if (isset($_SESSION["id_paciente"])) {
-
 } else {
     redirect("./pacientes-informacion.php");
 }
@@ -103,7 +102,7 @@ if (isset($_SESSION["id_paciente"])) {
                     <button class="boton azul" id="agregarHijo" type="button"><i class="fas fa-plus"></i> Añadir
                         Hijo</button>
 
-                    <table class="table span-4">
+                    <table class="table span-4" id="tabla-hijos">
                         <thead>
                             <tr>
                                 <th class="column-to-hide"></th>
@@ -112,8 +111,7 @@ if (isset($_SESSION["id_paciente"])) {
                                 <th>Eliminar</th>
                             </tr>
                         </thead>
-                        <tbody id="tabla-hijos">
-
+                        <tbody id="tbody-hijos">
                         </tbody>
                     </table>
 

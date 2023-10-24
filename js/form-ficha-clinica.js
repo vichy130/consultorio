@@ -1,6 +1,7 @@
 // Añadir un nuevo hijo
 var anadirHijo = document.getElementById("agregarHijo"); //BOTON ANADIR HIJO
-var tablaHijos = document.getElementById("tabla-hijos"); //TABLA HIJOS
+var tablaHijos = document.getElementById("tbody-hijos"); //TABLA HIJOS
+var tablaHijosClass= document.getElementsById("tabla-hijos");//tabla completa (hide or display)
 var arrayHijos = [];//ARRAY DE HIJOS
 //Añadir nuevo antecedente
 let anadirAntecedente = document.getElementById("agregarAntecedente"); //BOTON
@@ -223,7 +224,6 @@ formFicha.addEventListener('submit', function (e) {
     datosFicha.append('json-antecedentes', jsonAntecedentes);
     datosFicha.append('json-antecedentesFam', jsonAntecedentesFam);
     if (fetchedData != null) {
-        console.log("DATA ESTA DEFINIDO");
         jsonId = JSON.stringify(id);
         datosFicha.append('id', jsonId);
         fetch('./controller/editar-ficha.php', {// Enviar los datos a PHP utilizando fetch
@@ -240,7 +240,6 @@ formFicha.addEventListener('submit', function (e) {
                 console.error('Error:', error);
             });
     } else {
-        console.log("NUEVA FICHAAAAAA");
         fetch('./controller/nueva-ficha.php', {// Enviar los datos a PHP utilizando fetch
             method: 'POST',
             body: datosFicha // El JSON que contiene los datos y el formulario

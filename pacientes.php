@@ -1,24 +1,22 @@
 <?php
-session_start(); 
-
-function redirect($url) {
+session_start();
+function redirect($url)
+{
     ob_start();
-    header('Location:'.$url);
+    header('Location:' . $url);
     ob_end_flush();
     die();
 }
-if(!isset($_SESSION['username'])){
+if (!isset($_SESSION['username'])) {
     redirect("./iniciar-sesion.php");
     exit();
 }
-
-if(isset($_SESSION["id_paciente"])){
+if (isset($_SESSION["id_paciente"])) {
     unset($_SESSION["id_paciente"]);
     unset($_SESSION["id_consulta"]);
     unset($_REQUEST["id"]);
     unset($_REQUEST["id2"]);
 }
-
 require("./php/conexion.php");
 ?>
 
@@ -38,6 +36,35 @@ require("./php/conexion.php");
         <?php require("./layout/menu.php"); ?>
 
         <div class="content-general">
+            <div id="modalPregunta" class="modal-preguntar">
+                <div class="modal-contenido-preguntar">
+                    <span class="cerrar-modal" id="cerrarModalPregunta">&times;</span>
+                    <h2>Confirmar Eliminación</h2>
+                    <br>
+                    <p>¿Seguro que desea eliminar a este paciente?</p>
+                    <div class="botones">
+                        <button class="boton rojo" id="botonAceptarEliminar">Aceptar</button>
+                        <button class="boton azul" id="botonCancelarEliminar">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+            <div id="modalExito" class="modal-exito">
+                <div class="modal-contenido-exito">
+                <span class="cerrar-modal" id="cerrarModalExito">&times;</span>
+                <h2>¡Paciente eliminado!</h2>
+                <br>
+                <p>Los datos se han eliminado con éxito.</p>
+                </div>
+            </div>
+            <div id="modalError" class="modal-error">
+                <div class="modal-contenido-error">
+                <span class="cerrar-modal" id="cerrarModalError">&times;</span>
+                <h2>El paciente NO ha sido eliminado</h2>
+                <br>
+                <p>Porfavor, revisa la información e intenta de nuevo.</p>
+                </div>
+            </div>
+
             <label class="span-4">Pacientes</label>
             <input class="form_input span-2" type="text">
             <button class="boton azul"><i class="fas fa-search"></i> Buscar</button>
@@ -46,6 +73,7 @@ require("./php/conexion.php");
             <table class="table span-4" id="tabla-pacientes">
                 <thead>
                     <tr>
+                        <th>Registro</th>
                         <th>Nombre(s)</th>
                         <th>Apellidos</th>
                         <th class="column-to-hide">Telefono</th>
@@ -62,4 +90,5 @@ require("./php/conexion.php");
     <!-- end contenedor -->
 </body>
 <script src="./js/form-pacientes.js"></script>
+
 </html>

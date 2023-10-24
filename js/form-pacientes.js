@@ -1,52 +1,125 @@
+var tabla = document.getElementById('tabla-pacientes');
+const cuerpoTabla = tabla.createTBody();
+var botonNuevoPaciente;
+botonNuevoPaciente = document.getElementById('nuevo-paciente-boton');
+botonNuevoPaciente.addEventListener('click', function (e) {
+    e.preventDefault();
+    paciente();
+});
+var modalPregunta = document.getElementById('modalPregunta');
+var modalExito = document.getElementById('modalExito');
+var modalError = document.getElementById('modalError');
+var botonAceptarEliminar = document.getElementById('botonAceptarEliminar');
+var botonCancelarEliminar = document.getElementById('botonCancelarEliminar');
+var cerrarModalPregunta = document.getElementById('cerrarModalPregunta');
+var cerrarModalExito = document.getElementById('cerrarModalExito');
+var cerrarModalError = document.getElementById('cerrarModalError');
+// BOTONES
+botonCancelarEliminar.addEventListener('click', function (e) {
+    e.preventDefault();
+    cerrarPregunta();
+});
+cerrarModalPregunta.addEventListener('click', function (e) {
+    e.preventDefault()
+    cerrarPregunta();
+});
+cerrarModalExito.addEventListener('click', function (e) {
+    e.preventDefault();
+    cerrarExito();
+});
+cerrarModalError.addEventListener('click', function (e) {
+    e.preventDefault();
+    cerrarError()
+});
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     obtenerPacientes();
 };
-function obtenerPacientes(){
+function obtenerPacientes() {
     fetch('./controller/obtener-pacientes.php')
         .then(response => response.json())
         .then(data => {
-            tabla = document.getElementById('tabla-pacientes');
-            const cuerpoTabla = tabla.createTBody();
             data.forEach((p) => {
-                var paciente = new Paciente(p.nombre,p.apellidoPaterno,p.apellidoMaterno,p.sexo,p.fechaNacimiento,p.lugarNacimiento,p.calle,p.colonia,p.ciudad,p.codigoPostal,p.telCasa,p.telOficina,p.celular,p.edoCivil,p.ocupacion,p.escolaridad,p.correo);
-                paciente.id=p.id;
+                var paciente = new Paciente(p.nombre, p.apellidoPaterno, p.apellidoMaterno, p.sexo, p.fechaNacimiento, p.lugarNacimiento, p.calle, p.colonia, p.ciudad, p.codigoPostal, p.telCasa, p.telOficina, p.celular, p.edoCivil, p.ocupacion, p.escolaridad, p.correo);
+                paciente.id = p.id;
                 const fila = cuerpoTabla.insertRow();
+                const celdaId = fila.insertCell();
+                celdaId.textContent = paciente.id;
                 const celdaNombre = fila.insertCell();
                 celdaNombre.textContent = paciente.nombre;
                 const celdaApellidos = fila.insertCell();
-                celdaApellidos.textContent = paciente.apellidoPaterno+" "+paciente.apellidoMaterno;
+                celdaApellidos.textContent = paciente.apellidoPaterno + " " + paciente.apellidoMaterno;
                 const celdaCelular = fila.insertCell();
                 celdaCelular.textContent = paciente.celular;
                 const iconoEditar = document.createElement("i");
                 const iconoEliminar = document.createElement("i");
-                iconoEditar.className = "far fa-edit"; 
-                iconoEliminar.className = "fas fa-trash"; 
+                iconoEditar.className = "far fa-edit";
+                iconoEliminar.className = "fas fa-trash";
                 const celdaEditar = fila.insertCell();
                 const celdaEliminar = fila.insertCell();
                 celdaEliminar.append(iconoEliminar);
                 const aEditar = document.createElement('a');
-                aEditar.href="pacientes-informacion.php?id="+paciente.id;
+                aEditar.href = "pacientes-informacion.php?id=" + paciente.id;
                 celdaEditar.append(aEditar);
                 aEditar.append(iconoEditar);
-                iconoEliminar.addEventListener('click',eliminarPaciente);
+                iconoEliminar.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    preguntaEliminar(paciente.id);
+                });
             });
         })// FIN FETCH
         .catch(error => {
             console.error('Error:', error);
         });
 }
-function eliminarPaciente(){
-    console.log("eliminando");
+//FUNCION BORRAR TABLA
+function clearDiv(div) {
+    div.replaceChildren();
 }
-var botonNuevoPaciente;
-var tabla = document.getElementById('tabla-pacientes');
-botonNuevoPaciente = document.getElementById('nuevo-paciente-boton');
-botonNuevoPaciente.addEventListener('click', paciente);
+function preguntaEliminar(id) {
+    modalPregunta.style.display = 'block';
+    botonAceptarEliminar.dataset.id = id;
+    botonAceptarEliminar.addEventListener('click', function (e) {
+        e.preventDefault();
+        eliminarPaciente();
+    });
+}
+function cerrarPregunta() {
+    modalPregunta.style.display = 'none';
+}
+function cerrarExito() {
+    modalExito.style.display = 'none';
+}
+function cerrarError() {
+    modalError.style.display = 'none';
+}
+function eliminarPaciente() {
+    var id = botonAceptarEliminar.dataset.id;
+    var datos = { id: id };
+    var json = JSON.stringify(datos);
+    fetch('./controller/eliminar-paciente.php', {// Enviar los datos a PHP utilizando fetch
+        method: 'POST',
+        body: json// El JSON que contiene los datos 
+    })
+        .then(function (response) {
+            return response.text();
+        })
+        .then(function (data) {
+            if (data == "1") {
+                modalExito.style.display = 'block';
+            } else {
+                modalError.style.display = 'block';
+            }
+        })
+        .catch(function (error) {
+            console.error('Error:', error);
+        });
+    cerrarPregunta();
+    clearDiv(cuerpoTabla);
+    obtenerPacientes();
+}
 function paciente() {
     window.location.href = "./pacientes-informacion.php";
 }
-
-
 //CLASES
 class Paciente {
     constructor(
@@ -90,11 +163,9 @@ class Paciente {
     get sexo() {
         return this._sexo;
     }
-
     get fechaNacimiento() {
         return this._fechaNacimiento;
     }
-
     get lugarNacimiento() {
         return this._lugarNacimiento;
     }

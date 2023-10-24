@@ -141,6 +141,9 @@ body{
 .amarillo{
     background: #dd9000;
 }
+.rojo{
+    background: #c14228;
+}
 .span-2{
     grid-column: span 2;
 }

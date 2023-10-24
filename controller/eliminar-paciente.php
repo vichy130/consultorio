@@ -1,12 +1,20 @@
-<?php /* edited 08 08 22*/ 
+<?php
 session_start();
 include_once("../models/paciente.php");
-$paciente=new Paciente();
-$id_paciente=$_REQUEST["id"];
-$paciente->setId($id_paciente);
-if($paciente->eliminar()==1){
-    echo "datos eliminados";
-}else{
-    echo "Datos no eliminados";
+try {
+    $json = json_decode(file_get_contents('php://input'), true);
+    if (isset($json['id'])) {
+        $id = $json['id'];
+        $paciente = new Paciente();
+        $paciente->setId($id);
+        if ($paciente->eliminar()) {
+            echo "1";
+        } else {
+            echo "0";
+        }
+    }
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
+    echo "0";
 }
 ?>

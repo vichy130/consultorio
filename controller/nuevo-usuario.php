@@ -1,4 +1,5 @@
 <?php 
+session_start();
 include_once("../models/usuario.php");
 $usuario = new usuario(); //Creamos al objeto
 //llenar al objeto con los valores del formulario

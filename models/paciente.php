@@ -138,7 +138,7 @@ class Paciente
             return true;
         } catch (PDOException $e) {
             echo "Error al insertar datos del paciente: " . $e->getMessage();
-            return null;
+            return false;
         }
     }
     public function obtener()
@@ -212,10 +212,15 @@ class Paciente
     }
     function eliminar()
     {
-        $query = "DELETE FROM paciente WHERE id=:id;";
-        $stmt = $this->dbh->prepare($query);
-        $stmt->bindParam(':id',$this->getId());
-        return $stmt->execute();
+        try {
+            $query = "DELETE FROM paciente WHERE id=:id;";
+            $stmt = $this->dbh->prepare($query);
+            $stmt->bindParam(':id', $this->getId());
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            echo "Error en eliminar: " . $e->getMessage();
+            return false;
+        }
     }
 }
 ?>

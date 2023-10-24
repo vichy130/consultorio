@@ -1,4 +1,5 @@
 <?php 
+session_start();
 include_once("../models/paciente.php");
 $paciente = new Paciente(); //Creamos al objeto
 //llenar al objeto con los valores del formulario
@@ -26,9 +27,9 @@ $colonia, $ciudad, $codigoPostal, $telCasa, $telOficina,
 $celular, $edoCivil, $ocupacion, $escolaridad, $correo);
 
 if($paciente->insertar()==true){
-  echo "paciente agregado";
+  $_SESSION["id_paciente"]=$paciente->getId();
+  echo true;
 }else{
-    echo "Error al registrar, intentalo nuevamente";
+    echo false;
 }
-
 ?>

@@ -28,9 +28,8 @@ $fechaNacimiento, $sexo, $lugarNacimiento, $calle,
 $colonia, $ciudad, $codigoPostal, $telCasa, $telOficina,
 $celular, $edoCivil, $ocupacion, $escolaridad, $correo);
 
-if(
-$paciente->actualizar())
+if($paciente->actualizar())
 {
-    echo "paciente actualizado";
-}
+    echo "1";
+}else echo "0";
 ?>
