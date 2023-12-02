@@ -1,9 +1,6 @@
 var tabla = document.getElementById('tabla-pacientes');
 const cuerpoTabla = tabla.createTBody();
 var botonNuevoPaciente;
-var botonEditarPaciente;
-var botonEliminarPaciente;
-var arrayPacientes=[]; //array pacientes
 botonNuevoPaciente = document.getElementById('nuevo-paciente-boton');
 botonNuevoPaciente.addEventListener('click', function (e) {
     e.preventDefault();
@@ -17,17 +14,6 @@ var botonCancelarEliminar = document.getElementById('botonCancelarEliminar');
 var cerrarModalPregunta = document.getElementById('cerrarModalPregunta');
 var cerrarModalExito = document.getElementById('cerrarModalExito');
 var cerrarModalError = document.getElementById('cerrarModalError');
-tabla.addEventListener('click', function(e){
-    e.preventDefault();
-    if(e.target.classList.contains("editar-paciente")){
-        const idEditar=e.target.dataset.id
-        pacienteEditar(idEditar);
-    }
-    if(e.target.classList.contains("eliminar-paciente")){
-        const idEliminar=e.target.dataset.id;
-        preguntaEliminar(idEliminar);
-    }
-});
 // BOTONES
 botonCancelarEliminar.addEventListener('click', function (e) {
     e.preventDefault();
@@ -46,22 +32,40 @@ cerrarModalError.addEventListener('click', function (e) {
     cerrarError()
 });
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
-
     obtenerPacientes();
 };
 function obtenerPacientes() {
-    arrayPacientes=[];
-    console.log(arrayPacientes);
     fetch('./controller/obtener-pacientes.php')
         .then(response => response.json())
         .then(data => {
             data.forEach((p) => {
                 var paciente = new Paciente(p.nombre, p.apellidoPaterno, p.apellidoMaterno, p.sexo, p.fechaNacimiento, p.lugarNacimiento, p.calle, p.colonia, p.ciudad, p.codigoPostal, p.telCasa, p.telOficina, p.celular, p.edoCivil, p.ocupacion, p.escolaridad, p.correo);
                 paciente.id = p.id;
-                console.log(arrayPacientes);
-                arrayPacientes.push(paciente);
+                const fila = cuerpoTabla.insertRow();
+                const celdaId = fila.insertCell();
+                celdaId.textContent = paciente.id;
+                const celdaNombre = fila.insertCell();
+                celdaNombre.textContent = paciente.nombre;
+                const celdaApellidos = fila.insertCell();
+                celdaApellidos.textContent = paciente.apellidoPaterno + " " + paciente.apellidoMaterno;
+                const celdaCelular = fila.insertCell();
+                celdaCelular.textContent = paciente.celular;
+                const iconoEditar = document.createElement("i");
+                const iconoEliminar = document.createElement("i");
+                iconoEditar.className = "far fa-edit";
+                iconoEliminar.className = "fas fa-trash";
+                const celdaEditar = fila.insertCell();
+                const celdaEliminar = fila.insertCell();
+                celdaEliminar.append(iconoEliminar);
+                const aEditar = document.createElement('a');
+                aEditar.href = "pacientes-informacion.php?id=" + paciente.id;
+                celdaEditar.append(aEditar);
+                aEditar.append(iconoEditar);
+                iconoEliminar.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    preguntaEliminar(paciente.id);
+                });
             });
-            tablaPacientes();
         })// FIN FETCH
         .catch(error => {
             console.error('Error:', error);
@@ -71,11 +75,12 @@ function obtenerPacientes() {
 function clearDiv(div) {
     div.replaceChildren();
 }
-function preguntaEliminar(idEliminar) {
+function preguntaEliminar(id) {
     modalPregunta.style.display = 'block';
+    botonAceptarEliminar.dataset.id = id;
     botonAceptarEliminar.addEventListener('click', function (e) {
         e.preventDefault();
-        eliminarPaciente(idEliminar);
+        eliminarPaciente();
     });
 }
 function cerrarPregunta() {
@@ -87,8 +92,9 @@ function cerrarExito() {
 function cerrarError() {
     modalError.style.display = 'none';
 }
-function eliminarPaciente(idEliminar) {
-    var datos = { id: idEliminar };
+function eliminarPaciente() {
+    var id = botonAceptarEliminar.dataset.id;
+    var datos = { id: id };
     var json = JSON.stringify(datos);
     fetch('./controller/eliminar-paciente.php', {// Enviar los datos a PHP utilizando fetch
         method: 'POST',
@@ -111,47 +117,8 @@ function eliminarPaciente(idEliminar) {
     clearDiv(cuerpoTabla);
     obtenerPacientes();
 }
-function tablaPacientes(){
-    arrayPacientes.forEach(pa => {
-        const celda= document.createElement('tr');
-        const idFila= document.createElement('td');
-        const nombreFila=document.createElement('td');
-        const apellidosFila=document.createElement('td');
-        const telefonoFila=document.createElement('td');
-        const editarFila=document.createElement('td');
-        const eliminarFila=document.createElement('td');
-        const iconoEditar=document.createElement('i');
-        const iconoEliminar=document.createElement('i');
-
-        iconoEditar.className="far fa-edit editar-paciente";
-        iconoEliminar.className="fas fa-trash eliminar-paciente";
-
-        iconoEditar.dataset.id=pa.id;
-        iconoEliminar.dataset.id=pa.id;
-
-        idFila.textContent=pa.id;
-        nombreFila.textContent=pa.nombre;
-        apellidosFila.textContent=pa.apellidoPaterno+" "+pa.apellidoMaterno;
-        telefonoFila.textContent=pa.celular;
-
-        editarFila.appendChild(iconoEditar);
-        eliminarFila.appendChild(iconoEliminar);
-        celda.appendChild(idFila);
-        celda.appendChild(nombreFila);
-        celda.appendChild(apellidosFila);
-        celda.appendChild(telefonoFila);
-        celda.appendChild(editarFila);
-        celda.appendChild(eliminarFila);
-
-        cuerpoTabla.appendChild(celda);
-    });
-
-}
 function paciente() {
     window.location.href = "./pacientes-informacion.php";
-}
-function pacienteEditar(idEditar) {
-    window.location.href = "./pacientes-informacion.php?id="+idEditar;
 }
 //CLASES
 class Paciente {

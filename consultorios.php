@@ -74,6 +74,5 @@ require("./php/conexion.php");
     <?php require("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
-    <script src="./js/botones.js"></script>
 </body>
 </html>

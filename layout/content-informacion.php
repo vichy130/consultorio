@@ -42,7 +42,6 @@
                 id="consultasAnteriores-content">Consultas Anteriores</label>
         </div>
     </div>
-    <script src="./js/botones.js"></script>
     <script src="./js/form-content-informacion.js"></script>
 </body>
 

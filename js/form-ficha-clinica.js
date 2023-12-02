@@ -1,7 +1,7 @@
 // Añadir un nuevo hijo
 var anadirHijo = document.getElementById("agregarHijo"); //BOTON ANADIR HIJO
 var tablaHijos = document.getElementById("tbody-hijos"); //TABLA HIJOS
-var tablaHijosClass= document.getElementsById("tabla-hijos");//tabla completa (hide or display)
+/*var tablaHijosCompleta= document.getElementsById("tabla-hijos");//tabla completa (hide or display)*/
 var arrayHijos = [];//ARRAY DE HIJOS
 //Añadir nuevo antecedente
 let anadirAntecedente = document.getElementById("agregarAntecedente"); //BOTON
@@ -71,15 +71,15 @@ window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CAR
                 document.getElementById("ejercicio-paciente").value = data.ejercicioSemana;
                 id = data.id;
                 data.antecedentes.forEach(function (elemento) {
-                    var antecedentes = new Antecedente(elemento.enfermedad, elemento.descripcion, elemento.estaActiva);
-                    antecedentes.id = elemento.id;
-                    arrayAntecedentes.push(antecedentes);
+                    var antecedente = new Antecedente(elemento.enfermedad, elemento.descripcion, elemento.estaActiva);
+                    antecedente.id = elemento.id;
+                    arrayAntecedentes.push(antecedente);
                     actualizarTablaAntecedentes();
                 });
                 data.antecedentesFam.forEach(function (elemento) {
-                    var antecedentesFam = new AntecedenteFam(elemento.familiar, elemento.enfermedad, elemento.descripcion);
-                    antecedentesFam.id = elemento.id;
-                    arrayAntecedentesFam.push(antecedentesFam);
+                    var antecedenteFam = new AntecedenteFam(elemento.familiar, elemento.enfermedad, elemento.descripcion);
+                    antecedenteFam.id = elemento.id;
+                    arrayAntecedentesFam.push(antecedenteFam);
                     actualizarTablaAntecedentesFam();
                 });
             }// SI ID DE DATA ESTA NULL NO MANDAR VALORES A HTML
