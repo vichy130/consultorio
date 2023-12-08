@@ -3,7 +3,8 @@ const cuerpoTabla = tabla.createTBody();
 var botonNuevoPaciente;
 var botonEditarPaciente;
 var botonEliminarPaciente;
-var arrayPacientes=[]; //array pacientes
+var array=[]; //array pacientes
+
 botonNuevoPaciente = document.getElementById('nuevo-paciente-boton');
 botonNuevoPaciente.addEventListener('click', function (e) {
     e.preventDefault();
@@ -28,6 +29,7 @@ tabla.addEventListener('click', function(e){
         preguntaEliminar(idEliminar);
     }
 });
+
 // BOTONES
 botonCancelarEliminar.addEventListener('click', function (e) {
     e.preventDefault();
@@ -46,22 +48,18 @@ cerrarModalError.addEventListener('click', function (e) {
     cerrarError()
 });
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
-
     obtenerPacientes();
 };
 function obtenerPacientes() {
-    arrayPacientes=[];
-    console.log(arrayPacientes);
     fetch('./controller/obtener-pacientes.php')
         .then(response => response.json())
         .then(data => {
             data.forEach((p) => {
                 var paciente = new Paciente(p.nombre, p.apellidoPaterno, p.apellidoMaterno, p.sexo, p.fechaNacimiento, p.lugarNacimiento, p.calle, p.colonia, p.ciudad, p.codigoPostal, p.telCasa, p.telOficina, p.celular, p.edoCivil, p.ocupacion, p.escolaridad, p.correo);
                 paciente.id = p.id;
-                console.log(arrayPacientes);
-                arrayPacientes.push(paciente);
+                array.push(paciente);
             });
-            tablaPacientes();
+        tablaPacientes();
         })// FIN FETCH
         .catch(error => {
             console.error('Error:', error);
@@ -73,10 +71,11 @@ function clearDiv(div) {
 }
 function preguntaEliminar(idEliminar) {
     modalPregunta.style.display = 'block';
-    botonAceptarEliminar.addEventListener('click', function (e) {
+    botonAceptarEliminar.onclick=function (e) {
         e.preventDefault();
         eliminarPaciente(idEliminar);
-    });
+        console.log('ejecucion aceptar eliminar');
+    };
 }
 function cerrarPregunta() {
     modalPregunta.style.display = 'none';
@@ -108,11 +107,12 @@ function eliminarPaciente(idEliminar) {
             console.error('Error:', error);
         });
     cerrarPregunta();
+    array=[];
     clearDiv(cuerpoTabla);
     obtenerPacientes();
 }
 function tablaPacientes(){
-    arrayPacientes.forEach(pa => {
+    array.forEach(pa => {
         const celda= document.createElement('tr');
         const idFila= document.createElement('td');
         const nombreFila=document.createElement('td');
@@ -142,7 +142,6 @@ function tablaPacientes(){
         celda.appendChild(telefonoFila);
         celda.appendChild(editarFila);
         celda.appendChild(eliminarFila);
-
         cuerpoTabla.appendChild(celda);
     });
 

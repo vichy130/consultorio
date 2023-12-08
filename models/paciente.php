@@ -143,7 +143,7 @@ class Paciente
     }
     public function obtener()
     {
-        $query = "SELECT * FROM paciente WHERE id = :id;";
+        $query = "SELECT * FROM paciente WHERE id = :id; ";
         try {
             $stmt = $this->dbh->prepare($query);
             $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
