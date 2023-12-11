@@ -1,6 +1,6 @@
 <?php
 
-class receta {
+class Receta {
 
     var $id;
 

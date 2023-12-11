@@ -1,26 +1,24 @@
 <?php
 
-class consulta
+class Consulta
 {
-    var $id;
-    var $fecha;
-    var $usuario;
-    var $paciente;
-    var $ta;
-    var $oxigeno;
-    var $pulso;
-    var $peso;
-    var $estatura;
-    var $temperatura;
-    var $motivoConsulta;
-    var $exploracion;
-    var $receta;
-    var $consultorio;
-
-    function insertar()
+    private $id;
+    private $fecha;
+    private $usuario;
+    private $paciente;
+    private $ta;
+    private $oxigeno;
+    private $pulso;
+    private $peso;
+    private $estatura;
+    private $temperatura;
+    private $motivoConsulta;
+    private $exploracion;
+    private $receta;
+    private $consultorio;
+    private $dbh;
+    function __construct()
     {
-        $this->receta=1;
-        include_once("../php/conexion.php");
         $dbname = "consultorio";
         $user = "root";
         $password = "";
@@ -36,69 +34,119 @@ class consulta
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
+        $this->dbh = $dbh;
+    }
+    public function getId(){
+        return $this->id;
+    }
+    public function setId($id){
+        $this->id=$id;
+    }
+    public function setValues(
+        $fecha,
+        $usuario,
+        $paciente,
+        $ta,
+        $oxigeno,
+        $pulso,
+        $peso,
+        $estatura,
+        $temperatura,
+        $motivoConsulta,
+        $exploracion,
+        $receta,
+        $consultorio,
+    ){
+        $this->fecha=$fecha;
+        $this->usuario=$usuario;
+        $this->paciente=$paciente;
+        $this->ta=$ta;
+        $this->oxigeno=$oxigeno;
+        $this->pulso=$pulso;
+        $this->peso=$peso;
+        $this->estatura=$estatura;
+        $this->temperatura=$temperatura;
+        $this->motivoConsulta=$motivoConsulta;
+        $this->exploracion=$exploracion;
+        $this->receta=$receta;
+        $this->consultorio=$consultorio;
+    }
+    public function getValues(){
+        return[
+            'id'=>$this->id,
+            'fecha'=>$this->fecha,
+            'usuario'=>$this->usuario,
+            'paciente'=>$this->paciente,
+            'ta'=>$this->ta,
+            'oxigeno'=>$this->oxigeno,
+            'pulso'=>$this->pulso,
+            'peso'=>$this->peso,
+            'estatura'=>$this->estatura,
+            'temperatura'=>$this->temperatura,
+            'motivoConsulta'=>$this->motivoConsulta,
+            'exploracion'=>$this->exploracion,
+            'receta'=>$this->receta,
+            'consultorio'=>$this->consultorio
+        ];
+    }
+    public function insertar()
+    {
         $query = "INSERT INTO consulta (fecha, usuario, paciente,ta,oxigeno,pulso,peso,estatura,temperatura, motivoConsulta, exploracion, receta, consultorio) 
-    VALUES ('$this->fecha','$this->usuario','$this->paciente','$this->ta','$this->oxigeno','$this->pulso','$this->peso','$this->estatura','$this->temperatura','$this->motivoConsulta','$this->exploracion','$this->receta','$this->consultorio'); ";
-        echo $query;
-        $stmt = $dbh->prepare($query);
-        $stmt->execute();
-        $id = $dbh->lastInsertId();
-        return $id;
-    }
-    function listarConsultas()
-    {
-        include_once("php/conexion.php");
-        $stmt = null;
-        $query = "select * from consulta where paciente=$this->paciente";
-        $stmt = $dbh->prepare($query);
-        $stmt->execute();
-        $datos = null;
-        $arrConsultas = null;
-        $indice = 0;
-        while ($datos = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $consulta = new consulta();
-            $consulta->id = $datos["id"];
-            $consulta->fecha = $datos["fecha"];
-            $consulta->usuario = $datos["usuario"];
-            $consulta->paciente = $datos["paciente"];
-            $consulta->ta = $datos["ta"];
-            $consulta->oxigeno = $datos["oxigeno"];
-            $consulta->pulso = $datos["pulso"];
-            $consulta->peso = $datos["peso"];
-            $consulta->estatura = $datos["estatura"];
-            $consulta->temperatura = $datos["temperatura"];
-            $consulta->motivoConsulta = $datos["motivoConsulta"];
-            $consulta->exploracion = $datos["exploracion"];
-            $consulta->receta = $datos["receta"];
-            $consulta->consultorio = $datos["consultorio"];
-            $arrConsultas[$indice] = $consulta;
-            $indice = $indice + 1;
-
+    VALUES (:fecha,:usuario,:paciente,:ta,:oxigeno,:pulso,:peso,:estatura,:temperatura,:motivoConsulta,:exploracion,:receta,:consultorio); ";
+        try {
+            $stmt = $this->dbh->prepare($query);
+            $stmt->bindParam(':fecha', $this->fecha);
+            $stmt->bindParam(':usuario', $this->usuario);
+            $stmt->bindParam(':paciente', $this->paciente);
+            $stmt->bindParam(':ta', $this->ta);
+            $stmt->bindParam(':oxigeno', $this->oxigeno);
+            $stmt->bindParam(':pulso', $this->pulso);
+            $stmt->bindParam(':peso', $this->peso);
+            $stmt->bindParam(':estatura', $this->estatura);
+            $stmt->bindParam(':temperatura', $this->temperatura);
+            $stmt->bindParam(':motivoConsulta', $this->motivoConsulta);
+            $stmt->bindParam(':exploracion', $this->exploracion);
+            $stmt->bindParam(':receta', $this->receta);
+            $stmt->bindParam(':consultorio', $this->consultorio);
+            $stmt->execute();
+            $id = $this->dbh->lastInsertId();
+            return true;
+        } catch (PDOException $e) {
+            echo "No se pudo insertar nueva consulta" . $e->getMessage();
+            return false;
         }
-        return $arrConsultas;
     }
-    function mostrar()
+    function obtener()
     {
-        include_once("php/conexion.php");
-        $query = "SELECT * FROM consulta where id=$this->id; ";
-        $stmt = $dbh->prepare($query);
-        $stmt->execute();
-        $datos = null;
-        while ($datos = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $this->fecha = $datos["fecha"];
-            $this->usuario = $datos["usuario"];
-            $this->paciente = $datos["paciente"];
-            $this->ta = $datos["ta"];
-            $this->oxigeno = $datos["oxigeno"];
-            $this->pulso = $datos["pulso"];
-            $this->peso = $datos["peso"];
-            $this->estatura = $datos["estatura"];
-            $this->temperatura = $datos["temperatura"];
-            $this->motivoConsulta = $datos["motivoConsulta"];
-            $this->exploracion = $datos["exploracion"];
-            $this->receta = $datos["receta"];
-            $this->consultorio = $datos["consultorio"];
+        $query = "SELECT * FROM consulta where id=:id; ";
+        try{
+            $stmt = $this->dbh->prepare($query);
+            $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
+            $stmt->execute();
+            $datos = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($datos) {
+                $this->fecha = $datos["fecha"];
+                $this->usuario = $datos["usuario"];
+                $this->paciente = $datos["paciente"];
+                $this->ta = $datos["ta"];
+                $this->oxigeno = $datos["oxigeno"];
+                $this->pulso = $datos["pulso"];
+                $this->peso = $datos["peso"];
+                $this->estatura = $datos["estatura"];
+                $this->temperatura = $datos["temperatura"];
+                $this->motivoConsulta = $datos["motivoConsulta"];
+                $this->exploracion = $datos["exploracion"];
+                $this->receta = $datos["receta"];
+                $this->consultorio = $datos["consultorio"];
+            }
+            return true;
+        }catch (PDOException $e){
+            echo "No se pudo obtener consulta". $e->getMessage();
+            return false;
         }
-        return $this;
+    }
+    public function actualizar(){
+        
     }
 }
 ?>

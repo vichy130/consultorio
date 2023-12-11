@@ -1,6 +1,6 @@
 <?php 
 
-class estudioSolicitado{
+class EstudioSolicitado{
 
     var $id;
     var $estudio;

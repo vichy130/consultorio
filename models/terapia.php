@@ -1,6 +1,6 @@
 <?php 
 
-class terapia{
+class Terapia{
 
     var $id;
     var $terapia;

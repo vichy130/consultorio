@@ -1,6 +1,6 @@
 <?php 
 
-class medicamentoIndicacion{
+class MedicamentoIndicacion{
 
     var $id;
     var $medicamento;

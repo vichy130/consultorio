@@ -1,6 +1,6 @@
 <?php 
 
-class consultaPrevia{
+class ConsultaPrevia{
 
     var $id;
     var $comentarios;

@@ -1,6 +1,6 @@
 <?php 
 
-class medicamento{
+class Medicamento{
 
     var $id;
     var $medicamento;
