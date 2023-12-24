@@ -116,7 +116,7 @@ class Consulta
             return false;
         }
     }
-    function obtener()
+    public function obtener()
     {
         $query = "SELECT * FROM consulta where id=:id; ";
         try{
@@ -146,7 +146,7 @@ class Consulta
         }
     }
     public function actualizar(){
-        
+
     }
 }
 ?>
