@@ -16,6 +16,10 @@ class Consulta
     private $exploracion;
     private $receta;
     private $consultorio;
+    private $consultasPrevias = array();
+    private $terapias = array();
+    private $medicamentosIndicacion = array();
+    private $estudiosSolicitados = array();
     private $dbh;
     function __construct()
     {
@@ -26,21 +30,22 @@ class Consulta
             PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8mb4'",
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
         );
-        $dbh = null;
+        $this->dbh = null;
         try {
             $dsn = "mysql:host=localhost; dbname=$dbname";
-            $dbh = new PDO($dsn, $user, $password, $options);
+            $this->dbh = new PDO($dsn, $user, $password, $options);
 
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
-        $this->dbh = $dbh;
     }
-    public function getId(){
+    public function getId()
+    {
         return $this->id;
     }
-    public function setId($id){
-        $this->id=$id;
+    public function setId($id)
+    {
+        $this->id = $id;
     }
     public function setValues(
         $fecha,
@@ -56,38 +61,76 @@ class Consulta
         $exploracion,
         $receta,
         $consultorio,
-    ){
-        $this->fecha=$fecha;
-        $this->usuario=$usuario;
-        $this->paciente=$paciente;
-        $this->ta=$ta;
-        $this->oxigeno=$oxigeno;
-        $this->pulso=$pulso;
-        $this->peso=$peso;
-        $this->estatura=$estatura;
-        $this->temperatura=$temperatura;
-        $this->motivoConsulta=$motivoConsulta;
-        $this->exploracion=$exploracion;
-        $this->receta=$receta;
-        $this->consultorio=$consultorio;
+    ) {
+        $this->fecha = $fecha;
+        $this->usuario = $usuario;
+        $this->paciente = $paciente;
+        $this->ta = $ta;
+        $this->oxigeno = $oxigeno;
+        $this->pulso = $pulso;
+        $this->peso = $peso;
+        $this->estatura = $estatura;
+        $this->temperatura = $temperatura;
+        $this->motivoConsulta = $motivoConsulta;
+        $this->exploracion = $exploracion;
+        $this->receta = $receta;
+        $this->consultorio = $consultorio;
     }
-    public function getValues(){
-        return[
-            'id'=>$this->id,
-            'fecha'=>$this->fecha,
-            'usuario'=>$this->usuario,
-            'paciente'=>$this->paciente,
-            'ta'=>$this->ta,
-            'oxigeno'=>$this->oxigeno,
-            'pulso'=>$this->pulso,
-            'peso'=>$this->peso,
-            'estatura'=>$this->estatura,
-            'temperatura'=>$this->temperatura,
-            'motivoConsulta'=>$this->motivoConsulta,
-            'exploracion'=>$this->exploracion,
-            'receta'=>$this->receta,
-            'consultorio'=>$this->consultorio
+    public function getValues()
+    {
+        return [
+            'id' => $this->id,
+            'fecha' => $this->fecha,
+            'usuario' => $this->usuario,
+            'paciente' => $this->paciente,
+            'ta' => $this->ta,
+            'oxigeno' => $this->oxigeno,
+            'pulso' => $this->pulso,
+            'peso' => $this->peso,
+            'estatura' => $this->estatura,
+            'temperatura' => $this->temperatura,
+            'motivoConsulta' => $this->motivoConsulta,
+            'exploracion' => $this->exploracion,
+            'receta' => $this->receta,
+            'consultorio' => $this->consultorio
         ];
+    }
+    public function setRecetaId($receta)
+    {
+        $this->receta = $receta;
+    }
+    public function getRecetaId()
+    {
+        return $this->receta;
+    }
+
+    public function setMedicamentosIndicacion($medicamentosIndicacion)
+    {
+        foreach ($medicamentosIndicacion as $m) {
+            $medicamentoIndicacion = new MedicamentoIndicacion();
+            $medicamentoIndicacion->insertar();
+            $this->medicamentosIndicacion[] = $medicamentoIndicacion;
+
+        }
+    }
+    public function getMedicamentosIndicacion()
+    {
+        $medicamentosIndicacion = array();
+        foreach ($this->$medicamentosIndicacion as $medicamentoIndicacion) {
+            $medicamentosIndicacion[] = $medicamentoIndicacion->getValues();
+        }
+        return $medicamentosIndicacion;
+    }
+    public function setEstudiosSolicitados($estudiosSolicitados)
+    {
+        $this->estudiosSolicitados = $estudiosSolicitados;
+    }
+    public function getEstudiosSolicitados()
+    {
+        $estudiosSolicitados = array();
+        foreach ($this->estudiosSolicitados as $estudioSolicitado) {
+            $estudiosSolicitados[] = $estudioSolicitado->getValues();
+        }
     }
     public function insertar()
     {
@@ -109,7 +152,7 @@ class Consulta
             $stmt->bindParam(':receta', $this->receta);
             $stmt->bindParam(':consultorio', $this->consultorio);
             $stmt->execute();
-            $id = $this->dbh->lastInsertId();
+            $this->id = $this->dbh->lastInsertId();
             return true;
         } catch (PDOException $e) {
             echo "No se pudo insertar nueva consulta" . $e->getMessage();
@@ -119,12 +162,12 @@ class Consulta
     public function obtener()
     {
         $query = "SELECT * FROM consulta where id=:id; ";
-        try{
+        try {
             $stmt = $this->dbh->prepare($query);
             $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
             $stmt->execute();
             $datos = $stmt->fetch(PDO::FETCH_ASSOC);
-            if($datos) {
+            if ($datos) {
                 $this->fecha = $datos["fecha"];
                 $this->usuario = $datos["usuario"];
                 $this->paciente = $datos["paciente"];
@@ -140,12 +183,13 @@ class Consulta
                 $this->consultorio = $datos["consultorio"];
             }
             return true;
-        }catch (PDOException $e){
-            echo "No se pudo obtener consulta". $e->getMessage();
+        } catch (PDOException $e) {
+            echo "No se pudo obtener consulta" . $e->getMessage();
             return false;
         }
     }
-    public function actualizar(){
+    public function actualizar()
+    {
 
     }
 }

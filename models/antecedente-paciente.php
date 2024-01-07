@@ -1,5 +1,4 @@
 <?php
-
 class AntecedentePaciente
 {
     private $id;
@@ -8,7 +7,7 @@ class AntecedentePaciente
     private $estaActiva;
     private $ficha;
     private $dbh;
-    public function __construct($id,$enfermedad,$descripcion,$estaActiva,$ficha)
+    public function __construct($id, $enfermedad, $descripcion, $estaActiva, $ficha)
     {
         $dbname = "consultorio";
         $user = "root";
@@ -17,7 +16,6 @@ class AntecedentePaciente
             PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8mb4'",
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
         );
-        $dbh = null;
         try {
             $dsn = "mysql:host=localhost; dbname=$dbname";
             $this->dbh = new PDO($dsn, $user, $password, $options);
@@ -31,25 +29,37 @@ class AntecedentePaciente
         $this->estaActiva = $estaActiva;
         $this->ficha = $ficha;
     }
-    public function getId(){
+    public function getId()
+    {
         return $this->id;
     }
-    public function getValues(){
+    public function getValues()
+    {
         return [
-            'id'=> $this->id,
-            'enfermedad'=> $this->enfermedad,
-            'descripcion'=> $this->descripcion,
-            'estaActiva'=>$this->estaActiva,
-            'ficha'=>$this->ficha
+            'id' => $this->id,
+            'enfermedad' => $this->enfermedad,
+            'descripcion' => $this->descripcion,
+            'estaActiva' => $this->estaActiva,
+            'ficha' => $this->ficha
         ];
     }
     function insertar()
     {
-        $query = "INSERT INTO antecedentes (id, enfermedad, descripcion, estaActiva, ficha) VALUES ('$this->id','$this->enfermedad','$this->descripcion', '$this->estaActiva', '$this->ficha'); ";
-        $stmt = $this->dbh->prepare($query);
-        $return = $stmt->execute();
-        $this->id = $this->dbh->lastInsertId();
-        return $return;
+        try {
+            $query = "INSERT INTO antecedentes (id, enfermedad, descripcion, estaActiva, ficha) VALUES (:id,:enfermedad,:descrpcion, :estaActiva, :ficha); ";
+            $stmt = $this->dbh->prepare($query);
+            $stmt->bindParam(':id', $this->id);
+            $stmt->bindParam(':enfermedad', $this->enfermedad);
+            $stmt->bindParam(':descripcion', $this->descripcion);
+            $stmt->bindParam(':estaActiva', $this->estaActiva);
+            $stmt->bindParam(':ficha', $this->ficha);
+            $return = $stmt->execute();
+            $this->id = $this->dbh->lastInsertId();
+            return $return;
+        } catch (PDOException $e) {
+            error_log("Error al insertar datos: " . $e->getMessage());
+            return false; // Indicar que ha habido un error
+        }
     }
     function mostrar()
     {

@@ -1,21 +1,55 @@
-<?php 
+<?php
 
-class MedicamentoIndicacion{
-
-    var $id;
-    var $medicamento;
-    var $hora;
-    var $indicaciones;
-    var $receta;
-
-    function insertar(){
-        include_once("../php/conexion.php");
-        $query="INSERT INTO medicamentoIndicacion (medicamento, hora, indicaciones, receta) VALUES ('$this->medicamento','$this->hora','$this->indicaciones','$this->receta'); ";
-        echo $query;
-        $stmt = $dbh->prepare($query);
-        return $stmt->execute();
+class MedicamentoIndicacion
+{
+    private $id;
+    private $medicamento;
+    private $hora;
+    private $indicaciones;
+    private $dbh;
+    function __construct()
+    {
+        try {
+            $dbname = "consultorio";
+            $user = "root";
+            $password = "";
+            $options = [
+                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8mb4'",
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
+            ];
+            $dsn = "mysql:host=localhost;dbname=$dbname";
+            $this->dbh = new PDO($dsn, $user, $password, $options);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
     }
-
+    public function getValues()
+    {
+        return [
+            'id' => $this->id,
+            'medicamento' => $this->medicamento,
+            'hora' => $this->hora,
+            'indicaciones' => $this->indicaciones
+        ];
+    }
+    public function setValues($medicamento, $hora, $indicaciones)
+    {
+        $this->medicamento = $medicamento;
+        $this->hora = $hora;
+        $this->indicaciones = $indicaciones;
+    }
+    public function insertar()
+    {
+        $query = "INSERT INTO medicamentoIndicacion (medicamento, hora, indicaciones) VALUES (:medicamento, :hora, :indicaciones); ";
+        try {
+            $stmt = $this->dbh->prepare($query);
+            $stmt->bindParam(':medicamento', $this->medicamento);
+            $stmt->bindParam(':hora', $this->hora);
+            $stmt->bindParam(':indicaciones', $this->indicaciones);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            echo "Error al insertar medicamento indicacion" . $e->getMessage();
+        }
+    }
 }
-
 ?>
