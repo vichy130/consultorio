@@ -10,8 +10,8 @@ while($lista = $stmt->fetch(PDO::FETCH_ASSOC)){
     $paciente=new Paciente();
     $paciente->setId($lista['id']);
     $paciente->obtener();
-    $pacientes[]=$paciente->getValues();;
-};
+    $pacientes[]=$paciente->getValues();
+}
 header('Content-Type: application/json');
 $jsonPacientes = json_encode($pacientes);
 echo $jsonPacientes;

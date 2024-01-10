@@ -10,8 +10,8 @@ while($lista = $stmt->fetch(PDO::FETCH_ASSOC)){
     $consultorio=new Consultorio();
     $consultorio->setId($lista['id']);
     $consultorio->obtener();
-    $consultorios[]=$consultorio->getValues();;
-};
+    $consultorios[]=$consultorio->getValues();
+}
 header('Content-Type: application/json');
 $jsonConsultorios = json_encode($consultorios);
 echo $jsonConsultorios;

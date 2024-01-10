@@ -30,7 +30,6 @@ class Consulta
             PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8mb4'",
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
         );
-        $this->dbh = null;
         try {
             $dsn = "mysql:host=localhost; dbname=$dbname";
             $this->dbh = new PDO($dsn, $user, $password, $options);
@@ -46,6 +45,12 @@ class Consulta
     public function setId($id)
     {
         $this->id = $id;
+    }
+    public function setPaciente($paciente){
+        $this->paciente=$paciente;
+    }
+    public function getPaciente(){
+        return $this->paciente;
     }
     public function setValues(
         $fecha,
@@ -95,6 +100,11 @@ class Consulta
             'consultorio' => $this->consultorio
         ];
     }
+    public function printValues()
+    {
+        return $all="ID: ".$this->id."Fecha: ".$this->fecha."Usuario: ".$this->usuario.$this->paciente.$this->ta.$this->oxigeno.$this->pulso.$this->peso.$this->estatura.$this->temperatura.$this->motivoConsulta.$this->exploracion.$this->receta.$this->consultorio;
+        
+    }
     public function setRecetaId($receta)
     {
         $this->receta = $receta;
@@ -103,7 +113,6 @@ class Consulta
     {
         return $this->receta;
     }
-
     public function setMedicamentosIndicacion($medicamentosIndicacion)
     {
         foreach ($medicamentosIndicacion as $m) {
