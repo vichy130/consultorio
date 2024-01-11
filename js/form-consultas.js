@@ -10,7 +10,6 @@ botonNuevaConsulta.addEventListener('click', function (e) {
     e.preventDefault();
     consulta();
 });
-
 var modalPregunta = document.getElementById('modalPregunta');
 var modalExito = document.getElementById('modalExito');
 var modalError = document.getElementById('modalError');
@@ -23,17 +22,36 @@ tabla.addEventListener('click', function (e) {
     e.preventDefault();
     if (e.target.classList.contains("editar-consulta")) {
         const idEditar = e.target.dataset.id
-        consultaEditar(idEditar);
+        /*
+        consultaEditar(idEditar);*/
     }
     if (e.target.classList.contains("eliminar-consulta")) {
         const idEliminar = e.target.dataset.id;
-        preguntaEliminar(idEliminar);
+        /*preguntaEliminar(idEliminar);*/
     }
+});
+// BOTONES
+botonCancelarEliminar.addEventListener('click', function (e) {
+    e.preventDefault();
+    cerrarPregunta();
+});
+cerrarModalPregunta.addEventListener('click', function (e) {
+    e.preventDefault()
+    cerrarPregunta();
+});
+cerrarModalExito.addEventListener('click', function (e) {
+    e.preventDefault();
+    cerrarExito();
+});
+cerrarModalError.addEventListener('click', function (e) {
+    e.preventDefault();
+    cerrarError()
 });
 
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     obtenerConsultas();
 };
+
 function obtenerConsultas() {
         fetch('./controller/obtener-consultas.php')
         .then(response => response.json())
@@ -50,6 +68,54 @@ function obtenerConsultas() {
             console.error('Error:', error);
         });
 }//END FUNCTION OBTENERCONSULTAS
+
+//FUNCION BORRAR TABLA
+function clearDiv(div) {
+    div.replaceChildren();
+}
+function preguntaEliminar(idEliminar) {
+    modalPregunta.style.display = 'block';
+    botonAceptarEliminar.onclick=function (e) {
+        e.preventDefault();
+        eliminarConsulta(idEliminar);
+        console.log('ejecucion aceptar eliminar');
+    };
+}
+function cerrarPregunta() {
+    modalPregunta.style.display = 'none';
+}
+function cerrarExito() {
+    modalExito.style.display = 'none';
+}
+function cerrarError() {
+    modalError.style.display = 'none';
+}
+
+function eliminarConsulta(idEliminar) {
+    var datos = { id: idEliminar };
+    var json = JSON.stringify(datos);
+    fetch('./controller/eliminar-consulta.php', {// Enviar los datos a PHP utilizando fetch
+        method: 'POST',
+        body: json// El JSON que contiene los datos 
+    })
+        .then(function (response) {
+            return response.text();
+        })
+        .then(function (data) {
+            if (data == "1") {
+                modalExito.style.display = 'block';
+            } else {
+                modalError.style.display = 'block';
+            }
+        })
+        .catch(function (error) {
+            console.error('Error:', error);
+        });
+    cerrarPregunta();
+    array=[];
+    clearDiv(cuerpoTabla);
+    obtenerConsultas();
+}
 
 function tablaConsultas(){
     array.forEach(co=>{
@@ -69,15 +135,23 @@ function tablaConsultas(){
 
         filaFecha.textContent=co.fecha;
         filaMotivo.textContent=co.motivoConsulta;
-        
+        console.log(co.fecha)
         filaEditar.appendChild(iconoEditar);
         filaEliminar.appendChild(iconoEliminar);
+
+        celda.appendChild(filaFecha);
+        celda.appendChild(filaMotivo);
+        celda.appendChild(filaEditar);
+        celda.appendChild(filaEliminar);
         cuerpoTabla.appendChild(celda);
     });
 }
 //FUNCION BORRAR TABLA
 function clearDiv(div) {
     div.replaceChildren();
+}
+function consulta() {
+    window.location.href = "./pacientes-consulta.php";
 }
 
 //CLASES
@@ -113,5 +187,76 @@ class Consulta {
     get fecha(){
         return this._fecha;
     }
-    
+    set usuario(usuario) {
+        this._usuario = usuario;
+    }
+    get usuario() {
+        return this._usuario;
+    }
+    set paciente(paciente) {
+        this._paciente = paciente;
+    }
+    get paciente() {
+        return this._paciente;
+    }
+    set ta(ta) {
+        this._ta = ta;
+    }
+    get ta() {
+        return this._ta;
+    }
+    set oxigeno(oxigeno) {
+        this._oxigeno = oxigeno;
+    }
+    get oxigeno() {
+        return this._oxigeno;
+    }
+    set pulso(pulso) {
+        this._pulso = pulso;
+    }
+    get pulso() {
+        return this._pulso;
+    }
+    set peso(peso) {
+        this._peso = peso;
+    }
+    get peso() {
+        return this._peso;
+    }
+    set estatura(estatura) {
+        this._estatura = estatura;
+    }
+    get estatura() {
+        return this._estatura;
+    }
+    set temperatura(temperatura) {
+        this._temperatura = temperatura;
+    }
+    get temperatura() {
+        return this._temperatura;
+    }
+    set motivoConsulta(motivoConsulta) {
+        this._motivoConsulta = motivoConsulta;
+    }
+    get motivoConsulta() {
+        return this._motivoConsulta;
+    }
+    set exploracion(exploracion) {
+        this._exploracion = exploracion;
+    }
+    get exploracion() {
+        return this._exploracion;
+    }
+    set receta(receta) {
+        this._receta = receta;
+    }
+    get receta() {
+        return this._receta;
+    }
+    set consultorio(consultorio) {
+        this._consultorio = consultorio;
+    }
+    get consultorio() {
+        return this._consultorio;
+    }
 }
