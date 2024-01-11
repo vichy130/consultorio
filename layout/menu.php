@@ -32,6 +32,7 @@
             </div>
             <li><a href="./index.php"><i class="icono izquierda fas fa-home"></i>Inicio</a></li>
             <li><a href="./pacientes.php"><i class="icono izquierda fas fa-hospital-user"></i>Pacientes</a></li>
+            <li><a href="./medicamentos.php"><i class="icono izquierda fas fa-hospital-user"></i>Medicamentos</a></li>
             <li><a href="./reportes.php"><i class="icono izquierda fas fa-file"></i>Centro de reportes</a></li>
             <li><a href="#"><i class="icono izquierda fas fa-cog"></i>Configuración<i
                         class="icono derecha fas fa-chevron-down"></i></a>

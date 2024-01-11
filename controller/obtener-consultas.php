@@ -11,7 +11,9 @@ while($lista = $stmt->fetch(PDO::FETCH_ASSOC)){
     $consulta=new Consulta();
     $consulta->setId($lista['id']);
     $consulta->obtener();
-    $consultas[]=$consulta->getValues();
+    if($_SESSION["id_paciente"]==$consulta->getPaciente()){
+        $consultas[]=$consulta->getValues();
+    }
 }
 header('Content-Type: application/json');
 $jsonConsultas = json_encode($consultas);

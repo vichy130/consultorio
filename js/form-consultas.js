@@ -52,8 +52,34 @@ function obtenerConsultas() {
 }//END FUNCTION OBTENERCONSULTAS
 
 function tablaConsultas(){
-    
+    array.forEach(co=>{
+        const celda=document.createElement('tr');
+        const filaFecha=document.createElement('td');
+        const filaMotivo=document.createElement('td');
+        const filaEditar=document.createElement('td');
+        const filaEliminar=document.createElement('td');
+        const iconoEditar=document.createElement('i');
+        const iconoEliminar=document.createElement('i');
+
+        iconoEditar.className="far fa-edit editar-consulta";
+        iconoEliminar.className="fas fa-trash eliminar-consulta";
+
+        iconoEditar.dataset.id=co.id;
+        iconoEliminar.dataset.id=co.id;
+
+        filaFecha.textContent=co.fecha;
+        filaMotivo.textContent=co.motivoConsulta;
+        
+        filaEditar.appendChild(iconoEditar);
+        filaEliminar.appendChild(iconoEliminar);
+        cuerpoTabla.appendChild(celda);
+    });
 }
+//FUNCION BORRAR TABLA
+function clearDiv(div) {
+    div.replaceChildren();
+}
+
 //CLASES
 class Consulta {
     constructor(fecha, usuario, paciente, ta, oxigeno, pulso, peso, estatura, temperatura, motivoConsulta, exploracion, receta, consultorio,/* consultasPrevias, terapias, medicamentosIndicacion, estudiosSolicitados*/) {
@@ -81,4 +107,11 @@ class Consulta {
     get id() {
         return this._id;
     }
+    set fecha(fecha){
+        this._fecha=fecha;
+    }
+    get fecha(){
+        return this._fecha;
+    }
+    
 }
