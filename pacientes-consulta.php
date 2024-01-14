@@ -1,6 +1,5 @@
 <?php
 session_start(); 
-
 function redirect($url) {
     ob_start();
     header('Location:'.$url);
@@ -11,17 +10,9 @@ if(!isset($_SESSION['username'])){
     redirect("./iniciar-sesion.php");
     exit();
 }
-if(isset($_REQUEST["id2"])){
-    $_SESSION["id_consulta"]= $_REQUEST["id2"];
-}
-
-$consulta=null;
-$id_consulta=0;
-if(isset($_SESSION["id_consulta"])){
-    include_once("models/consulta.php");
-    $consulta= new consulta;
-    $consulta->id=$_SESSION["id_consulta"];
-    $consulta->buscarDatos();
+if(isset($_REQUEST["id"])){
+    $_SESSION["id_consulta"]= $_REQUEST["id"];
+    echo $_SESSION["id_consulta"];
 }
 ?>
 
@@ -45,8 +36,8 @@ if(isset($_SESSION["id_consulta"])){
             <?php require("./layout/submenu-pacientes.php"); ?>
             <div class="contenido">
                 <form class="form" action="./controller/nueva-consulta.php" method="POST">
-                     <label class="formulario_grupo span-4"><h1><?php //echo $oP->nombre.' '. $oP->apellidoPaterno.' '. $oP->apellidoMaterno;?></h1></label>       
-                    <label class="formulario_grupo span-4">Nueva consulta</label>
+                    <label id="consulta-nombre" class="formulario_grupo span-4"><h2></h2></label>       
+                    <label id="consulta-titulo" class="formulario_grupo span-4">Consulta</label>
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="consultafecha-paciente">Fecha</label>
@@ -252,5 +243,5 @@ if(isset($_SESSION["id_consulta"])){
     </div>
     <!-- end contenedor -->
 </body>
-
+<script src="./js/form-consultas.js"></script>
 </html>

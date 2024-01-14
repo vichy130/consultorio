@@ -18,16 +18,16 @@ var botonCancelarEliminar = document.getElementById('botonCancelarEliminar');
 var cerrarModalPregunta = document.getElementById('cerrarModalPregunta');
 var cerrarModalExito = document.getElementById('cerrarModalExito');
 var cerrarModalError = document.getElementById('cerrarModalError');
-tabla.addEventListener('click', function (e) {
+
+tabla.addEventListener('click', function(e){
     e.preventDefault();
-    if (e.target.classList.contains("editar-consulta")) {
-        const idEditar = e.target.dataset.id
-        /*
-        consultaEditar(idEditar);*/
+    if(e.target.classList.contains("editar-consulta")){
+        const idEditar=e.target.dataset.id
+        consultaEditar(idEditar);
     }
-    if (e.target.classList.contains("eliminar-consulta")) {
-        const idEliminar = e.target.dataset.id;
-        /*preguntaEliminar(idEliminar);*/
+    if(e.target.classList.contains("eliminar-consulta")){
+        const idEliminar=e.target.dataset.id;
+        preguntaEliminar(idEliminar);
     }
 });
 // BOTONES
@@ -47,7 +47,6 @@ cerrarModalError.addEventListener('click', function (e) {
     e.preventDefault();
     cerrarError()
 });
-
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     obtenerConsultas();
 };
@@ -78,8 +77,11 @@ function preguntaEliminar(idEliminar) {
     botonAceptarEliminar.onclick=function (e) {
         e.preventDefault();
         eliminarConsulta(idEliminar);
-        console.log('ejecucion aceptar eliminar');
     };
+}
+function eliminarConsulta(){
+    console.log("consulta eliminada");
+    cerrarPregunta();
 }
 function cerrarPregunta() {
     modalPregunta.style.display = 'none';
@@ -89,32 +91,6 @@ function cerrarExito() {
 }
 function cerrarError() {
     modalError.style.display = 'none';
-}
-
-function eliminarConsulta(idEliminar) {
-    var datos = { id: idEliminar };
-    var json = JSON.stringify(datos);
-    fetch('./controller/eliminar-consulta.php', {// Enviar los datos a PHP utilizando fetch
-        method: 'POST',
-        body: json// El JSON que contiene los datos 
-    })
-        .then(function (response) {
-            return response.text();
-        })
-        .then(function (data) {
-            if (data == "1") {
-                modalExito.style.display = 'block';
-            } else {
-                modalError.style.display = 'block';
-            }
-        })
-        .catch(function (error) {
-            console.error('Error:', error);
-        });
-    cerrarPregunta();
-    array=[];
-    clearDiv(cuerpoTabla);
-    obtenerConsultas();
 }
 
 function tablaConsultas(){
@@ -135,7 +111,7 @@ function tablaConsultas(){
 
         filaFecha.textContent=co.fecha;
         filaMotivo.textContent=co.motivoConsulta;
-        console.log(co.fecha)
+        console.log(co.fecha);
         filaEditar.appendChild(iconoEditar);
         filaEliminar.appendChild(iconoEliminar);
 
@@ -153,7 +129,9 @@ function clearDiv(div) {
 function consulta() {
     window.location.href = "./pacientes-consulta.php";
 }
-
+function consultaEditar(idEditar) {
+    window.location.href = "./pacientes-consulta.php?id="+idEditar;
+}
 //CLASES
 class Consulta {
     constructor(fecha, usuario, paciente, ta, oxigeno, pulso, peso, estatura, temperatura, motivoConsulta, exploracion, receta, consultorio,/* consultasPrevias, terapias, medicamentosIndicacion, estudiosSolicitados*/) {
