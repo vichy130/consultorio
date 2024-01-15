@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {// SE EJECUTA AUNQUE 
         fecha.disabled = false;
         fecha.value = format;
         fecha.disabled = true;
-        ocultoFecha.value = fecha.value;
+        /*ocultoFecha.value = fecha.value;*/
     }
 });
 //FECHA

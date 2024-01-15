@@ -56,7 +56,7 @@ if (isset($_SESSION["id_paciente"])) {
 
                 <form class="form" id="form-ficha">
                     <div class="formulario_grupo">
-                        <label class="form_label" for="fecha-ficha">Fecha</label>
+                        <label class="form_label" for="fecha-ficha"><i class="izquierda fa fa-calendar" aria-hidden="true"></i>Fecha</label>
                         <input class="form_input " type="date" id="fecha-ficha" name="fecha-ficha" disabled>
                         <input type="hidden" name="oculto-fecha-ficha" id="oculto-fecha-ficha">
                     </div><!-- end form-grupo -->

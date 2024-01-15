@@ -2,10 +2,10 @@
 session_start();
 include '../models/consulta.php';
 $consulta = new Consulta();
-if (isset($_SESSION['id_paciente'])) {
-    $consulta->setPaciente($_SESSION['id_paciente']);
+if (isset($_SESSION['id_consulta'])) {
+    $consulta->setId($_SESSION['id_consulta']);
     $consulta->obtener();
-    $consultaDatos=$consulta->getValues();
+    $consultaDatos = $consulta->getValues();
 }
 header('Content-Type: application/json');
 $jsonConsulta = json_encode($consultaDatos);

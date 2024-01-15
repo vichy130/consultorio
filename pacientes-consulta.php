@@ -40,8 +40,15 @@ if(isset($_REQUEST["id"])){
                     <label id="consulta-titulo" class="formulario_grupo span-4">Consulta</label>
 
                     <div class="formulario_grupo">
-                        <label class="form_label" for="consultafecha-paciente">Fecha</label>
+                        <label class="form_label" for="consultafecha-paciente"><i class="izquierda fa fa-calendar" aria-hidden="true"></i>Fecha</label>
                         <input class="form_input" type="date" id="consultafecha-paciente" name="consultafecha-paciente">
+                    </div><!-- end form-grupo -->
+
+                    <div class="formulario_grupo">
+                        <label class="form_label" for="tipo-sangre"><i class="izquierda fa fa-map-marker"></i>Consultorio</label>
+                        <select class="form_input" name="select-consultorio" id="select-consultorio">
+                            <option value="">Selecciona una opción</option>
+                        </select>
                     </div><!-- end form-grupo -->
 
                     <div class="span-2"></div>
