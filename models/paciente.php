@@ -214,7 +214,7 @@ class Paciente
         try {
             $query = "DELETE FROM paciente WHERE id=:id;";
             $stmt = $this->dbh->prepare($query);
-            $stmt->bindParam(':id', $this->getId());
+            $stmt->bindParam(':id', $this->getId(), PDO::PARAM_INT);
             return $stmt->execute();
         } catch (PDOException $e) {
             echo "Error en eliminar: " . $e->getMessage();

@@ -243,5 +243,5 @@ if(isset($_REQUEST["id"])){
     </div>
     <!-- end contenedor -->
 </body>
-<script src="./js/form-consultas.js"></script>
+<script src="./js/form-consulta.js"></script>
 </html>

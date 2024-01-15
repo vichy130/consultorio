@@ -19,14 +19,14 @@ var cerrarModalPregunta = document.getElementById('cerrarModalPregunta');
 var cerrarModalExito = document.getElementById('cerrarModalExito');
 var cerrarModalError = document.getElementById('cerrarModalError');
 
-tabla.addEventListener('click', function(e){
+tabla.addEventListener('click', function (e) {
     e.preventDefault();
-    if(e.target.classList.contains("editar-consulta")){
-        const idEditar=e.target.dataset.id
+    if (e.target.classList.contains("editar-consulta")) {
+        const idEditar = e.target.dataset.id
         consultaEditar(idEditar);
     }
-    if(e.target.classList.contains("eliminar-consulta")){
-        const idEliminar=e.target.dataset.id;
+    if (e.target.classList.contains("eliminar-consulta")) {
+        const idEliminar = e.target.dataset.id;
         preguntaEliminar(idEliminar);
     }
 });
@@ -52,7 +52,7 @@ window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CAR
 };
 
 function obtenerConsultas() {
-        fetch('./controller/obtener-consultas.php')
+    fetch('./controller/obtener-consultas.php')
         .then(response => response.json())
         .then(data => {
             data.forEach((c) => {
@@ -74,14 +74,36 @@ function clearDiv(div) {
 }
 function preguntaEliminar(idEliminar) {
     modalPregunta.style.display = 'block';
-    botonAceptarEliminar.onclick=function (e) {
+    botonAceptarEliminar.onclick = function (e) {
         e.preventDefault();
         eliminarConsulta(idEliminar);
     };
 }
-function eliminarConsulta(){
-    console.log("consulta eliminada");
+function eliminarConsulta(idEliminar) {
+    var datos = { id: idEliminar };
+    var json = JSON.stringify(datos);
+    fetch('./controller/eliminar-consulta.php', {// Enviar los datos a PHP utilizando fetch
+        method: 'POST',
+        body: json// El JSON que contiene los datos 
+    })
+        .then(function (response) {
+            return response.text();
+        })
+        .then(function (data) {
+            console.log("DATA : "+data)
+            if (data == "1") {
+                modalExito.style.display = 'block';
+            } else {
+                modalError.style.display = 'block';
+            }
+        })
+        .catch(function (error) {
+            console.error('Error:', error);
+        });
     cerrarPregunta();
+    array = [];
+    clearDiv(cuerpoTabla);
+    obtenerConsultas();
 }
 function cerrarPregunta() {
     modalPregunta.style.display = 'none';
@@ -93,24 +115,24 @@ function cerrarError() {
     modalError.style.display = 'none';
 }
 
-function tablaConsultas(){
-    array.forEach(co=>{
-        const celda=document.createElement('tr');
-        const filaFecha=document.createElement('td');
-        const filaMotivo=document.createElement('td');
-        const filaEditar=document.createElement('td');
-        const filaEliminar=document.createElement('td');
-        const iconoEditar=document.createElement('i');
-        const iconoEliminar=document.createElement('i');
+function tablaConsultas() {
+    array.forEach(co => {
+        const celda = document.createElement('tr');
+        const filaFecha = document.createElement('td');
+        const filaMotivo = document.createElement('td');
+        const filaEditar = document.createElement('td');
+        const filaEliminar = document.createElement('td');
+        const iconoEditar = document.createElement('i');
+        const iconoEliminar = document.createElement('i');
 
-        iconoEditar.className="far fa-edit editar-consulta";
-        iconoEliminar.className="fas fa-trash eliminar-consulta";
+        iconoEditar.className = "far fa-edit editar-consulta";
+        iconoEliminar.className = "fas fa-trash eliminar-consulta";
 
-        iconoEditar.dataset.id=co.id;
-        iconoEliminar.dataset.id=co.id;
+        iconoEditar.dataset.id = co.id;
+        iconoEliminar.dataset.id = co.id;
 
-        filaFecha.textContent=co.fecha;
-        filaMotivo.textContent=co.motivoConsulta;
+        filaFecha.textContent = co.fecha;
+        filaMotivo.textContent = co.motivoConsulta;
         console.log(co.fecha);
         filaEditar.appendChild(iconoEditar);
         filaEliminar.appendChild(iconoEliminar);
@@ -130,7 +152,7 @@ function consulta() {
     window.location.href = "./pacientes-consulta.php";
 }
 function consultaEditar(idEditar) {
-    window.location.href = "./pacientes-consulta.php?id="+idEditar;
+    window.location.href = "./pacientes-consulta.php?id=" + idEditar;
 }
 //CLASES
 class Consulta {
@@ -159,10 +181,10 @@ class Consulta {
     get id() {
         return this._id;
     }
-    set fecha(fecha){
-        this._fecha=fecha;
+    set fecha(fecha) {
+        this._fecha = fecha;
     }
-    get fecha(){
+    get fecha() {
         return this._fecha;
     }
     set usuario(usuario) {

@@ -197,6 +197,17 @@ class Consulta
             return false;
         }
     }
+    public function eliminar(){
+        $query="DELETE FROM consulta WHERE id=:id; ";
+        try{
+            $stmt = $this->dbh->prepare($query);
+            $stmt->bindParam(":id", $this->getId(), PDO::PARAM_INT);
+            return $stmt->execute();
+        }catch(PDOException $e){
+            echo "Error al eliminar consulta ".$e->getMessage();
+            return false;
+        }
+    }
     public function actualizar()
     {
 

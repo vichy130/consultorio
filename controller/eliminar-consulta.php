@@ -1,26 +1,20 @@
-<?php /* edited 09 08 22 consulta*/ 
+<?php
 session_start();
-
 include_once("../models/consulta.php");
-$consulta=new consulta();
-$id_consulta=$_REQUEST["id"];
-$consulta->id = $id_consulta;
-
-echo "eliminar consulta";
-echo $id_consulta;
-
-function eliminarDatos(consulta $consulta){
-    include_once("../php/conexion.php");
-    $query="DELETE FROM consulta WHERE id='$consulta->id'; ";
-    echo $query;
-    $stmt = $dbh->prepare($query);
-    return $stmt->execute();
+try {
+    $json = json_decode(file_get_contents('php://input'), true);
+    if (isset($json['id'])) {
+        $id = $json['id'];
+        $consulta = new Consulta();
+        $consulta->setId($id);
+        if ($consulta->eliminar()) {
+            echo "1";
+        } else {
+            echo "0";
+        }
+    }
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
+    echo "0";
 }
-
-if(eliminarDatos($paciente)==1){
-    echo "DATOS ELIMINADOS";
-}else{
-    echo "ERROR. DATOS NO ELIMINADOS";
-}
-
 ?>
