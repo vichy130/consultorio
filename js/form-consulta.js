@@ -1,16 +1,20 @@
 //VARIABLES
 var fetchedData;
 var id;
-var tablaCPrevias;
-var tabla
-var selectConsultorio=document.getElementById("select-consultorio");
+var arrayConsultorios = [];
+var arrayCPrevias = [];
+var tablaCPrevias = document.getElementById("tbody-consultas-previas");
+var selectConsultorio = document.getElementById("select-consultorio");
 
 //VARIABLES
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     fetchedData = null;
     id = null;
     obtenerConsulta();
+    obtenerConsultorios();
+    obtenerMedicamentos();
 };
+
 document.addEventListener('DOMContentLoaded', function () {// SE EJECUTA AUNQUE LOS RECURSOS NO HAN SIDO CARGADOS POR COMPLETO
 
     var fecha = document.getElementById("consultafecha-paciente");
@@ -32,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {// SE EJECUTA AUNQUE 
     }
 });
 //FUNCIONES : OBTENER
-function obtenerConsulta(){
+function obtenerConsulta() {
     fetch('./controller/obtener-consulta.php')
         .then(response => response.json())
         .then(data => {
@@ -40,7 +44,7 @@ function obtenerConsulta(){
                 fetchedData = data;
                 console.log(data);
                 var consulta = new Consulta(data.fecha, data.usuario, data.paciente, data.ta, data.oxigeno, data.pulso, data.peso, data.estatura, data.temperatura, data.motivoConsulta, data.exploracion, data.receta, data.consultorio,/* consultasPrevias, terapias, medicamentosIndicacion, estudiosSolicitados*/);
-                
+
                 document.getElementById('consultafecha-paciente').value = consulta.fecha;
                 document.getElementById('vitalesta-paciente').value = consulta.ta;
                 document.getElementById('vitalesoxigeno-paciente').value = consulta.oxigeno;
@@ -50,15 +54,42 @@ function obtenerConsulta(){
                 document.getElementById('vitalestemperatura-paciente').value = consulta.temperatura;
                 document.getElementById('consultamotivo-paciente').value = consulta.motivoConsulta;
                 document.getElementById('consultaexploracion-paciente').value = consulta.exploracion;
-        }
+            }
         })// FIN FETCH
         .catch(error => {
             console.error('Error:', error);
             console.log("catch");
         });
 }
-//FUNCIONES: 
+//FUNCIONES: OBTENER CONSULTORIO
+function obtenerConsultorios() {
+    fetch('./controller/obtener-consultorios.php')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach((c) => {
+                consultorio = new Consultorio(c.id, c.nombre, c.calle, c.colonia, c.ciudad, c.codigoPostal, c.telefono);
+                arrayConsultorios.push(consultorio);
+            });
+            consultorioSelect();
+        })// FIN FETCH
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
 
+//FUNCIONES: OBTENER MEDICAMENTOS
+function obtenerMedicamentos() {
+
+}
+function consultorioSelect(){
+    console.log(arrayConsultorios);
+    arrayConsultorios.forEach(consultorio =>{
+        const opcion=document.createElement('option');
+        opcion.value=consultorio.id;
+        opcion.text=consultorio.nombre;
+        selectConsultorio.add(opcion);
+    });
+}
 
 //CLASES
 class Consulta {
@@ -164,5 +195,60 @@ class Consulta {
     }
     get consultorio() {
         return this._consultorio;
+    }
+}
+class Consultorio {
+    constructor(id, nombre, calle, colonia, ciudad, codigoPostal, telefono) {
+        this._id = id;
+        this._nombre = nombre;
+        this._calle = calle;
+        this._colonia = colonia;
+        this._ciudad = ciudad;
+        this._codigoPostal = codigoPostal;
+        this._telefono = telefono;
+    }
+    // Métodos set
+    set id(id) {
+        this._id = id;
+    }
+    set nombre(nombre) {
+        this._nombre = nombre;
+    }
+    set calle(calle) {
+        this._calle = calle;
+    }
+    set colonia(colonia) {
+        this._colonia = colonia;
+    }
+    set ciudad(ciudad) {
+        this._ciudad = ciudad;
+    }
+    set codigoPostal(codigoPostal) {
+        this._codigoPostal = codigoPostal;
+    }
+    set telefono(telefono) {
+        this._telefono = telefono;
+    }
+    // Métodos get
+    get id() {
+        return this._id;
+    }
+    get nombre() {
+        return this._nombre;
+    }
+    get calle() {
+        return this._calle;
+    }
+    get colonia() {
+        return this._colonia;
+    }
+    get ciudad() {
+        return this._ciudad;
+    }
+    get codigoPostal() {
+        return this._codigoPostal;
+    }
+    get telefono() {
+        return this._telefono;
     }
 }

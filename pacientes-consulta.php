@@ -125,7 +125,7 @@ if(isset($_REQUEST["id"])){
 
                     <button class="boton azul"><i class="fas fa-plus"></i>Añadir</button>
 
-                    <table class="table span-4">
+                    <table class="table span-4" id="tabla-consultas-previas">
                         <thead>
                             <tr>
                                 <th>Comentarios</th>
@@ -135,7 +135,7 @@ if(isset($_REQUEST["id"])){
                                 <th>Eliminar</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tbody-consultas-previas">
                             <tr>
                                 <td></td>
                                 <td></td>
@@ -238,7 +238,7 @@ if(isset($_REQUEST["id"])){
                         </tbody>
                     </table>
 
-                    <button class="input_submit boton amarillo span-2">Imprimir</button>
+                    <button class="input_submit boton amarillo span-2"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button>
                     <input class="input_submit boton azul span-2" type="submit" value="Guardar">
 
                 </form>

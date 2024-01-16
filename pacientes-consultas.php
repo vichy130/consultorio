@@ -19,7 +19,6 @@ if (isset($_SESSION["id_paciente"])) {
 
 if (isset($_SESSION["id_consulta"])) {
     unset($_SESSION["id_consulta"]);
-    unset($_REQUEST["id2"]);
 }
 ?>
 
