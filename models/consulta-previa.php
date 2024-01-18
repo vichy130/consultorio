@@ -8,7 +8,7 @@ class ConsultaPrevia
     private $tratamiento;
     private $consulta;
     private $dbh;
-    public function __construct()
+    public function __construct($comentarios, $diagnostico, $estudios, $tratamiento, $consulta)
     {
         $dbname = "consultorio";
         $user = "root";
@@ -24,18 +24,24 @@ class ConsultaPrevia
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
+        $this->comentarios = $comentarios;
+        $this->diagnostico = $diagnostico;
+        $this->estudios = $estudios;
+        $this->tratamiento = $tratamiento;
+        $this->consulta = $consulta;
     }
     function insertar()
     {
+        $query = "INSERT INTO consultaPrevia (comentarios,diagnostico,estudios,tratamiento,consulta) VALUES (:comentarios,:diagnostico,:estudios,:tratamiento,:consulta); ";
         try {
-            $query = "INSERT INTO consultaPrevia (comentarios,diagnostico,estudios,tratamiento,consulta) VALUES (:comentarios,:diagnostico,:estudios,:tratamiento,:consulta); ";
             $stmt = $this->dbh->prepare($query);
             $stmt->bindParam(':comentarios', $this->comentarios);
             $stmt->bindParam(':diagnostico', $this->diagnostico);
             $stmt->bindParam(':estudios', $this->estudios);
             $stmt->bindParam(':tratamiento', $this->tratamiento);
             $stmt->bindParam(':consulta', $this->consulta);
-            return $stmt->execute();
+            $stmt->execute();
+            return true;
         } catch (PDOException $e) {
             error_log("Error al insertar datos consulta previa: " . $e->getMessage());
             return false; // Indicar que ha habido un error

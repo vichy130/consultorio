@@ -35,7 +35,7 @@ if(isset($_REQUEST["id"])){
             <?php require("./layout/content-informacion.php"); ?>
             <?php require("./layout/submenu-pacientes.php"); ?>
             <div class="contenido">
-                <form class="form" action="./controller/nueva-consulta.php" method="POST">
+                <form class="form" action="./controller/nueva-consulta.php" method="POST" id="form-consulta">
                     <label id="consulta-nombre" class="formulario_grupo span-4"><h2></h2></label>       
                     <label id="consulta-titulo" class="formulario_grupo span-4">Consulta</label>
 
@@ -45,9 +45,8 @@ if(isset($_REQUEST["id"])){
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
-                        <label class="form_label" for="tipo-sangre"><i class="izquierda fa fa-map-marker"></i>Consultorio</label>
+                        <label class="form_label" for="select-consultorio"><i class="izquierda fa fa-map-marker"></i>Consultorio</label>
                         <select class="form_input" name="select-consultorio" id="select-consultorio">
-                            <option value="">Selecciona una opción</option>
                         </select>
                     </div><!-- end form-grupo -->
 

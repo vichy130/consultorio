@@ -1,5 +1,6 @@
 <?php
-
+include("../models/consulta-previa.php");
+include("../models/terapia-aplicada.php");
 class Consulta
 {
     private $id;
@@ -46,10 +47,12 @@ class Consulta
     {
         $this->id = $id;
     }
-    public function setPaciente($paciente){
-        $this->paciente=$paciente;
+    public function setPaciente($paciente)
+    {
+        $this->paciente = $paciente;
     }
-    public function getPaciente(){
+    public function getPaciente()
+    {
         return $this->paciente;
     }
     public function setValues(
@@ -100,14 +103,9 @@ class Consulta
             'consultorio' => $this->consultorio
         ];
     }
-    public function printValues()
+    public function setRecetaId() //pending
     {
-        return $all="ID: ".$this->id."Fecha: ".$this->fecha."Usuario: ".$this->usuario.$this->paciente.$this->ta.$this->oxigeno.$this->pulso.$this->peso.$this->estatura.$this->temperatura.$this->motivoConsulta.$this->exploracion.$this->receta.$this->consultorio;
         
-    }
-    public function setRecetaId($receta)
-    {
-        $this->receta = $receta;
     }
     public function getRecetaId()
     {
@@ -139,6 +137,22 @@ class Consulta
         $estudiosSolicitados = array();
         foreach ($this->estudiosSolicitados as $estudioSolicitado) {
             $estudiosSolicitados[] = $estudioSolicitado->getValues();
+        }
+    }
+    public function setCPrevias($consultasPrevias)
+    {
+        foreach ($consultasPrevias as $cPrevia) {
+            $consultaPrevia = new ConsultaPrevia($cPrevia->_comentarios, $cPrevia->_diagnostico, $cPrevia->_estudios, $cPrevia->_tratamiento, $cPrevia->_consulta);
+            $this->consultasPrevias[] = $consultaPrevia;
+            $consultaPrevia->insertar();
+        }
+    }
+    public function setTerapiasAplicadas($terapiasAplicadas)
+    {
+        foreach ($terapiasAplicadas as $tAplicada) {
+            $terapiaAplicada = new TerapiaAplicada($tAplicada->_terapia, $tAplicada->_consulta);
+            $this->terapias[] = $terapiaAplicada;
+            $terapiaAplicada->insertar();
         }
     }
     public function insertar()
@@ -197,14 +211,15 @@ class Consulta
             return false;
         }
     }
-    public function eliminar(){
-        $query="DELETE FROM consulta WHERE id=:id; ";
-        try{
+    public function eliminar()
+    {
+        $query = "DELETE FROM consulta WHERE id=:id; ";
+        try {
             $stmt = $this->dbh->prepare($query);
             $stmt->bindParam(":id", $this->getId(), PDO::PARAM_INT);
             return $stmt->execute();
-        }catch(PDOException $e){
-            echo "Error al eliminar consulta ".$e->getMessage();
+        } catch (PDOException $e) {
+            echo "Error al eliminar consulta " . $e->getMessage();
             return false;
         }
     }
