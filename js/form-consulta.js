@@ -5,7 +5,7 @@ var arrayConsultorios = [];
 var arrayCPrevias = [];
 var tablaCPrevias = document.getElementById("tbody-consultas-previas");
 var selectConsultorio = document.getElementById("select-consultorio");
-
+var formConsulta = document.getElementById("form-consulta");
 //VARIABLES
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     fetchedData = null;
@@ -81,16 +81,24 @@ function obtenerConsultorios() {
 function obtenerMedicamentos() {
 
 }
-function consultorioSelect(){
+function consultorioSelect() {
     console.log(arrayConsultorios);
-    arrayConsultorios.forEach(consultorio =>{
-        const opcion=document.createElement('option');
-        opcion.value=consultorio.id;
-        opcion.text=consultorio.nombre;
+    arrayConsultorios.forEach(consultorio => {
+        const opcion = document.createElement('option');
+        opcion.value = consultorio.id;
+        opcion.text = consultorio.nombre;
         selectConsultorio.add(opcion);
     });
 }
-
+//FETCH FORMULARIO Y ARRAYS
+//FETCH FORMULARIO Y ARRAYS
+formConsulta.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var datosConsulta=new FormData(formConsulta);
+    
+});
+//FETCH FORMULARIO Y ARRAYS
+//FETCH FORMULARIO Y ARRAYS
 //CLASES
 class Consulta {
     constructor(fecha, usuario, paciente, ta, oxigeno, pulso, peso, estatura, temperatura, motivoConsulta, exploracion, receta, consultorio,/* consultasPrevias, terapias, medicamentosIndicacion, estudiosSolicitados*/) {

@@ -210,6 +210,7 @@ anadirHijo.addEventListener("click", ingresarHijos);
 anadirAntecedente.addEventListener("click", ingresarAntecedentes);
 anadirAntecedenteFam.addEventListener("click", ingresarAntecedentesFam);
 //FETCH FORMULARIO Y ARRAYS
+//FETCH FORMULARIO Y ARRAYS
 var formFicha = document.getElementById('form-ficha');
 formFicha.addEventListener('submit', function (e) {
     e.preventDefault();
