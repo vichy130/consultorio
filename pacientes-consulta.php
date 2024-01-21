@@ -1,17 +1,18 @@
 <?php
-session_start(); 
-function redirect($url) {
+session_start();
+function redirect($url)
+{
     ob_start();
-    header('Location:'.$url);
+    header('Location:' . $url);
     ob_end_flush();
     die();
 }
-if(!isset($_SESSION['username'])){
+if (!isset($_SESSION['username'])) {
     redirect("./iniciar-sesion.php");
     exit();
 }
-if(isset($_REQUEST["id"])){
-    $_SESSION["id_consulta"]= $_REQUEST["id"];
+if (isset($_REQUEST["id"])) {
+    $_SESSION["id_consulta"] = $_REQUEST["id"];
     echo $_SESSION["id_consulta"];
 }
 ?>
@@ -36,16 +37,20 @@ if(isset($_REQUEST["id"])){
             <?php require("./layout/submenu-pacientes.php"); ?>
             <div class="contenido">
                 <form class="form" id="form-consulta">
-                    <label id="consulta-nombre" class="formulario_grupo span-4"><h2></h2></label>       
+                    <label id="consulta-nombre" class="formulario_grupo span-4">
+                        <h2></h2>
+                    </label>
                     <label id="consulta-titulo" class="formulario_grupo span-4">Consulta</label>
 
                     <div class="formulario_grupo">
-                        <label class="form_label" for="consultafecha-paciente"><i class="izquierda fa fa-calendar" aria-hidden="true"></i>Fecha</label>
+                        <label class="form_label" for="consultafecha-paciente"><i class="izquierda fa fa-calendar"
+                                aria-hidden="true"></i>Fecha</label>
                         <input class="form_input" type="date" id="consultafecha-paciente" name="consultafecha-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
-                        <label class="form_label" for="select-consultorio"><i class="izquierda fa fa-map-marker"></i>Consultorio</label>
+                        <label class="form_label" for="select-consultorio"><i
+                                class="izquierda fa fa-map-marker"></i>Consultorio</label>
                         <select class="form_input" name="select-consultorio" id="select-consultorio">
                         </select>
                     </div><!-- end form-grupo -->
@@ -57,12 +62,14 @@ if(isset($_REQUEST["id"])){
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="vitalesta-paciente">TA</label>
-                        <input class="form_input" type="text" id="vitalesta-paciente" name="vitalesta-paciente" value="">
+                        <input class="form_input" type="text" id="vitalesta-paciente" name="vitalesta-paciente"
+                            value="">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="vitalesoxigeno-paciente">Oxigeno</label>
-                        <input class="form_input" type="text" id="vitalesoxigeno-paciente" name="vitalesoxigeno-paciente">
+                        <input class="form_input" type="text" id="vitalesoxigeno-paciente"
+                            name="vitalesoxigeno-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
@@ -77,12 +84,14 @@ if(isset($_REQUEST["id"])){
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="vitalesestatura-paciente">Estatura</label>
-                        <input class="form_input" type="text" id="vitalesestatura-paciente" name="vitalesestatura-paciente">
+                        <input class="form_input" type="text" id="vitalesestatura-paciente"
+                            name="vitalesestatura-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="vitalestemperatura-paciente">Temperatura</label>
-                        <input class="form_input" type="text" id="vitalestemperatura-paciente" name="vitalestemperatura-paciente">
+                        <input class="form_input" type="text" id="vitalestemperatura-paciente"
+                            name="vitalestemperatura-paciente">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo span-4">
@@ -94,9 +103,10 @@ if(isset($_REQUEST["id"])){
                     <div class="formulario_grupo span-4">
                         <label class="form_label" for="consultaexploracion-paciente">Exploración</label>
                         <textarea class="form_textarea" type="text" id="consultaexploracion-paciente"
-                            name="consultaexploracion-paciente" rows="4" cols="50" value=""><?php echo $consulta==null? "": $consulta->motivoConsulta; ?></textarea>
+                            name="consultaexploracion-paciente" rows="4" cols="50"
+                            value=""><?php echo $consulta == null ? "" : $consulta->motivoConsulta; ?></textarea>
                     </div><!-- end form-grupo -->
-                    <label class="formulario_grupo span-4">Consultas previas</label>
+                    <label class="formulario_grupo span-4">Consultas externas</label>
 
                     <div class="formulario_grupo span-2">
                         <label class="form_label" for="consultapreviacomentarios-paciente">Comentarios</label>
@@ -122,7 +132,8 @@ if(isset($_REQUEST["id"])){
                             name="consultapreviatratamientos-paciente" rows="4" cols="50"> </textarea>
                     </div><!-- end form-grupo -->
 
-                    <button class="boton azul" id="agregar-consulta-previa" type="button"><i class="fas fa-plus"></i>Añadir</button>
+                    <button class="boton azul" id="boton-consulta-previa" type="button"><i
+                            class="fas fa-plus"></i>Añadir</button>
 
                     <table class="table span-4" id="tabla-consultas-previas">
                         <thead>
@@ -138,51 +149,28 @@ if(isset($_REQUEST["id"])){
                         </tbody>
                     </table>
 
+                    <label class="formulario_grupo span-4" for="consultaindicaciones-paciente">Indicaciones Generales</label>
+
                     <div class="formulario_grupo span-4">
-                        <label class="form_label" for="consultaindicaciones-paciente">Indicaciones</label>
                         <textarea class="form_textarea" type="text" id="consultaindicaciones-paciente"
                             name="consultaindicaciones-paciente" rows="4" cols="50"> </textarea>
                     </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo">
-                        <label class="form_label" for="nutrientes-paciente">Nutrientes</label>
-                        <input class="form_input" type="text" id="nutrientes-paciente" name="nutrientes-paciente">
-                    </div><!-- end form-grupo -->
-
-                    <button class="boton azul"><i class="fas fa-plus"></i>Añadir</button>
-
-                    <table class="table span-4">
-                        <thead>
-                            <tr>
-                                <th>Nutriente</th>
-                                <th>Eliminar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td></td>
-                                <td><i class="fas fa-trash"></i></td>
-                            </tr>
-                        </tbody>
-                    </table>
-
                     <label class="formulario_grupo span-4">Medicamento</label>
-
-                    <div class="formulario_grupo">
+                    
+                    <div class="formulario_grupo span-2">
                         <label class="form_label" for="consultanombremed-paciente">Nombre del medicamento</label>
                         <input class="form_input" type="text" id="consultanombremed-paciente"
                             name="consultanombremed-paciente">
                     </div><!-- end form-grupo -->
 
-                    <button class="boton azul"><i class="fas fa-plus"></i> Añadir medicamento</button>
-
-                    <div class="formulario_grupo">
+                    <div class="formulario_grupo span-4">
                         <label class="form_label" for="indicacionesmed-paciente">Indicaciones</label>
                         <textarea class="form_textarea" id="indicacionesmed-paciente" name="indicacionesmed-paciente"
                             rows="4" cols="50"> </textarea>
                     </div><!-- end form-grupo -->
 
-                    <button class="boton azul"><i class="fas fa-plus"></i> Añadir</button>
+                    <button class="boton azul" id="boton-medicamento"><i class="fas fa-plus"></i> Añadir</button>
 
                     <table class="table span-4">
                         <thead>
@@ -193,27 +181,23 @@ if(isset($_REQUEST["id"])){
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td><i class="fas fa-trash"></i></td>
-                            </tr>
                         </tbody>
                     </table>
 
-                    <div class="formulario_grupo span-2">
-                        <label class="form_label" for="estudiossolicitados-paciente">Estudios solicitados</label>
+                    <label class="formulario_grupo" for="estudiossolicitados-paciente">Estudios solicitados</label>
+                    <div class="formulario_grupo span-4">
                         <textarea class="form_textarea" type="text" id="estudiossolicitados-paciente"
                             name="estudiossolicitados-paciente" rows="4" cols="50"> </textarea>
                     </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo">
-                        <label class="form_label" for="consultaterapia-paciente">Terapia</label>
+                    <button class="boton azul" id="boton-estudios-solicitados"><i class="fas fa-plus"></i> Añadir</button>
+
+                    <div class="formulario_grupo span-4">
+                        <label class="form_label span-4" for="consultaterapia-paciente">Terapia</label>
                         <textarea class="form_textarea" id="consultaterapia-paciente" name="consultaterapia-paciente"
                             rows="4" cols="50"> </textarea>
                     </div><!-- end form-grupo -->
-
-                    <button class="boton azul"><i class="fas fa-plus"></i> Añadir</button>
+                    <button class="boton azul" id="boton-terapia"><i class="fas fa-plus"></i> Añadir</button>
 
                     <table class="table span-4">
                         <thead>
@@ -223,14 +207,11 @@ if(isset($_REQUEST["id"])){
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td></td>
-                                <td><i class="fas fa-trash"></i></td>
-                            </tr>
                         </tbody>
                     </table>
 
-                    <button class="input_submit boton amarillo span-2"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button>
+                    <button class="input_submit boton amarillo span-2" id="boton-imprimir"><i class="fa fa-print" aria-hidden="true"></i>
+                        Imprimir</button>
                     <input class="input_submit boton azul span-2" type="submit" value="Guardar">
 
                 </form>
@@ -243,4 +224,5 @@ if(isset($_REQUEST["id"])){
     <!-- end contenedor -->
 </body>
 <script src="./js/form-consulta.js"></script>
+
 </html>

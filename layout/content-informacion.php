@@ -9,7 +9,6 @@
 
 <body>
     <div class="content-informacion">
-        <script> console.log("esto es JS en content form");</script>
         <div class="icono-paciente">
             <i class="fas fa-user-circle"></i>
         </div>

@@ -6,7 +6,7 @@ var arrayCPrevias = [];
 var tablaCPrevias = document.getElementById("tbody-consultas-previas");//TABLA
 var selectConsultorio = document.getElementById("select-consultorio"); //SELECT
 var formConsulta = document.getElementById("form-consulta"); //FORM
-var anadirCPrevia=document.getElementById('agregar-consulta-previa');//BOTON
+var anadirCPrevia=document.getElementById('boton-consulta-previa');//BOTON
 //VARIABLES
 //BOTONES
 anadirCPrevia.addEventListener("click", ingresarCPrevias);

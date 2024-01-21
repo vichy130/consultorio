@@ -90,7 +90,7 @@ if (isset($_SESSION["id_paciente"])) {
                             name="hijoedad-paciente">
                     </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo radio span-2">
+                    <div class="formulario_grupo radio span-4">
                         <label for="sexo-hijo"><i class="izquierda fas fa-male"></i>Hombre</label>
                         <input type="radio" id="hombre" name="sexo-hijo" value="Hombre">
                         <label for="sexo-hijo"><i class="izquierda fas fa-female"></i>Mujer</label>
@@ -357,7 +357,7 @@ if (isset($_SESSION["id_paciente"])) {
                         <input class="form_input" type="text" id="familiarenfermedad-paciente"
                             name="familiarenfermedad-paciente">
                     </div><!-- end form-grupo -->
-                    <div class="formulario_grupo span-2">
+                    <div class="formulario_grupo span-4">
                         <label class="form_label" for="familiarenfermedad-descripcion-paciente">Descripción</label>
                         <input class="form_input" type="text" id="familiarenfermedad-descripcion-paciente"
                             name="familiarenfermedad-descripcion-paciente">
@@ -387,11 +387,6 @@ if (isset($_SESSION["id_paciente"])) {
                         <label class="form_label" for="enfermedad-paciente">Enfermedad</label>
                         <input class="form_input" type="text" id="enfermedad-paciente" name="enfermedad-paciente">
                     </div><!-- end form-grupo -->
-                    <div class="formulario_grupo span-2">
-                        <label class="form_label" for="enfermedad-descripcion-paciente">Descripción</label>
-                        <input class="form_input" type="text" id="enfermedad-descripcion-paciente"
-                            name="enfermedad-descripcion-paciente">
-                    </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo span-2">
                         <label class="form_label" for="enfermedad-activa">Está Activa</label>
@@ -401,6 +396,12 @@ if (isset($_SESSION["id_paciente"])) {
                             <option value="2" selected="selected">No lo sé</option>
                         </select>
                     </div><!-- end form-grupo -->
+                    <div class="formulario_grupo span-4">
+                        <label class="form_label" for="enfermedad-descripcion-paciente">Descripción</label>
+                        <input class="form_input" type="text" id="enfermedad-descripcion-paciente"
+                            name="enfermedad-descripcion-paciente">
+                    </div><!-- end form-grupo -->
+
                     <button class="boton azul" type="button" id="agregarAntecedente"><i class="fas fa-plus"></i>
                         Añadir</button>
 
@@ -422,12 +423,6 @@ if (isset($_SESSION["id_paciente"])) {
                     <div class="formulario_grupo">
                         <label class="form_label" for="firma-paciente">Firma Paciente</label>
                         <input class="form_input" type="file" id="firma-paciente" name="firma-paciente"
-                            accept=".jpg, .jpeg, .png">
-                    </div><!-- end form-grupo -->
-
-                    <div class="formulario_grupo">
-                        <label class="form_label" for="firma-usuario">Firma Médico</label>
-                        <input class="form_input" type="file" id="firma-usuario" name="firma-usuario"
                             accept=".jpg, .jpeg, .png">
                     </div><!-- end form-grupo -->
 

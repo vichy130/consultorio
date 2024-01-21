@@ -1,13 +1,14 @@
 <?php
-session_start(); 
+session_start();
 
-function redirect($url) {
+function redirect($url)
+{
     ob_start();
-    header('Location:'.$url);
+    header('Location:' . $url);
     ob_end_flush();
     die();
 }
-if(!isset($_SESSION['username'])){
+if (!isset($_SESSION['username'])) {
     redirect("./iniciar-sesion.php");
     exit();
 }
@@ -54,22 +55,37 @@ require("./php/conexion.php");
 
                 <tbody>
                     <?php
-                    $stat= $dbh-> prepare ("select username, nombre, apellidoPaterno, apellidoMaterno, telefono, correo, tipoUsuario from usuario; ");
+                    $stat = $dbh->prepare("select username, nombre, apellidoPaterno, apellidoMaterno, telefono, correo, tipoUsuario from usuario; ");
                     $stat->execute();
-                    while($datosUsuario=$stat->fetch(PDO::FETCH_OBJ)){
-                    ?>
-                    <tr>
-                        <td><?php echo $datosUsuario->username;?></td>
-                        <td class="column-to-hide"><?php echo $datosUsuario->nombre;?></td>
-                        <td class="column-to-hide"><?php echo $datosUsuario->apellidoPaterno;?></td>
-                        <td class="column-to-hide"><?php echo $datosUsuario->apellidoMaterno;?></td>
-                        <td class="column-to-hide"><?php echo $datosUsuario->telefono;?></td>
-                        <td class="column-to-hide"><?php echo $datosUsuario->correo;?></td>
-                        <td><?php echo $datosUsuario->tipoUsuario;?></td>
-                        <td><a href="./usuarios-nuevo.php?id=<?php echo $datosUsuario->username?>">ver/modificar</a></td>
-                        <td><i class="fas fa-trash"></i></td>
-                    </tr>
-                    <?php 
+                    while ($datosUsuario = $stat->fetch(PDO::FETCH_OBJ)) {
+                        ?>
+                        <tr>
+                            <td>
+                                <?php echo $datosUsuario->username; ?>
+                            </td>
+                            <td class="column-to-hide">
+                                <?php echo $datosUsuario->nombre; ?>
+                            </td>
+                            <td class="column-to-hide">
+                                <?php echo $datosUsuario->apellidoPaterno; ?>
+                            </td>
+                            <td class="column-to-hide">
+                                <?php echo $datosUsuario->apellidoMaterno; ?>
+                            </td>
+                            <td class="column-to-hide">
+                                <?php echo $datosUsuario->telefono; ?>
+                            </td>
+                            <td class="column-to-hide">
+                                <?php echo $datosUsuario->correo; ?>
+                            </td>
+                            <td>
+                                <?php echo $datosUsuario->tipoUsuario; ?>
+                            </td>
+                            <td><a href="./usuarios-nuevo.php?id=<?php echo $datosUsuario->username ?>">ver/modificar</a>
+                            </td>
+                            <td><i class="fas fa-trash"></i></td>
+                        </tr>
+                    <?php
                     }
                     ?>
                 </tbody>
@@ -80,4 +96,5 @@ require("./php/conexion.php");
     <!-- end contenedor -->
     <script src="./js/botones.js"></script>
 </body>
+
 </html>

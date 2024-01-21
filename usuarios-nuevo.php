@@ -1,24 +1,25 @@
 <?php
-session_start(); 
+session_start();
 
-function redirect($url) {
+function redirect($url)
+{
     ob_start();
-    header('Location:'.$url);
+    header('Location:' . $url);
     ob_end_flush();
     die();
 }
-if(!isset($_SESSION['username'])){
+if (!isset($_SESSION['username'])) {
     redirect("./iniciar-sesion.php");
     exit();
 }
 
-$oU=null;
-if(isset($_REQUEST["id"])){
+$oU = null;
+if (isset($_REQUEST["id"])) {
 
-include_once("./models/usuario.php");
-$oU=new usuario();
-$oU->username= $_REQUEST["id"];
-$oU->buscarDatos();
+    include_once("./models/usuario.php");
+    $oU = new usuario();
+    $oU->username = $_REQUEST["id"];
+    $oU->buscarDatos();
 }
 ?>
 
@@ -37,14 +38,15 @@ $oU->buscarDatos();
     <div class="contenedor">
         <?php require("./layout/menu.php"); ?>
 
-        <div id="modalExito" class="modal">
-                    <div class="modal-contenido">
-                        <span class="cerrar-modal" id="cerrarModal">&times;</span>
-                        <h2>¡Usuario creado!</h2>
-                        <br>
-                        <p>Los datos se han guardado con éxito.</p>
-                    </div>
-                </div>
+        <!--<div id="modalExito" class="modal">
+            <div class="modal-contenido">
+                <span class="cerrar-modal" id="cerrarModal">&times;</span>
+                <h2>¡Usuario creado!</h2>
+                <br>
+                <p>Los datos se han guardado con éxito.</p>
+            </div>
+        </div>
+-->
 
         <form class="content-general" action="./controller/nuevo-usuario.php" method="POST">
 
@@ -52,32 +54,38 @@ $oU->buscarDatos();
 
             <div class="formulario_grupo">
                 <label class="form_label" for="username-usuario">Nombre de usuario</label>
-                <input class="form_input" type="text" id="username-usuario" name="username-usuario" value="<?php echo $oU==null? "": $oU->username; ?>">
-                    </div><!-- end form-grupo -->
+                <input class="form_input" type="text" id="username-usuario" name="username-usuario"
+                    value="<?php echo $oU == null ? "" : $oU->username; ?>">
+            </div><!-- end form-grupo -->
 
-                    <div class=" formulario_grupo">
+            <div class=" formulario_grupo">
                 <label class="form_label" for="nombre-usuario">Nombre</label>
-                <input class="form_input" type="text" id="nombre-usuario" name="nombre-usuario" value="<?php echo $oU==null? "": $oU->nombre; ?>">
+                <input class="form_input" type="text" id="nombre-usuario" name="nombre-usuario"
+                    value="<?php echo $oU == null ? "" : $oU->nombre; ?>">
             </div><!-- end form-grupo -->
 
             <div class="formulario_grupo">
                 <label class="form_label" for="apellidoPaterno-usuario">Apellido paterno</label>
-                <input class="form_input" type="text" id="apellidoPaterno-usuario" name="apellidoPaterno-usuario" value="<?php echo $oU==null? "": $oU->apellidoPaterno; ?>">
+                <input class="form_input" type="text" id="apellidoPaterno-usuario" name="apellidoPaterno-usuario"
+                    value="<?php echo $oU == null ? "" : $oU->apellidoPaterno; ?>">
             </div><!-- end form-grupo -->
 
             <div class="formulario_grupo">
                 <label class="form_label" for="apellidoMaterno-usuario">Apellido materno</label>
-                <input class="form_input" type="text" id="apellidoMaterno-usuario" name="apellidoMaterno-usuario" value="<?php echo $oU==null? "": $oU->apellidoMaterno; ?>">
+                <input class="form_input" type="text" id="apellidoMaterno-usuario" name="apellidoMaterno-usuario"
+                    value="<?php echo $oU == null ? "" : $oU->apellidoMaterno; ?>">
             </div><!-- end form-grupo -->
 
             <div class="formulario_grupo">
                 <label class="form_label" for="telefono-usuario">Telefono</label>
-                <input class="form_input" type="text" id="telefono-usuario" name="telefono-usuario" value="<?php echo $oU==null? "": $oU->telefono; ?>">
+                <input class="form_input" type="text" id="telefono-usuario" name="telefono-usuario"
+                    value="<?php echo $oU == null ? "" : $oU->telefono; ?>">
             </div><!-- end form-grupo -->
 
             <div class="formulario_grupo">
                 <label class="form_label" for="correo-usuario">Correo electronico</label>
-                <input class="form_input" type="text" id="correo-usuario" name="correo-usuario" value="<?php echo $oU==null? "": $oU->correo; ?>">
+                <input class="form_input" type="text" id="correo-usuario" name="correo-usuario"
+                    value="<?php echo $oU == null ? "" : $oU->correo; ?>">
             </div><!-- end form-grupo -->
 
             <div class="formulario_grupo">
@@ -87,9 +95,14 @@ $oU->buscarDatos();
 
             <div class="formulario_grupo">
                 <label class="form_label" for="tipo-usuario">Tipo de usuario</label>
-                <input class="form_input" type="text" id="tipo-usuario" name="tipo-usuario" value="<?php echo $oU==null? "": $oU->tipoUsuario; ?>">
+                <input class="form_input" type="text" id="tipo-usuario" name="tipo-usuario"
+                    value="<?php echo $oU == null ? "" : $oU->tipoUsuario; ?>">
             </div><!-- end form-grupo -->
-
+            <div class="formulario_grupo">
+                <label class="form_label" for="firma-usuario">Firma Médico</label>
+                <input class="form_input" type="file" id="firma-usuario" name="firma-usuario"
+                    accept=".jpg, .jpeg, .png">
+            </div><!-- end form-grupo -->
             <button class="input_submit boton amarillo span-2">Imprimir</button>
             <input class="input_submit boton azul span-2" type="submit" value="Guardar">
 
@@ -98,7 +111,7 @@ $oU->buscarDatos();
         <?php require("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
-    <script src="./js/form-validacion-guardar.js"></script>
+    <script></script>
 </body>
 
 </html>
