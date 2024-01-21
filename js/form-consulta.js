@@ -3,10 +3,14 @@ var fetchedData;
 var id;
 var arrayConsultorios = [];
 var arrayCPrevias = [];
-var tablaCPrevias = document.getElementById("tbody-consultas-previas");
-var selectConsultorio = document.getElementById("select-consultorio");
-var formConsulta = document.getElementById("form-consulta");
+var tablaCPrevias = document.getElementById("tbody-consultas-previas");//TABLA
+var selectConsultorio = document.getElementById("select-consultorio"); //SELECT
+var formConsulta = document.getElementById("form-consulta"); //FORM
+var anadirCPrevia=document.getElementById('agregar-consulta-previa');//BOTON
 //VARIABLES
+//BOTONES
+anadirCPrevia.addEventListener("click", ingresarCPrevias);
+//BOTONES
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     fetchedData = null;
     id = null;
@@ -78,9 +82,10 @@ function obtenerConsultorios() {
 }
 
 //FUNCIONES: OBTENER MEDICAMENTOS
-function obtenerMedicamentos() {
+function obtenerMedicamentos() { //pendiente 
 
 }
+// FUNCIONES : OBTENER CONSULTORIOS
 function consultorioSelect() {
     console.log(arrayConsultorios);
     arrayConsultorios.forEach(consultorio => {
@@ -90,6 +95,19 @@ function consultorioSelect() {
         selectConsultorio.add(opcion);
     });
 }
+// FUNCIONES : OBTENER CONSULTORIOS
+// FUNCIONES INSERTAR ARRAY INGRESAR CONSULTAS PREVIAS
+function ingresarCPrevias(){
+    let comentarios=document.getElementById('consultapreviacomentarios-paciente').value;
+    let diagnostico=document.getElementById('consultapreviadiagnostico-paciente').value;
+    let estudios=document.getElementById('consultapreviaestudio-paciente').value;
+    let tratamiento=document.getElementById('consultapreviatratamiento-paciente').value;
+    cPrevia=new ConsultaPrevia(comentarios, diagnostico, estudios, tratamiento);
+    cPrevia.id= new Date().getTime();
+    arrayCPrevias.push(cPrevia);
+    actualizarTablaCPrevias();
+}
+// FUNCIONES INSERTAR ARRAY INGRESAR CONSULTAS PREVIAS
 //FETCH FORMULARIO Y ARRAYS
 //FETCH FORMULARIO Y ARRAYS
 formConsulta.addEventListener('submit', function (e) {
@@ -99,6 +117,40 @@ formConsulta.addEventListener('submit', function (e) {
 });
 //FETCH FORMULARIO Y ARRAYS
 //FETCH FORMULARIO Y ARRAYS
+// TABLAS: CONSULTAS PREVIAS
+function clearDiv(div) {
+    div.replaceChildren();
+}
+function actualizarTablaCPrevias(){
+    clearDiv(tablaCPrevias);
+    arrayCPrevias.forEach(cp=>{
+        const celda=document.createElement('tr');
+        const comentariosFila=document.createElement('td');
+        const diagnosticoFila=document.createElement('td');
+        const estudiosFila=document.createElement('td');
+        const tratamientoFila=document.createElement('td');
+        const eliminarFila=document.createElement('td');
+
+        const iconoEliminar=document.createElement('i');
+
+        iconoEliminar.dataset.id=cp.id;
+        comentariosFila.textContent=cp.comentarios;
+        diagnosticoFila.textContent=cp.diagnostico;
+        estudiosFila.textContent=cp.estudios;
+        tratamientoFila.textContent=cp.tratamiento;
+        iconoEliminar.className="fas fa-trash eliminar-consulta-previa";
+
+        eliminarFila.appendChild(iconoEliminar);
+        celda.appendChild(comentariosFila);
+        celda.appendChild(diagnosticoFila);
+        celda.appendChild(estudiosFila);
+        celda.appendChild(tratamientoFila);
+        celda.appendChild(eliminarFila);
+        tablaCPrevias.appendChild(celda);
+        console.log(arrayCPrevias);
+    });
+}
+// TABLAS: CONSULTAS PREVIAS
 //CLASES
 class Consulta {
     constructor(fecha, usuario, paciente, ta, oxigeno, pulso, peso, estatura, temperatura, motivoConsulta, exploracion, receta, consultorio,/* consultasPrevias, terapias, medicamentosIndicacion, estudiosSolicitados*/) {
@@ -258,5 +310,32 @@ class Consultorio {
     }
     get telefono() {
         return this._telefono;
+    }
+}
+class ConsultaPrevia{
+    constructor(comentarios, diagnostico, estudios, tratamiento){
+        this._comentarios=comentarios;
+        this._diagnostico=diagnostico;
+        this._estudios=estudios;
+        this._tratamiento=tratamiento;
+    }
+
+    set id(id){
+        this._id=id;
+    }
+    get id(){
+        return this._id;
+    }
+    get comentarios(){
+        return this._comentarios;
+    }
+    get diagnostico(){
+        return this._diagnostico;
+    }
+    get estudios(){
+        return this._estudios;
+    }
+    get tratamiento(){
+        return this._tratamiento;
     }
 }

@@ -35,7 +35,7 @@ if(isset($_REQUEST["id"])){
             <?php require("./layout/content-informacion.php"); ?>
             <?php require("./layout/submenu-pacientes.php"); ?>
             <div class="contenido">
-                <form class="form" action="./controller/nueva-consulta.php" method="POST" id="form-consulta">
+                <form class="form" id="form-consulta">
                     <label id="consulta-nombre" class="formulario_grupo span-4"><h2></h2></label>       
                     <label id="consulta-titulo" class="formulario_grupo span-4">Consulta</label>
 
@@ -117,12 +117,12 @@ if(isset($_REQUEST["id"])){
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo span-2">
-                        <label class="form_label" for="consultapreviatratamientos-paciente">Tratamientos</label>
-                        <textarea class="form_textarea" type="text" id="consultapreviatratamientos-paciente"
+                        <label class="form_label" for="consultapreviatratamientos-paciente">Tratamiento</label>
+                        <textarea class="form_textarea" type="text" id="consultapreviatratamiento-paciente"
                             name="consultapreviatratamientos-paciente" rows="4" cols="50"> </textarea>
                     </div><!-- end form-grupo -->
 
-                    <button class="boton azul"><i class="fas fa-plus"></i>Añadir</button>
+                    <button class="boton azul" id="agregar-consulta-previa" type="button"><i class="fas fa-plus"></i>Añadir</button>
 
                     <table class="table span-4" id="tabla-consultas-previas">
                         <thead>
@@ -135,13 +135,6 @@ if(isset($_REQUEST["id"])){
                             </tr>
                         </thead>
                         <tbody id="tbody-consultas-previas">
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><i class="fas fa-trash"></i></td>
-                            </tr>
                         </tbody>
                     </table>
 
