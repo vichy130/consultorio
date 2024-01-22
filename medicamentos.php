@@ -67,12 +67,11 @@ require("./php/conexion.php");
             <label class="span-4">Medicamentos</label>
             <input class="form_input span-2" type="text">
             <button class="boton azul"><i class="fas fa-search"></i> Buscar</button>
-            <button class="boton azul" id="nuevo-medicamento-boton"><i class="fas fa-user-plus"></i> Nuevo
+            <button class="boton azul" id="boton-nuevo-medicamento"><i class="fas fa-user-plus"></i> Nuevo
                 medicamento</button>
             <table class="table span-4" id="tabla-medicamentos">
                 <thead>
                     <tr>
-                        <th>Registro</th>
                         <th>Medicamento</th>
                         <th>Tipo</th>
                         <th class="column-to-hide">Descripcion</th>

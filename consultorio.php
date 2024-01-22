@@ -22,7 +22,7 @@ if (!isset($_SESSION['username'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/estilos-pacientes.css">
-    <title>Nuevo Usuario</title>
+    <title>Consultorio</title>
 </head>
 
 <body>
@@ -41,7 +41,7 @@ if (!isset($_SESSION['username'])) {
         -->
 
         <form class="content-general" action="./controller/nuevo-consultorio.php" method="POST">
-            <label class="formulario_grupo span-4">Nuevo Consultorio</label>
+            <label class="formulario_grupo span-4">Consultorio</label>
 
             <div class="formulario_grupo">
                 <label class="form_label" for="nombre-consultorio">Nombre de consultorio</label>

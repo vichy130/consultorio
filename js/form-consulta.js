@@ -3,13 +3,16 @@ var fetchedData;
 var id;
 var arrayConsultorios = [];
 var arrayCPrevias = [];
+var arrayMedicamentos=[];
+var medicamentoInput=document.getElementById("consultanombremed-paciente");
 var tablaCPrevias = document.getElementById("tbody-consultas-previas");//TABLA
 var selectConsultorio = document.getElementById("select-consultorio"); //SELECT
 var formConsulta = document.getElementById("form-consulta"); //FORM
 var anadirCPrevia=document.getElementById('boton-consulta-previa');//BOTON
 //VARIABLES
-//BOTONES
+//BOTONES -- EVENT LISTENERS
 anadirCPrevia.addEventListener("click", ingresarCPrevias);
+medicamentoInput.addEventListener("input", medicamentoSelect);
 //BOTONES
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     fetchedData = null;
@@ -83,7 +86,19 @@ function obtenerConsultorios() {
 
 //FUNCIONES: OBTENER MEDICAMENTOS
 function obtenerMedicamentos() { //pendiente 
+    fetch('./controller/obtener-medicamentos.php')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach((m) => {
+                medicamento = new Medicamento(m.medicamento, m.tipo, m.descripcion);
+                arrayMedicamentos.push(medicamento);
+            });
+            console.log(arrayMedicamentos);
 
+        })// FIN FETCH
+        .catch(error => {
+            console.error('Error:', error);
+        });
 }
 // FUNCIONES : OBTENER CONSULTORIOS
 function consultorioSelect() {
@@ -96,6 +111,19 @@ function consultorioSelect() {
     });
 }
 // FUNCIONES : OBTENER CONSULTORIOS
+// FUNCIONES : OBTENER MEDICAMENTOS
+function medicamentoSelect(){
+    var inputValue=medicamentoInput.value;
+    var filtrado=[];
+    console.log("input value: "+inputValue);
+    arrayMedicamentos.forEach(m=>{
+        if(m.medicamento==inputValue){
+            filtrado.push(m.medicamento);
+        }
+    });
+       console.log(filtrado);
+}
+// FUNCIONES : OBTENER MEDICAMENTOS
 // FUNCIONES INSERTAR ARRAY INGRESAR CONSULTAS PREVIAS
 function ingresarCPrevias(){
     let comentarios=document.getElementById('consultapreviacomentarios-paciente').value;
@@ -337,5 +365,21 @@ class ConsultaPrevia{
     }
     get tratamiento(){
         return this._tratamiento;
+    }
+}
+class Medicamento{
+    constructor(medicamento, tipo, descripcion){
+        this._medicamento=medicamento;
+        this._tipo=tipo;
+        this._descripcion=descripcion;
+    }
+    get id(){
+        return this._id;
+    }
+    set id(id){
+        this._id=id;
+    }
+    get medicamento(){
+        return this._medicamento;
     }
 }

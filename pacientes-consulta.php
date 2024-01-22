@@ -104,7 +104,7 @@ if (isset($_REQUEST["id"])) {
                         <label class="form_label" for="consultaexploracion-paciente">Exploración</label>
                         <textarea class="form_textarea" type="text" id="consultaexploracion-paciente"
                             name="consultaexploracion-paciente" rows="4" cols="50"
-                            value=""><?php echo $consulta == null ? "" : $consulta->motivoConsulta; ?></textarea>
+                            value=""></textarea>
                     </div><!-- end form-grupo -->
                     <label class="formulario_grupo span-4">Consultas externas</label>
 

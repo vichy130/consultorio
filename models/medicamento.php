@@ -23,8 +23,15 @@ class Medicamento
             echo $e->getMessage();
         }
     }
-    public function setValues($medicamento, $tipo, $descripcion)
+    public function getId(){
+        return $this->id;
+    }
+    public function setId($id){
+        $this->id=$id;
+    }
+    public function setValues($id, $medicamento, $tipo, $descripcion)
     {
+        $this->id=$id;
         $this->medicamento = $medicamento;
         $this->tipo = $tipo;
         $this->descripcion = $descripcion;
@@ -40,15 +47,34 @@ class Medicamento
     }
     public function insertar()
     {
-        $query = "INSERT INTO medicamento (medicamento, tipo, descripcion) VALUES (:medicamento,:tipo,:descripcion); ";
+        $query = "INSERT INTO medicamento (id, medicamento, tipo, descripcion) VALUES (:medicamento,:tipo,:descripcion); ";
         try {
             $stmt = $this->dbh->prepare($query);
+            $stmt->bindParam(':id', $this->id);
             $stmt->bindParam(':medicamento', $this->medicamento);
             $stmt->bindParam(':tipo', $this->tipo);
             $stmt->bindParam(':descripcion', $this->descripcion);
             return $stmt->execute();
         } catch (PDOException $e) {
             echo "Error al insertar medicamento" . $e->getMessage();
+        }
+    }
+    public function obtener()
+    {
+        $query = "SELECT * FROM medicamento where id=:id; ";
+        try {
+            $stmt = $this->dbh->prepare($query);
+            $stmt->bindParam(':id', $this->id);
+            $stmt->execute();
+            $datos = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($datos) {
+                $this->id = $datos["id"];
+                $this->medicamento = $datos["medicamento"];
+                $this->tipo = $datos["tipo"];
+                $this->descripcion = $datos["descripcion"];
+            }
+        } catch (PDOException $e) {
+            echo "error al obtener mediamento" + $e->getMessage();
         }
     }
 }
