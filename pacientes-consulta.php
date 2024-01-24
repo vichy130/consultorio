@@ -103,8 +103,7 @@ if (isset($_REQUEST["id"])) {
                     <div class="formulario_grupo span-4">
                         <label class="form_label" for="consultaexploracion-paciente">Exploración</label>
                         <textarea class="form_textarea" type="text" id="consultaexploracion-paciente"
-                            name="consultaexploracion-paciente" rows="4" cols="50"
-                            value=""></textarea>
+                            name="consultaexploracion-paciente" rows="4" cols="50" value=""></textarea>
                     </div><!-- end form-grupo -->
                     <label class="formulario_grupo span-4">Consultas externas</label>
 
@@ -149,7 +148,8 @@ if (isset($_REQUEST["id"])) {
                         </tbody>
                     </table>
 
-                    <label class="formulario_grupo span-4" for="consultaindicaciones-paciente">Indicaciones Generales</label>
+                    <label class="formulario_grupo span-4" for="consultaindicaciones-paciente">Indicaciones
+                        Generales</label>
 
                     <div class="formulario_grupo span-4">
                         <textarea class="form_textarea" type="text" id="consultaindicaciones-paciente"
@@ -157,11 +157,42 @@ if (isset($_REQUEST["id"])) {
                     </div><!-- end form-grupo -->
 
                     <label class="formulario_grupo span-4">Medicamento</label>
-                    
+
                     <div class="formulario_grupo span-2">
                         <label class="form_label" for="consultanombremed-paciente">Nombre del medicamento</label>
-                        <input class="form_input" type="text" id="consultanombremed-paciente"
-                            name="consultanombremed-paciente">
+                        <input class="form_input" list="consultanombremed-paciente" id="input-medicamento">
+                        <datalist id="consultanombremed-paciente">
+                        </datalist>
+                    </div><!-- end form-grupo -->
+
+                    <div class="formulario_grupo">
+                        <label class="form_label" for="select-medicamento-hora"><i class="fa fa-hourglass-half izquierda" aria-hidden="true"></i>Cada (horas)</label>
+                        <select class="form_input" name="time" id="select-medicamento-hora">
+                            <option value="01:00">01:00 hr</option>
+                            <option value="02:00">02:00 hrs</option>
+                            <option value="03:00">03:00 hrs</option>
+                            <option value="04:00">04:00 hrs</option>
+                            <option value="05:00">05:00 hrs</option>
+                            <option value="06:00">06:00 hrs</option>
+                            <option value="07:00">07:00 hrs</option>
+                            <option value="08:00">08:00 hrs</option>
+                            <option value="09:00">09:00 hrs</option>
+                            <option value="10:00">10:00 hrs</option>
+                            <option value="11:00">11:00 hrs</option>
+                            <option value="12:00">12:00 hrs</option>
+                            <option value="13:00">13:00 hrs</option>
+                            <option value="14:00">14:00 hrs</option>
+                            <option value="15:00">15:00 hrs</option>
+                            <option value="16:00">16:00 hrs</option>
+                            <option value="17:00">17:00 hrs</option>
+                            <option value="18:00">18:00 hrs</option>
+                            <option value="19:00">19:00 hrs</option>
+                            <option value="20:00">20:00 hrs</option>
+                            <option value="21:00">21:00 hrs</option>
+                            <option value="22:00">22:00 hrs</option>
+                            <option value="23:00">23:00 hrs</option>
+                            <option value="24:00">24:00 hrs</option>
+                        </select>
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo span-4">
@@ -180,7 +211,7 @@ if (isset($_REQUEST["id"])) {
                                 <th>Eliminar</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tbody-medicamento-indicacion">
                         </tbody>
                     </table>
 
@@ -190,7 +221,8 @@ if (isset($_REQUEST["id"])) {
                             name="estudiossolicitados-paciente" rows="4" cols="50"> </textarea>
                     </div><!-- end form-grupo -->
 
-                    <button class="boton azul" id="boton-estudios-solicitados"><i class="fas fa-plus"></i> Añadir</button>
+                    <button class="boton azul" id="boton-estudios-solicitados"><i class="fas fa-plus"></i>
+                        Añadir</button>
 
                     <div class="formulario_grupo span-4">
                         <label class="form_label span-4" for="consultaterapia-paciente">Terapia</label>
@@ -210,7 +242,8 @@ if (isset($_REQUEST["id"])) {
                         </tbody>
                     </table>
 
-                    <button class="input_submit boton amarillo span-2" id="boton-imprimir"><i class="fa fa-print" aria-hidden="true"></i>
+                    <button class="input_submit boton amarillo span-2" id="boton-imprimir"><i class="fa fa-print"
+                            aria-hidden="true"></i>
                         Imprimir</button>
                     <input class="input_submit boton azul span-2" type="submit" value="Guardar">
 

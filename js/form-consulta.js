@@ -3,16 +3,23 @@ var fetchedData;
 var id;
 var arrayConsultorios = [];
 var arrayCPrevias = [];
-var arrayMedicamentos=[];
-var medicamentoInput=document.getElementById("consultanombremed-paciente");
-var tablaCPrevias = document.getElementById("tbody-consultas-previas");//TABLA
+var arrayMedicamentos = [];
+var arrayMedicamentoIndicaciones = [];
+var receta=new Date().getTime();
+var medicamentoDatalist = document.getElementById("consultanombremed-paciente");
+var tablaCPrevias = document.getElementById("tbody-consultas-previas");//
+var tablaMedicamentoIndicacion = document.getElementById("tbody-medicamento-indicacion");
+var indicacionesMedicamento = document.getElementById("indicacionesmed-paciente"); //INPUT
+//TABLA
 var selectConsultorio = document.getElementById("select-consultorio"); //SELECT
+var selectMedicamentoHora = document.getElementById("select-medicamento-hora");
 var formConsulta = document.getElementById("form-consulta"); //FORM
-var anadirCPrevia=document.getElementById('boton-consulta-previa');//BOTON
+var anadirCPrevia = document.getElementById('boton-consulta-previa');//BOTON
+anadirMedicamento = document.getElementById("boton-medicamento");
 //VARIABLES
 //BOTONES -- EVENT LISTENERS
-anadirCPrevia.addEventListener("click", ingresarCPrevias);
-medicamentoInput.addEventListener("input", medicamentoSelect);
+anadirCPrevia.addEventListener("click", ingresarCPrevia);
+anadirMedicamento.addEventListener("click", ingresarMedicamentoIndicacion);
 //BOTONES
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     fetchedData = null;
@@ -90,11 +97,11 @@ function obtenerMedicamentos() { //pendiente
         .then(response => response.json())
         .then(data => {
             data.forEach((m) => {
-                medicamento = new Medicamento(m.medicamento, m.tipo, m.descripcion);
+                medicamento = new Medicamento(m.id, m.medicamento, m.tipo, m.descripcion);
                 arrayMedicamentos.push(medicamento);
             });
             console.log(arrayMedicamentos);
-
+            actualizarDatalistMedicamentos();
         })// FIN FETCH
         .catch(error => {
             console.error('Error:', error);
@@ -112,36 +119,51 @@ function consultorioSelect() {
 }
 // FUNCIONES : OBTENER CONSULTORIOS
 // FUNCIONES : OBTENER MEDICAMENTOS
-function medicamentoSelect(){
-    var inputValue=medicamentoInput.value;
-    var filtrado=[];
-    console.log("input value: "+inputValue);
-    arrayMedicamentos.forEach(m=>{
-        if(m.medicamento==inputValue){
-            filtrado.push(m.medicamento);
+/*function medicamentoSelect() {
+    var inputValue = medicamentoInput.value;
+    var filtrado = [];
+    console.log("input value: " + inputValue);
+    filtrado = arrayMedicamentos.filter(function (m) {
+        if (m.medicamento.includes(inputValue)) {
+            return m;
         }
     });
-       console.log(filtrado);
-}
+    console.log(filtrado);
+}*/
 // FUNCIONES : OBTENER MEDICAMENTOS
 // FUNCIONES INSERTAR ARRAY INGRESAR CONSULTAS PREVIAS
-function ingresarCPrevias(){
-    let comentarios=document.getElementById('consultapreviacomentarios-paciente').value;
-    let diagnostico=document.getElementById('consultapreviadiagnostico-paciente').value;
-    let estudios=document.getElementById('consultapreviaestudio-paciente').value;
-    let tratamiento=document.getElementById('consultapreviatratamiento-paciente').value;
-    cPrevia=new ConsultaPrevia(comentarios, diagnostico, estudios, tratamiento);
-    cPrevia.id= new Date().getTime();
+function ingresarCPrevia() {
+    let comentarios = document.getElementById('consultapreviacomentarios-paciente').value;
+    let diagnostico = document.getElementById('consultapreviadiagnostico-paciente').value;
+    let estudios = document.getElementById('consultapreviaestudio-paciente').value;
+    let tratamiento = document.getElementById('consultapreviatratamiento-paciente').value;
+    cPrevia = new ConsultaPrevia(comentarios, diagnostico, estudios, tratamiento);
+    cPrevia.id = new Date().getTime();
     arrayCPrevias.push(cPrevia);
     actualizarTablaCPrevias();
 }
 // FUNCIONES INSERTAR ARRAY INGRESAR CONSULTAS PREVIAS
+//FUNCIONES INSERTAR ARRAY INGRESAR MEDICAMENTO
+function ingresarMedicamentoIndicacion() {
+    let inputMedicamento = document.getElementById("input-medicamento").value;
+    const optionMedicamento = document.querySelector(`#consultanombremed-paciente option[value="${inputMedicamento}"]`);
+    //++++ aqui va un validator +++++++ //
+    const med = optionMedicamento.getAttribute('id-medicamento');
+    let medicamentoHora = selectMedicamentoHora.value;
+    let indicaciones = indicacionesMedicamento.value;
+    let hora = document.getElementById("select-medicamento-hora").value;
+    medicamentoIndicacion = new MedicamentoIndicacion(new Date().getTime(), med, hora, indicaciones, receta);
+    arrayMedicamentoIndicaciones.push(medicamentoIndicacion);
+    console.log(medicamentoIndicacion);
+    actualizarTablaMedicamentoIndicacion();
+}
+//FUNCIONES INSERTAR ARRAY INGRESAR MEDICAMENTO
 //FETCH FORMULARIO Y ARRAYS
 //FETCH FORMULARIO Y ARRAYS
 formConsulta.addEventListener('submit', function (e) {
     e.preventDefault();
-    var datosConsulta=new FormData(formConsulta);
-    
+    var datosConsulta = new FormData(formConsulta);
+    //pendiente
 });
 //FETCH FORMULARIO Y ARRAYS
 //FETCH FORMULARIO Y ARRAYS
@@ -149,24 +171,24 @@ formConsulta.addEventListener('submit', function (e) {
 function clearDiv(div) {
     div.replaceChildren();
 }
-function actualizarTablaCPrevias(){
+function actualizarTablaCPrevias() {
     clearDiv(tablaCPrevias);
-    arrayCPrevias.forEach(cp=>{
-        const celda=document.createElement('tr');
-        const comentariosFila=document.createElement('td');
-        const diagnosticoFila=document.createElement('td');
-        const estudiosFila=document.createElement('td');
-        const tratamientoFila=document.createElement('td');
-        const eliminarFila=document.createElement('td');
+    arrayCPrevias.forEach(cp => {
+        const celda = document.createElement('tr');
+        const comentariosFila = document.createElement('td');
+        const diagnosticoFila = document.createElement('td');
+        const estudiosFila = document.createElement('td');
+        const tratamientoFila = document.createElement('td');
+        const eliminarFila = document.createElement('td');
 
-        const iconoEliminar=document.createElement('i');
+        const iconoEliminar = document.createElement('i');
 
-        iconoEliminar.dataset.id=cp.id;
-        comentariosFila.textContent=cp.comentarios;
-        diagnosticoFila.textContent=cp.diagnostico;
-        estudiosFila.textContent=cp.estudios;
-        tratamientoFila.textContent=cp.tratamiento;
-        iconoEliminar.className="fas fa-trash eliminar-consulta-previa";
+        iconoEliminar.dataset.id = cp.id;
+        comentariosFila.textContent = cp.comentarios;
+        diagnosticoFila.textContent = cp.diagnostico;
+        estudiosFila.textContent = cp.estudios;
+        tratamientoFila.textContent = cp.tratamiento;
+        iconoEliminar.className = "fas fa-trash eliminar-consulta-previa";
 
         eliminarFila.appendChild(iconoEliminar);
         celda.appendChild(comentariosFila);
@@ -179,6 +201,36 @@ function actualizarTablaCPrevias(){
     });
 }
 // TABLAS: CONSULTAS PREVIAS
+// DATALIST MEDICAMENTOS
+function actualizarDatalistMedicamentos() {
+    arrayMedicamentos.forEach(m => {
+        const opcion = document.createElement('option');
+        opcion.value = m.medicamento;
+        opcion.setAttribute('id-medicamento', m.id);
+        medicamentoDatalist.appendChild(opcion);
+    });
+}
+// DATALIST MEDICAMENTOS
+function actualizarTablaMedicamentoIndicacion() {
+    clearDiv(tablaMedicamentoIndicacion);
+    arrayMedicamentoIndicaciones.forEach(i => {
+        const celda=document.createElement('tr');
+        const medicamentoFila=document.createElement('td');
+        const indicacionesFila=document.createElement('td');
+        const eliminarFila = document.createElement('td');
+        const iconoEliminar = document.createElement('i');
+        iconoEliminar.dataset.id = i.id;
+        iconoEliminar.className="fas fa-trash eliminar-medicamento-indicacion";
+        medicamentoFila.textContent=i.medicamento;
+        indicacionesFila.textContent=i.indicaciones;
+
+        eliminarFila.appendChild(iconoEliminar);
+        celda.appendChild(medicamentoFila);
+        celda.appendChild(indicacionesFila);
+        celda.appendChild(eliminarFila);
+        tablaMedicamentoIndicacion.appendChild(celda);
+    });
+}
 //CLASES
 class Consulta {
     constructor(fecha, usuario, paciente, ta, oxigeno, pulso, peso, estatura, temperatura, motivoConsulta, exploracion, receta, consultorio,/* consultasPrevias, terapias, medicamentosIndicacion, estudiosSolicitados*/) {
@@ -340,46 +392,80 @@ class Consultorio {
         return this._telefono;
     }
 }
-class ConsultaPrevia{
-    constructor(comentarios, diagnostico, estudios, tratamiento){
-        this._comentarios=comentarios;
-        this._diagnostico=diagnostico;
-        this._estudios=estudios;
-        this._tratamiento=tratamiento;
+class ConsultaPrevia {
+    constructor(comentarios, diagnostico, estudios, tratamiento) {
+        this._comentarios = comentarios;
+        this._diagnostico = diagnostico;
+        this._estudios = estudios;
+        this._tratamiento = tratamiento;
     }
 
-    set id(id){
-        this._id=id;
+    set id(id) {
+        this._id = id;
     }
-    get id(){
+    get id() {
         return this._id;
     }
-    get comentarios(){
+    get comentarios() {
         return this._comentarios;
     }
-    get diagnostico(){
+    get diagnostico() {
         return this._diagnostico;
     }
-    get estudios(){
+    get estudios() {
         return this._estudios;
     }
-    get tratamiento(){
+    get tratamiento() {
         return this._tratamiento;
     }
 }
-class Medicamento{
-    constructor(medicamento, tipo, descripcion){
-        this._medicamento=medicamento;
-        this._tipo=tipo;
-        this._descripcion=descripcion;
+class Medicamento {
+    constructor(id, medicamento, tipo, descripcion) {
+        this._id = id;
+        this._medicamento = medicamento;
+        this._tipo = tipo;
+        this._descripcion = descripcion;
     }
-    get id(){
+    get id() {
         return this._id;
     }
-    set id(id){
-        this._id=id;
+    set id(id) {
+        this._id = id;
+    }
+    get medicamento() {
+        return this._medicamento;
+    }
+    get tipo() {
+        return this._tipo;
+    }
+    get descripcion() {
+        return this._descripcion;
+    }
+}
+class MedicamentoIndicacion {
+    constructor(id, medicamento, hora, indicaciones, receta) {
+        this._id = id;
+        this._medicamento = medicamento;
+        this._hora = hora;
+        this._indicaciones = indicaciones;
+        this._receta = receta;
+    }
+    set id(id) {
+        this._id = id;
+    }
+    get id() {
+        return this._id;
     }
     get medicamento(){
         return this._medicamento;
+    }
+    get hora(){
+        return this._hora;
+    }
+    get indicaciones(){
+        return this._indicaciones;
+    }
+    get receta(){
+        return this._receta;
     }
 }
