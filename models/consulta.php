@@ -102,12 +102,13 @@ class Consulta
             'motivoConsulta' => $this->motivoConsulta,
             'exploracion' => $this->exploracion,
             'receta' => $this->receta,
-            'consultorio' => $this->consultorio
+            'consultorio' => $this->consultorio,
+            'consultasPrevias' => $this->getCPrevias()
         ];
     }
-    public function setRecetaId() //pending
+    public function setRecetaId($receta) //pending
     {
-        
+        $this->receta=$receta;
     }
     public function getRecetaId()
     {
@@ -140,6 +141,7 @@ class Consulta
         foreach ($this->estudiosSolicitados as $estudioSolicitado) {
             $estudiosSolicitados[] = $estudioSolicitado->getValues();
         }
+        return $estudiosSolicitados;
     }
     public function setCPrevias($consultasPrevias)
     {
@@ -149,11 +151,18 @@ class Consulta
             $consultaPrevia->insertar();
         }
     }
+    public function getCPrevias(){
+        $consultasPrevias=array();
+        foreach($this->consultasPrevias as $conPre){
+            $consultasPrevias[]=$conPre->getValues();
+        }
+        return $consultasPrevias();
+    }
     public function setTerapiasAplicadas($terapiasAplicadas)
     {
         foreach ($terapiasAplicadas as $tAplicada) {
             $terapiaAplicada = new TerapiaAplicada($tAplicada->_terapia, $tAplicada->_consulta);
-            $this->terapias[] = $terapiaAplicada;
+            $this->terapiasAplicadas[] = $terapiaAplicada;
             $terapiaAplicada->insertar();
         }
     }
@@ -206,12 +215,40 @@ class Consulta
                 $this->exploracion = $datos["exploracion"];
                 $this->receta = $datos["receta"];
                 $this->consultorio = $datos["consultorio"];
+                $this->obtenerConsultasPrevias();
+                $this->obtenerMedicamentoIndicacion();
+                $this->obtenerTerapias();
+                $this->obtenerEstudiosSolicitados();
             }
             return true;
         } catch (PDOException $e) {
             echo "No se pudo obtener consulta" . $e->getMessage();
             return false;
         }
+    }
+    public function obtenerConsultasPrevias(){
+        $query="SELECT * FROM consultaPrevia where consulta=:id; ";
+        try{
+            $stmt=$this->dbh->prepare($query);
+            $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
+            $stmt->execute();
+            while($cP = $stmt->fetch(PDO::FETCH_ASSOC)){
+                $conPre = new ConsultaPrevia($cP['comentarios'], $cP['diagnostico'], $cP['estudios'], $cP['tratamiento'], $cP['consulta']);
+                $conPre->setId($cP['id']);
+                $this->consultasPrevias[]=$conPre;
+            }
+        }catch (PDOException $e){
+            echo "ERROR: ".$e->getMessage();
+        }
+    }
+    public function obtenerMedicamentoIndicacion(){
+
+    }
+    public function obtenerTerapias(){
+
+    }
+    public function obtenerEstudiosSolicitados(){
+
     }
     public function eliminar()
     {

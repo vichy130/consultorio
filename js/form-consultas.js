@@ -61,7 +61,6 @@ function obtenerConsultas() {
                 array.push(consulta);
             });
             tablaConsultas();
-            console.log(array);
         })// FIN FETCH
         .catch(error => {
             console.error('Error:', error);

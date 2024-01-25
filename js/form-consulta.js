@@ -86,6 +86,12 @@ function obtenerConsulta() {
                     arrayCPrevias.push(consultaPrevia);
                 });
                 actualizarTablaCPrevias();
+                data.forEach(cp=>{
+                    var consultaPrevia = new ConsultaPrevia(cp.comentarios, cp.diagnostico, cp.estudios, cp.tratamiento);
+                    consultaPrevia.id=cp.id;
+                    consultaPrevia.consulta=cp.consulta;
+                    arrayCPrevias.push(consultaPrevia);
+                });
             }
         })// FIN FETCH
         .catch(error => {
