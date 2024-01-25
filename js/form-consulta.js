@@ -5,6 +5,8 @@ var arrayConsultorios = [];
 var arrayCPrevias = [];
 var arrayMedicamentos = [];
 var arrayMedicamentoIndicaciones = [];
+var arrayEstudiosSolicitados=[];
+var arrayTerapiasAplicadas=[];
 var receta=new Date().getTime();
 var medicamentoDatalist = document.getElementById("consultanombremed-paciente");
 var tablaCPrevias = document.getElementById("tbody-consultas-previas");//
@@ -15,12 +17,18 @@ var selectConsultorio = document.getElementById("select-consultorio"); //SELECT
 var selectMedicamentoHora = document.getElementById("select-medicamento-hora");
 var formConsulta = document.getElementById("form-consulta"); //FORM
 var anadirCPrevia = document.getElementById('boton-consulta-previa');//BOTON
-anadirMedicamento = document.getElementById("boton-medicamento");
+var anadirMedicamentoIndicacion = document.getElementById("boton-medicamento-indicacion");
+var anadirEstudioSolicitado=document.getElementById("boton-estudios-solicitados");
+var anadirTerapia=document.getElementById("boton-terapia");
 //VARIABLES
+
 //BOTONES -- EVENT LISTENERS
 anadirCPrevia.addEventListener("click", ingresarCPrevia);
-anadirMedicamento.addEventListener("click", ingresarMedicamentoIndicacion);
+anadirMedicamentoIndicacion.addEventListener("click", ingresarMedicamentoIndicacion);
+anadirEstudioSolicitado.addEventListener("click", ingresarEstudioSolicitado);
+anadirTerapia.addEventListener("click", ingresarTerapia);
 //BOTONES
+
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     fetchedData = null;
     id = null;
@@ -49,6 +57,8 @@ document.addEventListener('DOMContentLoaded', function () {// SE EJECUTA AUNQUE 
         fecha.disabled = true;
     }
 });
+
+//FUNCIONES : OBTENER
 //FUNCIONES : OBTENER
 function obtenerConsulta() {
     fetch('./controller/obtener-consulta.php')
@@ -57,7 +67,7 @@ function obtenerConsulta() {
             if (data && data.id != null) {
                 fetchedData = data;
                 console.log(data);
-                var consulta = new Consulta(data.fecha, data.usuario, data.paciente, data.ta, data.oxigeno, data.pulso, data.peso, data.estatura, data.temperatura, data.motivoConsulta, data.exploracion, data.receta, data.consultorio,/* consultasPrevias, terapias, medicamentosIndicacion, estudiosSolicitados*/);
+                var consulta = new Consulta(data.fecha, data.usuario, data.paciente, data.ta, data.oxigeno, data.pulso, data.peso, data.estatura, data.temperatura, data.motivoConsulta, data.exploracion, data.receta, data.consultorio);
 
                 document.getElementById('consultafecha-paciente').value = consulta.fecha;
                 document.getElementById('vitalesta-paciente').value = consulta.ta;
@@ -68,6 +78,14 @@ function obtenerConsulta() {
                 document.getElementById('vitalestemperatura-paciente').value = consulta.temperatura;
                 document.getElementById('consultamotivo-paciente').value = consulta.motivoConsulta;
                 document.getElementById('consultaexploracion-paciente').value = consulta.exploracion;
+                //pendiente
+                data.consultasPrevias.forEach(cp=>{
+                    var consultaPrevia = new ConsultaPrevia(cp.comentarios, cp.diagnostico, cp.estudios, cp.tratamiento);
+                    consultaPrevia.id=cp.id;
+                    consultaPrevia.consulta=cp.consulta;
+                    arrayCPrevias.push(consultaPrevia);
+                });
+                actualizarTablaCPrevias();
             }
         })// FIN FETCH
         .catch(error => {
@@ -90,7 +108,6 @@ function obtenerConsultorios() {
             console.error('Error:', error);
         });
 }
-
 //FUNCIONES: OBTENER MEDICAMENTOS
 function obtenerMedicamentos() { //pendiente 
     fetch('./controller/obtener-medicamentos.php')
@@ -118,19 +135,8 @@ function consultorioSelect() {
     });
 }
 // FUNCIONES : OBTENER CONSULTORIOS
-// FUNCIONES : OBTENER MEDICAMENTOS
-/*function medicamentoSelect() {
-    var inputValue = medicamentoInput.value;
-    var filtrado = [];
-    console.log("input value: " + inputValue);
-    filtrado = arrayMedicamentos.filter(function (m) {
-        if (m.medicamento.includes(inputValue)) {
-            return m;
-        }
-    });
-    console.log(filtrado);
-}*/
-// FUNCIONES : OBTENER MEDICAMENTOS
+
+//FUNCIONES INSERTAR
 // FUNCIONES INSERTAR ARRAY INGRESAR CONSULTAS PREVIAS
 function ingresarCPrevia() {
     let comentarios = document.getElementById('consultapreviacomentarios-paciente').value;
@@ -158,6 +164,14 @@ function ingresarMedicamentoIndicacion() {
     actualizarTablaMedicamentoIndicacion();
 }
 //FUNCIONES INSERTAR ARRAY INGRESAR MEDICAMENTO
+function ingresarEstudioSolicitado(){
+
+}
+function ingresarTerapia(){
+
+}
+
+
 //FETCH FORMULARIO Y ARRAYS
 //FETCH FORMULARIO Y ARRAYS
 formConsulta.addEventListener('submit', function (e) {
@@ -167,6 +181,8 @@ formConsulta.addEventListener('submit', function (e) {
 });
 //FETCH FORMULARIO Y ARRAYS
 //FETCH FORMULARIO Y ARRAYS
+
+
 // TABLAS: CONSULTAS PREVIAS
 function clearDiv(div) {
     div.replaceChildren();
@@ -231,6 +247,8 @@ function actualizarTablaMedicamentoIndicacion() {
         tablaMedicamentoIndicacion.appendChild(celda);
     });
 }
+
+//CLASES
 //CLASES
 class Consulta {
     constructor(fecha, usuario, paciente, ta, oxigeno, pulso, peso, estatura, temperatura, motivoConsulta, exploracion, receta, consultorio,/* consultasPrevias, terapias, medicamentosIndicacion, estudiosSolicitados*/) {
@@ -417,6 +435,12 @@ class ConsultaPrevia {
     }
     get tratamiento() {
         return this._tratamiento;
+    }
+    get consulta(){
+        return this._consulta;
+    }
+    set consulta(consulta){
+        this._consulta=consulta;
     }
 }
 class Medicamento {

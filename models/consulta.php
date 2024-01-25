@@ -1,6 +1,8 @@
 <?php
 include("../models/consulta-previa.php");
+include("../models/medicamento-indicacion.php");
 include("../models/terapia-aplicada.php");
+include("../models/estudio-solicitado.php");
 class Consulta
 {
     private $id;
@@ -18,7 +20,7 @@ class Consulta
     private $receta;
     private $consultorio;
     private $consultasPrevias = array();
-    private $terapias = array();
+    private $terapiasAplicadas = array();
     private $medicamentosIndicacion = array();
     private $estudiosSolicitados = array();
     private $dbh;

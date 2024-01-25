@@ -298,7 +298,8 @@ echo $firmaPaciente;*/
             $stmt = $this->dbh->prepare($query);
             $stmt->bindParam(":paciente", $this->paciente, PDO::PARAM_INT);
             $stmt->execute();
-            while ($datos = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $datos = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($datos){
                 $this->id = $datos["id"];
                 $this->paciente = $datos["paciente"];
                 $this->tipoSangre = $datos["tipoSangre"];
@@ -344,10 +345,10 @@ $this->firmaUsuario = $datos["firmaUsuario"];
 $this->firmaPaciente = $datos["firmaPaciente"];*/
                 $this->hora = $datos["hora"];
                 $this->usuario = $datos["usuario"];
+                $this->obtenerHijos();
+                $this->obtenerAntecedentes();
+                $this->obtenerAntecedentesFam();
             }
-            $this->obtenerHijos();
-            $this->obtenerAntecedentes();
-            $this->obtenerAntecedentesFam();
         } catch (PDOException $e) {
             echo "Error al obtener " . $e->getMessage();
         }

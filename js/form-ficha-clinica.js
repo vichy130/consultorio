@@ -31,7 +31,6 @@ window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CAR
                     var hijo = new Hijo(elemento.sexo, elemento.edad);
                     hijo.id = elemento.id;
                     arrayHijos.push(hijo);
-                    actualizarTablaHijos();
                 });
                 document.getElementById("embarazos-paciente").value = data.embarazo;
                 document.getElementById("partos-paciente").value = data.partos;
@@ -74,14 +73,15 @@ window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CAR
                     var antecedente = new Antecedente(elemento.enfermedad, elemento.descripcion, elemento.estaActiva);
                     antecedente.id = elemento.id;
                     arrayAntecedentes.push(antecedente);
-                    actualizarTablaAntecedentes();
                 });
                 data.antecedentesFam.forEach(function (elemento) {
                     var antecedenteFam = new AntecedenteFam(elemento.familiar, elemento.enfermedad, elemento.descripcion);
                     antecedenteFam.id = elemento.id;
                     arrayAntecedentesFam.push(antecedenteFam);
-                    actualizarTablaAntecedentesFam();
                 });
+                actualizarTablaHijos();
+                actualizarTablaAntecedentes();
+                actualizarTablaAntecedentesFam();
             }// SI ID DE DATA ESTA NULL NO MANDAR VALORES A HTML
         })// FIN FETCH
         .catch(error => {
@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {// SE EJECUTA AUNQUE 
         fecha.disabled = false;
         fecha.value = format;
         fecha.disabled = true;
-        /*ocultoFecha.value = fecha.value;*/
+        ocultoFecha.value = fecha.value;
     }
 });
 //FECHA

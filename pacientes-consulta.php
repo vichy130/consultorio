@@ -201,7 +201,7 @@ if (isset($_REQUEST["id"])) {
                             rows="4" cols="50"> </textarea>
                     </div><!-- end form-grupo -->
 
-                    <button class="boton azul" id="boton-medicamento"><i class="fas fa-plus"></i> Añadir</button>
+                    <button class="boton azul" id="boton-medicamento-indicacion"><i class="fas fa-plus"></i> Añadir</button>
 
                     <table class="table span-4">
                         <thead>
