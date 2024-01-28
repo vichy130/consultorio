@@ -1,8 +1,8 @@
 <?php
 include("../models/consulta-previa.php");
-include("../models/medicamento-indicacion.php");
 include("../models/terapia-aplicada.php");
 include("../models/estudio-solicitado.php");
+include("../models/medicamento-indicacion.php");
 class Consulta
 {
     private $id;
@@ -17,6 +17,7 @@ class Consulta
     private $temperatura;
     private $motivoConsulta;
     private $exploracion;
+    private $indicaciones;
     private $receta;
     private $consultorio;
     private $consultasPrevias = array();
@@ -69,6 +70,7 @@ class Consulta
         $temperatura,
         $motivoConsulta,
         $exploracion,
+        $indicaciones,
         $receta,
         $consultorio,
     ) {
@@ -83,6 +85,7 @@ class Consulta
         $this->temperatura = $temperatura;
         $this->motivoConsulta = $motivoConsulta;
         $this->exploracion = $exploracion;
+        $this->indicaciones=$indicaciones;
         $this->receta = $receta;
         $this->consultorio = $consultorio;
     }
@@ -101,12 +104,13 @@ class Consulta
             'temperatura' => $this->temperatura,
             'motivoConsulta' => $this->motivoConsulta,
             'exploracion' => $this->exploracion,
+            'indicaciones'=>$this->indicaciones,
             'receta' => $this->receta,
             'consultorio' => $this->consultorio,
             'consultasPrevias' => $this->getCPrevias(),
-            'medicamentosIndicacion'=> $this->getMedicamentosIndicacion(),
             'terapiasAplicadas'=>$this->getTerapiasAplicadas(),
-            'estudiosSolicitados'=>$this->getEstudiosSolicitados()
+            'estudiosSolicitados'=>$this->getEstudiosSolicitados(),
+            'medicamentosIndicacion'=> $this->getMedicamentosIndicacion(),
         ];
     }
     public function setRecetaId($receta) //pending
@@ -120,18 +124,18 @@ class Consulta
     public function setMedicamentosIndicacion($medicamentosIndicacion)
     {
         foreach ($medicamentosIndicacion as $m) {
-            $medicamentoIndicacion = new MedicamentoIndicacion($m->id,$m->medicamento, $m->hora, $m->indicacion);
+            $medicamentoIndicacion = new MedicamentoIndicacion($m->id,$m->medicamento, $m->hora, $m->indicacion, $m->receta);
             $medicamentoIndicacion->insertar();
             $this->medicamentosIndicacion[] = $medicamentoIndicacion;
         }
     }
     public function getMedicamentosIndicacion()
     {
-        $medicamentosIndicacion = array();
-        foreach ($this->$medicamentosIndicacion as $medicamentoIndicacion) {
-            $medicamentosIndicacion[] = $medicamentoIndicacion->getValues();
+        $medsIndicacion = array();
+        foreach ($this->medicamentosIndicacion as $mi) {
+            $medsIndicacion[] = $mi->getValues();
         }
-        return $medicamentosIndicacion;
+        return $medsIndicacion;
     }
     public function setEstudiosSolicitados($estudiosSolicitados)
     {
@@ -139,16 +143,16 @@ class Consulta
     }
     public function getEstudiosSolicitados()
     {
-        $estudiosSolicitados = array();
+        $eSolicitados = array();
         foreach ($this->estudiosSolicitados as $estudioSolicitado) {
-            $estudiosSolicitados[] = $estudioSolicitado->getValues();
+            $eSolicitados[] = $estudioSolicitado->getValues();
         }
-        return $estudiosSolicitados;
+        return $eSolicitados;
     }
     public function setCPrevias($consultasPrevias)
     {
         foreach ($consultasPrevias as $cPrevia) {
-            $consultaPrevia = new ConsultaPrevia($cPrevia->_comentarios, $cPrevia->_diagnostico, $cPrevia->_estudios, $cPrevia->_tratamiento, $cPrevia->_consulta);
+            $consultaPrevia = new ConsultaPrevia($cPrevia->_id, $cPrevia->_comentarios, $cPrevia->_diagnostico, $cPrevia->_estudios, $cPrevia->_tratamiento, $cPrevia->_consulta);
             $this->consultasPrevias[] = $consultaPrevia;
             $consultaPrevia->insertar();
         }
@@ -177,8 +181,8 @@ class Consulta
     }
     public function insertar()
     {
-        $query = "INSERT INTO consulta (fecha, usuario, paciente,ta,oxigeno,pulso,peso,estatura,temperatura, motivoConsulta, exploracion, receta, consultorio) 
-    VALUES (:fecha,:usuario,:paciente,:ta,:oxigeno,:pulso,:peso,:estatura,:temperatura,:motivoConsulta,:exploracion,:receta,:consultorio); ";
+        $query = "INSERT INTO consulta (fecha, usuario, paciente,ta,oxigeno,pulso,peso,estatura,temperatura, motivoConsulta, exploracion, indicaciones, receta, consultorio) 
+    VALUES (:fecha,:usuario,:paciente,:ta,:oxigeno,:pulso,:peso,:estatura,:temperatura,:motivoConsulta,:exploracion,:indicaciones,:receta,:consultorio); ";
         try {
             $stmt = $this->dbh->prepare($query);
             $stmt->bindParam(':fecha', $this->fecha);
@@ -192,6 +196,7 @@ class Consulta
             $stmt->bindParam(':temperatura', $this->temperatura);
             $stmt->bindParam(':motivoConsulta', $this->motivoConsulta);
             $stmt->bindParam(':exploracion', $this->exploracion);
+            $stmt->bindParam(':indicaciones', $this->exploracion);
             $stmt->bindParam(':receta', $this->receta);
             $stmt->bindParam(':consultorio', $this->consultorio);
             $stmt->execute();
@@ -222,6 +227,7 @@ class Consulta
                 $this->temperatura = $datos["temperatura"];
                 $this->motivoConsulta = $datos["motivoConsulta"];
                 $this->exploracion = $datos["exploracion"];
+                $this->indicaciones = $datos["indicaciones"];
                 $this->receta = $datos["receta"];
                 $this->consultorio = $datos["consultorio"];
                 $this->obtenerConsultasPrevias();
@@ -256,7 +262,7 @@ class Consulta
             $stmt->bindParam(":receta", $this->receta, PDO::PARAM_INT);
             $stmt->execute();
             while($mI = $stmt->fetch(PDO::FETCH_ASSOC)){
-                $mI=new MedicamentoIndicacion($mI['id'], $mI['medicamento'], $mI['hora'], $mI['indicaciones']);
+                $mI=new MedicamentoIndicacion($mI['id'], $mI['medicamento'], $mI['hora'], $mI['indicaciones'], $mI['receta']);
                 $this->medicamentosIndicacion[]=$mI;
             }
         }catch(PDOException $e){

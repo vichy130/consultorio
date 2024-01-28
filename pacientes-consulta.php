@@ -223,6 +223,16 @@ if (isset($_REQUEST["id"])) {
 
                     <button class="boton azul" id="boton-estudios-solicitados"><i class="fas fa-plus"></i>
                         Añadir</button>
+                        <table class="table span-4">
+                        <thead>
+                            <tr>
+                                <th>Estudio</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-estudios-solicitados">
+                        </tbody>
+                    </table>
 
                     <div class="formulario_grupo span-4">
                         <label class="form_label span-4" for="consultaterapia-paciente">Terapia</label>
@@ -238,7 +248,7 @@ if (isset($_REQUEST["id"])) {
                                 <th>Eliminar</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tbody-terapias-aplicadas">
                         </tbody>
                     </table>
 

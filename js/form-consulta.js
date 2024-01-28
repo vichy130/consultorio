@@ -11,6 +11,8 @@ var receta=new Date().getTime();
 var medicamentoDatalist = document.getElementById("consultanombremed-paciente");
 var tablaCPrevias = document.getElementById("tbody-consultas-previas");//
 var tablaMedicamentoIndicacion = document.getElementById("tbody-medicamento-indicacion");
+var tablaTerapiasAplicadas=document.getElementById("tbody-terapias-aplicadas");
+var tablaEstudiosSolicitados=document.getElementById("tbody-estudios-solicitados");
 var indicacionesMedicamento = document.getElementById("indicacionesmed-paciente"); //INPUT
 //TABLA
 var selectConsultorio = document.getElementById("select-consultorio"); //SELECT
@@ -67,7 +69,7 @@ function obtenerConsulta() {
             if (data && data.id != null) {
                 fetchedData = data;
                 console.log(data);
-                var consulta = new Consulta(data.fecha, data.usuario, data.paciente, data.ta, data.oxigeno, data.pulso, data.peso, data.estatura, data.temperatura, data.motivoConsulta, data.exploracion, data.receta, data.consultorio);
+                var consulta = new Consulta(data.fecha, data.usuario, data.paciente, data.ta, data.oxigeno, data.pulso, data.peso, data.estatura, data.temperatura, data.motivoConsulta, data.exploracion, data.indicaciones,data.receta, data.consultorio);
 
                 document.getElementById('consultafecha-paciente').value = consulta.fecha;
                 document.getElementById('vitalesta-paciente').value = consulta.ta;
@@ -78,6 +80,7 @@ function obtenerConsulta() {
                 document.getElementById('vitalestemperatura-paciente').value = consulta.temperatura;
                 document.getElementById('consultamotivo-paciente').value = consulta.motivoConsulta;
                 document.getElementById('consultaexploracion-paciente').value = consulta.exploracion;
+                document.getElementById('consultaindicaciones-paciente').value = consulta.indicaciones;
                 //pendiente
                 data.consultasPrevias.forEach(cp=>{
                     var consultaPrevia = new ConsultaPrevia(cp.comentarios, cp.diagnostico, cp.estudios, cp.tratamiento);
@@ -91,6 +94,7 @@ function obtenerConsulta() {
                     medicamentoIndicacion.receta=mi.receta;
                     arrayMedicamentoIndicaciones.push(medicamentoIndicacion);
                 });
+                console.log(data.medicamentosIndicacion);
                 actualizarTablaMedicamentoIndicacion();
                 data.terapiasAplicadas.forEach(t=>{
                     var terapiaAplicada = new TerapiaAplicada(t.terapia);
@@ -139,7 +143,6 @@ function obtenerMedicamentos() { //pendiente
                 medicamento.id=m.id;
                 arrayMedicamentos.push(medicamento);
             });
-            console.log(arrayMedicamentos);
             actualizarDatalistMedicamentos();
         })// FIN FETCH
         .catch(error => {
@@ -183,15 +186,23 @@ function ingresarMedicamentoIndicacion() {
     medicamentoIndicacion.id=new Date().getTime();
     medicamentoIndicacion.receta=receta;
     arrayMedicamentoIndicaciones.push(medicamentoIndicacion);
-    console.log(medicamentoIndicacion);
     actualizarTablaMedicamentoIndicacion();
 }
 //FUNCIONES INSERTAR ARRAY INGRESAR MEDICAMENTO
 function ingresarEstudioSolicitado(){
-    
+    let estudioInput= document.getElementById('estudiossolicitados-paciente').value;
+    estudioSolicitado= new EstudioSolicitado(estudioInput);
+    estudioSolicitado.id=new Date().getTime();
+    estudioSolicitado.receta=receta;
+    arrayEstudiosSolicitados.push(estudioSolicitado);
+    actualizarTablaEstudiosSolicitados();
 }
 function ingresarTerapia(){
-
+    let terapiaInput=document.getElementById('consultaterapia-paciente').value;
+    terapiaAplicada= new TerapiaAplicada(terapiaInput);
+    terapiaAplicada.id=new Date().getTime();
+    arrayTerapiasAplicadas.push(terapiaAplicada);
+    actualizarTablaTerapiasAplicadas();
 }
 
 
@@ -236,7 +247,6 @@ function actualizarTablaCPrevias() {
         celda.appendChild(tratamientoFila);
         celda.appendChild(eliminarFila);
         tablaCPrevias.appendChild(celda);
-        console.log(arrayCPrevias);
     });
 }
 // TABLAS: CONSULTAS PREVIAS
@@ -271,10 +281,38 @@ function actualizarTablaMedicamentoIndicacion() {
     });
 }
 function actualizarTablaTerapiasAplicadas(){
-    
+    clearDiv(tablaTerapiasAplicadas);
+    arrayTerapiasAplicadas.forEach(t=>{
+        const celda=document.createElement('tr');
+        const terapiaFila=document.createElement('td');
+        const eliminarFila = document.createElement('td');
+        const iconoEliminar = document.createElement('i');
+        iconoEliminar.dataset.id = t.id;
+        iconoEliminar.className="fas fa-trash eliminar-terapia";
+
+        terapiaFila.textContent=t.terapia;
+        eliminarFila.appendChild(iconoEliminar);
+        celda.appendChild(terapiaFila);
+        celda.appendChild(eliminarFila);
+        tablaTerapiasAplicadas.appendChild(celda);
+    });
 }
 function actualizarTablaEstudiosSolicitados(){
+    clearDiv(tablaEstudiosSolicitados);
+    arrayEstudiosSolicitados.forEach(e=>{
+        const celda=document.createElement('tr');
+        const estudioFila=document.createElement('td');
+        const eliminarFila = document.createElement('td');
+        const iconoEliminar = document.createElement('i');
+        iconoEliminar.dataset.id = e.id;
+        iconoEliminar.className="fas fa-trash eliminar-estudio-solicitado";
+        estudioFila.textContent=e.estudio;
 
+        eliminarFila.appendChild(iconoEliminar);
+        celda.appendChild(estudioFila);
+        celda.appendChild(eliminarFila);
+        tablaEstudiosSolicitados.appendChild(celda);
+    });
 }
 //CLASES
 //CLASES
@@ -299,7 +337,7 @@ class EstudioSolicitado{
     }
 }
 class Consulta {
-    constructor(fecha, usuario, paciente, ta, oxigeno, pulso, peso, estatura, temperatura, motivoConsulta, exploracion, receta, consultorio) {
+    constructor(fecha, usuario, paciente, ta, oxigeno, pulso, peso, estatura, temperatura, motivoConsulta, exploracion, indicaciones,receta, consultorio) {
         this._fecha = fecha;
         this._usuario = usuario;
         this._paciente = paciente;
@@ -311,6 +349,7 @@ class Consulta {
         this.temperatura = temperatura;
         this._motivoConsulta = motivoConsulta;
         this._exploracion = exploracion;
+        this._indicaciones=indicaciones;
         this._receta = receta;
         this._consultorio = consultorio;
     }
@@ -397,6 +436,12 @@ class Consulta {
     }
     get consultorio() {
         return this._consultorio;
+    }
+    set indicaciones(indicaciones){
+        this._indicaciones=indicaciones;
+    }
+    get indicaciones(){
+        return this._indicaciones;
     }
 }
 class Consultorio {

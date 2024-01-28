@@ -6,8 +6,9 @@ class MedicamentoIndicacion
     private $medicamento;
     private $hora;
     private $indicaciones;
+    private $receta;
     private $dbh;
-    function __construct($id,$medicamento,$hora,$indicaciones)
+    function __construct($id,$medicamento,$hora,$indicaciones,$receta)
     {
         try {
             $dbname = "consultorio";
@@ -26,6 +27,7 @@ class MedicamentoIndicacion
         $this->medicamento=$medicamento;
         $this->hora=$hora;
         $this->indicaciones=$indicaciones;
+        $this->receta=$receta;
     }
     public function getValues()
     {
@@ -33,24 +35,27 @@ class MedicamentoIndicacion
             'id' => $this->id,
             'medicamento' => $this->medicamento,
             'hora' => $this->hora,
-            'indicaciones' => $this->indicaciones
+            'indicaciones' => $this->indicaciones,
+            'receta'=>$this->receta
         ];
     }
-    public function setValues($medicamento, $hora, $indicaciones)
+    public function setValues($medicamento, $hora, $indicaciones, $receta)
     {
         $this->medicamento = $medicamento;
         $this->hora = $hora;
         $this->indicaciones = $indicaciones;
+        $this->receta=$receta;
     }
     public function insertar()
     {
-        $query = "INSERT INTO medicamentoIndicacion (id, medicamento, hora, indicaciones) VALUES (:medicamento, :hora, :indicaciones); ";
+        $query = "INSERT INTO medicamentoIndicacion (id, medicamento, hora, indicaciones, receta) VALUES (:medicamento, :hora, :indicaciones); ";
         try {
             $stmt = $this->dbh->prepare($query);
             $stmt->bindParam(':id', $this->id);
             $stmt->bindParam(':medicamento', $this->medicamento);
             $stmt->bindParam(':hora', $this->hora);
             $stmt->bindParam(':indicaciones', $this->indicaciones);
+            $stmt->bindParam(':receta', $this->receta);
             return $stmt->execute();
         } catch (PDOException $e) {
             echo "Error al insertar medicamento indicacion" . $e->getMessage();
