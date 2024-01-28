@@ -103,7 +103,10 @@ class Consulta
             'exploracion' => $this->exploracion,
             'receta' => $this->receta,
             'consultorio' => $this->consultorio,
-            'consultasPrevias' => $this->getCPrevias()
+            'consultasPrevias' => $this->getCPrevias(),
+            'medicamentosIndicacion'=> $this->getMedicamentosIndicacion(),
+            'terapiasAplicadas'=>$this->getTerapiasAplicadas(),
+            'estudiosSolicitados'=>$this->getEstudiosSolicitados()
         ];
     }
     public function setRecetaId($receta) //pending
@@ -117,10 +120,9 @@ class Consulta
     public function setMedicamentosIndicacion($medicamentosIndicacion)
     {
         foreach ($medicamentosIndicacion as $m) {
-            $medicamentoIndicacion = new MedicamentoIndicacion();
+            $medicamentoIndicacion = new MedicamentoIndicacion($m->id,$m->medicamento, $m->hora, $m->indicacion);
             $medicamentoIndicacion->insertar();
             $this->medicamentosIndicacion[] = $medicamentoIndicacion;
-
         }
     }
     public function getMedicamentosIndicacion()
@@ -156,15 +158,22 @@ class Consulta
         foreach($this->consultasPrevias as $conPre){
             $consultasPrevias[]=$conPre->getValues();
         }
-        return $consultasPrevias();
+        return $consultasPrevias;
     }
     public function setTerapiasAplicadas($terapiasAplicadas)
     {
         foreach ($terapiasAplicadas as $tAplicada) {
-            $terapiaAplicada = new TerapiaAplicada($tAplicada->_terapia, $tAplicada->_consulta);
+            $terapiaAplicada = new TerapiaAplicada($tAplicada->id, $tAplicada->_terapia, $tAplicada->_consulta);
             $this->terapiasAplicadas[] = $terapiaAplicada;
             $terapiaAplicada->insertar();
         }
+    }
+    public function getTerapiasAplicadas(){
+        $terapiasAplicadas=array();
+        foreach($this->terapiasAplicadas as $terapia){
+            $terapiasAplicadas[]=$terapia->getValues();
+        }
+        return $terapiasAplicadas;
     }
     public function insertar()
     {
@@ -216,8 +225,8 @@ class Consulta
                 $this->receta = $datos["receta"];
                 $this->consultorio = $datos["consultorio"];
                 $this->obtenerConsultasPrevias();
-                $this->obtenerMedicamentoIndicacion();
                 $this->obtenerTerapias();
+                $this->obtenerMedicamentoIndicacion();
                 $this->obtenerEstudiosSolicitados();
             }
             return true;
@@ -233,8 +242,7 @@ class Consulta
             $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
             $stmt->execute();
             while($cP = $stmt->fetch(PDO::FETCH_ASSOC)){
-                $conPre = new ConsultaPrevia($cP['comentarios'], $cP['diagnostico'], $cP['estudios'], $cP['tratamiento'], $cP['consulta']);
-                $conPre->setId($cP['id']);
+                $conPre = new ConsultaPrevia($cP['id'], $cP['comentarios'], $cP['diagnostico'], $cP['estudios'], $cP['tratamiento'], $cP['consulta']);
                 $this->consultasPrevias[]=$conPre;
             }
         }catch (PDOException $e){
@@ -242,13 +250,46 @@ class Consulta
         }
     }
     public function obtenerMedicamentoIndicacion(){
-
+        $query="SELECT * from medicamentoIndicacion where receta=:receta; "; //AQUI puede haber error con recuperar receta
+        try{
+            $stmt=$this->dbh->prepare($query);
+            $stmt->bindParam(":receta", $this->receta, PDO::PARAM_INT);
+            $stmt->execute();
+            while($mI = $stmt->fetch(PDO::FETCH_ASSOC)){
+                $mI=new MedicamentoIndicacion($mI['id'], $mI['medicamento'], $mI['hora'], $mI['indicaciones']);
+                $this->medicamentosIndicacion[]=$mI;
+            }
+        }catch(PDOException $e){
+            echo "Error al obtener medicamento Indicacion".$e->getMessage();
+        }
     }
     public function obtenerTerapias(){
-
+        $query="SELECT * FROM terapiasAplicadas where consulta=:id; ";
+        try{
+            $stmt=$this->dbh->prepare($query);
+            $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
+            $stmt->execute();
+            while($terapia = $stmt->fetch(PDO::FETCH_ASSOC)){
+                $tA = new TerapiaAplicada($terapia['id'],$terapia['terapia'], $terapia['consulta']);
+                $this->terapiasAplicadas[]=$tA;
+            }
+        }catch (PDOException $e){
+            echo "ERROR: ".$e->getMessage();
+        }
     }
     public function obtenerEstudiosSolicitados(){
-
+        $query="SELECT * FROM estudiosSolicitados where receta=:receta; ";
+        try{
+            $stmt=$this->dbh->prepare($query);
+            $stmt->bindParam(":receta", $this->receta, PDO::PARAM_INT);
+            $stmt->execute();
+            while($eS = $stmt->fetch(PDO::FETCH_ASSOC)){
+                $estudio = new EstudioSolicitado($eS['id'], $eS['estudio'], $eS['receta']);
+                $this->estudiosSolicitados[]=$estudio;
+            }
+        }catch (PDOException $e){
+            echo "ERROR: ".$e->getMessage();
+        }
     }
     public function eliminar()
     {

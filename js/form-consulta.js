@@ -82,16 +82,30 @@ function obtenerConsulta() {
                 data.consultasPrevias.forEach(cp=>{
                     var consultaPrevia = new ConsultaPrevia(cp.comentarios, cp.diagnostico, cp.estudios, cp.tratamiento);
                     consultaPrevia.id=cp.id;
-                    consultaPrevia.consulta=cp.consulta;
                     arrayCPrevias.push(consultaPrevia);
                 });
                 actualizarTablaCPrevias();
-                data.forEach(cp=>{
-                    var consultaPrevia = new ConsultaPrevia(cp.comentarios, cp.diagnostico, cp.estudios, cp.tratamiento);
-                    consultaPrevia.id=cp.id;
-                    consultaPrevia.consulta=cp.consulta;
-                    arrayCPrevias.push(consultaPrevia);
+                data.medicamentosIndicacion.forEach(mi=>{
+                    var medicamentoIndicacion = new MedicamentoIndicacion(mi.medicamento, mi.hora, mi.indicaciones);
+                    medicamentoIndicacion.id=mi.id;
+                    medicamentoIndicacion.receta=mi.receta;
+                    arrayMedicamentoIndicaciones.push(medicamentoIndicacion);
                 });
+                actualizarTablaMedicamentoIndicacion();
+                data.terapiasAplicadas.forEach(t=>{
+                    var terapiaAplicada = new TerapiaAplicada(t.terapia);
+                    terapiaAplicada.id=t.id;
+                    terapiaAplicada.consulta=t.consulta;
+                    arrayTerapiasAplicadas.push(terapiaAplicada);
+                });
+                actualizarTablaTerapiasAplicadas();
+                data.estudiosSolicitados.forEach(e=>{
+                    var estudio= new EstudioSolicitado(e.estudio);
+                    estudio.id=e.id;
+                    estudio.receta=e.receta;
+                    arrayEstudiosSolicitados.push(estudio);
+                })
+                actualizarTablaEstudiosSolicitados();
             }
         })// FIN FETCH
         .catch(error => {
@@ -105,7 +119,8 @@ function obtenerConsultorios() {
         .then(response => response.json())
         .then(data => {
             data.forEach((c) => {
-                consultorio = new Consultorio(c.id, c.nombre, c.calle, c.colonia, c.ciudad, c.codigoPostal, c.telefono);
+                consultorio = new Consultorio(c.nombre, c.calle, c.colonia, c.ciudad, c.codigoPostal, c.telefono);
+                consultorio.id=c.id;
                 arrayConsultorios.push(consultorio);
             });
             consultorioSelect();
@@ -120,7 +135,8 @@ function obtenerMedicamentos() { //pendiente
         .then(response => response.json())
         .then(data => {
             data.forEach((m) => {
-                medicamento = new Medicamento(m.id, m.medicamento, m.tipo, m.descripcion);
+                medicamento = new Medicamento(m.medicamento, m.tipo, m.descripcion);
+                medicamento.id=m.id;
                 arrayMedicamentos.push(medicamento);
             });
             console.log(arrayMedicamentos);
@@ -132,7 +148,6 @@ function obtenerMedicamentos() { //pendiente
 }
 // FUNCIONES : OBTENER CONSULTORIOS
 function consultorioSelect() {
-    console.log(arrayConsultorios);
     arrayConsultorios.forEach(consultorio => {
         const opcion = document.createElement('option');
         opcion.value = consultorio.id;
@@ -150,7 +165,7 @@ function ingresarCPrevia() {
     let estudios = document.getElementById('consultapreviaestudio-paciente').value;
     let tratamiento = document.getElementById('consultapreviatratamiento-paciente').value;
     cPrevia = new ConsultaPrevia(comentarios, diagnostico, estudios, tratamiento);
-    cPrevia.id = new Date().getTime();
+    cPrevia.id=new Date().getTime();
     arrayCPrevias.push(cPrevia);
     actualizarTablaCPrevias();
 }
@@ -164,14 +179,16 @@ function ingresarMedicamentoIndicacion() {
     let medicamentoHora = selectMedicamentoHora.value;
     let indicaciones = indicacionesMedicamento.value;
     let hora = document.getElementById("select-medicamento-hora").value;
-    medicamentoIndicacion = new MedicamentoIndicacion(new Date().getTime(), med, hora, indicaciones, receta);
+    medicamentoIndicacion = new MedicamentoIndicacion(med, hora, indicaciones);
+    medicamentoIndicacion.id=new Date().getTime();
+    medicamentoIndicacion.receta=receta;
     arrayMedicamentoIndicaciones.push(medicamentoIndicacion);
     console.log(medicamentoIndicacion);
     actualizarTablaMedicamentoIndicacion();
 }
 //FUNCIONES INSERTAR ARRAY INGRESAR MEDICAMENTO
 function ingresarEstudioSolicitado(){
-
+    
 }
 function ingresarTerapia(){
 
@@ -253,11 +270,36 @@ function actualizarTablaMedicamentoIndicacion() {
         tablaMedicamentoIndicacion.appendChild(celda);
     });
 }
+function actualizarTablaTerapiasAplicadas(){
+    
+}
+function actualizarTablaEstudiosSolicitados(){
 
+}
 //CLASES
 //CLASES
+class EstudioSolicitado{
+    constructor(estudio){
+        this._estudio=estudio;
+    }
+    get id(){
+        return this._id;
+    }
+    get estudio(){
+        return this._estudio;
+    }
+    get receta(){
+        return this._receta;
+    }
+    set id(id){
+        this._id=id;
+    }
+    set receta(receta){
+        this._receta=receta;
+    }
+}
 class Consulta {
-    constructor(fecha, usuario, paciente, ta, oxigeno, pulso, peso, estatura, temperatura, motivoConsulta, exploracion, receta, consultorio,/* consultasPrevias, terapias, medicamentosIndicacion, estudiosSolicitados*/) {
+    constructor(fecha, usuario, paciente, ta, oxigeno, pulso, peso, estatura, temperatura, motivoConsulta, exploracion, receta, consultorio) {
         this._fecha = fecha;
         this._usuario = usuario;
         this._paciente = paciente;
@@ -270,11 +312,7 @@ class Consulta {
         this._motivoConsulta = motivoConsulta;
         this._exploracion = exploracion;
         this._receta = receta;
-        this._consultorio = consultorio;/*
-        this._consultasPrevias=consultasPrevias;
-        this._terapias=terapias;
-        this._medicamentosIndicacion=medicamentosIndicacion;
-        this._estudiosSolicitados=estudiosSolicitados;*/
+        this._consultorio = consultorio;
     }
     set id(id) {
         this._id = id;
@@ -362,8 +400,7 @@ class Consulta {
     }
 }
 class Consultorio {
-    constructor(id, nombre, calle, colonia, ciudad, codigoPostal, telefono) {
-        this._id = id;
+    constructor(nombre, calle, colonia, ciudad, codigoPostal, telefono) {
         this._nombre = nombre;
         this._calle = calle;
         this._colonia = colonia;
@@ -450,8 +487,8 @@ class ConsultaPrevia {
     }
 }
 class Medicamento {
-    constructor(id, medicamento, tipo, descripcion) {
-        this._id = id;
+    constructor(medicamento, tipo, descripcion) {
+
         this._medicamento = medicamento;
         this._tipo = tipo;
         this._descripcion = descripcion;
@@ -473,12 +510,10 @@ class Medicamento {
     }
 }
 class MedicamentoIndicacion {
-    constructor(id, medicamento, hora, indicaciones, receta) {
-        this._id = id;
+    constructor(medicamento, hora, indicaciones) {
         this._medicamento = medicamento;
         this._hora = hora;
         this._indicaciones = indicaciones;
-        this._receta = receta;
     }
     set id(id) {
         this._id = id;
@@ -497,5 +532,34 @@ class MedicamentoIndicacion {
     }
     get receta(){
         return this._receta;
+    }
+    set receta(receta){
+        this._receta=receta;
+    }
+}
+class TerapiaAplicada{
+    constructor(terapia){
+        this._terapia=terapia;
+    }
+    get id(){
+        return this._id;
+    }
+    get terapia(){
+        return this._terapia;
+    }
+    get consulta(){
+        return this._consulta;
+    }
+    set id(id){
+        this._id=id;
+    }
+    set terapia(terapia){
+        this._terapia=terapia;
+    }
+    get consulta(){
+       return this._consulta; 
+    }
+    set consulta(consulta){
+        this._consulta=consulta;
     }
 }

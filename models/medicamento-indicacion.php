@@ -7,7 +7,7 @@ class MedicamentoIndicacion
     private $hora;
     private $indicaciones;
     private $dbh;
-    function __construct()
+    function __construct($id,$medicamento,$hora,$indicaciones)
     {
         try {
             $dbname = "consultorio";
@@ -22,6 +22,10 @@ class MedicamentoIndicacion
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
+        $this->id=$id;
+        $this->medicamento=$medicamento;
+        $this->hora=$hora;
+        $this->indicaciones=$indicaciones;
     }
     public function getValues()
     {
@@ -40,9 +44,10 @@ class MedicamentoIndicacion
     }
     public function insertar()
     {
-        $query = "INSERT INTO medicamentoIndicacion (medicamento, hora, indicaciones) VALUES (:medicamento, :hora, :indicaciones); ";
+        $query = "INSERT INTO medicamentoIndicacion (id, medicamento, hora, indicaciones) VALUES (:medicamento, :hora, :indicaciones); ";
         try {
             $stmt = $this->dbh->prepare($query);
+            $stmt->bindParam(':id', $this->id);
             $stmt->bindParam(':medicamento', $this->medicamento);
             $stmt->bindParam(':hora', $this->hora);
             $stmt->bindParam(':indicaciones', $this->indicaciones);
@@ -50,6 +55,12 @@ class MedicamentoIndicacion
         } catch (PDOException $e) {
             echo "Error al insertar medicamento indicacion" . $e->getMessage();
         }
+    }
+    public function setId($id){
+        $this->id=$id;
+    }
+    public function getId(){
+        return $this->id;
     }
 }
 ?>

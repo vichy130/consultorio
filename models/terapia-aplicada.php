@@ -6,7 +6,7 @@ class TerapiaAplicada
     private $consulta;
     private $dbh;
 
-    function __construct($terapia, $consulta){
+    function __construct($id, $terapia, $consulta){
         $dbname = "consultorio";
         $user = "root";
         $password = "";
@@ -21,6 +21,7 @@ class TerapiaAplicada
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
+        $this->id=$id;
         $this->terapia=$terapia;
         $this->consulta=$consulta;
     }
@@ -31,18 +32,36 @@ class TerapiaAplicada
         $this->id=$id;
     }
     public function insertar(){
-        $query= "INSERT INTO terapiasAplicadas (terapia, consulta) VALUES (:terapia, :consulta); ";
+        $query= "INSERT INTO terapiasAplicadas (id, terapia, consulta) VALUES (:id, :terapia, :consulta); ";
         try{
             $stmt = $this->dbh->prepare($query);
+            $stmt->bindParam(':id',$this->id);
             $stmt->bindParam(':terapia',$this->terapia);
             $stmt->bindParam(':consulta',$this->consulta);
             $stmt->execute();
-            $this->id = $this->dbh->lastInsertId();
             return true;
         }catch(PDOException $e){
             echo "Error Terapia ".$e->getMessage();
             return false;
         }
+    }
+    function eliminar(){
+        $query = "DELETE FROM terapiasAplicadas where id= :id; ";
+        try {
+            $stmt = $this->dbh->prepare($query);
+            $stmt->bindParam(':id', $this->id);
+            $stmt->execute();
+            echo "terapia elimiada" . $this->id;
+        } catch (PDOException $e) {
+            echo "Error al eliminar terapia" . $e->getMessage();
+        }
+    }
+    public function getValues(){
+        return[
+            'id'=>$this->id,
+            'terapia'=>$this->terapia,
+            'consulta'=>$this->consulta
+        ];
     }
 }
 ?>

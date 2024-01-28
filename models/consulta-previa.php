@@ -8,7 +8,7 @@ class ConsultaPrevia
     private $tratamiento;
     private $consulta;
     private $dbh;
-    public function __construct($comentarios, $diagnostico, $estudios, $tratamiento, $consulta)
+    public function __construct($id, $comentarios, $diagnostico, $estudios, $tratamiento, $consulta)
     {
         $dbname = "consultorio";
         $user = "root";
@@ -24,6 +24,7 @@ class ConsultaPrevia
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
+        $this->id=$id;
         $this->comentarios = $comentarios;
         $this->diagnostico = $diagnostico;
         $this->estudios = $estudios;
@@ -32,9 +33,10 @@ class ConsultaPrevia
     }
     function insertar()
     {
-        $query = "INSERT INTO consultaPrevia (comentarios,diagnostico,estudios,tratamiento,consulta) VALUES (:comentarios,:diagnostico,:estudios,:tratamiento,:consulta); ";
+        $query = "INSERT INTO consultaPrevia (id, comentarios,diagnostico,estudios,tratamiento,consulta) VALUES (:comentarios,:diagnostico,:estudios,:tratamiento,:consulta); ";
         try {
             $stmt = $this->dbh->prepare($query);
+            $stmt->bindParam(':id', $this->comentarios);
             $stmt->bindParam(':comentarios', $this->comentarios);
             $stmt->bindParam(':diagnostico', $this->diagnostico);
             $stmt->bindParam(':estudios', $this->estudios);
@@ -55,8 +57,24 @@ class ConsultaPrevia
     }
     public function getValues(){
         return[
-            
+            'id'=>$this->id,
+            'comentarios'=>$this->comentarios,
+            'diagnostico'=>$this->diagnostico,
+            'estudios'=>$this->estudios,
+            'tratamiento'=>$this->tratamiento,
+            'consulta'=>$this->consulta
         ];
+    }
+    function eliminar(){
+        $query = "DELETE FROM consultaPrevia where id= :id; ";
+        try {
+            $stmt = $this->dbh->prepare($query);
+            $stmt->bindParam(':id', $this->id);
+            $stmt->execute();
+            echo "consulta eliminada" . $this->id;
+        } catch (PDOException $e) {
+            echo "Error al eliminar consulta previa" . $e->getMessage();
+        }
     }
 }
 ?>

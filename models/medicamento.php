@@ -77,5 +77,16 @@ class Medicamento
             echo "error al obtener mediamento" + $e->getMessage();
         }
     }
+    function eliminar(){
+        $query = "DELETE FROM medicamento where id= :id; ";
+        try {
+            $stmt = $this->dbh->prepare($query);
+            $stmt->bindParam(':id', $this->id);
+            $stmt->execute();
+            echo "medicamento eliminado" . $this->id;
+        } catch (PDOException $e) {
+            echo "Error al eliminar medicamento" . $e->getMessage();
+        }
+    }
 }
 ?>
