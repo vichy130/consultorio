@@ -139,7 +139,11 @@ class Consulta
     }
     public function setEstudiosSolicitados($estudiosSolicitados)
     {
-        $this->estudiosSolicitados = $estudiosSolicitados;
+        foreach($estudiosSolicitados as $es){
+            $estudioS=new EstudioSolicitado($es->_id, $es->estudio, $es->receta);
+            $this->estudiosSolicitados[]=$estudioS;
+            $estudioS->insertar();
+        }
     }
     public function getEstudiosSolicitados()
     {

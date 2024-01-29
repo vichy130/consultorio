@@ -2,25 +2,47 @@
 session_start();
 
 include_once("../models/consulta.php");
+include_once("../models/receta.php");
+echo "hola";
 $consulta = new consulta();
+$receta = new Receta();
+$jsonConsultasPrevias = $_POST['jsonConsultasPrevias'];
+$consultasP = json_decode($jsonConsultasPrevias);
 
-$consulta->id = null;
-$consulta->fecha = $_POST['consultafecha-paciente'];
-$consulta->usuario = $_POST['username'];
-$consulta->paciente = $_SESSION["id_paciente"];
-$consulta->ta = $_POST["vitalesta-paciente"];
-$consulta->oxigeno = $_POST["vitalesoxigeno-paciente"];
-$consulta->pulso = $_POST["vitalespulso-paciente"];
-$consulta->peso = $_POST["vitalespeso-paciente"];
-$consulta->estatura = $_POST["vitalesestatura-paciente"];
-$consulta->temperatura = $_POST["vitalestemperatura-paciente"];
-$consulta->motivoConsulta = $_POST['consultamotivo-paciente'];
-$consulta->exploracion = $_POST['consultaexploracion-paciente'];
-$consulta->consultorio = $_POST['select-consultorio'];
-if($consulta->insertar()){
-  $consulta->setReceta();
-  $consulta->setCPrevias($consultasPrevias);
-  $consulta->setTerapiasAplicadas($terapiasAplicadas);
+$jsonTerapiasAplicadas = $_POST['jsonTerapiasAplicadas'];
+$terapiasAplicadas = json_decode($jsonTerapiasAplicadas);
+
+$jsonEstudiosSolicitados = $_POST['jsonEstudiosSolicitados'];
+$estudiosSolicitados = json_decode($jsonEstudiosSolicitados);
+
+$jsonMedicamentoIndicaciones = $_POST['jsonMedicamentoIndicaciones'];
+$MedicamentoIndicaciones = json_decode($jsonMedicamentoIndicaciones);
+
+$fecha = $_POST['oculto-fecha-consulta'];
+$usuario = $_SESSION['username'];
+$paciente = $_SESSION["id_paciente"];
+$ta = $_POST["vitalesta-paciente"];
+$oxigeno = $_POST["vitalesoxigeno-paciente"];
+$pulso = $_POST["vitalespulso-paciente"];
+$peso = $_POST["vitalespeso-paciente"];
+$estatura = $_POST["vitalesestatura-paciente"];
+$temperatura = $_POST["vitalestemperatura-paciente"];
+$motivoConsulta = $_POST['consultamotivo-paciente'];
+$exploracion = $_POST['consultaexploracion-paciente'];
+$indicaciones = $_POST['consultaindicaciones-paciente'];
+$consultorio = $_POST['select-consultorio'];
+
+$jsonReceta = $_POST['jsonReceta'];
+$recetaId = json_decode($jsonReceta);
+$receta->setValues($recetaId);
+echo $fecha;
+if ($receta->insertar()) {
+  $consulta->setValues($fecha, $usuario, $paciente, $ta, $oxigeno, $pulso, $peso, $estatura, $temperatura, $motivoConsulta, $exploracion, $indicaciones, $receta->getValues(), $consultorio);
+  if ($consulta->insertar()) {
+    $consulta->setCPrevias($consultasP);
+    $consulta->setTerapiasAplicadas($terapiasAplicadas);
+    $consulta->setEstudiosSolicitados($estudiosSolicitados);
+    $consulta->setMedicamentosIndicacion($MedicamentoIndicaciones);
+  }
 }
-
 ?>

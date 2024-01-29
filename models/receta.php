@@ -3,6 +3,7 @@
 class Receta {
 
     private $id;
+    private $dbh;
     function __construct(){
         try {
             $dbname = "consultorio";
@@ -24,7 +25,18 @@ class Receta {
     public function setValues($id){
         $this->id=$id;
     }
-
+    public function insertar(){
+        $query="INSERT INTO receta values (:id); ";
+        try{
+            $stmt=$this->dbh->prepare($query);
+            $stmt->bindParam(':id', $this->id);
+            $stmt->execute();
+            return true;
+        }catch(PDOException $e){
+            "Error al insertar Receta".$e->getMessage();
+            return false;
+        }
+    }
 }
 
 

@@ -46,6 +46,7 @@ if (isset($_REQUEST["id"])) {
                         <label class="form_label" for="consultafecha-paciente"><i class="izquierda fa fa-calendar"
                                 aria-hidden="true"></i>Fecha</label>
                         <input class="form_input" type="date" id="consultafecha-paciente" name="consultafecha-paciente">
+                        <input type="hidden" name="oculto-fecha-consulta" id="oculto-fecha-consulta">
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
@@ -201,7 +202,7 @@ if (isset($_REQUEST["id"])) {
                             rows="4" cols="50"> </textarea>
                     </div><!-- end form-grupo -->
 
-                    <button class="boton azul" id="boton-medicamento-indicacion"><i class="fas fa-plus"></i> Añadir</button>
+                    <button class="boton azul" id="boton-medicamento-indicacion"  type="button"><i class="fas fa-plus"></i> Añadir</button>
 
                     <table class="table span-4">
                         <thead>
@@ -221,7 +222,7 @@ if (isset($_REQUEST["id"])) {
                             name="estudiossolicitados-paciente" rows="4" cols="50"> </textarea>
                     </div><!-- end form-grupo -->
 
-                    <button class="boton azul" id="boton-estudios-solicitados"><i class="fas fa-plus"></i>
+                    <button class="boton azul" id="boton-estudios-solicitados"  type="button"><i class="fas fa-plus"></i>
                         Añadir</button>
                         <table class="table span-4">
                         <thead>
@@ -239,7 +240,7 @@ if (isset($_REQUEST["id"])) {
                         <textarea class="form_textarea" id="consultaterapia-paciente" name="consultaterapia-paciente"
                             rows="4" cols="50"> </textarea>
                     </div><!-- end form-grupo -->
-                    <button class="boton azul" id="boton-terapia"><i class="fas fa-plus"></i> Añadir</button>
+                    <button class="boton azul" id="boton-terapia"  type="button"><i class="fas fa-plus"></i> Añadir</button>
 
                     <table class="table span-4">
                         <thead>
@@ -252,7 +253,7 @@ if (isset($_REQUEST["id"])) {
                         </tbody>
                     </table>
 
-                    <button class="input_submit boton amarillo span-2" id="boton-imprimir"><i class="fa fa-print"
+                    <button class="input_submit boton amarillo span-2" id="boton-imprimir"  type="button"><i class="fa fa-print"
                             aria-hidden="true"></i>
                         Imprimir</button>
                     <input class="input_submit boton azul span-2" type="submit" value="Guardar">

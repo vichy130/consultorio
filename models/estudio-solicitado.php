@@ -32,7 +32,7 @@ class EstudioSolicitado{
     }
     function insertar(){
         try{
-            $query="INSERT INTO estudiossolicitados VALUES (:id, :estudio,:receta); ";
+            $query="INSERT INTO estudiosSolicitados VALUES (:id, :estudio,:receta); ";
             $stmt = $this->dbh->prepare($query);
             $stmt->bindParam(':id', $this->id);
             $stmt->bindParam(':estudio', $this->estudio);
@@ -45,7 +45,7 @@ class EstudioSolicitado{
         }
     }
     function eliminar(){
-        $query = "DELETE FROM estudiosSolicitado where id= :id; ";
+        $query = "DELETE FROM estudiosSolicitados where id= :id; ";
         try {
             $stmt = $this->dbh->prepare($query);
             $stmt->bindParam(':id', $this->id);

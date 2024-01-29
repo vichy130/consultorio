@@ -33,10 +33,10 @@ class ConsultaPrevia
     }
     function insertar()
     {
-        $query = "INSERT INTO consultaPrevia (id, comentarios,diagnostico,estudios,tratamiento,consulta) VALUES (:comentarios,:diagnostico,:estudios,:tratamiento,:consulta); ";
+        $query = "INSERT INTO consultaPrevia (id, comentarios,diagnostico,estudios,tratamiento,consulta) VALUES (:id,:comentarios,:diagnostico,:estudios,:tratamiento,:consulta); ";
         try {
             $stmt = $this->dbh->prepare($query);
-            $stmt->bindParam(':id', $this->comentarios);
+            $stmt->bindParam(':id', $this->id);
             $stmt->bindParam(':comentarios', $this->comentarios);
             $stmt->bindParam(':diagnostico', $this->diagnostico);
             $stmt->bindParam(':estudios', $this->estudios);

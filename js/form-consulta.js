@@ -1,4 +1,6 @@
 //VARIABLES
+var fecha = document.getElementById("consultafecha-paciente");
+var ocultoFecha = document.getElementById("oculto-fecha-consulta");
 var fetchedData;
 var id;
 var arrayConsultorios = [];
@@ -40,8 +42,6 @@ window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CAR
 };
 
 document.addEventListener('DOMContentLoaded', function () {// SE EJECUTA AUNQUE LOS RECURSOS NO HAN SIDO CARGADOS POR COMPLETO
-
-    var fecha = document.getElementById("consultafecha-paciente");
     var fechaHoy = new Date();
     var dia = fechaHoy.getDate();
     var mes = fechaHoy.getMonth() + 1;
@@ -57,6 +57,9 @@ document.addEventListener('DOMContentLoaded', function () {// SE EJECUTA AUNQUE 
         fecha.disabled = false;
         fecha.value = format;
         fecha.disabled = true;
+        ocultoFecha.value = fecha.value;
+        console.log(ocultoFecha.value);
+        console.log(ocultoFecha);
     }
 });
 
@@ -194,6 +197,7 @@ function ingresarEstudioSolicitado(){
     estudioSolicitado= new EstudioSolicitado(estudioInput);
     estudioSolicitado.id=new Date().getTime();
     estudioSolicitado.receta=receta;
+    console.log(receta);
     arrayEstudiosSolicitados.push(estudioSolicitado);
     actualizarTablaEstudiosSolicitados();
 }
@@ -211,7 +215,45 @@ function ingresarTerapia(){
 formConsulta.addEventListener('submit', function (e) {
     e.preventDefault();
     var datosConsulta = new FormData(formConsulta);
-    //pendiente
+    var jsonReceta=JSON.stringify(receta);
+    var jsonConsultasPrevias=JSON.stringify(arrayCPrevias);
+    var jsonTerapiasAplicadas=JSON.stringify(arrayTerapiasAplicadas);
+    var jsonEstudiosSolicitados=JSON.stringify(arrayEstudiosSolicitados);
+    var jsonMedicamentoIndicaciones=JSON.stringify(arrayMedicamentoIndicaciones);
+    datosConsulta.append('jsonConsultasPrevias',jsonConsultasPrevias);
+    datosConsulta.append('jsonTerapiasAplicadas',jsonTerapiasAplicadas);
+    datosConsulta.append('jsonEstudiosSolicitados',jsonEstudiosSolicitados);
+    datosConsulta.append('jsonMedicamentoIndicaciones',jsonMedicamentoIndicaciones);
+    datosConsulta.append('jsonReceta',jsonReceta);
+    if (fetchedData!=null){
+        fetch('./controller/editar-consulta.php', {// Enviar los datos a PHP utilizando fetch
+            method: 'POST',
+            body: datosConsulta // El JSON que contiene los datos y el formulario
+        })
+            .then(function (response) {
+                return response.text();
+            })
+            .then(function (data) {
+                console.log(data);
+            })
+            .catch(function (error) {
+                console.error('Error:', error);
+            });
+    }else{
+        fetch('./controller/nueva-consulta.php', {// Enviar los datos a PHP utilizando fetch
+            method: 'POST',
+            body: datosConsulta // El JSON que contiene los datos y el formulario
+        })
+            .then(function (response) {
+                return response.text();
+            })
+            .then(function (data) {
+                console.log(data);
+            })
+            .catch(function (error) {
+                console.error('Error:', error);
+            });
+    }
 });
 //FETCH FORMULARIO Y ARRAYS
 //FETCH FORMULARIO Y ARRAYS
