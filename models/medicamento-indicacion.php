@@ -48,7 +48,7 @@ class MedicamentoIndicacion
     }
     public function insertar()
     {
-        $query = "INSERT INTO medicamentoIndicacion (id, medicamento, hora, indicaciones, receta) VALUES (:id, :medicamento, :hora, :indicaciones); ";
+        $query = "INSERT INTO medicamentoIndicacion (id, medicamento, hora, indicaciones, receta) VALUES (:id, :medicamento, :hora, :indicaciones, :receta); ";
         try {
             $stmt = $this->dbh->prepare($query);
             $stmt->bindParam(':id', $this->id);

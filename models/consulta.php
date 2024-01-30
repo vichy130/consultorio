@@ -124,7 +124,7 @@ class Consulta
     public function setMedicamentosIndicacion($medicamentosIndicacion)
     {
         foreach ($medicamentosIndicacion as $m) {
-            $medicamentoIndicacion = new MedicamentoIndicacion($m->id,$m->medicamento, $m->hora, $m->indicacion, $m->receta);
+            $medicamentoIndicacion = new MedicamentoIndicacion($m->_id,$m->_medicamento, $m->_hora, $m->_indicaciones, $m->_receta);
             $medicamentoIndicacion->insertar();
             $this->medicamentosIndicacion[] = $medicamentoIndicacion;
         }
@@ -140,7 +140,7 @@ class Consulta
     public function setEstudiosSolicitados($estudiosSolicitados)
     {
         foreach($estudiosSolicitados as $es){
-            $estudioS=new EstudioSolicitado($es->_id, $es->estudio, $es->receta);
+            $estudioS=new EstudioSolicitado($es->_id, $es->_estudio, $es->_receta);
             $this->estudiosSolicitados[]=$estudioS;
             $estudioS->insertar();
         }
@@ -153,12 +153,12 @@ class Consulta
         }
         return $eSolicitados;
     }
-    public function setCPrevias($consultasPrevias)
+    public function setCPrevias($arrayCP)
     {
-        foreach ($consultasPrevias as $cPrevia) {
-            $consultaPrevia = new ConsultaPrevia($cPrevia->_id, $cPrevia->_comentarios, $cPrevia->_diagnostico, $cPrevia->_estudios, $cPrevia->_tratamiento, $cPrevia->_consulta);
-            $this->consultasPrevias[] = $consultaPrevia;
-            $consultaPrevia->insertar();
+        foreach ($arrayCP as $cPrevia) {
+            $cp = new ConsultaPrevia($cPrevia->_id, $cPrevia->_comentarios, $cPrevia->_diagnostico, $cPrevia->_estudios, $cPrevia->_tratamiento, $this->id);
+            $this->consultasPrevias[] = $cp;
+            $cp->insertar();
         }
     }
     public function getCPrevias(){
@@ -171,7 +171,7 @@ class Consulta
     public function setTerapiasAplicadas($terapiasAplicadas)
     {
         foreach ($terapiasAplicadas as $tAplicada) {
-            $terapiaAplicada = new TerapiaAplicada($tAplicada->id, $tAplicada->_terapia, $tAplicada->_consulta);
+            $terapiaAplicada = new TerapiaAplicada($tAplicada->_id, $tAplicada->_terapia, $this->id);
             $this->terapiasAplicadas[] = $terapiaAplicada;
             $terapiaAplicada->insertar();
         }

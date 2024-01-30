@@ -3,7 +3,7 @@ session_start();
 
 include_once("../models/consulta.php");
 include_once("../models/receta.php");
-echo "hola";
+
 $consulta = new consulta();
 $receta = new Receta();
 $jsonConsultasPrevias = $_POST['jsonConsultasPrevias'];
@@ -31,11 +31,12 @@ $motivoConsulta = $_POST['consultamotivo-paciente'];
 $exploracion = $_POST['consultaexploracion-paciente'];
 $indicaciones = $_POST['consultaindicaciones-paciente'];
 $consultorio = $_POST['select-consultorio'];
-
 $jsonReceta = $_POST['jsonReceta'];
 $recetaId = json_decode($jsonReceta);
 $receta->setValues($recetaId);
-echo $fecha;
+echo $jsonTerapiasAplicadas;
+echo $jsonEstudiosSolicitados;
+echo $jsonMedicamentoIndicaciones;
 if ($receta->insertar()) {
   $consulta->setValues($fecha, $usuario, $paciente, $ta, $oxigeno, $pulso, $peso, $estatura, $temperatura, $motivoConsulta, $exploracion, $indicaciones, $receta->getValues(), $consultorio);
   if ($consulta->insertar()) {

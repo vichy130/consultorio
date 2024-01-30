@@ -162,7 +162,6 @@ function consultorioSelect() {
     });
 }
 // FUNCIONES : OBTENER CONSULTORIOS
-
 //FUNCIONES INSERTAR
 // FUNCIONES INSERTAR ARRAY INGRESAR CONSULTAS PREVIAS
 function ingresarCPrevia() {
