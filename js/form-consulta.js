@@ -58,8 +58,6 @@ document.addEventListener('DOMContentLoaded', function () {// SE EJECUTA AUNQUE 
         fecha.value = format;
         fecha.disabled = true;
         ocultoFecha.value = fecha.value;
-        console.log(ocultoFecha.value);
-        console.log(ocultoFecha);
     }
 });
 
@@ -97,7 +95,6 @@ function obtenerConsulta() {
                     medicamentoIndicacion.receta=mi.receta;
                     arrayMedicamentoIndicaciones.push(medicamentoIndicacion);
                 });
-                console.log(data.medicamentosIndicacion);
                 actualizarTablaMedicamentoIndicacion();
                 data.terapiasAplicadas.forEach(t=>{
                     var terapiaAplicada = new TerapiaAplicada(t.terapia);
@@ -196,7 +193,6 @@ function ingresarEstudioSolicitado(){
     estudioSolicitado= new EstudioSolicitado(estudioInput);
     estudioSolicitado.id=new Date().getTime();
     estudioSolicitado.receta=receta;
-    console.log(receta);
     arrayEstudiosSolicitados.push(estudioSolicitado);
     actualizarTablaEstudiosSolicitados();
 }
@@ -211,10 +207,19 @@ function ingresarTerapia(){
 
 //FETCH FORMULARIO Y ARRAYS
 //FETCH FORMULARIO Y ARRAYS
+
+tablaCPrevias.addEventListener('click', function(e){
+    e.preventDefault();
+    if(e.target.classList.contains("eliminar-consulta-previa")){
+        const elementoEliminar=e.target.dataset.id;
+        eliminarConsultaPrevia(elementoEliminar);
+    }
+});
 formConsulta.addEventListener('submit', function (e) {
     e.preventDefault();
     var datosConsulta = new FormData(formConsulta);
     var jsonReceta=JSON.stringify(receta);
+    var jsonConsultaId=JSON.stringify();
     var jsonConsultasPrevias=JSON.stringify(arrayCPrevias);
     var jsonTerapiasAplicadas=JSON.stringify(arrayTerapiasAplicadas);
     var jsonEstudiosSolicitados=JSON.stringify(arrayEstudiosSolicitados);
@@ -239,6 +244,7 @@ formConsulta.addEventListener('submit', function (e) {
                 console.error('Error:', error);
             });
     }else{
+        datosConsulta.append('jsonReceta',jsonReceta);
         fetch('./controller/nueva-consulta.php', {// Enviar los datos a PHP utilizando fetch
             method: 'POST',
             body: datosConsulta // El JSON que contiene los datos y el formulario
@@ -354,6 +360,22 @@ function actualizarTablaEstudiosSolicitados(){
         celda.appendChild(eliminarFila);
         tablaEstudiosSolicitados.appendChild(celda);
     });
+}
+function eliminarConsultaPrevia(id){
+    arrayCPrevias=arrayCPrevias.filter(cp => cp.id != id);
+    actualizarTablaCPrevias();
+}
+function eliminarEstudioSolicitado(id){
+    arrayEstudiosSolicitados=arrayEstudiosSolicitados.filter(es => es.id != id);
+    actualizarTablaCPrevias();
+}
+function eliminarMedicamentoIndicacion(id){
+    arrayMedicamentoIndicaciones=arrayMedicamentoIndicaciones.filter(mi => mi.id != id);
+    actualizarTablaCPrevias();
+}
+function eliminarTerapiaAplicada(id){
+    arrayTerapiasAplicadas=arrayTerapiasAplicadas.filter(ta => ta.id != id);
+    actualizarTablaCPrevias();
 }
 //CLASES
 //CLASES

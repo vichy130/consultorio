@@ -8,7 +8,7 @@ class MedicamentoIndicacion
     private $indicaciones;
     private $receta;
     private $dbh;
-    function __construct($id,$medicamento,$hora,$indicaciones,$receta)
+    function __construct($id, $medicamento, $hora, $indicaciones, $receta)
     {
         try {
             $dbname = "consultorio";
@@ -23,11 +23,11 @@ class MedicamentoIndicacion
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
-        $this->id=$id;
-        $this->medicamento=$medicamento;
-        $this->hora=$hora;
-        $this->indicaciones=$indicaciones;
-        $this->receta=$receta;
+        $this->id = $id;
+        $this->medicamento = $medicamento;
+        $this->hora = $hora;
+        $this->indicaciones = $indicaciones;
+        $this->receta = $receta;
     }
     public function getValues()
     {
@@ -36,7 +36,7 @@ class MedicamentoIndicacion
             'medicamento' => $this->medicamento,
             'hora' => $this->hora,
             'indicaciones' => $this->indicaciones,
-            'receta'=>$this->receta
+            'receta' => $this->receta
         ];
     }
     public function setValues($medicamento, $hora, $indicaciones, $receta)
@@ -44,7 +44,7 @@ class MedicamentoIndicacion
         $this->medicamento = $medicamento;
         $this->hora = $hora;
         $this->indicaciones = $indicaciones;
-        $this->receta=$receta;
+        $this->receta = $receta;
     }
     public function insertar()
     {
@@ -61,11 +61,28 @@ class MedicamentoIndicacion
             echo "Error al insertar medicamento indicacion" . $e->getMessage();
         }
     }
-    public function setId($id){
-        $this->id=$id;
+    public function setId($id)
+    {
+        $this->id = $id;
     }
-    public function getId(){
+    public function getId()
+    {
         return $this->id;
+    }
+    public function getNames(){
+        return " valores".$this->id." ID, ".$this->receta." RECETA.";
+    }
+    public function eliminar()
+    {
+        $query = "DELETE FROM medicamentoIndicacion WHERE id=:id; ";
+        try {
+            $stmt = $this->dbh->prepare($query);
+            $stmt->bindParam(":id", $this->id);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            echo "ERROR en eliminar medicamento Indicacion : ".$e->getMessage();
+        }
+
     }
 }
 ?>
