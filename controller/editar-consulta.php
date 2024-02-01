@@ -38,20 +38,24 @@ $motivoConsulta = $_POST['consultamotivo-paciente'];
 $exploracion = $_POST['consultaexploracion-paciente'];
 $indicaciones = $_POST['consultaindicaciones-paciente'];
 $consultorio = $_POST['select-consultorio'];
-$jsonReceta = $_POST['jsonReceta'];
-$recetaId = json_decode($jsonReceta);
-$receta->setValues($recetaId);
-/*echo $jsonTerapiasAplicadas;
-echo $jsonEstudiosSolicitados;*/
-echo $jsonMedicamentoIndicaciones;
 
-$consulta->setValues($fecha, $usuario, $paciente, $ta, $oxigeno, $pulso, $peso, $estatura, $temperatura, $motivoConsulta, $exploracion, $indicaciones, $receta->getValues(), $consultorio);
+echo $jsonEstudiosSolicitados;
+
+
 $consulta->setId($_SESSION['id_consulta']);
-echo $_SESSION['id_consulta']; 
+$receta=$consulta->getReceta();
+
+$consulta->setValues($fecha, $usuario, $paciente, $ta, $oxigeno, $pulso, $peso, $estatura, $temperatura, $motivoConsulta, $exploracion, $indicaciones,$receta, $consultorio);
 
 if($consulta->actualizar()){
     $consulta->actualizarConsultaPrevia($consultasP);
+    foreach ($estudiosSolicitados as $objeto) {
+        $objeto->_receta=$receta;
+    }
     $consulta->actualizarEstudiosSolicitados($estudiosSolicitados);
+    foreach ($MedicamentoIndicaciones as $objeto) {
+        $objeto->_receta=$receta;
+    }
     $consulta->actualizarMedicamentoIndicacion($MedicamentoIndicaciones);
     $consulta->actualizarTerapiasAplicadas($terapiasAplicadas);
 }

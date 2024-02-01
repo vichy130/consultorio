@@ -126,7 +126,7 @@ class Consultorio
         try {
             $query = "DELETE FROM consultorio WHERE id=:id; ";
             $stmt = $this->dbh->prepare($query);
-            $stmt->bindParam('id', $this->getId(), PDO::PARAM_INT);
+            $stmt->bindParam('id', $this->id, PDO::PARAM_INT);
             return $stmt->execute();
         } catch (PDOException $e) {
             echo "No se pudo eliminar " . $e->getMessage();

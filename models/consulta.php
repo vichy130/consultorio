@@ -121,6 +121,19 @@ class Consulta
     {
         return $this->receta;
     }
+    public function getReceta(){
+        $query="SELECT receta FROM consulta where id=:id; ";
+        try{
+            $stmt=$this->dbh->prepare($query);
+            $stmt->bindParam(":id", $this->id);
+            $stmt->execute();
+            $receta=$stmt->fetchColumn();
+            $this->receta=$receta;
+            return $this->receta;
+        }catch(PDOException $e){
+            echo "ERROR al obtener Receta ".$e->getMessage();
+        } 
+    }
     public function setMedicamentosIndicacion($medicamentosIndicacion)
     {
         foreach ($medicamentosIndicacion as $m) {
