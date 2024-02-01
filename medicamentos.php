@@ -74,10 +74,11 @@ require("./php/conexion.php");
                     <tr>
                         <th>Medicamento</th>
                         <th>Tipo</th>
-                        <th class="column-to-hide">Descripcion</th>
+                        <th class="column-to-hide">Descripción</th>
                         <th>Editar</th>
                         <th>Eliminar</th>
                     </tr>
+                    <tbody id="tbody-tabla-medicamentos"></tbody>
                 </thead>
             </table>
 

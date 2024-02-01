@@ -203,8 +203,6 @@ function ingresarTerapia(){
     arrayTerapiasAplicadas.push(terapiaAplicada);
     actualizarTablaTerapiasAplicadas();
 }
-
-
 //FETCH FORMULARIO Y ARRAYS
 //FETCH FORMULARIO Y ARRAYS
 
@@ -215,6 +213,28 @@ tablaCPrevias.addEventListener('click', function(e){
         eliminarConsultaPrevia(elementoEliminar);
     }
 });
+tablaEstudiosSolicitados.addEventListener('click', function(e){
+    e.preventDefault();
+    if(e.target.classList.contains("eliminar-estudio-solicitado")){
+        const elementoEliminar=e.target.dataset.id;
+        eliminarEstudioSolicitado(elementoEliminar);
+    }
+});
+tablaMedicamentoIndicacion.addEventListener('click', function(e){
+    e.preventDefault();
+    if(e.target.classList.contains("eliminar-medicamento-indicacion")){
+        const elementoEliminar=e.target.dataset.id;
+        eliminarMedicamentoIndicacion(elementoEliminar);
+    }
+});
+tablaTerapiasAplicadas.addEventListener('click', function(e){
+    e.preventDefault();
+    if(e.target.classList.contains("eliminar-terapia")){
+        const elementoEliminar=e.target.dataset.id;
+        eliminarTerapiaAplicada(elementoEliminar);
+    }
+});
+
 formConsulta.addEventListener('submit', function (e) {
     e.preventDefault();
     var datosConsulta = new FormData(formConsulta);
@@ -367,15 +387,15 @@ function eliminarConsultaPrevia(id){
 }
 function eliminarEstudioSolicitado(id){
     arrayEstudiosSolicitados=arrayEstudiosSolicitados.filter(es => es.id != id);
-    actualizarTablaCPrevias();
+    actualizarTablaEstudiosSolicitados();
 }
 function eliminarMedicamentoIndicacion(id){
     arrayMedicamentoIndicaciones=arrayMedicamentoIndicaciones.filter(mi => mi.id != id);
-    actualizarTablaCPrevias();
+    actualizarTablaMedicamentoIndicacion();
 }
 function eliminarTerapiaAplicada(id){
     arrayTerapiasAplicadas=arrayTerapiasAplicadas.filter(ta => ta.id != id);
-    actualizarTablaCPrevias();
+    actualizarTablaTerapiasAplicadas();
 }
 //CLASES
 //CLASES
