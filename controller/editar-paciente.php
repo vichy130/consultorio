@@ -1,16 +1,16 @@
-<?php /* edited 04 08 22*/ 
+<?php /* edited 04 08 22*/
 session_start();
 
 include_once("../models/paciente.php");
-$paciente=new Paciente();
-$id_paciente=$_SESSION["id_paciente"];
-$nombre  = $_POST["nombre-paciente"];
+$paciente = new Paciente();
+$id_paciente = $_SESSION["id_paciente"];
+$nombre = $_POST["nombre-paciente"];
 $apellidoPaterno = $_POST["apellidop-paciente"];
 $apellidoMaterno = $_POST["apellidom-paciente"];
 $fechaNacimiento = $_POST["nacimiento-paciente"];
 $sexo = $_POST["sexo"];
 $lugarNacimiento = $_POST["lugar-paciente"];
-$calle= $_POST["calle-paciente"];
+$calle = $_POST["calle-paciente"];
 $colonia = $_POST["colonia-paciente"];
 $ciudad = $_POST["ciudad-paciente"];
 $codigoPostal = $_POST["cp-paciente"];
@@ -23,13 +23,28 @@ $escolaridad = $_POST["escolaridad-paciente"];
 $correo = $_POST["email-paciente"];
 
 $paciente->setId($id_paciente);
-$paciente->setValues($nombre, $apellidoPaterno, $apellidoMaterno,
-$fechaNacimiento, $sexo, $lugarNacimiento, $calle,
-$colonia, $ciudad, $codigoPostal, $telCasa, $telOficina,
-$celular, $edoCivil, $ocupacion, $escolaridad, $correo);
+$paciente->setValues(
+    $nombre,
+    $apellidoPaterno,
+    $apellidoMaterno,
+    $fechaNacimiento,
+    $sexo,
+    $lugarNacimiento,
+    $calle,
+    $colonia,
+    $ciudad,
+    $codigoPostal,
+    $telCasa,
+    $telOficina,
+    $celular,
+    $edoCivil,
+    $ocupacion,
+    $escolaridad,
+    $correo
+);
 
-if($paciente->actualizar())
-{
+if ($paciente->actualizar()) {
     echo "1";
-}else echo "0";
+} else
+    echo "0";
 ?>

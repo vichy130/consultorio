@@ -162,7 +162,7 @@ if (isset($_REQUEST["id"])) {
                     <div class="formulario_grupo span-2">
                         <label class="form_label" for="consultanombremed-paciente">Nombre del medicamento</label>
                         <input class="form_input" list="consultanombremed-paciente" id="input-medicamento">
-                        <datalist id="consultanombremed-paciente">
+                        <datalist class="form_input" id="consultanombremed-paciente">
                         </datalist>
                     </div><!-- end form-grupo -->
 

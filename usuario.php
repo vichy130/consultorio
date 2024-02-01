@@ -111,7 +111,7 @@ if (isset($_REQUEST["id"])) {
         <?php require("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
-    <script></script>
+    <script src="./js/form-usuario.js"></script>
 </body>
 
 </html>

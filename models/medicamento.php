@@ -23,15 +23,16 @@ class Medicamento
             echo $e->getMessage();
         }
     }
-    public function getId(){
+    public function getId()
+    {
         return $this->id;
     }
-    public function setId($id){
-        $this->id=$id;
-    }
-    public function setValues($id, $medicamento, $tipo, $descripcion)
+    public function setId($id)
     {
-        $this->id=$id;
+        $this->id = $id;
+    }
+    public function setValues($medicamento, $tipo, $descripcion)
+    {
         $this->medicamento = $medicamento;
         $this->tipo = $tipo;
         $this->descripcion = $descripcion;
@@ -74,10 +75,11 @@ class Medicamento
                 $this->descripcion = $datos["descripcion"];
             }
         } catch (PDOException $e) {
-            echo "error al obtener mediamento" + $e->getMessage();
+            echo "error al obtener medicamento" + $e->getMessage();
         }
     }
-    function eliminar(){
+    function eliminar()
+    {
         $query = "DELETE FROM medicamento where id= :id; ";
         try {
             $stmt = $this->dbh->prepare($query);
@@ -86,6 +88,26 @@ class Medicamento
             echo "medicamento eliminado" . $this->id;
         } catch (PDOException $e) {
             echo "Error al eliminar medicamento" . $e->getMessage();
+        }
+    }
+    function actualizar()
+    {
+        $query = "UPDATE medicamento SET
+        medicamento=:medicamento, 
+        tipo=:tipo,
+        descripcion=:descripcion 
+        WHERE id=:id; ";
+        try {
+            $stmt=$this->dbh->prepare($query);
+            $stmt->bindParam(":medicamento", $this->medicamento);
+            $stmt->bindParam(":tipo", $this->tipo);
+            $stmt->bindParam(":descripcion", $this->descripcion);
+            $stmt->bindParam(":id", $this->id);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            echo "ERROR actualizar medicamento" . $e->getMessage();
+            return false;
         }
     }
 }

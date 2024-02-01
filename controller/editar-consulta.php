@@ -39,9 +39,6 @@ $exploracion = $_POST['consultaexploracion-paciente'];
 $indicaciones = $_POST['consultaindicaciones-paciente'];
 $consultorio = $_POST['select-consultorio'];
 
-echo $jsonEstudiosSolicitados;
-
-
 $consulta->setId($_SESSION['id_consulta']);
 $receta=$consulta->getReceta();
 

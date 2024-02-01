@@ -8,6 +8,17 @@ window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CAR
     obtenerMedicamentos();
 };
 //EVENT LISTENERS
+tablaMedicamentos.addEventListener('click', function (e){
+    e.preventDefault();
+    if(e.target.classList.contains("editar-medicamento")){
+        const elementoEditar=e.target.dataset.id;
+        editarMedicamento(elementoEditar);
+    }
+    if(e.target.classList.contains("eliminar-medicamento")){
+        const elementoEliminar=e.target.dataset.id;
+        eliminarMedicamento(elementoEliminar);
+    }
+});
 botonNuevoMedicamento.addEventListener('click', function (e) {
     e.preventDefault();
     med();
@@ -17,6 +28,10 @@ botonNuevoMedicamento.addEventListener('click', function (e) {
 function med() {
     window.location.href = "./medicamento.php";
 }
+function editarMedicamento(elementoEditar){
+    window.location.href = "./medicamento.php?id="+elementoEditar;
+}
+
 //FUNCION
 function medicamentoEditar(idEditar) {
     window.location.href = "./pacientes-informacion.php?id=" + idEditar;
@@ -31,7 +46,6 @@ function obtenerMedicamentos() { //pendiente
                 arrayMedicamentos.push(medicamento);
             });
             medicamentos();
-            console.log(arrayMedicamentos);
         })// FIN FETCH
         .catch(error => {
             console.error('Error:', error);
@@ -39,7 +53,6 @@ function obtenerMedicamentos() { //pendiente
 }
 function medicamentos() {
     arrayMedicamentos.forEach((m) => {
-        console.log(m);
         const celda = document.createElement('tr');
         const medicamentoFila = document.createElement('td');
         const tipoFila = document.createElement('td');
@@ -65,10 +78,35 @@ function medicamentos() {
         celda.appendChild(medicamentoFila);
         celda.appendChild(tipoFila);
         celda.appendChild(descripcionFila);
-        celda.appendChild(iconoEditar);
-        celda.appendChild(iconoEliminar);
+        celda.appendChild(editarFila);
+        celda.appendChild(eliminarFila);
         tablaMedicamentos.appendChild(celda);
     });
+}
+function eliminarMedicamento(elementoEliminar){
+    var id = { id: elementoEliminar };
+    var jsonId = JSON.stringify(id);
+    fetch('./controller/eliminar-medicamento.php', {// Enviar los datos a PHP utilizando fetch
+        method: 'POST',
+        body: jsonId// El JSON que contiene el id 
+    })
+        .then(function (response) {
+            return response.text();
+        })
+        .then(function (data) {
+            if (data) {
+                /*modalExito.style.display = 'block';*/
+            } else {
+                /*modalError.style.display = 'block';*/
+            }
+        })
+        .catch(function (error) {
+            console.error('Error al eliminar Medicamento:', error);
+        });
+    /*cerrarPregunta();*/
+    arrayMedicamentos=[];
+    clearDiv(tablaMedicamentos);
+    obtenerMedicamentos();
 }
 function clearDiv(div) {
     div.replaceChildren();
