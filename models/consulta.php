@@ -1,4 +1,5 @@
 <?php
+include_once("../models/conexion.php");
 include("../models/consulta-previa.php");
 include("../models/terapia-aplicada.php");
 include("../models/estudio-solicitado.php");
@@ -24,23 +25,10 @@ class Consulta
     private $terapiasAplicadas = array();
     private $medicamentosIndicacion = array();
     private $estudiosSolicitados = array();
-    private $dbh;
+    private $conexion;
     function __construct()
     {
-        $dbname = "consultorio";
-        $user = "root";
-        $password = "";
-        $options = array(
-            PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8mb4'",
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
-        );
-        try {
-            $dsn = "mysql:host=localhost; dbname=$dbname";
-            $this->dbh = new PDO($dsn, $user, $password, $options);
-
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-        }
+        $this->conexion= new Conexion();
     }
     public function getId()
     {
@@ -124,7 +112,7 @@ class Consulta
     public function getReceta(){
         $query="SELECT receta FROM consulta where id=:id; ";
         try{
-            $stmt=$this->dbh->prepare($query);
+            $stmt=$this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(":id", $this->id);
             $stmt->execute();
             $receta=$stmt->fetchColumn();
@@ -203,7 +191,7 @@ class Consulta
         $query = "INSERT INTO consulta (fecha, usuario, paciente,ta,oxigeno,pulso,peso,estatura,temperatura, motivoConsulta, exploracion, indicaciones, receta, consultorio) 
     VALUES (:fecha,:usuario,:paciente,:ta,:oxigeno,:pulso,:peso,:estatura,:temperatura,:motivoConsulta,:exploracion,:indicaciones,:receta,:consultorio); ";
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':fecha', $this->fecha);
             $stmt->bindParam(':usuario', $this->usuario);
             $stmt->bindParam(':paciente', $this->paciente);
@@ -219,7 +207,7 @@ class Consulta
             $stmt->bindParam(':receta', $this->receta);
             $stmt->bindParam(':consultorio', $this->consultorio);
             $stmt->execute();
-            $this->id = $this->dbh->lastInsertId();
+            $this->id = $this->conexion->getdbh()->lastInsertId();
             return true;
         } catch (PDOException $e) {
             echo "No se pudo insertar nueva consulta" . $e->getMessage();
@@ -230,7 +218,7 @@ class Consulta
     {
         $query = "SELECT * FROM consulta where id=:id; ";
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
             $stmt->execute();
             $datos = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -264,7 +252,7 @@ class Consulta
     {
         $query = "SELECT * FROM consultaPrevia where consulta=:id; ";
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
             $stmt->execute();
             while ($cP = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -279,7 +267,7 @@ class Consulta
     {
         $query = "SELECT * from medicamentoIndicacion where receta=:receta; "; //AQUI puede haber error con recuperar receta
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(":receta", $this->receta, PDO::PARAM_INT);
             $stmt->execute();
             while ($mI = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -294,7 +282,7 @@ class Consulta
     {
         $query = "SELECT * FROM terapiasAplicadas where consulta=:id; ";
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
             $stmt->execute();
             while ($terapia = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -309,7 +297,7 @@ class Consulta
     {
         $query = "SELECT * FROM estudiosSolicitados where receta=:receta; ";
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(":receta", $this->receta, PDO::PARAM_INT);
             $stmt->execute();
             while ($eS = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -337,7 +325,7 @@ class Consulta
         indicaciones=:indicaciones 
         WHERE id= :id; ";
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':id', $this->id);
             $stmt->bindParam(':fecha', $this->fecha);
             $stmt->bindParam(':usuario', $this->usuario);
@@ -503,8 +491,8 @@ class Consulta
     {
         $query = "DELETE FROM consulta WHERE id=:id; ";
         try {
-            $stmt = $this->dbh->prepare($query);
-            $stmt->bindParam(":id", $this->getId(), PDO::PARAM_INT);
+            $stmt = $this->conexion->getdbh()->prepare($query);
+            $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
             return $stmt->execute();
         } catch (PDOException $e) {
             echo "Error al eliminar consulta " . $e->getMessage();

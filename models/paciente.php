@@ -1,4 +1,5 @@
 <?php
+include_once("../models/conexion.php");
 class Paciente
 {
     private $id;
@@ -19,23 +20,10 @@ class Paciente
     private $ocupacion;
     private $escolaridad;
     private $correo;
-    private $dbh;
+    private $conexion;
     function __construct()
     {
-        $dbname = "consultorio";
-        $user = "root";
-        $password = "";
-        $options = array(
-            PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8mb4'",
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
-        );
-        $this->dbh = null;
-        try {
-            $dsn = "mysql:host=localhost; dbname=$dbname";
-            $this->dbh = new PDO($dsn, $user, $password, $options);
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-        }
+        $this->conexion = new Conexion();
     }
     public function getId()
     {
@@ -114,7 +102,7 @@ class Paciente
         $query = "INSERT INTO paciente (nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, sexo, lugarNacimiento, calle, colonia, ciudad, codigoPostal, telCasa, telOficina, celular, edoCivil, ocupacion, escolaridad, correo) 
                   VALUES (:nombre, :apellidoPaterno, :apellidoMaterno, :fechaNacimiento, :sexo, :lugarNacimiento, :calle, :colonia, :ciudad, :codigoPostal, :telCasa, :telOficina, :celular, :edoCivil, :ocupacion, :escolaridad, :correo)";
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':nombre', $this->nombre);
             $stmt->bindParam(':apellidoPaterno', $this->apellidoPaterno);
             $stmt->bindParam(':apellidoMaterno', $this->apellidoMaterno);
@@ -133,7 +121,7 @@ class Paciente
             $stmt->bindParam(':escolaridad', $this->escolaridad);
             $stmt->bindParam(':correo', $this->correo);
             $stmt->execute();
-            $this->id = $this->dbh->lastInsertId();
+            $this->id = $this->conexion->getdbh()->lastInsertId();
             return true;
         } catch (PDOException $e) {
             echo "Error al insertar datos del paciente: " . $e->getMessage();
@@ -144,7 +132,7 @@ class Paciente
     {
         $query = "SELECT * FROM paciente WHERE id = :id; ";
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
             $stmt->execute();
             $datos = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -184,7 +172,7 @@ class Paciente
                   WHERE id=:id";
 
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':nombre', $this->nombre);
             $stmt->bindParam(':apellidoPaterno', $this->apellidoPaterno);
             $stmt->bindParam(':apellidoMaterno', $this->apellidoMaterno);
@@ -213,8 +201,8 @@ class Paciente
     {
         try {
             $query = "DELETE FROM paciente WHERE id=:id;";
-            $stmt = $this->dbh->prepare($query);
-            $stmt->bindParam(':id', $this->getId(), PDO::PARAM_INT);
+            $stmt = $this->conexion->getdbh()->prepare($query);
+            $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
             return $stmt->execute();
         } catch (PDOException $e) {
             echo "Error en eliminar: " . $e->getMessage();

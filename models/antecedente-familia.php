@@ -1,4 +1,5 @@
 <?php
+include_once("../models/conexion.php");
 class AntecedenteFamilia
 {
     private $id;
@@ -6,23 +7,11 @@ class AntecedenteFamilia
     private $enfermedad;
     private $descripcion;
     private $ficha;
-    private $dbh;
+    private $conexion;
+
     public function __construct($id, $familiar, $enfermedad, $descripcion, $ficha)
     {
-        $dbname = "consultorio";
-        $user = "root";
-        $password = "";
-        $options = array(
-            PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8mb4'",
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
-        );
-        try {
-            $dsn = "mysql:host=localhost; dbname=$dbname";
-            $this->dbh = new PDO($dsn, $user, $password, $options);
-
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-        }
+        $this->conexion= new Conexion();
         $this->id = $id;
         $this->familiar = $familiar;
         $this->enfermedad = $enfermedad;
@@ -43,10 +32,11 @@ class AntecedenteFamilia
             'ficha' => $this->ficha
         ];
     }
-    function insertar(){
-        try{
+    function insertar()
+    {
+        try {
             $query = "INSERT INTO antecedentesFamilia (familiar, enfermedad, descripcion, ficha) VALUES (:familiar, :enfermedad, :descripcion, :ficha); ";
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             // Vincular parámetros
             $stmt->bindParam(':familiar', $this->familiar);
             $stmt->bindParam(':enfermedad', $this->enfermedad);
@@ -54,9 +44,9 @@ class AntecedenteFamilia
             $stmt->bindParam(':ficha', $this->ficha);
             $return = $stmt->execute();
             // Obtener el ID insertado
-            $this->id = $this->dbh->lastInsertId();
+            $this->id = $this->conexion->getdbh()->lastInsertId();
             return $return;
-        }catch (PDOException $e){
+        } catch (PDOException $e) {
             error_log("Error al insertar datos: " . $e->getMessage());
             return false; // Indicar que ha habido un error
         }
@@ -64,7 +54,7 @@ class AntecedenteFamilia
     function mostrar()
     {
         $query = "SELECT * FROM antecedentesFamilia WHERE ficha = :ficha";
-        $stmt = $this->dbh->prepare($query);
+        $stmt = $this->conexion->getdbh()->prepare($query);
         $stmt->bindParam(":ficha", $this->ficha, PDO::PARAM_INT);
         try {
             $stmt->execute();
@@ -87,7 +77,7 @@ class AntecedenteFamilia
     {
         try {
             $query = "DELETE FROM antecedentesFamilia WHERE id = :id; ";
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
             if ($stmt->execute()) {
                 echo "Eliminación exitosa.";

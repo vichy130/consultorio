@@ -1,5 +1,5 @@
 <?php
-
+include_once("../models/conexion.php");
 class usuario
 {
     private $username;
@@ -10,22 +10,10 @@ class usuario
     private $correo;
     private $contrasena;
     private $tipoUsuario;
-    private $dbh;
+    private $conexion;
     function __construct()
     {
-        try {
-            $dbname = "consultorio";
-            $user = "root";
-            $password = "";
-            $options = [
-                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8mb4'",
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
-            ];
-            $dsn = "mysql:host=localhost;dbname=$dbname";
-            $this->dbh = new PDO($dsn, $user, $password, $options);
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-        }
+        $this->conexion = new Conexion();
     }
     public function setValues(
         $nombre,
@@ -36,13 +24,13 @@ class usuario
         $contrasena,
         $tipoUsuario
     ) {
-        $this->nombre=$nombre;
-        $this->apellidoPaterno=$apellidoPaterno;
-        $this->apellidoMaterno=$apellidoMaterno;
-        $this->telefono=$telefono;
-        $this->correo=$correo;
-        $this->contrasena=$contrasena;
-        $this->tipoUsuario=$tipoUsuario;
+        $this->nombre = $nombre;
+        $this->apellidoPaterno = $apellidoPaterno;
+        $this->apellidoMaterno = $apellidoMaterno;
+        $this->telefono = $telefono;
+        $this->correo = $correo;
+        $this->contrasena = $contrasena;
+        $this->tipoUsuario = $tipoUsuario;
     }
     public function setUsername($username)
     {
@@ -56,7 +44,7 @@ class usuario
     {
         $query = "INSERT INTO usuario values (':username',':nombre',':apellidoPaterno',':apellidoMaterno',':telefono',':correo',':contrasena',':tipoUsuario'); ";
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':username', $this->username);
             $stmt->bindParam(':nombre', $this->nombre);
             $stmt->bindParam(':apellidoPaterno', $this->apellidoPaterno);
@@ -74,11 +62,11 @@ class usuario
     {
         $query = "SELECT * FROM usuario WHERE username=':username'; ";
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':username', $this->username);
             $stmt->execute();
-            $datos =$stmt->fetch(PDO::FETCH_ASSOC);
-            if($datos){
+            $datos = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($datos) {
                 $this->username = $datos["username"];
                 $this->nombre = $datos["nombre"];
                 $this->apellidoPaterno = $datos["apellidoPaterno"];
@@ -97,15 +85,16 @@ class usuario
     {
         $query = "DELETE FROM usuario where username=':username'; ";
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':username', $this->username);
             $stmt->execute();
         } catch (PDOException $e) {
             echo "Error al eliminar Usuario" . $e->getMessage();
         }
     }
-    public function actualizar(){
-        $query="UPDATE usuario set
+    public function actualizar()
+    {
+        $query = "UPDATE usuario set
         nombre=:nombre,
         apellidoPaterno=:apellidoPaterno,
         apellidoMaterno=:apellidoMaterno,
@@ -113,8 +102,8 @@ class usuario
         correo=:correo,
         tipoUsuario=:tipoUsuario
         WHERE username=:username; ";
-        try{
-            $stmt=$this->dbh->prepare($query);
+        try {
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(":nombre", $this->nombre);
             $stmt->bindParam(":apellidoPaterno", $this->apellidoPaterno);
             $stmt->bindParam(":apellidoMaterno", $this->apellidoMaterno);
@@ -124,8 +113,8 @@ class usuario
             $stmt->bindParam(":username", $this->username);
             $stmt->execute();
             return true;
-        }catch(PDOException $e){
-            echo "Error al actualizar usuario".$e->getMessage();
+        } catch (PDOException $e) {
+            echo "Error al actualizar usuario" . $e->getMessage();
             return false;
         }
     }

@@ -1,4 +1,5 @@
 <?php
+include_once("../models/conexion.php");
 class Consultorio
 {
     private $id;
@@ -8,23 +9,10 @@ class Consultorio
     private $ciudad;
     private $codigoPostal;
     private $telefono;
-    private $dbh;
+    private $conexion;
     function __construct()
     {
-        $dbname = "consultorio";
-        $user = "root";
-        $password = "";
-        $options = array(
-            PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8mb4'",
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
-        );
-        $this->dbh = null;
-        try {
-            $dsn = "mysql:host=localhost; dbname=$dbname";
-            $this->dbh = new PDO($dsn, $user, $password, $options);
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-        }
+        $this->conexion = new Conexion();
     }
     public function getId()
     {
@@ -66,7 +54,7 @@ class Consultorio
         include_once("../php/conexion.php");
         $query = "INSERT INTO consultorio (nombre,calle,colonia,ciudad,codigoPostal,telefono) VALUES (:nombre, :calle, :colonia, :ciudad, :codigoPostal, :telefono); ";
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':nombre', $this->nombre);
             $stmt->bindParam(':calle', $this->calle);
             $stmt->bindParam(':colonia', $this->colonia);
@@ -74,7 +62,7 @@ class Consultorio
             $stmt->bindParam(':codigoPostal', $this->codigoPostal);
             $stmt->bindParam(':telefono', $this->telefono);
             $stmt->execute();
-            $this->id = $this->dbh->lastInsertId();
+            $this->id = $this->conexion->getdbh()->lastInsertId();
             return true;
         } catch (PDOException $e) {
             return false;
@@ -84,7 +72,7 @@ class Consultorio
     {
         $query = 'SELECT * FROM consultorio WHERE id= :id; ';
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
             $stmt->execute();
             $datos = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -107,7 +95,7 @@ class Consultorio
         $query = "UPDATE consultorio
         SET nombre=:nombre, calle=:calle, colonia=:colonia, ciudad=:ciudad, codigoPostal=:codigoPostal, telefono=:telefono WHERE id=:id; ";
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
             $stmt->bindParam(':nombre', $this->nombre);
             $stmt->bindParam(':calle', $this->calle);
@@ -125,7 +113,7 @@ class Consultorio
     {
         try {
             $query = "DELETE FROM consultorio WHERE id=:id; ";
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam('id', $this->id, PDO::PARAM_INT);
             return $stmt->execute();
         } catch (PDOException $e) {

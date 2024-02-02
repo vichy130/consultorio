@@ -1,4 +1,5 @@
 <?php
+include_once("../models/conexion.php");
 include_once("../models/hijo.php");
 include_once("../models/antecedente-paciente.php");
 include_once("../models/antecedente-familia.php");
@@ -52,22 +53,10 @@ class Ficha
     private $hijos = array();
     private $antecedentes = array();
     private $antecedentesFam = array();
-    private $dbh;
+    private $conexion;
     public function __construct(
     ) {
-        try {
-            $dbname = "consultorio";
-            $user = "root";
-            $password = "";
-            $options = [
-                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8mb4'",
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
-            ];
-            $dsn = "mysql:host=localhost;dbname=$dbname";
-            $this->dbh = new PDO($dsn, $user, $password, $options);
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-        }
+        $this->conexion = new Conexion();
     }
     //SET GET
     public function getId()
@@ -190,7 +179,7 @@ echo $firmaPaciente;*/
         $query = "INSERT INTO ficha (paciente, tipoSangre, quienRecomendo, embarazo, partos, cesareas, abortos, muertos, enfs, fuma, cigarrosDia, fumaAntiguedad, alcohol, alcFrecuencia, alcoholCantidad, alcoholTipos, adicciones, alergias, desayuno, comida, cena, entreComidas, vasoAguaDia, otrosLiquidos, intolerancias, orinaDia, orinaNoche, orinaColor, orinaOlor, orinaMolestias, excrementoDia, exConsistencia, exOlor, exColor, exDolor, fechaMenstruacion, mensPeriodicidad, mensMolestias, ejercicioSemana, fecha, firmaUsuario, firmaPaciente, hora, usuario) 
                   VALUES (:paciente, :tipoSangre, :quienRecomendo, :embarazo, :partos, :cesareas, :abortos, :muertos, :enfs, :fuma, :cigarrosDia, :fumaAntiguedad, :alcohol, :alcFrecuencia, :alcoholCantidad, :alcoholTipos, :adicciones, :alergias, :desayuno, :comida, :cena, :entreComidas, :vasoAguaDia, :otrosLiquidos, :intolerancias, :orinaDia, :orinaNoche, :orinaColor, :orinaOlor, :orinaMolestias, :excrementoDia, :exConsistencia, :exOlor, :exColor, :exDolor, :fechaMenstruacion, :mensPeriodicidad, :mensMolestias, :ejercicioSemana, :fecha, :firmaUsuario, :firmaPaciente, :hora, :usuario); ";
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             // Vincula los parámetros con los valores reales
             $stmt->bindParam(':paciente', $this->paciente);
             $stmt->bindParam(':tipoSangre', $this->tipoSangre);
@@ -237,7 +226,7 @@ echo $firmaPaciente;*/
             $stmt->bindParam(':hora', $this->hora);
             $stmt->bindParam(':usuario', $this->usuario);
             $return = $stmt->execute();
-            $this->id = $this->dbh->lastInsertId();
+            $this->id = $this->conexion->getdbh()->lastInsertId();
             return $return;
         } catch (PDOException $e) {
             echo "Error al insertar ficha" . $e->getMessage();
@@ -295,7 +284,7 @@ echo $firmaPaciente;*/
     {
         $query = "SELECT * FROM ficha WHERE paciente = :paciente; ";
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(":paciente", $this->paciente, PDO::PARAM_INT);
             $stmt->execute();
             $datos = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -357,7 +346,7 @@ $this->firmaPaciente = $datos["firmaPaciente"];*/
     {
         $query = "SELECT * FROM hijo WHERE ficha = :id";
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
             $stmt->execute();
             $hijos = null;
@@ -375,7 +364,7 @@ $this->firmaPaciente = $datos["firmaPaciente"];*/
     {
         $query = "SELECT * FROM antecedentes WHERE ficha = :id; ";
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
             $stmt->execute();
             $ant = null;
@@ -392,7 +381,7 @@ $this->firmaPaciente = $datos["firmaPaciente"];*/
     {
         $query = "SELECT * FROM antecedentesFamilia WHERE ficha = :id; ";
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
             $stmt->execute();
             $antecedentesFam = null;
@@ -454,7 +443,7 @@ $this->firmaPaciente = $datos["firmaPaciente"];*/
             usuario = :usuario 
             WHERE id = :id; ";
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
 
             // Bind de los valores
             $stmt->bindParam(':paciente', $this->paciente);

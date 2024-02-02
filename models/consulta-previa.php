@@ -1,4 +1,5 @@
 <?php
+include_once("../models/conexion.php");
 class ConsultaPrevia
 {
     private $id;
@@ -7,23 +8,10 @@ class ConsultaPrevia
     private $estudios;
     private $tratamiento;
     private $consulta;
-    private $dbh;
+    private $conexion;
     public function __construct($id, $comentarios, $diagnostico, $estudios, $tratamiento, $consulta)
     {
-        $dbname = "consultorio";
-        $user = "root";
-        $password = "";
-        $options = array(
-            PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8mb4'",
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ);
-        $this->dbh = null;
-        try {
-            $dsn = "mysql:host=localhost; dbname=$dbname";
-            $this->dbh = new PDO($dsn, $user, $password, $options);
-
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-        }
+        $this->conexion = new Conexion();
         $this->id=$id;
         $this->comentarios = $comentarios;
         $this->diagnostico = $diagnostico;
@@ -35,7 +23,7 @@ class ConsultaPrevia
     {
         $query = "INSERT INTO consultaPrevia (id, comentarios,diagnostico,estudios,tratamiento,consulta) VALUES (:id,:comentarios,:diagnostico,:estudios,:tratamiento,:consulta); ";
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':id', $this->id);
             $stmt->bindParam(':comentarios', $this->comentarios);
             $stmt->bindParam(':diagnostico', $this->diagnostico);
@@ -68,7 +56,7 @@ class ConsultaPrevia
     function eliminar(){
         $query = "DELETE FROM consultaPrevia where id= :id; ";
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':id', $this->id);
             $stmt->execute();
             echo "consulta eliminada" . $this->id;

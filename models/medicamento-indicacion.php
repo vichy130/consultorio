@@ -1,5 +1,5 @@
 <?php
-
+include_once("../models/conexion.php");
 class MedicamentoIndicacion
 {
     private $id;
@@ -7,22 +7,10 @@ class MedicamentoIndicacion
     private $hora;
     private $indicaciones;
     private $receta;
-    private $dbh;
+    private $conexion;
     function __construct($id, $medicamento, $hora, $indicaciones, $receta)
     {
-        try {
-            $dbname = "consultorio";
-            $user = "root";
-            $password = "";
-            $options = [
-                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8mb4'",
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
-            ];
-            $dsn = "mysql:host=localhost;dbname=$dbname";
-            $this->dbh = new PDO($dsn, $user, $password, $options);
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-        }
+        $this->conexion = new Conexion();
         $this->id = $id;
         $this->medicamento = $medicamento;
         $this->hora = $hora;
@@ -50,7 +38,7 @@ class MedicamentoIndicacion
     {
         $query = "INSERT INTO medicamentoIndicacion (id, medicamento, hora, indicaciones, receta) VALUES (:id, :medicamento, :hora, :indicaciones, :receta); ";
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':id', $this->id);
             $stmt->bindParam(':medicamento', $this->medicamento);
             $stmt->bindParam(':hora', $this->hora);
@@ -76,7 +64,7 @@ class MedicamentoIndicacion
     {
         $query = "DELETE FROM medicamentoIndicacion WHERE id=:id; ";
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(":id", $this->id);
             $stmt->execute();
         } catch (PDOException $e) {

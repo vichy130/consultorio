@@ -1,8 +1,8 @@
 <?php
 
 //$dbname="agakhanc_consultorio";
-//$user="agakhanc_admin";
-//$password="Jalostotitlan";
+//$user="agakhanc_regular";
+//$password="DeVUVOtH68Z1";
 $dbname="consultorio";
 $user="root";
 $password="";

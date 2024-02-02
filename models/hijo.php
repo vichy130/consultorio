@@ -1,27 +1,15 @@
 <?php
-
+include_once("../models/conexion.php");
 class Hijo
 {
     private $id;
     private $sexo;
     private $edad;
     private $ficha;
-    private $dbh;
+    private $conexion;
     public function __construct($id, $sexo, $edad, $ficha)
     {
-        try {
-            $dbname = "consultorio";
-            $user = "root";
-            $password = "";
-            $options = [
-                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8mb4'",
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
-            ];
-            $dsn = "mysql:host=localhost;dbname=$dbname";
-            $this->dbh = new PDO($dsn, $user, $password, $options);
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-        }
+        $this->conexion = new Conexion();
         $this->id = $id;
         $this->sexo = $sexo;
         $this->edad = $edad;
@@ -44,7 +32,7 @@ class Hijo
     {
         $query = "INSERT INTO hijo (id, sexo, edad, ficha) VALUES (:id, :sexo, :edad, :ficha); ";
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             // Vincula los valores de los parámetros de forma segura
             $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
             $stmt->bindParam(':sexo', $this->sexo, PDO::PARAM_STR);
@@ -60,7 +48,7 @@ class Hijo
     {
         $query = "DELETE FROM hijo where id= :id; ";
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':id', $this->id);
             $stmt->execute();
             echo "HIJO ELIMINADO" . $this->id;

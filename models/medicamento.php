@@ -1,5 +1,5 @@
 <?php
-
+include_once("../models/conexion.php");
 class Medicamento
 {
     private $id;
@@ -7,21 +7,10 @@ class Medicamento
     private $tipo;
     private $descripcion;
     private $dbh;
+    private $conexion;
     function __construct()
     {
-        try {
-            $dbname = "consultorio";
-            $user = "root";
-            $password = "";
-            $options = [
-                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8mb4'",
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
-            ];
-            $dsn = "mysql:host=localhost;dbname=$dbname";
-            $this->dbh = new PDO($dsn, $user, $password, $options);
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-        }
+        $this->conexion = new Conexion();
     }
     public function getId()
     {
@@ -50,12 +39,12 @@ class Medicamento
     {
         $query = "INSERT INTO medicamento (id, medicamento, tipo, descripcion) VALUES (:medicamento,:tipo,:descripcion); ";
         try {
-            $stmt = $this->dbh->prepare($query);
-            $stmt->bindParam(':id', $this->id);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':medicamento', $this->medicamento);
             $stmt->bindParam(':tipo', $this->tipo);
             $stmt->bindParam(':descripcion', $this->descripcion);
-            return $stmt->execute();
+            $stmt->execute();
+            $this->id = $this->conexion->getdbh()->lastInsertId();
         } catch (PDOException $e) {
             echo "Error al insertar medicamento" . $e->getMessage();
         }
@@ -64,7 +53,7 @@ class Medicamento
     {
         $query = "SELECT * FROM medicamento where id=:id; ";
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':id', $this->id);
             $stmt->execute();
             $datos = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -75,14 +64,14 @@ class Medicamento
                 $this->descripcion = $datos["descripcion"];
             }
         } catch (PDOException $e) {
-            echo "error al obtener medicamento" + $e->getMessage();
+            echo "error al obtener medicamento" . $e->getMessage();
         }
     }
     function eliminar()
     {
         $query = "DELETE FROM medicamento where id= :id; ";
         try {
-            $stmt = $this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':id', $this->id);
             $stmt->execute();
             echo "medicamento eliminado" . $this->id;
@@ -98,7 +87,7 @@ class Medicamento
         descripcion=:descripcion 
         WHERE id=:id; ";
         try {
-            $stmt=$this->dbh->prepare($query);
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(":medicamento", $this->medicamento);
             $stmt->bindParam(":tipo", $this->tipo);
             $stmt->bindParam(":descripcion", $this->descripcion);
