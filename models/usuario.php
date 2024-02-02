@@ -27,6 +27,31 @@ class usuario
             echo $e->getMessage();
         }
     }
+    public function setValues(
+        $nombre,
+        $apellidoPaterno,
+        $apellidoMaterno,
+        $telefono,
+        $correo,
+        $contrasena,
+        $tipoUsuario
+    ) {
+        $this->nombre=$nombre;
+        $this->apellidoPaterno=$apellidoPaterno;
+        $this->apellidoMaterno=$apellidoMaterno;
+        $this->telefono=$telefono;
+        $this->correo=$correo;
+        $this->contrasena=$contrasena;
+        $this->tipoUsuario=$tipoUsuario;
+    }
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
+    public function getUsername()
+    {
+        return $this->username;
+    }
     public function insertar()
     {
         $query = "INSERT INTO usuario values (':username',':nombre',':apellidoPaterno',':apellidoMaterno',':telefono',':correo',':contrasena',':tipoUsuario'); ";
@@ -45,15 +70,15 @@ class usuario
             echo "Error al insertar Usuario" . $e->getMessage();
         }
     }
-    function buscarDatos()
+    function obtener()
     {
         $query = "SELECT * FROM usuario WHERE username=':username'; ";
         try {
             $stmt = $this->dbh->prepare($query);
             $stmt->bindParam(':username', $this->username);
             $stmt->execute();
-            $datos = null;
-            while ($datos = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $datos =$stmt->fetch(PDO::FETCH_ASSOC);
+            if($datos){
                 $this->username = $datos["username"];
                 $this->nombre = $datos["nombre"];
                 $this->apellidoPaterno = $datos["apellidoPaterno"];
@@ -77,6 +102,31 @@ class usuario
             $stmt->execute();
         } catch (PDOException $e) {
             echo "Error al eliminar Usuario" . $e->getMessage();
+        }
+    }
+    public function actualizar(){
+        $query="UPDATE usuario set
+        nombre=:nombre,
+        apellidoPaterno=:apellidoPaterno,
+        apellidoMaterno=:apellidoMaterno,
+        telefono=:telefono,
+        correo=:correo,
+        tipoUsuario=:tipoUsuario
+        WHERE username=:username; ";
+        try{
+            $stmt=$this->dbh->prepare($query);
+            $stmt->bindParam(":nombre", $this->nombre);
+            $stmt->bindParam(":apellidoPaterno", $this->apellidoPaterno);
+            $stmt->bindParam(":apellidoMaterno", $this->apellidoMaterno);
+            $stmt->bindParam(":telefono", $this->telefono);
+            $stmt->bindParam(":correo", $this->correo);
+            $stmt->bindParam(":tipoUsuario", $this->tipoUsuario);
+            $stmt->bindParam(":username", $this->username);
+            $stmt->execute();
+            return true;
+        }catch(PDOException $e){
+            echo "Error al actualizar usuario".$e->getMessage();
+            return false;
         }
     }
 }
