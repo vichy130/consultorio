@@ -54,8 +54,7 @@ $mensPeriodicidad = $_POST["menstruacionperiodicidad-paciente"];
 $mensMolestias = $_POST["menstruacionmolestias-paciente"];
 $ejercicioSemana = $_POST["ejercicio-paciente"];
 $fecha = $_POST['oculto-fecha-ficha'];
-$firmaPaciente = $_POST["firma-paciente"];
-$firmaUsuario = $_POST["firma-usuario"];
+/*$firmaPaciente = $_POST["firma-paciente"];*/
 $hora = date("H:i:s");
 echo $hora;
 $usuario = $_SESSION['username'];

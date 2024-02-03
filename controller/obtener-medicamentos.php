@@ -1,6 +1,6 @@
 <?php
 session_start();
-$pacientes=array();
+$medicamentos=array();
 include '../models/medicamento.php';
 include '../php/conexion.php';
 $query= 'SELECT id FROM medicamento; ';

@@ -2,6 +2,7 @@
 session_start();
 include '../models/consulta.php';
 $consulta = new Consulta();
+$consultaDatos;
 if (isset($_SESSION['id_consulta'])) {
     $consulta->setId($_SESSION['id_consulta']);
     $consulta->obtener();

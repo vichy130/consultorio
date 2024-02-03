@@ -60,8 +60,7 @@ class Consulta
         $exploracion,
         $indicaciones,
         $receta,
-        $consultorio,
-    ) {
+        $consultorio ) {
         $this->fecha = $fecha;
         $this->usuario = $usuario;
         $this->paciente = $paciente;

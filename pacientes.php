@@ -29,7 +29,6 @@ require("./php/conexion.php");
     <link rel="stylesheet" href="./css/estilos-pacientes.css">
     <title>Pacientes</title>
 </head>
-
 <body>
     <div class="contenedor">
         <?php require("./layout/menu.php"); ?>

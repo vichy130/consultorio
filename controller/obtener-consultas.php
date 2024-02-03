@@ -1,6 +1,7 @@
 <?php
 session_start();
 $consultas = array();
+$jsonConsultas;
 include '../models/consulta.php';
 include '../php/conexion.php';
 $query = 'SELECT id FROM consulta; ';
@@ -19,6 +20,6 @@ try {
     $jsonConsultas = json_encode($consultas);
     echo $jsonConsultas;
 } catch (PDOException $e) {
-    echo "Error al obtener JSON consultas" . $e;
+    echo "Error al obtener JSON consultas" . $e->getMessage();
 }
 ?>

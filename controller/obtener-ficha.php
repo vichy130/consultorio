@@ -2,6 +2,7 @@
 session_start();
 include '../models/ficha-clinica.php';
 $ficha = new Ficha();
+$fichaDatos;
 if (isset($_SESSION['id_paciente'])) {
     $ficha->setPaciente($_SESSION['id_paciente']);
     $ficha->obtener();

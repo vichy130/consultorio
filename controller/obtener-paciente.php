@@ -2,6 +2,7 @@
 session_start();
 include '../models/paciente.php';
 $paciente = new Paciente();
+$pacienteDatos;
 if (isset($_SESSION['id_paciente'])) {
     $paciente->setId($_SESSION['id_paciente']);
     $paciente->obtener();
