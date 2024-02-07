@@ -13,10 +13,10 @@ let tablaAntecedentesFam = document.getElementById("tabla-antecedentesFam"); //T
 var arrayAntecedentesFam = []; //ARREGLO DE ANTECEDENTES FAMILIARES
 var tipoSangre; // VARIABLE TIPO SANGRE
 var fetchedData;
-var id;
+var idFicha;
+var formFicha = document.getElementById('form-ficha');
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     fetchedData = null;
-    id = null;
     fetch('./controller/obtener-ficha.php')
         .then(response => response.json())
         .then(data => {
@@ -27,6 +27,7 @@ window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CAR
                 document.getElementById("recomendo-paciente").value = data.quienRecomendo;
                 document.getElementById("tipo-sangre").value = data.tipoSangre;
                 tipoSangre = data.tipoSangre;
+                idFicha=data.id;
                 data.hijos.forEach(function (elemento) {// crea una instancia tipo hijo y la añade a un array
                     var hijo = new Hijo(elemento.sexo, elemento.edad);
                     hijo.id = elemento.id;
@@ -68,7 +69,6 @@ window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CAR
                 document.getElementById("excrementocolor-paciente").value = data.exColor;
                 document.getElementById("excrementodolor-paciente").value = data.exDolor;
                 document.getElementById("ejercicio-paciente").value = data.ejercicioSemana;
-                id = data.id;
                 data.antecedentes.forEach(function (elemento) {
                     var antecedente = new Antecedente(elemento.enfermedad, elemento.descripcion, elemento.estaActiva);
                     antecedente.id = elemento.id;
@@ -209,22 +209,20 @@ anadirAntecedente.addEventListener("click", ingresarAntecedentes);
 anadirAntecedenteFam.addEventListener("click", ingresarAntecedentesFam);
 //FETCH FORMULARIO Y ARRAYS
 //FETCH FORMULARIO Y ARRAYS
-var formFicha = document.getElementById('form-ficha');
+
 formFicha.addEventListener('submit', function (e) {
     e.preventDefault();
     var datosFicha = new FormData(formFicha);
+    console.log(idFicha);
     var jsonHijos = JSON.stringify(arrayHijos);
     var jsonAntecedentes = JSON.stringify(arrayAntecedentes);
     var jsonAntecedentesFam = JSON.stringify(arrayAntecedentesFam);
-    var jsonId;
-    /*console.log(datosFicha.get('tipo-sangre'));
-     console.log(jsonHijos);*/
     datosFicha.append('json-hijos', jsonHijos);
     datosFicha.append('json-antecedentes', jsonAntecedentes);
     datosFicha.append('json-antecedentesFam', jsonAntecedentesFam);
+    console.log(datosFicha);
     if (fetchedData != null) {
-        jsonId = JSON.stringify(id);
-        datosFicha.append('id', jsonId);
+        console.log(datosFicha);
         fetch('./controller/editar-ficha.php', {// Enviar los datos a PHP utilizando fetch
             method: 'POST',
             body: datosFicha // El JSON que contiene los datos y el formulario

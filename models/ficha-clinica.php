@@ -47,7 +47,6 @@ class Ficha
     private $ejercicioSemana;
     private $fecha;
     private $firmaPaciente;
-    private $firmaUsuario;
     private $hora;
     private $usuario;
     private $hijos = array();
@@ -71,7 +70,7 @@ class Ficha
     {
         $this->paciente = $paciente;
     }
-    public function setValues($paciente, $tipoSangre, $quienRecomendo, $embarazo, $partos, $cesareas, $abortos, $muertos, $enfs, $fuma, $cigarrosDia, $fumaAntiguedad, $alcohol, $alcFrecuencia, $alcoholCantidad, $alcoholTipos, $adicciones, $alergias, $desayuno, $comida, $cena, $entreComidas, $vasoAguaDia, $otrosLiquidos, $intolerancias, $orinaDia, $orinaNoche, $orinaColor, $orinaOlor, $orinaMolestias, $excrementoDia, $exConsistencia, $exOlor, $exColor, $exDolor, $fechaMenstruacion, $mensPeriodicidad, $mensMolestias, $ejercicioSemana, $fecha, /*$firmaUsuario, $firmaPaciente, */$hora, $usuario)
+    public function setValues($paciente, $tipoSangre, $quienRecomendo, $embarazo, $partos, $cesareas, $abortos, $muertos, $enfs, $fuma, $cigarrosDia, $fumaAntiguedad, $alcohol, $alcFrecuencia, $alcoholCantidad, $alcoholTipos, $adicciones, $alergias, $desayuno, $comida, $cena, $entreComidas, $vasoAguaDia, $otrosLiquidos, $intolerancias, $orinaDia, $orinaNoche, $orinaColor, $orinaOlor, $orinaMolestias, $excrementoDia, $exConsistencia, $exOlor, $exColor, $exDolor, $fechaMenstruacion, $mensPeriodicidad, $mensMolestias, $ejercicioSemana, $fecha,$hora, $usuario)
     {
         $this->paciente = $paciente;
         $this->tipoSangre = $tipoSangre;
@@ -112,11 +111,7 @@ class Ficha
         $this->mensPeriodicidad = $mensPeriodicidad;
         $this->mensMolestias = $mensMolestias;
         $this->ejercicioSemana = $ejercicioSemana;
-        $this->fecha = $fecha; /*
-$this->firmaUsuario = $firmaUsuario;
-echo $firmaUsuario;
-$this->firmaPaciente = $firmaPaciente;
-echo $firmaPaciente;*/
+        $this->fecha = $fecha; 
         $this->hora = $hora;
         $this->usuario = $usuario;
     }
@@ -164,8 +159,6 @@ echo $firmaPaciente;*/
             'mensMolestias' => $this->mensMolestias,
             'ejercicioSemana' => $this->ejercicioSemana,
             'fecha' => $this->fecha,
-            'firmaPaciente' => $this->firmaPaciente,
-            'firmaUsuario' => $this->firmaUsuario,
             'hora' => $this->hora,
             'usuario' => $this->usuario,
             'hijos' => $this->getHijos(),
@@ -176,8 +169,8 @@ echo $firmaPaciente;*/
     //SET GET
     function insertar()
     {
-        $query = "INSERT INTO ficha (paciente, tipoSangre, quienRecomendo, embarazo, partos, cesareas, abortos, muertos, enfs, fuma, cigarrosDia, fumaAntiguedad, alcohol, alcFrecuencia, alcoholCantidad, alcoholTipos, adicciones, alergias, desayuno, comida, cena, entreComidas, vasoAguaDia, otrosLiquidos, intolerancias, orinaDia, orinaNoche, orinaColor, orinaOlor, orinaMolestias, excrementoDia, exConsistencia, exOlor, exColor, exDolor, fechaMenstruacion, mensPeriodicidad, mensMolestias, ejercicioSemana, fecha, firmaUsuario, firmaPaciente, hora, usuario) 
-                  VALUES (:paciente, :tipoSangre, :quienRecomendo, :embarazo, :partos, :cesareas, :abortos, :muertos, :enfs, :fuma, :cigarrosDia, :fumaAntiguedad, :alcohol, :alcFrecuencia, :alcoholCantidad, :alcoholTipos, :adicciones, :alergias, :desayuno, :comida, :cena, :entreComidas, :vasoAguaDia, :otrosLiquidos, :intolerancias, :orinaDia, :orinaNoche, :orinaColor, :orinaOlor, :orinaMolestias, :excrementoDia, :exConsistencia, :exOlor, :exColor, :exDolor, :fechaMenstruacion, :mensPeriodicidad, :mensMolestias, :ejercicioSemana, :fecha, :firmaUsuario, :firmaPaciente, :hora, :usuario); ";
+        $query = "INSERT INTO ficha (paciente, tipoSangre, quienRecomendo, embarazo, partos, cesareas, abortos, muertos, enfs, fuma, cigarrosDia, fumaAntiguedad, alcohol, alcFrecuencia, alcoholCantidad, alcoholTipos, adicciones, alergias, desayuno, comida, cena, entreComidas, vasoAguaDia, otrosLiquidos, intolerancias, orinaDia, orinaNoche, orinaColor, orinaOlor, orinaMolestias, excrementoDia, exConsistencia, exOlor, exColor, exDolor, fechaMenstruacion, mensPeriodicidad, mensMolestias, ejercicioSemana, fecha, hora, usuario) 
+                  VALUES (:paciente, :tipoSangre, :quienRecomendo, :embarazo, :partos, :cesareas, :abortos, :muertos, :enfs, :fuma, :cigarrosDia, :fumaAntiguedad, :alcohol, :alcFrecuencia, :alcoholCantidad, :alcoholTipos, :adicciones, :alergias, :desayuno, :comida, :cena, :entreComidas, :vasoAguaDia, :otrosLiquidos, :intolerancias, :orinaDia, :orinaNoche, :orinaColor, :orinaOlor, :orinaMolestias, :excrementoDia, :exConsistencia, :exOlor, :exColor, :exDolor, :fechaMenstruacion, :mensPeriodicidad, :mensMolestias, :ejercicioSemana, :fecha, :hora, :usuario); ";
         try {
             $stmt = $this->conexion->getdbh()->prepare($query);
             // Vincula los parámetros con los valores reales
@@ -221,8 +214,6 @@ echo $firmaPaciente;*/
             $stmt->bindParam(':mensMolestias', $this->mensMolestias);
             $stmt->bindParam(':ejercicioSemana', $this->ejercicioSemana);
             $stmt->bindParam(':fecha', $this->fecha);
-            $stmt->bindParam(':firmaUsuario', $this->firmaUsuario);
-            $stmt->bindParam(':firmaPaciente', $this->firmaPaciente);
             $stmt->bindParam(':hora', $this->hora);
             $stmt->bindParam(':usuario', $this->usuario);
             $return = $stmt->execute();
@@ -329,9 +320,7 @@ echo $firmaPaciente;*/
                 $this->mensPeriodicidad = $datos["mensPeriodicidad"];
                 $this->mensMolestias = $datos["mensMolestias"];
                 $this->ejercicioSemana = $datos["ejercicioSemana"];
-                $this->fecha = $datos["fecha"]; /*
-$this->firmaUsuario = $datos["firmaUsuario"];
-$this->firmaPaciente = $datos["firmaPaciente"];*/
+                $this->fecha = $datos["fecha"]; 
                 $this->hora = $datos["hora"];
                 $this->usuario = $datos["usuario"];
                 $this->obtenerHijos();
@@ -436,9 +425,7 @@ $this->firmaPaciente = $datos["firmaPaciente"];*/
             mensPeriodicidad = :mensPeriodicidad, 
             mensMolestias = :mensMolestias, 
             ejercicioSemana = :ejercicioSemana, 
-            fecha = :fecha, /*
-            firmaUsuario = :firmaUsuario, 
-            firmaPaciente = :firmaPaciente, */
+            fecha = :fecha, 
             hora = :hora, 
             usuario = :usuario 
             WHERE id = :id; ";
@@ -485,19 +472,10 @@ $this->firmaPaciente = $datos["firmaPaciente"];*/
             $stmt->bindParam(':mensPeriodicidad', $this->mensPeriodicidad);
             $stmt->bindParam(':mensMolestias', $this->mensMolestias);
             $stmt->bindParam(':ejercicioSemana', $this->ejercicioSemana);
-            $stmt->bindParam(':fecha', $this->fecha); /*
-$stmt->bindParam(':firmaUsuario', $this->firmaUsuario);
-$stmt->bindParam(':firmaPaciente', $this->firmaPaciente);*/
+            $stmt->bindParam(':fecha', $this->fecha); 
             $stmt->bindParam(':hora', $this->hora);
             $stmt->bindParam(':usuario', $this->usuario);
-
-            // Bind del ID
             $stmt->bindParam(':id', $this->id);
-            //llama a funciones actualizar tablas ligadas
-            /*
-            $this->actualizarHijos();
-            $this->actualizarAntecedentes();
-            $this->actualizarAntecedentesFam();*/
             return $stmt->execute();
         } catch (PDOException $e) {
             echo "Error al actualizar ficha" . $e->getMessage();
@@ -541,71 +519,75 @@ $stmt->bindParam(':firmaPaciente', $this->firmaPaciente);*/
             $this->setHijos($arrayHijosInsertar);
         }
     }
-    function actualizarAntecedentes($antsNuevo)
+    function actualizarAntecedentes($arrayRecibido)
     {
+        $arrayNewId = array();
+        $arrayOldId = array();
+        $arrayGuardarId = array();
+        $arrayEliminarId = array();
+        $arrayGuardar = array();
         $this->obtenerAntecedentes();
-        $idsViejo = array_map(function ($antViejo) {
-            return $antViejo->getId();
-        }, $this->antecedentes);
-        $idsNuevo = array_map(function ($antNuevo) {
-            return $antNuevo->_id;
-        }, $antsNuevo);
-        $idsViejosNoNuevos = array_diff($idsViejo, $idsNuevo);
-        $idsNuevosNoViejos = array_diff($idsNuevo, $idsViejo);
-        foreach ($idsViejosNoNuevos as $id) {
-            foreach ($this->antecedentes as $ant) {
-                if ($ant->getId() == $id) {
-                    $ant->eliminar();
+        foreach ($this->antecedentes as $old) {
+            $arrayOldId[] = $old->getId();
+        }
+        foreach ($arrayRecibido as $new) {
+            $arrayNewId[] = $new->_id;
+        }
+        $arrayEliminarId=array_diff($arrayOldId, $arrayNewId);
+        $arrayGuardarId=array_diff($arrayNewId, $arrayOldId);
+
+        foreach($arrayEliminarId as $id){
+           foreach($this->antecedentes as $elemento){
+            if($elemento->getId()==$id){
+                $elemento->eliminar();
+            }
+           }
+        }
+        foreach ($arrayGuardarId as $id){
+            foreach($arrayRecibido as $elemento){
+                if($elemento->_id== $id){
+                    $arrayGuardar[]=$elemento;
                 }
             }
         }
-        $arrayAntecedentesInsertar = [];
-        foreach ($idsNuevosNoViejos as $id) {
-            foreach ($antsNuevo as $antNuevo) {
-                if ($antNuevo->_id == $id) {
-                    $arrayAntecedentesInsertar[] = $antNuevo;
-                }
-            }
-        }
-        if (!empty($arrayAntecedentesInsertar)) {
-            $this->setAntecedentes($arrayAntecedentesInsertar);
+        if (!empty($arrayGuardar)) {
+            $this->setAntecedentes($arrayGuardar);
         }
     }
 
-    function actualizarAntecedentesFam($antsFamNuevo)
+    function actualizarAntecedentesFam($arrayRecibido)
     {
+        $arrayNewId = array();
+        $arrayOldId = array();
+        $arrayGuardarId = array();
+        $arrayEliminarId = array();
+        $arrayGuardar = array();
         $this->obtenerAntecedentesFam();
-        $antsFamViejo = array();
-        $antsFamViejo = $this->antecedentesFam;
-        $idsViejo = array();
-        $idsNuevo = array();
-        $arrayAntecentesFamInsertar = array();
-        $idsViejosNoNuevos = array();
-        $idsNuevosNoViejos = array();
-        foreach ($antsFamViejo as $antFamViejo) {
-            $idsViejo[] = $antFamViejo->getId();
+        foreach ($this->antecedentesFam as $old) {
+            $arrayOldId[] = $old->getId();
         }
-        foreach ($antsFamNuevo as $antFamNuevo) {
-            $idsNuevo[] = $antFamNuevo->_id;
+        foreach ($arrayRecibido as $new) {
+            $arrayNewId[] = $new->_id;
         }
-        $idsViejosNoNuevos = array_diff($idsViejo, $idsNuevo);
-        $idsNuevosNoViejos = array_diff($idsNuevo, $idsViejo);
-        foreach ($idsViejosNoNuevos as $id) {
-            foreach ($this->antecedentesFam as $antFam) {
-                if ($antFam->getId() == $id) {
-                    $antFam->eliminar();
+        $arrayEliminarId=array_diff($arrayOldId, $arrayNewId);
+        $arrayGuardarId=array_diff($arrayNewId, $arrayOldId);
+
+        foreach($arrayEliminarId as $id){
+           foreach($this->antecedentesFam as $elemento){
+            if($elemento->getId()==$id){
+                $elemento->eliminar();
+            }
+           }
+        }
+        foreach ($arrayGuardarId as $id){
+            foreach($arrayRecibido as $elemento){
+                if($elemento->_id== $id){
+                    $arrayGuardar[]=$elemento;
                 }
             }
         }
-        foreach ($idsNuevosNoViejos as $id) {
-            foreach ($antsFamNuevo as $antFam) {
-                if ($antFam->_id == $id) {
-                    $arrayAntecentesFamInsertar[] = $antFam;
-                }
-            }
-        }
-        if (!empty($arrayAntecentesFamInsertar)) {
-            $this->setAntecedentesFam($arrayAntecentesFamInsertar);
+        if (!empty($arrayGuardar)) {
+            $this->setAntecedentesFam($arrayGuardar);
         }
     }
 }

@@ -35,42 +35,17 @@ class AntecedenteFamilia
     function insertar()
     {
         try {
-            $query = "INSERT INTO antecedentesFamilia (familiar, enfermedad, descripcion, ficha) VALUES (:familiar, :enfermedad, :descripcion, :ficha); ";
+            $query = "INSERT INTO antecedentesFamilia (id, familiar, enfermedad, descripcion, ficha) VALUES (:id, :familiar, :enfermedad, :descripcion, :ficha); ";
             $stmt = $this->conexion->getdbh()->prepare($query);
             // Vincular parámetros
+            $stmt->bindParam(':id', $this->id);
             $stmt->bindParam(':familiar', $this->familiar);
             $stmt->bindParam(':enfermedad', $this->enfermedad);
             $stmt->bindParam(':descripcion', $this->descripcion);
             $stmt->bindParam(':ficha', $this->ficha);
-            $return = $stmt->execute();
-            // Obtener el ID insertado
-            $this->id = $this->conexion->getdbh()->lastInsertId();
-            return $return;
-        } catch (PDOException $e) {
-            error_log("Error al insertar datos: " . $e->getMessage());
-            return false; // Indicar que ha habido un error
-        }
-    }
-    function mostrar()
-    {
-        $query = "SELECT * FROM antecedentesFamilia WHERE ficha = :ficha";
-        $stmt = $this->conexion->getdbh()->prepare($query);
-        $stmt->bindParam(":ficha", $this->ficha, PDO::PARAM_INT);
-        try {
             $stmt->execute();
-            $datos = null;
-
-            while ($datos = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $this->id = $datos["id"];
-                $this->familiar = $datos["familiar"];
-                $this->enfermedad = $datos["enfermedad"];
-                $this->descripcion = $datos["descripcion"];
-                $this->ficha = $datos["ficha"];
-            }
-            return $this;
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
-            return false;
+            echo "Error al insertar datos: " . $e->getMessage();
         }
     }
     function eliminar()

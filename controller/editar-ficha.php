@@ -1,15 +1,19 @@
 <?php
 session_start();
-include_once("../models/ficha-clinica.php");
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
-$jsonHijos = $_POST['json-hijos'];
-$hijos = json_decode($jsonHijos);
+include_once("../models/ficha-clinica.php"); 
+
+$jsonHijos = $_POST['hijos']; 
+$hijos = json_decode($jsonHijos); 
+
 $jsonAntecedentes = $_POST['json-antecedentes'];
 $antecedentes = json_decode($jsonAntecedentes);
+
 $jsonAntecedentesFam = $_POST['json-antecedentesFam'];
 $antecedentesFam = json_decode($jsonAntecedentesFam);
-$id=$_POST["id"];
+
+$jsonFicha = $_POST['ficha'];
+$fichaAnterior = json_decode($jsonFicha);
+
 $id_paciente = $_SESSION["id_paciente"];
 $tipoSangre = $_POST["tipo-sangre"];
 $quienRecomendo = $_POST["recomendo-paciente"];
@@ -50,23 +54,22 @@ $mensPeriodicidad = $_POST["menstruacionperiodicidad-paciente"];
 $mensMolestias = $_POST["menstruacionmolestias-paciente"];
 $ejercicioSemana = $_POST["ejercicio-paciente"];
 $fecha = $_POST['oculto-fecha-ficha'];
-/*
-$firmaPaciente = $_POST["firma-paciente"];
-$ficha->firmaUsuario = $_POST["firma-usuario"];
-*/
 $hora = date("H:i:s");
-$usuario = $_SESSION['username'];
+$usuario = $_SESSION['username']; 
+
+
 $ficha = new ficha();
-$ficha->setId($id);
-$ficha->setValues($id_paciente, $tipoSangre, $quienRecomendo, $embarazo, $partos, $cesareas, $abortos, $muertos, $enfs, $fuma, $cigarrosDia, $fumaAntiguedad, $alcohol, $alcFrecuencia, $alcoholCantidad, $alcoholTipos, $adicciones, $alergias, $desayuno, $comida, $cena, $entreComidas, $vasoAguaDia, $otrosLiquidos, $intolerancias, $orinaDia, $orinaNoche, $orinaColor, $orinaOlor, $orinaMolestias, $excrementoDia, $exConsistencia, $exOlor, $exColor, $exDolor, $fechaMenstruacion, $mensPeriodicidad, $mensMolestias, $ejercicioSemana, $fecha, /*$firmaUsuario, $firmaPaciente, */$hora, $usuario);
+$ficha->setId($fichaAnterior->_id); 
+$ficha->setValues($id_paciente, $tipoSangre, $quienRecomendo, $embarazo, $partos, $cesareas, $abortos, $muertos, $enfs, $fuma, $cigarrosDia, $fumaAntiguedad, $alcohol, $alcFrecuencia, $alcoholCantidad, $alcoholTipos, $adicciones, $alergias, $desayuno, $comida, $cena, $entreComidas, $vasoAguaDia, $otrosLiquidos, $intolerancias, $orinaDia, $orinaNoche, $orinaColor, $orinaOlor, $orinaMolestias, $excrementoDia, $exConsistencia, $exOlor, $exColor, $exDolor, $fechaMenstruacion, $mensPeriodicidad, $mensMolestias, $ejercicioSemana, $fecha, $hora, $usuario);
 
 
-if ($ficha->actualizar() == 1) {
+if ($ficha->actualizar()) {
     $ficha->actualizarHijos($hijos);
     $ficha->actualizarAntecedentes($antecedentes);
     $ficha->actualizarAntecedentesFam($antecedentesFam);
 } else {
     echo "Error al actualizar Ficha, intentalo nuevamente";
 }
+
 
 ?>

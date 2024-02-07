@@ -1,8 +1,7 @@
 //VARIABLES
 var fecha = document.getElementById("consultafecha-paciente");
 var ocultoFecha = document.getElementById("oculto-fecha-consulta");
-var fetchedData;
-var id;
+var consulta;
 var arrayConsultorios = [];
 var arrayCPrevias = [];
 var arrayMedicamentos = [];
@@ -68,9 +67,7 @@ function obtenerConsulta() {
         .then(response => response.json())
         .then(data => {
             if (data && data.id != null) {
-                fetchedData = data;
-                console.log(data);
-                var consulta = new Consulta(data.fecha, data.usuario, data.paciente, data.ta, data.oxigeno, data.pulso, data.peso, data.estatura, data.temperatura, data.motivoConsulta, data.exploracion, data.indicaciones,data.receta, data.consultorio);
+                consulta = new Consulta(data.fecha, data.usuario, data.paciente, data.ta, data.oxigeno, data.pulso, data.peso, data.estatura, data.temperatura, data.motivoConsulta, data.exploracion, data.indicaciones,data.receta, data.consultorio);
 
                 document.getElementById('consultafecha-paciente').value = consulta.fecha;
                 document.getElementById('vitalesta-paciente').value = consulta.ta;
@@ -82,6 +79,7 @@ function obtenerConsulta() {
                 document.getElementById('consultamotivo-paciente').value = consulta.motivoConsulta;
                 document.getElementById('consultaexploracion-paciente').value = consulta.exploracion;
                 document.getElementById('consultaindicaciones-paciente').value = consulta.indicaciones;
+                console.log(consulta.consultorio);
                 //pendiente
                 data.consultasPrevias.forEach(cp=>{
                     var consultaPrevia = new ConsultaPrevia(cp.comentarios, cp.diagnostico, cp.estudios, cp.tratamiento);
@@ -239,7 +237,6 @@ formConsulta.addEventListener('submit', function (e) {
     e.preventDefault();
     var datosConsulta = new FormData(formConsulta);
     var jsonReceta=JSON.stringify(receta);
-    var jsonConsultaId=JSON.stringify();
     var jsonConsultasPrevias=JSON.stringify(arrayCPrevias);
     var jsonTerapiasAplicadas=JSON.stringify(arrayTerapiasAplicadas);
     var jsonEstudiosSolicitados=JSON.stringify(arrayEstudiosSolicitados);
@@ -248,8 +245,7 @@ formConsulta.addEventListener('submit', function (e) {
     datosConsulta.append('jsonTerapiasAplicadas',jsonTerapiasAplicadas);
     datosConsulta.append('jsonEstudiosSolicitados',jsonEstudiosSolicitados);
     datosConsulta.append('jsonMedicamentoIndicaciones',jsonMedicamentoIndicaciones);
-    datosConsulta.append('jsonReceta',jsonReceta);
-    if (fetchedData!=null){
+    if (consulta!=null){
         fetch('./controller/editar-consulta.php', {// Enviar los datos a PHP utilizando fetch
             method: 'POST',
             body: datosConsulta // El JSON que contiene los datos y el formulario

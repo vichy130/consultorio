@@ -56,7 +56,8 @@ if (isset($_SESSION["id_paciente"])) {
 
                 <form class="form" id="form-ficha">
                     <div class="formulario_grupo">
-                        <label class="form_label" for="fecha-ficha"><i class="izquierda fa fa-calendar" aria-hidden="true"></i>Fecha</label>
+                        <label class="form_label" for="fecha-ficha"><i class="izquierda fa fa-calendar"
+                                aria-hidden="true"></i>Fecha</label>
                         <input class="form_input " type="date" id="fecha-ficha" name="fecha-ficha" disabled>
                         <input type="hidden" name="oculto-fecha-ficha" id="oculto-fecha-ficha">
                     </div><!-- end form-grupo -->
@@ -349,8 +350,7 @@ if (isset($_SESSION["id_paciente"])) {
 
                     <div class="formulario_grupo">
                         <label class="form_label" for="parentesco-paciente">Parentesco</label>
-                        <input class="form_input" type="text" id="parentesco-paciente" name="parentesco-paciente"
-                            value="<?php /*echo $oF==null? "": $oF->exDolor; */?>">
+                        <input class="form_input" type="text" id="parentesco-paciente" name="parentesco-paciente">
                     </div><!-- end form-grupo -->
                     <div class="formulario_grupo span-2">
                         <label class="form_label" for="familiarenfermedad-paciente">Enfermedad</label>
@@ -376,7 +376,7 @@ if (isset($_SESSION["id_paciente"])) {
                                 <th>Eliminar</th>
                             </tr>
                         </thead>
-                        <tbody id=tabla-antecedentesFam>
+                        <tbody id=tbody-antecedentes-familiares>
 
                         </tbody>
                     </table>
@@ -415,7 +415,7 @@ if (isset($_SESSION["id_paciente"])) {
                                 <th>Eliminar</th>
                             </tr>
                         </thead>
-                        <tbody id="tabla-antecedentes">
+                        <tbody id="tbody-antecedentes">
 
                         </tbody>
                     </table>
@@ -424,6 +424,10 @@ if (isset($_SESSION["id_paciente"])) {
                         <label class="form_label" for="firma-paciente">Firma Paciente</label>
                         <input class="form_input" type="file" id="firma-paciente" name="firma-paciente"
                             accept=".jpg, .jpeg, .png">
+                    </div><!-- end form-grupo -->
+
+                    <div class="formulario_grupo span-4">
+                        <label class="form_label" id="usuario-actualizacion"></label>
                     </div><!-- end form-grupo -->
 
                     <div class=""></div>
@@ -440,7 +444,7 @@ if (isset($_SESSION["id_paciente"])) {
         <?php require("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
-    <script src="./js/form-ficha-clinica.js"></script>
+    <script src="./js/form-ficha.js"></script>
 </body>
 
 </html>
