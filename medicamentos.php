@@ -11,12 +11,13 @@ if (!isset($_SESSION['username'])) {
     redirect("./iniciar-sesion.php");
     exit();
 }
-if (isset($_SESSION["id_paciente"])) {
-    unset($_SESSION["id_paciente"]);
-    unset($_SESSION["id_consulta"]);
-    unset($_SESSION['id_med']);
-    unset($_REQUEST['id']);
-}
+
+unset($_SESSION["id_paciente"]);
+unset($_SESSION["id_consulta"]);
+unset($_SESSION['id_med']);
+unset($_REQUEST['id']);
+unset($_SESSION['id_con']);
+
 require("./php/conexion.php");
 ?>
 
@@ -50,18 +51,18 @@ require("./php/conexion.php");
             </div>
             <div id="modalExito" class="modal-exito">
                 <div class="modal-contenido-exito">
-                <span class="cerrar-modal" id="cerrarModalExito">&times;</span>
-                <h2>¡Medicamento eliminado!</h2>
-                <br>
-                <p>Los datos se han eliminado con éxito.</p>
+                    <span class="cerrar-modal" id="cerrarModalExito">&times;</span>
+                    <h2>¡Medicamento eliminado!</h2>
+                    <br>
+                    <p>Los datos se han eliminado con éxito.</p>
                 </div>
             </div>
             <div id="modalError" class="modal-error">
                 <div class="modal-contenido-error">
-                <span class="cerrar-modal" id="cerrarModalError">&times;</span>
-                <h2>El medicamento NO ha sido eliminado</h2>
-                <br>
-                <p>Porfavor, revisa la información e intenta de nuevo.</p>
+                    <span class="cerrar-modal" id="cerrarModalError">&times;</span>
+                    <h2>El medicamento NO ha sido eliminado</h2>
+                    <br>
+                    <p>Porfavor, revisa la información e intenta de nuevo.</p>
                 </div>
             </div>
 
@@ -79,7 +80,7 @@ require("./php/conexion.php");
                         <th>Editar</th>
                         <th>Eliminar</th>
                     </tr>
-                    <tbody id="tbody-tabla-medicamentos"></tbody>
+                <tbody id="tbody-tabla-medicamentos"></tbody>
                 </thead>
             </table>
 

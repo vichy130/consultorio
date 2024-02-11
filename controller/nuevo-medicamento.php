@@ -1,16 +1,26 @@
 <?php 
+session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 include_once("../models/medicamento.php");
-$medicamento = new medicamento(); 
+$medicamento = new Medicamento(); 
 
-$medicamento->id = null;
-$medicamento->medicamento = $_POST["consultanombremed-paciente"];
-$medicamento->tipo = $_POST["consultatipomed-paciente"];
-$medicamento->descripcion = $_POST["consultadescripcionmed-paciente"];
+$jsonId=$_POST['id'];
+$id=json_decode($jsonId);
 
-if($medicamento->insertar()==1){
-  echo "medicamento registrado";
+$med = $_POST["nombre-medicamento"];
+$tipo = $_POST["tipo-medicamento"];
+$descripcion = $_POST["medicamento-descripcion"];
+
+$medicamento->setId($id);
+$medicamento->setValues($med, $tipo, $descripcion);
+if($medicamento->insertar()){
+  $_SESSION['id_med']=$id;
+  echo $_SESSION['id_med'];
+  return true;
 }else{
-    echo "Error al registrar, intentalo nuevamente";
+  return false;
 }
+
 
 ?>

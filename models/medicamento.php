@@ -37,16 +37,18 @@ class Medicamento
     }
     public function insertar()
     {
-        $query = "INSERT INTO medicamento (id, medicamento, tipo, descripcion) VALUES (:medicamento,:tipo,:descripcion); ";
+        $query = "INSERT INTO medicamento (id, medicamento, tipo, descripcion) VALUES (:id,:medicamento,:tipo,:descripcion); ";
         try {
             $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':medicamento', $this->medicamento);
             $stmt->bindParam(':tipo', $this->tipo);
             $stmt->bindParam(':descripcion', $this->descripcion);
+            $stmt->bindParam(':id', $this->id);
             $stmt->execute();
-            $this->id = $this->conexion->getdbh()->lastInsertId();
+            return true;
         } catch (PDOException $e) {
             echo "Error al insertar medicamento" . $e->getMessage();
+            return false;
         }
     }
     public function obtener()

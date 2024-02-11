@@ -16,6 +16,8 @@ if (isset($_SESSION["id_paciente"])) {
     unset($_SESSION["id_consulta"]);
     unset($_REQUEST["id"]);
 }
+unset($_SESSION['id_con']);
+
 require("./php/conexion.php");
 ?>
 

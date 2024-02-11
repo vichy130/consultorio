@@ -55,7 +55,10 @@ if (isset($_REQUEST['id'])){
             <div class="formulario_grupo span-2">
             <label class="form_label" for="tipo-medicamento">Tipo</label>
                 <select class="form_input" name="tipo-medicamento" id="tipo-medicamento">
-                    
+                    <option value="">Selecciona una opción</option>
+                    <option value="Homeopática">Homeopática</option>
+                    <option value="Alopática">Alopática</option>
+                    <option value="Nutriente">Nutriente</option>
                 </select>
             </div><!-- end form-grupo -->
 

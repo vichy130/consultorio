@@ -11,7 +11,8 @@ if(!isset($_SESSION['username'])){
     redirect("./iniciar-sesion.php");
     exit();
 }
-require("./php/conexion.php");
+unset($_SESSION['id_con']);
+
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +33,7 @@ require("./php/conexion.php");
             <input class="form_input span-2" type="text">
             <button class="boton azul"><i class="fas fa-search"></i> Buscar</button>
 
-            <button class="boton azul" onClick="redirectNuevoConsultorio()"><i class="fas fa-user-plus"></i> Nuevo
+            <button class="boton azul"><i class="fas fa-user-plus" id="boton-nuevo-consultorio"></i> Nuevo
                 consultorio</button>
             <table class="table span-4">
                 <thead>
@@ -43,30 +44,11 @@ require("./php/conexion.php");
                         <th>Ciudad</th>
                         <th>Codigo postal</th>
                         <th>Telefono</th>
-                        <th></th>
-                        <th></th>
+                        <th>Editar</th>
+                        <th>Eliminar</th>
                     </tr>
                 </thead>
-
-                <tbody>
-                    <?php
-            $stat= $dbh-> prepare ("select nombre,calle,colonia,ciudad,codigoPostal,telefono from consultorio; ");
-            $stat->execute();
-            while($datosConsultorio=$stat->fetch(PDO::FETCH_OBJ)){
-                ?>
-                    <tr>
-                        <td><?php echo $datosConsultorio->nombre;?></td>
-                        <td><?php echo $datosConsultorio->calle;?></td>
-                        <td><?php echo $datosConsultorio->colonia;?></td>
-                        <td><?php echo $datosConsultorio->ciudad;?></td>
-                        <td><?php echo $datosConsultorio->codigoPostal;?></td>
-                        <td><?php echo $datosConsultorio->telefono;?></td>
-                        <td><a href="#">ver/modificar</a></td>
-                        <td><i class="fas fa-trash"></i></td>
-                    </tr>
-                    <?php 
-            }
-                ?>
+                <tbody id="tbody-consultorios">
                 </tbody>
             </table>
 
@@ -74,5 +56,6 @@ require("./php/conexion.php");
     <?php require("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
+    <script src="./js/form-consultorios.js"  ></script>
 </body>
 </html>
