@@ -46,7 +46,7 @@ class Consultorio
             'colonia' => $this->colonia,
             'ciudad' => $this->ciudad,
             'codigoPostal' => $this->codigoPostal,
-            'teleono' => $this->telefono
+            'telefono' => $this->telefono
         ];
     }
     public function insertar()

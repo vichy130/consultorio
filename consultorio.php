@@ -12,6 +12,10 @@ if (!isset($_SESSION['username'])) {
     redirect("./iniciar-sesion.php");
     exit();
 }
+if(isset($_REQUEST['id'])){
+   $_SESSION['id_con']=$_REQUEST['id'];
+   echo $_SESSION['id_con'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -40,10 +44,10 @@ if (!isset($_SESSION['username'])) {
         </div>
         -->
 
-        <form class="content-general" action="./controller/nuevo-consultorio.php" method="POST">
+        <form class="content-general" id="form-consultorio">
             <label class="formulario_grupo span-4">Consultorio</label>
 
-            <div class="formulario_grupo">
+            <div class="formulario_grupo span-2">
                 <label class="form_label" for="nombre-consultorio">Nombre de consultorio</label>
                 <input class="form_input" type="text" id="nombre-consultorio" name="nombre-consultorio">
             </div><!-- end form-grupo -->
@@ -76,7 +80,7 @@ if (!isset($_SESSION['username'])) {
             </div><!-- end form-grupo -->
 
             <button class="input_submit boton amarillo span-2">Imprimir</button>
-            <input class="input_submit boton azul span-2" type="submit" value="Guardar">
+            <input class="input_submit boton azul span-2" type="submit" value="Guardar" id="boton-guardar">
 
         </form>
         <!-- end FORM -->

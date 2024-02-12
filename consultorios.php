@@ -33,16 +33,13 @@ unset($_SESSION['id_con']);
             <input class="form_input span-2" type="text">
             <button class="boton azul"><i class="fas fa-search"></i> Buscar</button>
 
-            <button class="boton azul"><i class="fas fa-user-plus" id="boton-nuevo-consultorio"></i> Nuevo
+            <button class="boton azul" id="boton-nuevo-consultorio"><i class="fas fa-user-plus" ></i> Nuevo
                 consultorio</button>
             <table class="table span-4">
                 <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>Calle</th>
-                        <th>Colonia</th>
-                        <th>Ciudad</th>
-                        <th>Codigo postal</th>
+                        <th>Domicilio</th>
                         <th>Telefono</th>
                         <th>Editar</th>
                         <th>Eliminar</th>

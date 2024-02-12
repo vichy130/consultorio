@@ -20,7 +20,7 @@ $consultorio->setValues(
     $codigoPostal,
     $telefono
 );
-if($consultorio->insertar()){
+if($consultorio->actualizar()){
     return true;
 }else {
     echo "Error al editar consultorio";
