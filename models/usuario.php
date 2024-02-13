@@ -32,6 +32,17 @@ class usuario
         $this->contrasena = $contrasena;
         $this->tipoUsuario = $tipoUsuario;
     }
+    public function getValues(){
+        return[
+            'username'=> $this->username,
+            'nombre'=> $this->nombre,
+            'apellidoPaterno'=>$this->apellidoPaterno,
+            'apellidoMaterno'=>$this->apellidoMaterno,
+            'telefono'=> $this->telefono,
+            'correo'=>$this->correo,
+            'tipoUsuario'=>$this->tipoUsuario
+        ];
+    }
     public function setUsername($username)
     {
         $this->username = $username;
@@ -60,7 +71,7 @@ class usuario
     }
     function obtener()
     {
-        $query = "SELECT * FROM usuario WHERE username=':username'; ";
+        $query = "SELECT * FROM usuario WHERE username=:username; ";
         try {
             $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':username', $this->username);
@@ -83,7 +94,7 @@ class usuario
     }
     function eliminar()
     {
-        $query = "DELETE FROM usuario where username=':username'; ";
+        $query = "DELETE FROM usuario where username=:username; ";
         try {
             $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':username', $this->username);

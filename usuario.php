@@ -13,13 +13,8 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
-$oU = null;
 if (isset($_REQUEST["id"])) {
-
-    include_once("./models/usuario.php");
-    $oU = new usuario();
-    $oU->username = $_REQUEST["id"];
-    $oU->buscarDatos();
+    $_SESSION['id_usuario']=$_REQUEST["id"];
 }
 ?>
 
