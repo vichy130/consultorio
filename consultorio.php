@@ -14,7 +14,6 @@ if (!isset($_SESSION['username'])) {
 }
 if(isset($_REQUEST['id'])){
    $_SESSION['id_con']=$_REQUEST['id'];
-   echo $_SESSION['id_con'];
 }
 ?>
 

@@ -11,7 +11,7 @@ $codigoPostal=$_POST['cp-consultorio'];
 $telefono=$_POST['telefono-consultorio'];
 
 $consultorio = new Consultorio();
-$consultorio->setId($_SESSION['id_consultorio']);
+$consultorio->setId($_SESSION['id_con']);
 $consultorio->setValues(
     $nombre,
     $calle,
