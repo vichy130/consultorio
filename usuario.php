@@ -43,44 +43,38 @@ if (isset($_REQUEST["id"])) {
         </div>
 -->
 
-        <form class="content-general" action="./controller/nuevo-usuario.php" method="POST">
+        <form class="content-general" id="form-usuario">
 
             <label class="formulario_grupo span-4">Nuevo usuario</label>
 
             <div class="formulario_grupo">
                 <label class="form_label" for="username-usuario">Nombre de usuario</label>
-                <input class="form_input" type="text" id="username-usuario" name="username-usuario"
-                    value="<?php echo $oU == null ? "" : $oU->username; ?>">
+                <input class="form_input" type="text" id="username-usuario" name="username-usuario">
             </div><!-- end form-grupo -->
 
             <div class=" formulario_grupo">
                 <label class="form_label" for="nombre-usuario">Nombre</label>
-                <input class="form_input" type="text" id="nombre-usuario" name="nombre-usuario"
-                    value="<?php echo $oU == null ? "" : $oU->nombre; ?>">
+                <input class="form_input" type="text" id="nombre-usuario" name="nombre-usuario">
             </div><!-- end form-grupo -->
 
             <div class="formulario_grupo">
                 <label class="form_label" for="apellidoPaterno-usuario">Apellido paterno</label>
-                <input class="form_input" type="text" id="apellidoPaterno-usuario" name="apellidoPaterno-usuario"
-                    value="<?php echo $oU == null ? "" : $oU->apellidoPaterno; ?>">
+                <input class="form_input" type="text" id="apellidoPaterno-usuario" name="apellidoPaterno-usuario">
             </div><!-- end form-grupo -->
 
             <div class="formulario_grupo">
                 <label class="form_label" for="apellidoMaterno-usuario">Apellido materno</label>
-                <input class="form_input" type="text" id="apellidoMaterno-usuario" name="apellidoMaterno-usuario"
-                    value="<?php echo $oU == null ? "" : $oU->apellidoMaterno; ?>">
+                <input class="form_input" type="text" id="apellidoMaterno-usuario" name="apellidoMaterno-usuario">
             </div><!-- end form-grupo -->
 
             <div class="formulario_grupo">
                 <label class="form_label" for="telefono-usuario">Telefono</label>
-                <input class="form_input" type="text" id="telefono-usuario" name="telefono-usuario"
-                    value="<?php echo $oU == null ? "" : $oU->telefono; ?>">
+                <input class="form_input" type="text" id="telefono-usuario" name="telefono-usuario">
             </div><!-- end form-grupo -->
 
             <div class="formulario_grupo">
                 <label class="form_label" for="correo-usuario">Correo electronico</label>
-                <input class="form_input" type="text" id="correo-usuario" name="correo-usuario"
-                    value="<?php echo $oU == null ? "" : $oU->correo; ?>">
+                <input class="form_input" type="text" id="correo-usuario" name="correo-usuario">
             </div><!-- end form-grupo -->
 
             <div class="formulario_grupo">
@@ -90,8 +84,7 @@ if (isset($_REQUEST["id"])) {
 
             <div class="formulario_grupo">
                 <label class="form_label" for="tipo-usuario">Tipo de usuario</label>
-                <input class="form_input" type="text" id="tipo-usuario" name="tipo-usuario"
-                    value="<?php echo $oU == null ? "" : $oU->tipoUsuario; ?>">
+                <input class="form_input" type="text" id="tipo-usuario" name="tipo-usuario">
             </div><!-- end form-grupo -->
             <div class="formulario_grupo">
                 <label class="form_label" for="firma-usuario">Firma Médico</label>
