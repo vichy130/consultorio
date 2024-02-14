@@ -38,7 +38,7 @@ tbodyUsuarios.addEventListener('click', function (e){
 });
 botonNuevoUsuario.addEventListener('click', function (e){
     e.preventDefault();
-    usuario();
+    usuar();
 });
 function tablaUsuarios() {
     tbodyUsuarios.replaceChildren();
@@ -80,11 +80,11 @@ function tablaUsuarios() {
         tbodyUsuarios.append(celda);
     });
 }
-function usuario(){
+function usuar(){
     window.location.href='./usuario.php';
 }
 function usuarioEditar(idEditar){
-    window.location.href='./usuario.php?=id'+idEditar;
+    window.location.href='./usuario.php?id='+idEditar;
 }
 function usuarioEliminar(idEliminar){
     var datos= {id: idEliminar};

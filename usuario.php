@@ -92,7 +92,7 @@ if (isset($_REQUEST["id"])) {
                     accept=".jpg, .jpeg, .png">
             </div><!-- end form-grupo -->
             <button class="input_submit boton amarillo span-2">Imprimir</button>
-            <input class="input_submit boton azul span-2" type="submit" value="Guardar">
+            <input class="input_submit boton azul span-2" type="submit" value="Guardar" id="boton-guardar-usuario">
 
         </form>
         <!-- end FORM -->

@@ -21,7 +21,6 @@ class usuario
         $apellidoMaterno,
         $telefono,
         $correo,
-        $contrasena,
         $tipoUsuario
     ) {
         $this->nombre = $nombre;
@@ -29,7 +28,6 @@ class usuario
         $this->apellidoMaterno = $apellidoMaterno;
         $this->telefono = $telefono;
         $this->correo = $correo;
-        $this->contrasena = $contrasena;
         $this->tipoUsuario = $tipoUsuario;
     }
     public function getValues(){
@@ -51,9 +49,15 @@ class usuario
     {
         return $this->username;
     }
+    public function setContrasena($contrasena){
+        $this->contrasena=$contrasena;
+    }
+    public function getContrasena(){
+        return $this->contrasena;
+    }
     public function insertar()
     {
-        $query = "INSERT INTO usuario values (':username',':nombre',':apellidoPaterno',':apellidoMaterno',':telefono',':correo',':contrasena',':tipoUsuario'); ";
+        $query = "INSERT INTO usuario (username,nombre,apellidoPaterno,apellidoMaterno,telefono,correo,contrasena,tipoUsuario)values (:username,:nombre,:apellidoPaterno,:apellidoMaterno,:telefono,:correo,:contrasena,:tipoUsuario); ";
         try {
             $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':username', $this->username);
@@ -106,6 +110,7 @@ class usuario
     public function actualizar()
     {
         $query = "UPDATE usuario set
+        username=:username,
         nombre=:nombre,
         apellidoPaterno=:apellidoPaterno,
         apellidoMaterno=:apellidoMaterno,
