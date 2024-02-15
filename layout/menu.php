@@ -51,8 +51,7 @@
             <li><a href=""><i class="icono izquierda fas fa-user-circle"></i><?php if(isset($_SESSION['username'])){ echo $_SESSION['nombre']." ".$_SESSION['apellidoPaterno']; }?><i class="icono derecha fas fa-chevron-down"></i></a>
                 <ul>
                     <li><a href="./mi-perfil.php"><i class="icono izquierda fas fa-id-badge"></i>Mi perfil</a></li>
-                    <li><a href="./php/cerrar-sesion.php"><i class="icono izquierda fas fa-sign-out-alt"></i>Cerrar
-                            sesión</a></li>
+                    <li><a href="./php/cerrar-sesion.php"><i class="icono izquierda fas fa-sign-out-alt"></i>Cerrar sesión</a></li>
                 </ul>
             </li>
         </ul>

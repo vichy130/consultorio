@@ -43,11 +43,11 @@ if (isset($_REQUEST["id"])) {
         </div>
 -->
 
-        <form class="content-general" id="form-usuario">
+        <form class="content-general formulario" id="form-usuario">
 
             <label class="formulario_grupo span-4">Nuevo usuario</label>
 
-            <div class="formulario_grupo">
+            <div class="formulario_grupo" id="grupo_usuario">
                 <label class="form_label" for="username-usuario">Nombre de usuario</label>
                 <input class="form_input" type="text" id="username-usuario" name="username-usuario">
             </div><!-- end form-grupo -->
@@ -100,6 +100,7 @@ if (isset($_REQUEST["id"])) {
     </div>
     <!-- end contenedor -->
     <script src="./js/form-usuario.js"></script>
+    <script src="./js/validacion-usuario.js"></script>
 </body>
 
 </html>

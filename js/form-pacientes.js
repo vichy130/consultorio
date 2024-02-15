@@ -102,14 +102,14 @@ function eliminarPaciente(idEliminar) {
             } else {
                 modalError.style.display = 'block';
             }
+            cerrarPregunta();
+            array=[];
+            clearDiv(cuerpoTabla);
+            obtenerPacientes();
         })
         .catch(function (error) {
             console.error('Error:', error);
         });
-    cerrarPregunta();
-    array=[];
-    clearDiv(cuerpoTabla);
-    obtenerPacientes();
 }
 function tablaPacientes(){
     array.forEach(pa => {

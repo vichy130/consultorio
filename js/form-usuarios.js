@@ -97,13 +97,12 @@ function usuarioEliminar(idEliminar){
         return response.text();
     })
     .then(function (data) {
-        console.log(data);
+        arrayUsuarios=[];
+        obtenerUsuarios();
     })
     .catch(function (error) {
         console.error('Error:', error);
     });
-    arrayUsuarios=[];
-    obtenerUsuarios();
 }
 function clearDiv(div) {
     div.replaceChildren();

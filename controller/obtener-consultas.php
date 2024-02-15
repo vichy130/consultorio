@@ -5,6 +5,7 @@ $jsonConsultas;
 include '../models/consulta.php';
 include '../php/conexion.php';
 $query = 'SELECT id FROM consulta; ';
+
 try {
     $stmt = $dbh->prepare($query);
     $stmt->execute();

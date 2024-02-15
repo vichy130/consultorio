@@ -270,6 +270,7 @@ formConsulta.addEventListener('submit', function (e) {
             })
             .then(function (data) {
                 console.log(data);
+                // TODO
             })
             .catch(function (error) {
                 console.error('Error:', error);
