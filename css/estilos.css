@@ -90,7 +90,13 @@ body{
     font-family: 'Roboto', sans-serif;
 }
 .form_input:focus{
-    box-shadow: 3px 0px 10px rgba(163, 163, 163, 0.4)
+    box-shadow: 3px 0px 10px rgba(163, 163, 163, 0.4);
+    outline:none;
+}
+.form_input-error{
+    font-size:10px;
+    margin-bottom:0;
+    /*display:none;*/
 }
 .form_textarea{
     width:100%;
@@ -117,7 +123,9 @@ body{
 .form_input_small{
  width:50%;
 }
-
+.form_grupo-input{
+    position:relative;
+}
 .boton{
     height:35px;
     line-height: 35px;
