@@ -12,8 +12,8 @@ if (!isset($_SESSION['username'])) {
     redirect("./iniciar-sesion.php");
     exit();
 }
-if(isset($_REQUEST['id'])){
-   $_SESSION['id_con']=$_REQUEST['id'];
+if (isset($_REQUEST['id'])) {
+    $_SESSION['id_con'] = $_REQUEST['id'];
 }
 ?>
 
@@ -46,40 +46,73 @@ if(isset($_REQUEST['id'])){
         <form class="content-general" id="form-consultorio">
             <label class="formulario_grupo span-4">Consultorio</label>
 
-            <div class="formulario_grupo span-2">
+            <!-- Grupo: -->
+            <div class="formulario_grupo span-2" id="grupo_nombre-consultorio">
                 <label class="form_label" for="nombre-consultorio">Nombre de consultorio</label>
-                <input class="form_input" type="text" id="nombre-consultorio" name="nombre-consultorio">
+                <div class="form_grupo-input">
+                    <input class="form_input" type="text" id="nombre-consultorio" name="nombre-consultorio">
+                    <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                </div>
+                <p class="form_input-error">El campo no puede estar vacío</p>
             </div><!-- end form-grupo -->
 
             <label class="formulario_grupo span-4">Domicilio</label>
 
-            <div class="formulario_grupo">
+            <!-- Grupo: -->
+            <div class="formulario_grupo" id="grupo_calle-consultorio">
                 <label class="form_label" for="calle-consultorio">Calle</label>
-                <input class="form_input" type="text" id="calle-consultorio" name="calle-consultorio">
+                <div class="form_grupo-input">
+                    <input class="form_input" type="text" id="calle-consultorio" name="calle-consultorio">
+                    <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                </div>
+                <p class="form_input-error">El campo no puede estar vacío</p>
             </div><!-- end form-grupo -->
 
-            <div class="formulario_grupo">
+            <!-- Grupo: -->
+            <div class="formulario_grupo" id="grupo_colonia-consultorio">
                 <label class="form_label" for="colonia-consultorio">Colonia</label>
-                <input class="form_input" type="text" id="colonia-consultorio" name="colonia-consultorio">
+                <div class="form_grupo-input">
+                    <input class="form_input" type="text" id="colonia-consultorio" name="colonia-consultorio">
+                    <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                </div>
+                <p class="form_input-error">El campo no puede estar vacío</p>
             </div><!-- end form-grupo -->
 
-            <div class="formulario_grupo">
+            <!-- Grupo: -->
+            <div class="formulario_grupo" id="grupo_ciudad-consultorio">
                 <label class="form_label" for="ciudad-consultorio">Ciudad</label>
-                <input class="form_input" type="text" id="ciudad-consultorio" name="ciudad-consultorio">
+                <div class="form_grupo-input">
+                    <input class="form_input" type="text" id="ciudad-consultorio" name="ciudad-consultorio">
+                    <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                </div>
+                <p class="form_input-error">El campo no puede estar vacío</p>
             </div><!-- end form-grupo -->
 
-            <div class="formulario_grupo">
+            <!-- Grupo: -->
+            <div class="formulario_grupo" id="grupo_cp-consultorio">
                 <label class="form_label" for="cp-consultorio">Codigo postal</label>
-                <input class="form_input" type="text" id="cp-consultorio" name="cp-consultorio">
+                <div class="form_grupo-input">
+                    <input class="form_input" type="text" id="cp-consultorio" name="cp-consultorio">
+                    <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                </div>
+                <p class="form_input-error">El campo no puede estar vacío</p>
             </div><!-- end form-grupo -->
 
-            <div class="formulario_grupo">
+            <!-- Grupo: -->
+            <div class="formulario_grupo" id="grupo_telefono-consultorio">
                 <label class="form_label" for="telefono-consultorio">Teléfono</label>
-                <input class="form_input" type="text" id="telefono-consultorio" name="telefono-consultorio">
+                <div class="form_grupo-input">
+                    <input class="form_input" type="text" id="telefono-consultorio" name="telefono-consultorio">
+                    <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                </div>
+                <p class="form_input-error">El campo no puede estar vacío</p>
             </div><!-- end form-grupo -->
 
             <button class="input_submit boton amarillo span-2">Imprimir</button>
-            <input class="input_submit boton azul span-2" type="submit" value="Guardar" id="boton-guardar">
+
+            <div>
+                <input class="input_submit boton azul span-2" type="submit" value="Guardar" id="boton-guardar">
+            </div>
 
         </form>
         <!-- end FORM -->

@@ -42,6 +42,7 @@ if (isset($_REQUEST["id"])) {
                     </label>
                     <label id="consulta-titulo" class="formulario_grupo span-4">Consulta</label>
 
+                    <!-- grupo: -->
                     <div class="formulario_grupo">
                         <label class="form_label" for="consultafecha-paciente"><i class="izquierda fa fa-calendar"
                                 aria-hidden="true"></i>Fecha</label>
@@ -49,11 +50,16 @@ if (isset($_REQUEST["id"])) {
                         <input type="hidden" name="oculto-fecha-consulta" id="oculto-fecha-consulta">
                     </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo">
+                    <!-- grupo: -->
+                    <div class="formulario_grupo" id="grupo_select-consultorio">
                         <label class="form_label" for="select-consultorio"><i
                                 class="izquierda fa fa-map-marker"></i>Consultorio</label>
-                        <select class="form_input" name="select-consultorio" id="select-consultorio">
-                        </select>
+                        <div class="form_grupo-input">
+                            <select class="form_input" name="select-consultorio" id="select-consultorio">
+                            </select>
+                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                        </div>
+                        <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->
 
                     <div class="span-2"></div>
@@ -61,75 +67,136 @@ if (isset($_REQUEST["id"])) {
 
                     <label class="formulario_grupo span-4">Examen fisico</label>
 
-                    <div class="formulario_grupo">
+                    <!-- grupo: -->
+                    <div class="formulario_grupo" id="grupo_vitalesta-paciente">
                         <label class="form_label" for="vitalesta-paciente">TA</label>
-                        <input class="form_input" type="text" id="vitalesta-paciente" name="vitalesta-paciente"
-                            value="">
+                        <div class="form_grupo-input">
+                            <input class="form_input" type="text" id="vitalesta-paciente" name="vitalesta-paciente">
+                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                        </div>
+                        <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo">
+                    <!-- grupo: -->
+                    <div class="formulario_grupo" id="grupo_vitalesoxigeno-paciente">
                         <label class="form_label" for="vitalesoxigeno-paciente">Oxigeno</label>
-                        <input class="form_input" type="text" id="vitalesoxigeno-paciente"
-                            name="vitalesoxigeno-paciente">
+                        <div class="form_grupo-input">
+                            <input class="form_input" type="text" id="vitalesoxigeno-paciente"
+                                name="vitalesoxigeno-paciente">
+                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                        </div>
+                        <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo">
+                    <!-- grupo: -->
+                    <div class="formulario_grupo" id="grupo_vitalespulso-paciente">
                         <label class="form_label" for="vitalespulso-paciente">Pulso</label>
-                        <input class="form_input" type="text" id="vitalespulso-paciente" name="vitalespulso-paciente">
+                        <div class="form_grupo-input">
+                            <input class="form_input" type="text" id="vitalespulso-paciente"
+                                name="vitalespulso-paciente">
+                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                        </div>
+                        <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo">
+                    <!-- grupo: -->
+                    <div class="formulario_grupo" id="grupo_vitalespeso-paciente">
                         <label class="form_label" for="vitalespeso-paciente">Peso</label>
-                        <input class="form_input" type="text" id="vitalespeso-paciente" name="vitalespeso-paciente">
+                        <div class="form_grupo-input">
+                            <input class="form_input" type="text" id="vitalespeso-paciente" name="vitalespeso-paciente">
+                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                        </div>
+                        <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo">
+                    <!-- grupo: -->
+                    <div class="formulario_grupo" id="grupo_vitalesestatura-paciente">
                         <label class="form_label" for="vitalesestatura-paciente">Estatura</label>
-                        <input class="form_input" type="text" id="vitalesestatura-paciente"
-                            name="vitalesestatura-paciente">
+                        <div class="form_grupo-input">
+                            <input class="form_input" type="text" id="vitalesestatura-paciente"
+                                name="vitalesestatura-paciente">
+                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                        </div>
+                        <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo">
+                    <!-- grupo: -->
+                    <div class="formulario_grupo" id="grupo_vitalestemperatura-paciente">
                         <label class="form_label" for="vitalestemperatura-paciente">Temperatura</label>
-                        <input class="form_input" type="text" id="vitalestemperatura-paciente"
-                            name="vitalestemperatura-paciente">
+                        <div class="form_grupo-input">
+                            <input class="form_input" type="text" id="vitalestemperatura-paciente"
+                                name="vitalestemperatura-paciente">
+                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                        </div>
+                        <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo span-4">
+                    <!-- grupo: -->
+                    <div class="formulario_grupo span-4" id="grupo_consultamotivo-paciente">
                         <label class="form_label" for="consultamotivo-paciente">Motivo de consulta</label>
-                        <textarea class="form_textarea" type="text" id="consultamotivo-paciente"
-                            name="consultamotivo-paciente" rows="4" cols="50"> </textarea>
+                        <div class="form_grupo-input">
+                            <textarea class="form_textarea" type="text" id="consultamotivo-paciente"
+                                name="consultamotivo-paciente" rows="4" cols="50"> </textarea>
+                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                        </div>
+                        <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo span-4">
+                    <!-- grupo: -->
+                    <div class="formulario_grupo span-4" id="grupo_consultaexploracion-paciente">
                         <label class="form_label" for="consultaexploracion-paciente">Exploración</label>
-                        <textarea class="form_textarea" type="text" id="consultaexploracion-paciente"
-                            name="consultaexploracion-paciente" rows="4" cols="50" value=""></textarea>
+                        <div class="form_grupo-input">
+                            <textarea class="form_textarea" type="text" id="consultaexploracion-paciente"
+                                name="consultaexploracion-paciente" rows="4" cols="50"></textarea>
+                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                        </div>
+                        <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->
+
                     <label class="formulario_grupo span-4">Consultas externas</label>
 
-                    <div class="formulario_grupo span-2">
+                    <!-- grupo: -->
+                    <div class="formulario_grupo span-2" id="grupo_consultapreviacomentarios-paciente">
                         <label class="form_label" for="consultapreviacomentarios-paciente">Comentarios</label>
-                        <textarea class="form_textarea" type="text" id="consultapreviacomentarios-paciente"
-                            name="consultapreviacomentarios-paciente" rows="4" cols="50"> </textarea>
+                        <div class="form_grupo-input">
+                            <textarea class="form_textarea" type="text" id="consultapreviacomentarios-paciente"
+                                name="consultapreviacomentarios-paciente" rows="4" cols="50"> </textarea>
+                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                        </div>
+                        <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo span-2">
+                    <!-- grupo: -->
+                    <div class="formulario_grupo span-2" id="grupo_consultapreviadiagnostico-paciente">
                         <label class="form_label" for="consultapreviadiagnostico-paciente">Diagnostico</label>
-                        <textarea class="form_textarea" type="text" id="consultapreviadiagnostico-paciente"
-                            name="consultapreviadiagnostico-paciente" rows="4" cols="50"> </textarea>
+                        <div class="form_grupo-input">
+                            <textarea class="form_textarea" type="text" id="consultapreviadiagnostico-paciente"
+                                name="consultapreviadiagnostico-paciente" rows="4" cols="50"> </textarea>
+                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                        </div>
+                        <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo span-2">
+                    <!-- grupo: -->
+                    <div class="formulario_grupo span-2" id="grupo_consultapreviaestudio-paciente">
                         <label class="form_label" for="consultapreviaestudio-paciente">Estudios</label>
-                        <textarea class="form_textarea" type="text" id="consultapreviaestudio-paciente"
-                            name="consultapreviaestudio-paciente" rows="4" cols="50"> </textarea>
+                        <div class="form_grupo-input">
+                            <textarea class="form_textarea" type="text" id="consultapreviaestudio-paciente"
+                                name="consultapreviaestudio-paciente" rows="4" cols="50"> </textarea>
+                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                        </div>
+                        <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo span-2">
+                    <!-- grupo: -->
+                    <div class="formulario_grupo span-2" id="grupo_consultapreviatratamientos-paciente">
                         <label class="form_label" for="consultapreviatratamientos-paciente">Tratamiento</label>
-                        <textarea class="form_textarea" type="text" id="consultapreviatratamiento-paciente"
-                            name="consultapreviatratamientos-paciente" rows="4" cols="50"> </textarea>
+                        <div class="form_grupo-input">
+                            <textarea class="form_textarea" type="text" id="consultapreviatratamiento-paciente"
+                                name="consultapreviatratamientos-paciente" rows="4" cols="50"> </textarea>
+                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                        </div>
+                        <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->
 
                     <button class="boton azul" id="boton-consulta-previa" type="button"><i
@@ -152,22 +219,33 @@ if (isset($_REQUEST["id"])) {
                     <label class="formulario_grupo span-4" for="consultaindicaciones-paciente">Indicaciones
                         Generales</label>
 
-                    <div class="formulario_grupo span-4">
-                        <textarea class="form_textarea" type="text" id="consultaindicaciones-paciente"
-                            name="consultaindicaciones-paciente" rows="4" cols="50"> </textarea>
+                    <!-- grupo: -->
+                    <div class="formulario_grupo span-4" id="grupo_consultaindicaciones-paciente">
+                        <div class="form_grupo-input">
+                            <textarea class="form_textarea" type="text" id="consultaindicaciones-paciente"
+                                name="consultaindicaciones-paciente" rows="4" cols="50"> </textarea>
+                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                        </div>
+                        <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->
 
                     <label class="formulario_grupo span-4">Medicamento</label>
 
-                    <div class="formulario_grupo span-2">
+                    <!-- grupo: -->
+                    <div class="formulario_grupo span-2" id="grupo_consultanombremed-paciente">
                         <label class="form_label" for="consultanombremed-paciente">Nombre del medicamento</label>
-                        <input class="form_input" list="consultanombremed-paciente" id="input-medicamento">
-                        <datalist class="form_input" id="consultanombremed-paciente">
-                        </datalist>
+                        <div class="form_grupo-input">
+                            <input class="form_input" list="consultanombremed-paciente" id="input-medicamento">
+                            <datalist class="form_input" id="consultanombremed-paciente">
+                            </datalist>
+                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                        </div>
+                        <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
-                        <label class="form_label" for="select-medicamento-hora"><i class="fa fa-hourglass-half izquierda" aria-hidden="true"></i>Cada (horas)</label>
+                        <label class="form_label" for="select-medicamento-hora"><i
+                                class="fa fa-hourglass-half izquierda" aria-hidden="true"></i>Cada (horas)</label>
                         <select class="form_input" name="time" id="select-medicamento-hora">
                             <option value="01:00">01:00 hr</option>
                             <option value="02:00">02:00 hrs</option>
@@ -196,13 +274,19 @@ if (isset($_REQUEST["id"])) {
                         </select>
                     </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo span-4">
+                    <!-- grupo: -->
+                    <div class="formulario_grupo span-4" id="grupo_indicacionesmed-paciente">
                         <label class="form_label" for="indicacionesmed-paciente">Indicaciones</label>
-                        <textarea class="form_textarea" id="indicacionesmed-paciente" name="indicacionesmed-paciente"
-                            rows="4" cols="50"> </textarea>
+                        <div class="form_grupo-input">
+                            <textarea class="form_textarea" id="indicacionesmed-paciente"
+                                name="indicacionesmed-paciente" rows="4" cols="50"> </textarea>
+                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                        </div>
+                        <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->
 
-                    <button class="boton azul" id="boton-medicamento-indicacion"  type="button"><i class="fas fa-plus"></i> Añadir</button>
+                    <button class="boton azul" id="boton-medicamento-indicacion" type="button"><i
+                            class="fas fa-plus"></i> Añadir</button>
 
                     <table class="table span-4">
                         <thead>
@@ -216,15 +300,22 @@ if (isset($_REQUEST["id"])) {
                         </tbody>
                     </table>
 
+
                     <label class="formulario_grupo" for="estudiossolicitados-paciente">Estudios solicitados</label>
-                    <div class="formulario_grupo span-4">
-                        <textarea class="form_textarea" type="text" id="estudiossolicitados-paciente"
-                            name="estudiossolicitados-paciente" rows="4" cols="50"> </textarea>
+
+                    <!-- grupo: -->
+                    <div class="formulario_grupo span-4" id="grupo_estudiossolicitados-paciente">
+                        <div class="form_grupo-input">
+                            <textarea class="form_textarea" type="text" id="estudiossolicitados-paciente"
+                                name="estudiossolicitados-paciente" rows="4" cols="50"> </textarea>
+                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                        </div>
+                        <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->
 
-                    <button class="boton azul" id="boton-estudios-solicitados"  type="button"><i class="fas fa-plus"></i>
+                    <button class="boton azul" id="boton-estudios-solicitados" type="button"><i class="fas fa-plus"></i>
                         Añadir</button>
-                        <table class="table span-4">
+                    <table class="table span-4">
                         <thead>
                             <tr>
                                 <th>Estudio</th>
@@ -235,12 +326,19 @@ if (isset($_REQUEST["id"])) {
                         </tbody>
                     </table>
 
-                    <div class="formulario_grupo span-4">
+                    <!-- grupo: -->
+                    <div class="formulario_grupo span-4" id="grupo_consultaterapia-paciente">
                         <label class="form_label span-4" for="consultaterapia-paciente">Terapia</label>
-                        <textarea class="form_textarea" id="consultaterapia-paciente" name="consultaterapia-paciente"
-                            rows="4" cols="50"> </textarea>
+                        <div class="form_grupo-input">
+                            <textarea class="form_textarea" id="consultaterapia-paciente"
+                                name="consultaterapia-paciente" rows="4" cols="50"> </textarea>
+                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                        </div>
+                        <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->
-                    <button class="boton azul" id="boton-terapia"  type="button"><i class="fas fa-plus"></i> Añadir</button>
+
+                    <button class="boton azul" id="boton-terapia" type="button"><i class="fas fa-plus"></i>
+                        Añadir</button>
 
                     <table class="table span-4">
                         <thead>
@@ -253,8 +351,8 @@ if (isset($_REQUEST["id"])) {
                         </tbody>
                     </table>
 
-                    <button class="input_submit boton amarillo span-2" id="boton-imprimir"  type="button"><i class="fa fa-print"
-                            aria-hidden="true"></i>
+                    <button class="input_submit boton amarillo span-2" id="boton-imprimir" type="button"><i
+                            class="fa fa-print" aria-hidden="true"></i>
                         Imprimir</button>
                     <input class="input_submit boton azul span-2" type="submit" value="Guardar">
 
