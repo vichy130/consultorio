@@ -46,7 +46,6 @@ if (isset($_REQUEST["id"])) {
         <form class="content-general formulario" id="form-usuario">
 
             <label class="formulario_grupo span-4">Usuario</label>
-
             <!-- Grupo: Username -->
             <div class="formulario_grupo" id="grupo_usuario">
                 <label class="form_label" for="username-usuario">Nombre de usuario</label>
