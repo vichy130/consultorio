@@ -50,48 +50,56 @@ if (!isset($_SESSION['username'])) {
 
                     <label class="formulario_grupo span-4">Informacion basica</label>
 
-                            <!-- Grupo: nombre paciente -->
-                    <div class="formulario_grupo span-2" id="grupo_nombre-paciente">
+                    <!-- Grupo: nombre paciente -->
+                    <div class="formulario_grupo span-2" id="grupo_nombre">
                         <label class="form_label" for="nombre-paciente">Nombre(s)</label>
                         <div class="form_grupo-input">
-                            <input class="form_input" type="text" id="nombre-paciente" name="nombre-paciente" value="">
+                            <input class="form_input" type="text" id="nombre-paciente" name="nombre-paciente"
+                                placeholder="María">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
                         <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->
 
-                            <!-- Grupo: apellidop Paciente -->
+                    <!-- Grupo: apellidop Paciente -->
                     <div class="formulario_grupo grupo_apellidop" id="grupo_apellidop">
                         <label class="form_label" for="apellidop-paciente">Apellido paterno</label>
                         <div class="form_grupo-input">
-                            <input class="form_input" type="text" id="apellidop-paciente" name="apellidop-paciente">
+                            <input class="form_input" type="text" id="apellidop-paciente" name="apellidop-paciente"
+                                placeholder="Pino">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
                         <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->
 
-                            <!-- Grupo: apellidom Paciente -->
+                    <!-- Grupo: apellidom Paciente -->
                     <div class="formulario_grupo grupo_apellidom" id="grupo_apellidom">
                         <label class="form_label" for="apellidom-paciente">Apellido materno</label>
                         <div class="form_grupo-input">
-                            <input class="form_input" type="text" id="apellidom-paciente" name="apellidom-paciente">
+                            <input class="form_input" type="text" id="apellidom-paciente" name="apellidom-paciente"
+                                placeholder="Suárez">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
                         <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->
 
-                            <!-- Grupo: Sexo paciente -->
+                    <!-- Grupo: Sexo paciente -->
                     <div class="formulario_grupo radio span-4" id="grupo_sexo">
+                    <div class="form_grupo-input">
                         <label for="sexo-paciente"><i class=" fas fa-male"></i> Hombre</label>
                         <input type="radio" id="masculino" name="sexo" value="masculino">
                         <label for="sexo-paciente"><i class=" fas fa-female"></i> Mujer</label>
                         <input type="radio" id="femenino" name="sexo" value="femenino">
                         <label for="sexo-paciente">Otro</label>
-                        <input type="radio" id="otro" name="sexo" value="otro">
+                        <input type="radio" id="otro" name="sexo" value="otro" checked>
+                        
+                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                        </div>
+                        <p class="form_input-error">Selecciona el sexo</p>
                     </div><!-- end form-grupo -->
 
-                            <!-- Grupo: nacimiento paciente -->
-                    <div class="formulario_grupo" id="grupo_nacimiento-paciente">
+                    <!-- Grupo: nacimiento paciente -->
+                    <div class="formulario_grupo" id="grupo_nacimiento">
                         <label class="form_label" for="nacimiento-paciente"><i
                                 class="izquierda fas fa-birthday-cake"></i>Fecha de nacimiento</label>
                         <div class="form_grupo-input">
@@ -102,139 +110,140 @@ if (!isset($_SESSION['username'])) {
                         <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->
 
-                            <!-- Grupo: lugar paciente -->
-                    <div class="formulario_grupo" id="grupo_lugar-paciente">
+                    <!-- Grupo: lugar paciente -->
+                    <div class="formulario_grupo" id="grupo_lugar">
                         <label class="form_label" for="lugar-paciente">Lugar de nacimiento</label>
                         <div class="form_grupo-input">
-                            <input class="form_input" type="text" id="lugar-paciente" name="lugar-paciente" value="">
+                            <input class="form_input" type="text" id="lugar-paciente" name="lugar-paciente"
+                                placeholder="Guadalajara">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">El campo no debe estar vacío. Solo debe contener letras</p>
                     </div><!-- end form-grupo -->
 
                     <label class=" formulario_grupo span-4">Domicilio</label>
 
-                            <!-- Grupo: calle paciente -->
-                    <div class="formulario_grupo span-2" id="grupo_calle-paciente">
+                    <!-- Grupo: calle paciente -->
+                    <div class="formulario_grupo span-2" id="grupo_calle">
                         <label class="form_label" for="calle-paciente">Calle y número</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="calle-paciente" name="calle-paciente" value="">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">El campo no debe estar vacío. Solo debe contener letras y números
+                        </p>
                     </div><!-- end form-grupo -->
 
-                            <!-- Grupo: colonia paciente -->
-                    <div class="formulario_grupo grupo_colonia" id="grupo_colonia-paciente">
+                    <!-- Grupo: colonia paciente -->
+                    <div class="formulario_grupo grupo_colonia" id="grupo_colonia">
                         <label class="form_label" for="colonia-paciente">Colonia</label>
                         <div class="form_grupo-input">
-                            <input class="form_input" type="text" id="colonia-paciente" name="colonia-paciente"
-                                value="">
+                            <input class="form_input" type="text" id="colonia-paciente" name="colonia-paciente">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">El campo no debe estar vacío. Solo debe contener letras</p>
                     </div><!-- end form-grupo -->
 
-                            <!-- Grupo: ciudad paciente -->
-                    <div class="formulario_grupo grupo_ciudad" id="grupo_ciudad-paciente">
+                    <!-- Grupo: ciudad paciente -->
+                    <div class="formulario_grupo grupo_ciudad" id="grupo_ciudad">
                         <label class="form_label" for="ciudad-paciente">ciudad</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="ciudad-paciente" name="ciudad-paciente" value="">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">El campo no debe estar vacío. Solo debe contener letras</p>
                     </div><!-- end form-grupo -->
 
-                            <!-- Grupo: cp paciente -->
-                    <div class="formulario_grupo grupo_cp" id="grupo_cp-paciente">
+                    <!-- Grupo: cp paciente -->
+                    <div class="formulario_grupo grupo_cp" id="grupo_cp">
                         <label class="form_label" for="cp-paciente">Codigo postal</label>
                         <div class="form_grupo-input">
                             <input class="form_input form_input_small" type="text" id="cp-paciente" name="cp-paciente"
-                                value="">
+                                placeholder="55555">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">El campo no debe estar vacío. Debe contener 5 dígitos</p>
                     </div><!-- end form-grupo -->
 
                     <label class="formulario_grupo span-4">Telefono de contacto</label>
 
-                            <!-- Grupo: telefono casa paciente -->
-                    <div class="formulario_grupo" id="grupo_telefono-casa-paciente">
+                    <!-- Grupo: telefono casa paciente -->
+                    <div class="formulario_grupo" id="grupo_casa">
                         <label class="form_label" for="telefono-casa-paciente"><i
                                 class="izquierda fas fa-phone-volume"></i>Telefono de casa</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="telefono-casa-paciente"
-                                name="telefono-casa-paciente">
+                                name="telefono-casa-paciente" placeholder="33 33333333">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">El campo solo debe contener números</p>
                     </div><!-- end form-grupo -->
 
-                            <!-- Grupo: telefono-oficina-paciente -->
-                    <div class="formulario_grupo" id="grupo_telefono-oficina-paciente">
+                    <!-- Grupo: telefono-oficina-paciente -->
+                    <div class="formulario_grupo" id="grupo_oficina">
                         <label class="form_label" for="telefono-oficina-paciente"><i
                                 class="izquierda fas fa-phone-alt"></i>Oficina</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="telefono-oficina-paciente"
-                                name="telefono-oficina-paciente">
+                                name="telefono-oficina-paciente" placeholder="33 33333333">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">El campo solo debe contener números</p>
                     </div><!-- end form-grupo -->
 
-                            <!-- Grupo: telefono cel paciente -->
-                    <div class="formulario_grupo" id="grupo_telefono-cel-paciente">
+                    <!-- Grupo: telefono cel paciente -->
+                    <div class="formulario_grupo" id="grupo_celular">
                         <label class="form_label" for="telefono-cel-paciente"><i
                                 class="izquierda fas fa-mobile-alt"></i>Celular</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="telefono-cel-paciente"
-                                name="telefono-cel-paciente">
+                                name="telefono-cel-paciente" placeholder="33 33333333">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">El campo solo debe contener números</p>
                     </div><!-- end form-grupo -->
 
                     <div class=""></div>
 
-                            <!-- Grupo: civil paciente -->
-                    <div class="formulario_grupo" id="grupo_civil-paciene">
+                    <!-- Grupo: civil paciente -->
+                    <div class="formulario_grupo" id="grupo_estadoCivil">
                         <label class="form_label" for="civil-paciente">Estado civil</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="civil-paciente" name="civil-paciente">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">El campo no debe estar vacío. Solo debe contener letras</p>
                     </div><!-- end form-grupo -->
 
-                            <!-- Grupo: ocupacion paciente -->
-                    <div class="formulario_grupo" id="grupo_ocupacion-paciente">
+                    <!-- Grupo: ocupacion paciente -->
+                    <div class="formulario_grupo" id="grupo_ocupacion">
                         <label class="form_label" for="ocupacion-paciente">Ocupación</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="ocupacion-paciente" name="ocupacion-paciente">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">El campo no debe estar vacío. Solo debe contener letras</p>
                     </div><!-- end form-grupo -->
 
-                            <!-- Grupo: escolaridad-paciente -->
-                    <div class="formulario_grupo" id="grupo_escolaridad-paciente">
+                    <!-- Grupo: escolaridad-paciente -->
+                    <div class="formulario_grupo" id="grupo_escolaridad">
                         <label class="form_label" for="escolaridad-paciente"><i
                                 class="izquierda fas fa-graduation-cap"></i>Escolaridad</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="escolaridad-paciente" name="escolaridad-paciente">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">El campo no debe estar vacío. Solo debe contener letras</p>
                     </div><!-- end form-grupo -->
 
-                      <!-- Grupo: correo-->
+                    <!-- Grupo: correo-->
                     <div class="formulario_grupo" id="grupo_email">
                         <label class="form_label" for="email-paciente"><i class="izquierda fas fa-at"></i>Email</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="email" id="email-paciente" name="email-paciente">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">El campo no debe estar vacío. Escribe un correo válido</p>
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
@@ -252,6 +261,7 @@ if (!isset($_SESSION['username'])) {
         <?php require("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
+    <script src="./js/validacion-informacion.js"></script>
     <script src="./js/form-informacion.js"></script>
 </body>
 

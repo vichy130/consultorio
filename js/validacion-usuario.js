@@ -21,78 +21,78 @@ const campos = {
     contrasena2: false,
     correo: false,
     telefono: false,
-    tipo: false, 
+    tipo: false,
     firma: false
 }
 const validarFormulario = (e) => {
     switch (e.target.name) {
         case "username-usuario":
-        validarCampo(expresiones.usuario, e.target, 'usuario');
+            validarCampo(expresiones.usuario, e.target.value, 'usuario');
             break;
         case "nombre-usuario":
-        validarCampo(expresiones.nombre, e.target, 'nombre');
+            validarCampo(expresiones.nombre, e.target.value, 'nombre');
             break;
         case "apellidoPaterno-usuario":
-            validarCampo(expresiones.apellidoPaterno, e.target, 'apellidoPaterno');
+            validarCampo(expresiones.apellidoPaterno, e.target.value, 'apellidoPaterno');
             break;
         case "apellidoMaterno-usuario":
-            validarCampo(expresiones.apellidoMaterno, e.target, 'apellidoMaterno');
+            validarCampo(expresiones.apellidoMaterno, e.target.value, 'apellidoMaterno');
             break;
         case "telefono-usuario":
-            validarCampo(expresiones.telefono, e.target, 'telefono');
+            validarCampo(expresiones.telefono, e.target.value, 'telefono');
             break;
         case "tipo-usuario":
-            validarCampo(expresiones.tipo, e.target, 'tipo');
+            validarCampo(expresiones.tipo, e.target.value, 'tipo');
             break;
         case "correo-usuario":
-            validarCampo(expresiones.correo, e.target, 'correo');
+            validarCampo(expresiones.correo, e.target.value, 'correo');
             break;
         case "contrasena-usuario":
-            validarCampo(expresiones.contrasena, e.target, 'contrasena');
+            validarCampo(expresiones.contrasena, e.target.value, 'contrasena');
             validarConstrasena2();
             break;
         case "contrasena-usuario2":
             validarConstrasena2();
             break;
         case "firma-usuario":
-            validarCampo(expresiones.firma, e.target, 'firma');
+            validarCampo(expresiones.firma, e.target.value, 'firma');
             break;
     }
 }
-const validarCampo= (expresion, input, campo)=>{
-    if (expresion.test(input.value)) {
+const validarCampo = (expresion, input, campo) => {
+    if (expresion.test(input)) {
         document.getElementById(`grupo_${campo}`).classList.remove('formulario_grupo-incorrecto');
         document.getElementById(`grupo_${campo}`).classList.add('formulario_grupo-correcto');
         document.querySelector(`#grupo_${campo} i`).classList.remove('fa-circle-xmark');
-        document.querySelector(`#grupo_${campo} i`).classList.add('fa-circle-check');                document.querySelector(`#grupo_${campo} .form_input-error`).classList.remove('form_input-error-activo');
-        campos[campo]=true;
+        document.querySelector(`#grupo_${campo} i`).classList.add('fa-circle-check'); document.querySelector(`#grupo_${campo} .form_input-error`).classList.remove('form_input-error-activo');
+        campos[campo] = true;
     } else {
         document.getElementById(`grupo_${campo}`).classList.add('formulario_grupo-incorrecto');
         document.getElementById(`grupo_${campo}`).classList.remove('formulario_grupo-correcto');
         document.querySelector(`#grupo_${campo} i`).classList.add('fa-circle-xmark');
         document.querySelector(`#grupo_${campo} i`).classList.remove('fa-circle-check');
         document.querySelector(`#grupo_${campo} .form_input-error`).classList.add('form_input-error-activo');
-        campos[campo]=false;
+        campos[campo] = false;
     }
 }
 
-const validarConstrasena2= ()=>{
-    const inputContrasena1=document.getElementById('contrasena-usuario');
-    const inputContrasena2=document.getElementById('contrasena-usuario2');
-    if (inputContrasena1.value !== inputContrasena2.value){
+const validarConstrasena2 = () => {
+    const inputContrasena1 = document.getElementById('contrasena-usuario');
+    const inputContrasena2 = document.getElementById('contrasena-usuario2');
+    if (inputContrasena1.value !== inputContrasena2.value) {
         document.getElementById(`grupo_contrasena2`).classList.add('formulario_grupo-incorrecto');
         document.getElementById(`grupo_contrasena2`).classList.remove('formulario_grupo-correcto');
         document.querySelector(`#grupo_contrasena2 i`).classList.add('fa-circle-xmark');
         document.querySelector(`#grupo_contrasena2 i`).classList.remove('fa-circle-check');
         document.querySelector(`#grupo_contrasena2 .form_input-error`).classList.add('form_input-error-activo');
-        campos['contrasena2']=false;
-    }else{
+        campos['contrasena2'] = false;
+    } else {
         document.getElementById(`grupo_contrasena2`).classList.remove('formulario_grupo-incorrecto');
         document.getElementById(`grupo_contrasena2`).classList.add('formulario_grupo-correcto');
         document.querySelector(`#grupo_contrasena2 i`).classList.remove('fa-circle-xmark');
         document.querySelector(`#grupo_contrasena2 i`).classList.add('fa-circle-check');
         document.querySelector(`#grupo_contrasena2 .form_input-error`).classList.remove('form_input-error-activo');
-        campos['contrasena2']=true;
+        campos['contrasena2'] = true;
     }
 }
 
@@ -103,9 +103,9 @@ inputs.forEach((input) => {
 
 formUsuario.addEventListener('submit', (e) => {
     e.preventDefault();
-    if(campos.usuario && campos.nombre && campos.apellidoPaterno && campos.apellidoPaterno && campos.contrasena && campos.contrasena2 && campos.correo && campos.firma){
+    if (campos.usuario && campos.nombre && campos.apellidoPaterno && campos.apellidoMaterno && campos.contrasena && campos.contrasena2 && campos.correo && campos.firma) {
         enviarFormUsuario();
-    }else{
-       //todo
+    } else {
+        //todo
     }
 });

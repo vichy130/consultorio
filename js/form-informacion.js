@@ -52,9 +52,8 @@ function cerrarModalExito() {
 }
 botonCerrarModal.addEventListener('click', cerrarModalExito);
 //FETCH FORMULARIO Y ARRAYS
-var formPaciente = document.getElementById('form-paciente');
-formPaciente.addEventListener('submit', function (e) {
-    e.preventDefault();
+
+function enviarFormPaciente(){
     var datosPaciente = new FormData(formPaciente);
     if (paciente != null) {
         fetch('./controller/editar-paciente.php', {// Enviar los datos a PHP utilizando fetch
@@ -95,7 +94,7 @@ formPaciente.addEventListener('submit', function (e) {
                 console.error('Error:', error);
             });
     }
-})
+}
 //CLASES
 class Paciente {
     constructor(
