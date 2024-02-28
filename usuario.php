@@ -136,7 +136,7 @@ if (isset($_REQUEST["id"])) {
             </div><!-- end form-grupo -->
 
             <!-- Grupo: contrasena 2 -->
-            <div class="formulario_grupo" id="grupo_contrasena">
+            <div class="formulario_grupo" id="grupo_contrasena2">
                 <label class="form_label" for="contrasena-usuario"> Repetir contraseña</label>
                 <div class="form_grupo-input">
                     <input class="form_input" type="password" id="contrasena-usuario2" name="contrasena-usuario2">
@@ -150,7 +150,7 @@ if (isset($_REQUEST["id"])) {
                 <label class="form_label" for="firma-usuario">Firma Médico</label>
                 <div class="form_grupo-input">
                     <input class="form_input" type="file" id="firma-usuario" name="firma-usuario"
-                        accept=".jpg, .jpeg, .png">
+                        >
                     <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                 </div>
                 <p class="form_input-error">El archivo debe ser tipo JPG, JPEJ o PNG.</p>

@@ -89,6 +89,10 @@ function eliminarConsulta(idEliminar) {
             return response.text();
         })
         .then(function (data) {
+            cerrarPregunta();
+            array = [];
+            clearDiv(cuerpoTabla);
+            obtenerConsultas();
             console.log("DATA : "+data)
             if (data == "1") {
                 modalExito.style.display = 'block';
@@ -99,10 +103,6 @@ function eliminarConsulta(idEliminar) {
         .catch(function (error) {
             console.error('Error:', error);
         });
-    cerrarPregunta();
-    array = [];
-    clearDiv(cuerpoTabla);
-    obtenerConsultas();
 }
 function cerrarPregunta() {
     modalPregunta.style.display = 'none';
@@ -113,7 +113,6 @@ function cerrarExito() {
 function cerrarError() {
     modalError.style.display = 'none';
 }
-
 function tablaConsultas() {
     array.forEach(co => {
         const celda = document.createElement('tr');
@@ -132,7 +131,6 @@ function tablaConsultas() {
 
         filaFecha.textContent = co.fecha;
         filaMotivo.textContent = co.motivoConsulta;
-        console.log(co.fecha);
         filaEditar.appendChild(iconoEditar);
         filaEliminar.appendChild(iconoEliminar);
 

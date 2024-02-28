@@ -8,14 +8,14 @@ window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CAR
     obtenerMedicamentos();
 };
 //EVENT LISTENERS
-tablaMedicamentos.addEventListener('click', function (e){
+tablaMedicamentos.addEventListener('click', function (e) {
     e.preventDefault();
-    if(e.target.classList.contains("editar-medicamento")){
-        const elementoEditar=e.target.dataset.id;
+    if (e.target.classList.contains("editar-medicamento")) {
+        const elementoEditar = e.target.dataset.id;
         editarMedicamento(elementoEditar);
     }
-    if(e.target.classList.contains("eliminar-medicamento")){
-        const elementoEliminar=e.target.dataset.id;
+    if (e.target.classList.contains("eliminar-medicamento")) {
+        const elementoEliminar = e.target.dataset.id;
         eliminarMedicamento(elementoEliminar);
     }
 });
@@ -28,8 +28,8 @@ botonNuevoMedicamento.addEventListener('click', function (e) {
 function med() {
     window.location.href = "./medicamento.php";
 }
-function editarMedicamento(elementoEditar){
-    window.location.href = "./medicamento.php?id="+elementoEditar;
+function editarMedicamento(elementoEditar) {
+    window.location.href = "./medicamento.php?id=" + elementoEditar;
 }
 
 //FUNCION
@@ -41,8 +41,8 @@ function obtenerMedicamentos() { //pendiente
         .then(response => response.json())
         .then(data => {
             data.forEach((m) => {
-                medicamento = new Medicamento( m.medicamento, m.tipo, m.descripcion);
-                medicamento.id=m.id;
+                medicamento = new Medicamento(m.medicamento, m.tipo, m.descripcion);
+                medicamento.id = m.id;
                 arrayMedicamentos.push(medicamento);
             });
             medicamentos();
@@ -64,14 +64,14 @@ function medicamentos() {
         const iconoEliminar = document.createElement('i');
 
         iconoEditar.dataset.id = m.id;
-        iconoEliminar.dataset.id=m.id;
+        iconoEliminar.dataset.id = m.id;
 
-        iconoEditar.className="far fa-edit editar-medicamento";
-        iconoEliminar.className="fas fa-trash eliminar-medicamento";
+        iconoEditar.className = "far fa-edit editar-medicamento";
+        iconoEliminar.className = "fas fa-trash eliminar-medicamento";
 
-        medicamentoFila.textContent=m.medicamento;
-        tipoFila.textContent=m.tipo;
-        descripcionFila.textContent=m.descripcion;
+        medicamentoFila.textContent = m.medicamento;
+        tipoFila.textContent = m.tipo;
+        descripcionFila.textContent = m.descripcion;
 
         editarFila.appendChild(iconoEditar);
         eliminarFila.appendChild(iconoEliminar);
@@ -83,7 +83,7 @@ function medicamentos() {
         tablaMedicamentos.appendChild(celda);
     });
 }
-function eliminarMedicamento(elementoEliminar){
+function eliminarMedicamento(elementoEliminar) {
     var id = { id: elementoEliminar };
     var jsonId = JSON.stringify(id);
     fetch('./controller/eliminar-medicamento.php', {// Enviar los datos a PHP utilizando fetch
@@ -94,6 +94,10 @@ function eliminarMedicamento(elementoEliminar){
             return response.text();
         })
         .then(function (data) {
+            /*cerrarPregunta();*/
+            arrayMedicamentos = [];
+            clearDiv(tablaMedicamentos);
+            obtenerMedicamentos();
             if (data) {
                 /*modalExito.style.display = 'block';*/
             } else {
@@ -103,10 +107,6 @@ function eliminarMedicamento(elementoEliminar){
         .catch(function (error) {
             console.error('Error al eliminar Medicamento:', error);
         });
-    /*cerrarPregunta();*/
-    arrayMedicamentos=[];
-    clearDiv(tablaMedicamentos);
-    obtenerMedicamentos();
 }
 function clearDiv(div) {
     div.replaceChildren();
@@ -123,22 +123,22 @@ class Medicamento {
     set id(id) {
         this._id = id;
     }
-    get medicamento(){
+    get medicamento() {
         return this._medicamento;
     }
-    set medicamento(m){
-        this._medicamento=m;
+    set medicamento(m) {
+        this._medicamento = m;
     }
-    get tipo(){
+    get tipo() {
         return this._tipo;
     }
-    set tipo(t){
-        this._tipo=t;
+    set tipo(t) {
+        this._tipo = t;
     }
-    get descripcion(){
+    get descripcion() {
         return this._descripcion;
     }
-    set descripcion(d){
-        this._descripcion=d;
+    set descripcion(d) {
+        this._descripcion = d;
     }
 }

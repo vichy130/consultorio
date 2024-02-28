@@ -93,12 +93,12 @@ function consultorioEliminar(idEliminar) {
         return response.text();
     })
     .then(function (data){
+        arrayConsultorios=[];
+        clearDiv(tbodyConsultorios);
+        obtenerConsultorios();
         console.log(data);
         console.log("eliminacion exitosa");
     });
-    arrayConsultorios=[];
-    clearDiv(tbodyConsultorios);
-    obtenerConsultorios();
 }
 class Consultorio {
     set nombre(nombre) {

@@ -32,11 +32,12 @@ function obtenerUsuario(){
         console.log("catch");
     });
 }
-formUsuario.addEventListener('submit',function (e){
-    e.preventDefault();
+// FUNCION ENVIAR FORMULARIO A BD //
+// FUNCION ENVIAR FORMULARIO A BD //
+function enviarFormUsuario(){
     datosUsuario=new FormData(formUsuario);
+    console.log(datosUsuario);
     if(usuario!=null){
-        console.log("existe usuario");
         fetch('./controller/editar-usuario.php', {
             method:'POST',
             body:datosUsuario
@@ -51,7 +52,6 @@ formUsuario.addEventListener('submit',function (e){
             console.error('Error:', error);
         });
     }else{
-        console.log("no existe usuario");
         fetch('./controller/nuevo-usuario.php', {
             method:'POST',
             body:datosUsuario
@@ -66,7 +66,9 @@ formUsuario.addEventListener('submit',function (e){
             console.error('Error:', error);
         });
     }
-});
+};
+// FUNCION ENVIAR FORMULARIO A BD //
+// FUNCION ENVIAR FORMULARIO A BD //
 class Usuario {
     set username(username) {
         this._username = username;

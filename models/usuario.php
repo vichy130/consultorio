@@ -120,6 +120,7 @@ class usuario
         WHERE username=:username; ";
         try {
             $stmt = $this->conexion->getdbh()->prepare($query);
+            $stmt->bindParam(":username", $this->username);
             $stmt->bindParam(":nombre", $this->nombre);
             $stmt->bindParam(":apellidoPaterno", $this->apellidoPaterno);
             $stmt->bindParam(":apellidoMaterno", $this->apellidoMaterno);

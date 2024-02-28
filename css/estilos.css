@@ -97,7 +97,7 @@ body{
 .form_input-error{
     font-size:10px;
     margin-bottom:0;
-    /*display:none;*/
+    display:none;
 }
 .form_input-error-activo{
     display:block;

@@ -2,7 +2,7 @@
 session_start();
 include_once("../models/usuario.php");
 
-$username = $_SESSION['id_usuario'];
+$username = $_POST['username-usuario'];
 $nombre = $_POST['nombre-usuario'];
 $apellidoPaterno = $_POST['apellidoPaterno-usuario'];
 $apellidoMaterno = $_POST['apellidoMaterno-usuario'];
@@ -16,9 +16,8 @@ $usuario->setValues($nombre, $apellidoPaterno, $apellidoMaterno, $telefono, $cor
 
 if ($usuario->actualizar()) {
     echo "usuario actualizado";
+    echo $usuario->getUsername();
 } else {
     echo "Error al actualizar usuario";
 }
-
-
 ?>
