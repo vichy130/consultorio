@@ -7,16 +7,18 @@ var arrayHijos = [];
 var arrayAntecedentes = [];
 var arrayAFamiliares = [];
 var usuarioInput = document.getElementById('usuario-actualizacion');
-var tablaHijos = document.getElementById('tbody-hijos');
-var tablaAntecedentes = document.getElementById('tbody-antecedentes');
-var tablaAFamiliares = document.getElementById('tbody-antecedentes-familiares');
+var tbodyHijos = document.getElementById('tbody-hijos');
+var tbodyAntecedentes = document.getElementById('tbody-antecedentes');
+var tbodyAFamiliares = document.getElementById('tbody-antecedentes-familiares');
 var tipoSangre = document.getElementById('tipo-sangre');
+var tablaHijos= document.getElementById('tabla-hijos');
+var tablaAntecedentes=document.getElementById('tabla-antecedentes');
+var tablaAFamiliares=document.getElementById('tabla-antecedentes-familiares');
 
 var botonAnadirHijo = document.getElementById('agregarHijo');
 var botonAnadirAntecedente = document.getElementById('agregarAntecedente');
 var botonAnadirAFamiliares = document.getElementById('agregarAntecedenteFam');
 
-var formFicha = document.getElementById('form-ficha');
 document.addEventListener('DOMContentLoaded', function () {// SE EJECUTA AUNQUE LOS RECURSOS NO HAN SIDO CARGADOS POR COMPLETO
     var fechaHoy = new Date();
     var dia = fechaHoy.getDate();
@@ -122,21 +124,21 @@ function obtenerFicha() {
             console.log("catch");
         });
 }
-tablaHijos.addEventListener('click', function (e) {
+tbodyHijos.addEventListener('click', function (e) {
     e.preventDefault();
     if (e.target.classList.contains("eliminar-hijo")) {
         const elementoEliminar = e.target.dataset.id;
         eliminarHijo(elementoEliminar);
     }
 });
-tablaAntecedentes.addEventListener('click', function (e) {
+tbodyAntecedentes.addEventListener('click', function (e) {
     e.preventDefault();
     if (e.target.classList.contains("eliminar-antecedente")) {
         const elementoEliminar = e.target.dataset.id;
         eliminarAntecedente(elementoEliminar);
     }
 });
-tablaAFamiliares.addEventListener('click', function (e) {
+tbodyAFamiliares.addEventListener('click', function (e) {
     e.preventDefault();
     if (e.target.classList.contains("eliminar-antecedente-familiar")) {
         const elementoEliminar = e.target.dataset.id;
@@ -155,7 +157,7 @@ botonAnadirAFamiliares.addEventListener("click", function (e) {
     e.preventDefault();
     insertarAFamiliar();
 });
-formFicha.addEventListener("submit", function (e) {
+function enviarFormFicha(){
     e.preventDefault();
     var datosFicha = new FormData(formFicha);
     jsonHijos=JSON.stringify(arrayHijos);
@@ -195,7 +197,7 @@ formFicha.addEventListener("submit", function (e) {
                 console.error('Error:', error);
             });
     }
-});
+};
 //FUNCIONES
 function insertarHijo() {
     let sexo = document.querySelector('input[name="sexo-hijo"]:checked').value;
@@ -233,10 +235,23 @@ function insertarAFamiliar() {
     actualizarTablaAFamiliares();
 }
 function actualizarTablaHijos() {
-    clearTabla(tablaHijos);
+    clearTabla(tbodyHijos);
     contador = 0;
+
     arrayHijos.forEach(elemento => {
         contador++;
+        const tabla=document.createElement('table');
+        tabla.className="table span-4 tabla-hijos";
+        const thead=document.createElement('thead');
+        const propiedades=document.createElement('tr');
+        const registro=document.createElement('th');
+        const sexo=document.createElement('th');
+        const edad=document.createElement('th');
+        const eliminar=document.createElement('th');
+
+        const tbody=document.createElement('tbody');
+        
+
         const celda = document.createElement('tr');
         const contadorFila = document.createElement('td');
         const sexoFila = document.createElement('td');
@@ -256,11 +271,11 @@ function actualizarTablaHijos() {
         celda.append(edadFila);
         eliminarFila.append(iconoEliminar);
         celda.append(eliminarFila);
-        tablaHijos.append(celda);
+        tbody.append(celda);
     });
 }
 function actualizarTablaAntecedentes() {
-    clearTabla(tablaAntecedentes);
+    clearTabla(tbodyAntecedentes);
     contador = 0;
     arrayAntecedentes.forEach(elemento => {
         contador++;
@@ -286,11 +301,11 @@ function actualizarTablaAntecedentes() {
         celda.append(estaActivaFila);
         eliminarFila.append(iconoEliminar);
         celda.append(eliminarFila);
-        tablaAntecedentes.append(celda);
+        tbodyAntecedentes.append(celda);
     });
 }
 function actualizarTablaAFamiliares() {
-    clearTabla(tablaAFamiliares);
+    clearTabla(tbodyAFamiliares);
     contador = 0;
     arrayAFamiliares.forEach(elemento => {
         contador++;
@@ -316,7 +331,7 @@ function actualizarTablaAFamiliares() {
         celda.append(descripcionFila);
         eliminarFila.append(iconoEliminar);
         celda.append(eliminarFila);
-        tablaAFamiliares.append(celda);
+        tbodyAFamiliares.append(celda);
     });
 }
 function clearTabla(div) {

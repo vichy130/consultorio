@@ -56,7 +56,7 @@ if (isset($_SESSION["id_paciente"])) {
                 <form class="form" id="form-ficha">
 
                     <!-- Grupo: Fecha -->
-                    <div class="formulario_grupo" id="grupo_fecha-ficha">
+                    <div class="formulario_grupo" id="grupo_fecha">
                         <label class="form_label" for="fecha-ficha"><i class="izquierda fa fa-calendar"
                                 aria-hidden="true"></i>Fecha</label>
                         <input class="form_input " type="date" id="fecha-ficha" name="fecha-ficha" disabled>
@@ -64,7 +64,7 @@ if (isset($_SESSION["id_paciente"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: recomendo paciente -->
-                    <div class="formulario_grupo span-2" id="grupo_recomendo-paciente">
+                    <div class="formulario_grupo span-2" id="grupo_recomendo">
                         <label class="form_label" for="recomendo-paciente">¿Quién le recomendo?</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="recomendo-paciente" name="recomendo-paciente">
@@ -74,7 +74,7 @@ if (isset($_SESSION["id_paciente"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: tipo sangre -->
-                    <div class="formulario_grupo" id="grupo_tipo-sangre">
+                    <div class="formulario_grupo" id="grupo_tipo">
                         <label class="form_label" for="tipo-sangre"><i class="izquierda fas fa-tint"></i>Tipo de
                             sangre</label>
                         <div class="form_grupo-input">
@@ -97,7 +97,7 @@ if (isset($_SESSION["id_paciente"])) {
                     <label class="formulario_grupo span-4">Hijos</label>
 
                     <!-- Grupo: hijo edad paciente -->
-                    <div class="formulario_grupo" id="grupo_hijoedad-paciente">
+                    <div class="formulario_grupo" id="grupo_hijoedad">
                         <label class="form_label" for="hijoedad-paciente">Edad</label>
                         <div class="form_grupo-input">
                             <input class="form_input form_input_small" type="text" id="hijoedad-paciente"
@@ -108,7 +108,7 @@ if (isset($_SESSION["id_paciente"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: sexo -->
-                    <div class="formulario_grupo radio span-4" id="grupo_sexo-hijo">
+                    <div class="formulario_grupo radio span-4" id="grupo_hijosexo">
                         <label for="sexo-hijo"><i class="izquierda fas fa-male"></i>Hombre</label>
                         <input type="radio" id="hombre" name="sexo-hijo" value="Hombre">
                         <label for="sexo-hijo"><i class="izquierda fas fa-female"></i>Mujer</label>
@@ -121,26 +121,25 @@ if (isset($_SESSION["id_paciente"])) {
                     <button class="boton azul" id="agregarHijo" type="button"><i class="fas fa-plus"></i> Añadir
                         Hijo</button>
 
-                    <table class="table span-4" id="tabla-hijos">
-                        <thead>
-                            <tr>
-                                <th class="column-to-hide"></th>
-                                <th>Sexo</th>
-                                <th>Edad</th>
-                                <th>Eliminar</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody-hijos">
-                        </tbody>
-                    </table>
-
+                        <table class="table span-4 tabla-hijos" id="tabla-hijos">
+                            <thead>
+                                <tr>
+                                    <th class="column-to-hide"></th>
+                                    <th>Sexo</th>
+                                    <th>Edad</th>
+                                    <th>Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-hijos">
+                            </tbody>
+                        </table>
                     <label class="formulario_grupo span-4">Antecedentes gineco-obstétricos</label>
 
                     <!-- Grupo: Embarazos -->
-                    <div class="formulario_grupo" id="grupo_embarazos-paciente">
+                    <div class="formulario_grupo" id="grupo_embarazos">
                         <label class="form_label" for="embarazos-paciente">Embarazos</label>
                         <div class="form_grupo-input">
-                            <input class="form_input form_input_small" type="number" id="embarazos-paciente"
+                            <input class="form_input form_input_small" type="text" id="embarazos-paciente"
                                 name="embarazos-paciente">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
@@ -148,11 +147,11 @@ if (isset($_SESSION["id_paciente"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: Partos-->
-                    <div class=" formulario_grupo" id="grupo_partos-paciente">
+                    <div class=" formulario_grupo" id="grupo_partos">
                         <label class="form_label" for="partos-paciente">Partos</label>
 
                         <div class="form_grupo-input">
-                            <input class="form_input form_input_small" type="number" id="partos-paciente"
+                            <input class="form_input form_input_small" type="text" id="partos-paciente"
                                 name="partos-paciente">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
@@ -160,10 +159,10 @@ if (isset($_SESSION["id_paciente"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: Cesareas -->
-                    <div class="formulario_grupo" id="grupo_cesareas-paciente">
+                    <div class="formulario_grupo" id="grupo_cesareas">
                         <label class="form_label" for="cesareas-paciente">Cesáreas</label>
                         <div class="form_grupo-input">
-                            <input class="form_input form_input_small" type="number" id="cesareas-paciente"
+                            <input class="form_input form_input_small" type="text" id="cesareas-paciente"
                                 name="cesareas-paciente">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
@@ -171,10 +170,10 @@ if (isset($_SESSION["id_paciente"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: Abortos -->
-                    <div class="formulario_grupo" id="grupo_abortos-paciente">
+                    <div class="formulario_grupo" id="grupo_abortos">
                         <label class="form_label" for="abortos-paciente">Abortos</label>
                         <div class="form_grupo-input">
-                            <input class="form_input form_input_small" type="number" id="abortos-paciente"
+                            <input class="form_input form_input_small" type="text" id="abortos-paciente"
                                 name="abortos-paciente">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
@@ -182,11 +181,11 @@ if (isset($_SESSION["id_paciente"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: Muertos -->
-                    <div class="formulario_grupo" id="grupo_muertos-paciente">
+                    <div class="formulario_grupo" id="grupo_muertos">
                         <label class="form_label" for="muertos-paciente">Muertos</label>
 
                         <div class="form_grupo-input">
-                            <input class="form_input form_input_small" type="number" id="muertos-paciente"
+                            <input class="form_input form_input_small" type="text" id="muertos-paciente"
                                 name="muertos-paciente">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
@@ -194,10 +193,10 @@ if (isset($_SESSION["id_paciente"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: ENFS -->
-                    <div class="formulario_grupo" id="grupo_enfs-paciente">
+                    <div class="formulario_grupo" id="grupo_enfs">
                         <label class="form_label" for="enfs-paciente">ENFS</label>
                         <div class="form_grupo-input">
-                            <input class="form_input form_input_small" type="number" id="enfs-paciente"
+                            <input class="form_input form_input_small" type="text" id="enfs-paciente"
                                 name="enfs-paciente">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
@@ -207,7 +206,7 @@ if (isset($_SESSION["id_paciente"])) {
                     <label class="formulario_grupo span-4">Ginecología</label>
 
                     <!-- Grupo: Menstruacion -->
-                    <div class="formulario_grupo" id="grupo_menstruacion-paciente">
+                    <div class="formulario_grupo" id="grupo_menstruacion">
                         <label class="form_label" for="menstruacion-paciente">Fecha última menstruación</label>
                         <div class="form_grupo-input">
                             <input class="form_input " type="date" id="menstruacion-paciente"
@@ -218,7 +217,7 @@ if (isset($_SESSION["id_paciente"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: Periodicidad -->
-                    <div class="formulario_grupo" id="grupo_menstruacionperiodicidad-paciente">
+                    <div class="formulario_grupo" id="grupo_menstruacionperiodicidad">
                         <label class="form_label" for="menstruacionperiodicidad-paciente"><i
                                 class="icono izquierda fas fa-calendar"></i>Periodicidad</label>
                         <div class="form_grupo-input">
@@ -230,7 +229,7 @@ if (isset($_SESSION["id_paciente"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: Menstruacion molestias -->
-                    <div class="formulario_grupo span-2" id="grupo_menstruacionmolestias-paciente">
+                    <div class="formulario_grupo span-2" id="grupo_menstruacionmolestias">
                         <label class="form_label" for="menstruacionmolestias-paciente">Molestias</label>
                         <div class="form_grupo-input">
                             <textarea class="form_textarea" id="menstruacionmolestias-paciente"
@@ -243,7 +242,7 @@ if (isset($_SESSION["id_paciente"])) {
                     <label class="formulario_grupo span-4">Antecedentes no patologicos</label>
 
                     <!-- Grupo: Fuma -->
-                    <div class="formulario_grupo" id="grupo_fuma-paciente">
+                    <div class="formulario_grupo" id="grupo_fuma">
                         <label class="form_label" for="fuma-paciente">Fuma</label>
                         <div class="form_grupo-input">
                             <select class="form_input" name="fuma-paciente" id="fuma-paciente">
@@ -257,7 +256,7 @@ if (isset($_SESSION["id_paciente"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: Cigarros -->
-                    <div class="formulario_grupo" id="grupo_cigarros-paciente">
+                    <div class="formulario_grupo" id="grupo_cigarros">
                         <label class="form_label" for="cigarros-paciente"><i
                                 class="icono izquierda fas fa-smoking"></i>Cigarros al día</label>
                         <div class="form_grupo-input">
@@ -269,7 +268,7 @@ if (isset($_SESSION["id_paciente"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: cigarros antiguedad -->
-                    <div class="formulario_grupo" id="grupo_cigarros-antiguedad-paciente">
+                    <div class="formulario_grupo" id="grupo_cigarrosantiguedad">
                         <label class="form_label" for="cigarros-antiguedad-paciente">Antiguedad</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="cigarros-antiguedad-paciente"
@@ -282,7 +281,7 @@ if (isset($_SESSION["id_paciente"])) {
                     <div class=""></div>
 
                     <!-- Grupo: alcohol paciente -->
-                    <div class="formulario_grupo" id="grupo_alcohol-paciente">
+                    <div class="formulario_grupo" id="grupo_alcohol">
                         <label class="form_label" for="alcohol-paciente">Alcohol</label>
                         <div class="form_grupo-input">
                             <select class="form_input" name="alcohol-paciente" id="alcohol-paciente">
@@ -296,7 +295,7 @@ if (isset($_SESSION["id_paciente"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: Frecuencia paciente -->
-                    <div class="formulario_grupo" id="grupo_frecuencia-paciente">
+                    <div class="formulario_grupo" id="grupo_frecuencia">
                         <label class="form_label" for="frecuencia-paciente">Frecuencia</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="frecuencia-paciente" name="frecuencia-paciente">
@@ -306,7 +305,7 @@ if (isset($_SESSION["id_paciente"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: cantidad paciente -->
-                    <div class="formulario_grupo" id="grupo_cantidad-paciente">
+                    <div class="formulario_grupo" id="grupo_cantidad">
                         <label class="form_label" for="cantidad-paciente">Cantidad</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="cantidad-paciente" name="cantidad-paciente">
@@ -586,7 +585,7 @@ if (isset($_SESSION["id_paciente"])) {
                     <button class="boton azul" type="button" id="agregarAntecedenteFam"><i
                             class="fas fa-plus"></i>Añadir</button>
 
-                    <table class="table span-4">
+                    <table class="table span-4 tabla-antecedentes-familiares">
                         <thead>
                             <tr>
                                 <th class="column-to-hide"></th>
@@ -641,7 +640,7 @@ if (isset($_SESSION["id_paciente"])) {
                     <button class="boton azul" type="button" id="agregarAntecedente"><i class="fas fa-plus"></i>
                         Añadir</button>
 
-                    <table class="table span-4">
+                    <table class="table span-4 tabla-antecedentes">
                         <thead>
                             <tr>
                                 <th class="column-to-hide"></th>
@@ -685,6 +684,7 @@ if (isset($_SESSION["id_paciente"])) {
         <?php require("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
+    <script src="./js/validacion-ficha.js"></script>
     <script src="./js/form-ficha.js"></script>
 </body>
 
