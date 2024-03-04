@@ -7,13 +7,10 @@ var arrayHijos = [];
 var arrayAntecedentes = [];
 var arrayAFamiliares = [];
 var usuarioInput = document.getElementById('usuario-actualizacion');
-var tbodyHijos = document.getElementById('tbody-hijos');
-var tbodyAntecedentes = document.getElementById('tbody-antecedentes');
-var tbodyAFamiliares = document.getElementById('tbody-antecedentes-familiares');
 var tipoSangre = document.getElementById('tipo-sangre');
-var tablaHijos= document.getElementById('tabla-hijos');
-var tablaAntecedentes=document.getElementById('tabla-antecedentes');
-var tablaAFamiliares=document.getElementById('tabla-antecedentes-familiares');
+var tablaHijos = document.getElementById('tabla-hijos');
+var tablaAntecedentes = document.getElementById('tabla-antecedentes');
+var tablaAFamiliares = document.getElementById('tabla-antecedentes-familiares');
 
 var botonAnadirHijo = document.getElementById('agregarHijo');
 var botonAnadirAntecedente = document.getElementById('agregarAntecedente');
@@ -53,16 +50,27 @@ function obtenerFicha() {
                 ficha.usuario = data.usuario;
                 document.getElementById('fecha-ficha').value = ficha.fecha;
                 document.getElementById("recomendo-paciente").value = ficha.quienRecomendo;
+                validarCampo(expresiones.recomendo, ficha.quienRecomendo, 'recomendo');
                 document.getElementById("tipo-sangre").value = ficha.tipoSangre
+                validarCampo(expresiones.tipo,ficha.tipoSangre, 'tipo');
                 document.getElementById("embarazos-paciente").value = ficha.embarazo;
+                validarCampo(expresiones.embarazos, ficha.embarazo, 'embarazos');
                 document.getElementById("partos-paciente").value = ficha.partos;
+                validarCampo(expresiones.partos, ficha.partos, 'partos');
                 document.getElementById("cesareas-paciente").value = ficha.cesareas;
+                validarCampo(expresiones.cesareas, ficha.cesareas, 'cesareas');
                 document.getElementById("abortos-paciente").value = ficha.abortos;
+                validarCampo(expresiones.abortos, ficha.abortos, 'abortos');
                 document.getElementById("muertos-paciente").value = ficha.muertos;
+                validarCampo(expresiones.muertos, ficha.muertos, 'muertos');
                 document.getElementById("enfs-paciente").value = ficha.enfs;
+                validarCampo(expresiones.enfs, ficha.enfs, 'enfs');
                 document.getElementById("menstruacion-paciente").value = ficha.fechaMenstruacion;
+                validarCampo(expresiones.menstruacion, ficha.fechaMenstruacion, 'menstruacion');
                 document.getElementById("menstruacionperiodicidad-paciente").value = ficha.mensPeriodicidad;
+                validarCampo(expresiones.menstruacionperiodicidad, ficha.mensMolestias, 'menstruacionperiodicidad');
                 document.getElementById("menstruacionmolestias-paciente").value = ficha.mensMolestias;
+
                 document.getElementById("fuma-paciente").value = ficha.fuma;
                 document.getElementById("cigarros-paciente").value = ficha.cigarrosDia;
                 document.getElementById("cigarros-antiguedad-paciente").value = ficha.fumaAntiguedad;
@@ -124,21 +132,21 @@ function obtenerFicha() {
             console.log("catch");
         });
 }
-tbodyHijos.addEventListener('click', function (e) {
+tablaHijos.addEventListener('click', function (e) {
     e.preventDefault();
     if (e.target.classList.contains("eliminar-hijo")) {
         const elementoEliminar = e.target.dataset.id;
         eliminarHijo(elementoEliminar);
     }
 });
-tbodyAntecedentes.addEventListener('click', function (e) {
+tablaAntecedentes.addEventListener('click', function (e) {
     e.preventDefault();
     if (e.target.classList.contains("eliminar-antecedente")) {
         const elementoEliminar = e.target.dataset.id;
         eliminarAntecedente(elementoEliminar);
     }
 });
-tbodyAFamiliares.addEventListener('click', function (e) {
+tablaAFamiliares.addEventListener('click', function (e) {
     e.preventDefault();
     if (e.target.classList.contains("eliminar-antecedente-familiar")) {
         const elementoEliminar = e.target.dataset.id;
@@ -157,18 +165,18 @@ botonAnadirAFamiliares.addEventListener("click", function (e) {
     e.preventDefault();
     insertarAFamiliar();
 });
-function enviarFormFicha(){
+function enviarFormFicha() {
     e.preventDefault();
     var datosFicha = new FormData(formFicha);
-    jsonHijos=JSON.stringify(arrayHijos);
-    jsonAntecedentes= JSON.stringify(arrayAntecedentes);
-    jsonAFamiliares=JSON.stringify(arrayAFamiliares);
+    jsonHijos = JSON.stringify(arrayHijos);
+    jsonAntecedentes = JSON.stringify(arrayAntecedentes);
+    jsonAFamiliares = JSON.stringify(arrayAFamiliares);
     datosFicha.append('hijos', jsonHijos);
     datosFicha.append('json-antecedentes', jsonAntecedentes);
     datosFicha.append('json-antecedentesFam', jsonAFamiliares);
-    if (ficha!=null){
-        jsonFicha=JSON.stringify(ficha);
-        datosFicha.append('ficha',jsonFicha);
+    if (ficha != null) {
+        jsonFicha = JSON.stringify(ficha);
+        datosFicha.append('ficha', jsonFicha);
         fetch('./controller/editar-ficha.php', {// Enviar los datos a PHP utilizando fetch
             method: 'POST',
             body: datosFicha // El JSON que contiene los datos y el formulario
@@ -182,7 +190,7 @@ function enviarFormFicha(){
             .catch(function (error) {
                 console.error('Error:', error);
             });
-    }else{
+    } else {
         fetch('./controller/nueva-ficha.php', {// Enviar los datos a PHP utilizando fetch
             method: 'POST',
             body: datosFicha // El JSON que contiene los datos y el formulario
@@ -235,104 +243,155 @@ function insertarAFamiliar() {
     actualizarTablaAFamiliares();
 }
 function actualizarTablaHijos() {
-    clearTabla(tbodyHijos);
+    clearTabla(tablaHijos);
     contador = 0;
-
-    arrayHijos.forEach(elemento => {
-        contador++;
-        const tabla=document.createElement('table');
-        tabla.className="table span-4 tabla-hijos";
-        const thead=document.createElement('thead');
-        const propiedades=document.createElement('tr');
-        const registro=document.createElement('th');
-        const sexo=document.createElement('th');
-        const edad=document.createElement('th');
-        const eliminar=document.createElement('th');
-
-        const tbody=document.createElement('tbody');
-        
-
-        const celda = document.createElement('tr');
-        const contadorFila = document.createElement('td');
-        const sexoFila = document.createElement('td');
-        const edadFila = document.createElement('td');
-        const eliminarFila = document.createElement('td');
-
-        const iconoEliminar = document.createElement('i');
-        iconoEliminar.className = "fas fa-trash eliminar-hijo";
-        iconoEliminar.dataset.id = elemento.id;
-
-        contadorFila.textContent = contador;
-        sexoFila.textContent = elemento.sexo;
-        edadFila.textContent = elemento.edad;
-
-        celda.append(contadorFila);
-        celda.append(sexoFila);
-        celda.append(edadFila);
-        eliminarFila.append(iconoEliminar);
-        celda.append(eliminarFila);
-        tbody.append(celda);
-    });
+    if (arrayHijos.length > 0) {
+        const thead = document.createElement('thead');
+        const propiedades = document.createElement('tr');
+        const registro = document.createElement('th');
+        const sexo = document.createElement('th');
+        const edad = document.createElement('th');
+        const eliminar = document.createElement('th');
+        sexo.textContent = "Sexo";
+        edad.textContent = "Edad";
+        eliminar.textContent = "Eliminar";
+        registro.className = "column-to-hide";
+        propiedades.appendChild(registro);
+        propiedades.appendChild(sexo);
+        propiedades.appendChild(edad);
+        propiedades.appendChild(eliminar);
+        thead.appendChild(propiedades);
+        tablaHijos.appendChild(thead);
+        const tbody = document.createElement('tbody');
+        arrayHijos.forEach(elemento => {
+            contador++;
+            const celda = document.createElement('tr');
+            const contadorFila = document.createElement('td');
+            const sexoFila = document.createElement('td');
+            const edadFila = document.createElement('td');
+            const eliminarFila = document.createElement('td');
+            const iconoEliminar = document.createElement('i');
+            iconoEliminar.className = "fas fa-trash eliminar-hijo";
+            iconoEliminar.dataset.id = elemento.id;
+            contadorFila.textContent = contador;
+            sexoFila.textContent = elemento.sexo;
+            edadFila.textContent = elemento.edad;
+            celda.append(contadorFila);
+            celda.append(sexoFila);
+            celda.append(edadFila);
+            eliminarFila.append(iconoEliminar);
+            celda.append(eliminarFila);
+            tbody.append(celda);
+        });
+        tablaHijos.appendChild(tbody);
+    }
 }
 function actualizarTablaAntecedentes() {
-    clearTabla(tbodyAntecedentes);
+    clearTabla(tablaAntecedentes);
     contador = 0;
-    arrayAntecedentes.forEach(elemento => {
-        contador++;
-        const celda = document.createElement('tr');
-        const contadorFila = document.createElement('td');
-        const enfermedadFila = document.createElement('td');
-        const estaActivaFila = document.createElement('td');
-        const descripcionFila = document.createElement('td');
-        const eliminarFila = document.createElement('td');
+    if (arrayAntecedentes.length > 0) {
+        const thead = document.createElement('thead');
+        const propiedades = document.createElement('tr');
+        const registro = document.createElement('th');
+        const enfermedad = document.createElement('th');
+        const descripcion = document.createElement('th');
+        const estaActiva = document.createElement('th');
+        const eliminar = document.createElement('th');
 
-        const iconoEliminar = document.createElement('i');
-        iconoEliminar.className = "fas fa-trash eliminar-antecedente";
-        iconoEliminar.dataset.id = elemento.id;
+        enfermedad.textContent = "Enfermedad";
+        descripcion.textContent = "Descripción";
+        estaActiva.textContent = "Está activa";
+        eliminar.textContent = "Eliminar";
+        registro.className = "column-to-hide";
+        propiedades.appendChild(registro);
+        propiedades.appendChild(enfermedad);
+        propiedades.appendChild(descripcion);
+        propiedades.appendChild(estaActiva);
+        propiedades.appendChild(eliminar);
+        thead.appendChild(propiedades);
+        tablaAntecedentes.appendChild(thead);
+        const tbody = document.createElement('tbody');
+        arrayAntecedentes.forEach(elemento => {
+            contador++;
+            const celda = document.createElement('tr');
+            const contadorFila = document.createElement('td');
+            const enfermedadFila = document.createElement('td');
+            const estaActivaFila = document.createElement('td');
+            const descripcionFila = document.createElement('td');
+            const eliminarFila = document.createElement('td');
 
-        contadorFila.textContent = contador;
-        enfermedadFila.textContent = elemento.enfermedad;
-        estaActivaFila.textContent = elemento.estaActiva;
-        descripcionFila.textContent = elemento.descripcion;
+            const iconoEliminar = document.createElement('i');
+            iconoEliminar.className = "fas fa-trash eliminar-antecedente";
+            iconoEliminar.dataset.id = elemento.id;
 
-        celda.append(contadorFila);
-        celda.append(enfermedadFila);
-        celda.append(descripcionFila);
-        celda.append(estaActivaFila);
-        eliminarFila.append(iconoEliminar);
-        celda.append(eliminarFila);
-        tbodyAntecedentes.append(celda);
-    });
+            contadorFila.textContent = contador;
+            enfermedadFila.textContent = elemento.enfermedad;
+            estaActivaFila.textContent = elemento.estaActiva;
+            descripcionFila.textContent = elemento.descripcion;
+
+            celda.append(contadorFila);
+            celda.append(enfermedadFila);
+            celda.append(descripcionFila);
+            celda.append(estaActivaFila);
+            eliminarFila.append(iconoEliminar);
+            celda.append(eliminarFila);
+            tablaAntecedentes.append(celda);
+        });
+        tablaAntecedentes.appendChild(tbody);
+    }
 }
 function actualizarTablaAFamiliares() {
-    clearTabla(tbodyAFamiliares);
+    clearTabla(tablaAFamiliares);
     contador = 0;
-    arrayAFamiliares.forEach(elemento => {
-        contador++;
-        const celda = document.createElement('tr');
-        const contadorFila = document.createElement('td');
-        const parentescoFila = document.createElement('td');
-        const enfermedadFila = document.createElement('td');
-        const descripcionFila = document.createElement('td');
-        const eliminarFila = document.createElement('td');
+    if (arrayAFamiliares.length > 0) {
+        const thead = document.createElement('thead');
+        const propiedades = document.createElement('tr');
+        const registro = document.createElement('th');
+        const parentesco = document.createElement('th');
+        const enfermedad = document.createElement('th');
+        const descripcion = document.createElement('th');
+        const eliminar = document.createElement('th');
+        parentesco.textContent = "Parentesco";
+        enfermedad.textContent = "Enfermedad";
+        descripcion.textContent = "Descripción";
+        eliminar.textContent = "Eliminar";
+        registro.className = "column-to-hide";
+        propiedades.appendChild(registro);
+        propiedades.appendChild(parentesco);
+        propiedades.appendChild(enfermedad);
+        propiedades.appendChild(descripcion);
+        propiedades.appendChild(eliminar);
+        thead.appendChild(propiedades);
+        tablaAFamiliares.appendChild(thead);
+        const tbody = document.createElement('tbody');
+        arrayAFamiliares.forEach(elemento => {
+            contador++;
+            const celda = document.createElement('tr');
+            const contadorFila = document.createElement('td');
+            const parentescoFila = document.createElement('td');
+            const enfermedadFila = document.createElement('td');
+            const descripcionFila = document.createElement('td');
+            const eliminarFila = document.createElement('td');
 
-        const iconoEliminar = document.createElement('i');
-        iconoEliminar.className = "fas fa-trash eliminar-antecedente-familiar";
-        iconoEliminar.dataset.id = elemento.id;
+            const iconoEliminar = document.createElement('i');
+            iconoEliminar.className = "fas fa-trash eliminar-antecedente-familiar";
+            iconoEliminar.dataset.id = elemento.id;
 
-        contadorFila.textContent = contador;
-        parentescoFila.textContent = elemento.parentesco;
-        enfermedadFila.textContent = elemento.enfermedad;
-        descripcionFila.textContent = elemento.descripcion;
+            contadorFila.textContent = contador;
+            parentescoFila.textContent = elemento.parentesco;
+            enfermedadFila.textContent = elemento.enfermedad;
+            descripcionFila.textContent = elemento.descripcion;
 
-        celda.append(contadorFila);
-        celda.append(parentescoFila);
-        celda.append(enfermedadFila);
-        celda.append(descripcionFila);
-        eliminarFila.append(iconoEliminar);
-        celda.append(eliminarFila);
-        tbodyAFamiliares.append(celda);
-    });
+            celda.append(contadorFila);
+            celda.append(parentescoFila);
+            celda.append(enfermedadFila);
+            celda.append(descripcionFila);
+            eliminarFila.append(iconoEliminar);
+            celda.append(eliminarFila);
+            tablaAFamiliares.append(celda);
+        });
+        tablaAFamiliares.appendChild(tbody);
+    }
 }
 function clearTabla(div) {
     div.replaceChildren();

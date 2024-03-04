@@ -1,49 +1,48 @@
-const formFicha= document.getElementById('form-ficha');
+const formFicha = document.getElementById('form-ficha');
 
-const inputs = document.querySelectorAll('#form-ficha input, #form-ficha select');
+const inputs = document.querySelectorAll('#form-ficha input, #form-ficha select, #form-ficha textarea');
 
 const expresiones = {
-    recomendo:/^[a-zA-ZÀ-ÿ\s]{1,100}$/,
-    tipo:/^[a-zA-Z-+]+$/,
-    hijoedad:/^(?:0|[1-9]\d?|1[01]\d|120)$/,
-    hijosexo:/^[a-zA-ZÀ-ÿ\s]{1,40}$/,
-    embarazos:/^(?:0|1?\d|20)?$/,
-    partos:/^(?:0|1?\d|20)?$/,
+    recomendo: /^[a-zA-ZÀ-ÿ\s]{1,100}$/,
+    tipo: /^[a-zA-Z-+]+$/,
+    hijoedad: /^(?:0|[1-9]\d?|1[01]\d|120)$/,
+    hijosexo: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
+    embarazos: /^(?:0|1?\d|20)?$/,
+    partos: /^(?:0|1?\d|20)?$/,
     cesareas: /^(?:0|1?\d|20)?$/,
-    abortos:/^(?:0|1?\d|20)?$/,
-    muertos:/^(?:0|1?\d|20)?$/,
-    enfs:/^(?:0|1?\d|20)?$/,
-    menstruacion:/^(\d{4}-\d{2}-\d{2})?$/,
-    menstruacionperiodicidad:/^$|^[a-zA-Z0-9]{1,200}$/,
-    menstruacionmolestias:/^$|^[a-zA-Z0-9]{1,200}$/,
-    fuma:/^[a-zA-Z]$/,
-    cigarros:/^$|^\d{1,2}$/,
+    abortos: /^(?:0|1?\d|20)?$/,
+    muertos: /^(?:0|1?\d|20)?$/,
+    enfs: /^(?:0|1?\d|20)?$/,
+    menstruacion: /^(\d{4}-\d{2}-\d{2})?$/,
+    menstruacionperiodicidad: /^$|^[a-zA-Z0-9]{1,200}$/,
+    menstruacionmolestias: /^$|^[a-zA-Z0-9]{1,200}$/,
+    cigarros: /^$|^\d{1,2}$/,
     cigarrosantiguedad: /^$|^[a-zA-Z0-9]{1,45}$/,
-    frecuencia:/^$|^[a-zA-Z0-9]{1,45}$/,
-    cantidad:/^$|^[a-zA-Z0-9]{1,45}$/
+    frecuencia: /^$|^[a-zA-Z0-9]{1,45}$/,
+    cantidad: /^$|^[a-zA-Z0-9]{1,45}$/
 
 }
 const campos = {
-    recomendo:false,
+    recomendo: false,
     tipo: false,
     embarazos: true,
     partos: true,
     cesareas: true,
-    abortos:true,
-    muertos:true,
+    abortos: true,
+    muertos: true,
     enfs: true,
     menstruacion: true,
-    menstruacionperiodicidad:true,
+    menstruacionperiodicidad: true,
     menstruacionmolestias: true,
-    cigarros:false,
-    cigarrosantiguedad:false,
+    cigarros: false,
+    cigarrosantiguedad: false,
     frecuencia: true,
     cantidad: true,
 
 }
-const camposHijo={
+const camposHijo = {
     hijoedad: false,
-    hijosexo:false,
+    hijosexo: false,
 }
 const validarFormulario = (e) => {
     switch (e.target.name) {
@@ -77,6 +76,26 @@ const validarFormulario = (e) => {
         case "menstruacionperiodicidad-paciente":
             validarCampo(expresiones.menstruacionperiodicidad, e.target.value, 'menstruacionperiodicidad');
             break;
+        case "menstruacionmolestias-paciente":
+            validarCampo(expresiones.menstruacionmolestias, e.target.value, 'menstruacionmolestias');
+            break;
+        case "cigarros-paciente":
+            validarCampo(expresiones.cigarros, e.target.value, 'cigarros');
+            break;
+        case "cigarros-antiguedad-paciente":
+            validarCampo(expresiones.cigarrosantiguedad, e.target.value, 'cigarrosantiguedad');
+            break;
+        case "frecuencia-paciente":
+            validarCampo(expresiones.frecuencia, e.target.value, 'frecuencia');
+            break;
+        case "cantidad-paciente":
+            validarCampo(expresiones.cantidad, e.target.value, 'cantidad');
+            break;
+            /*
+        case "":
+            validarCampo(expresiones., e.target.value, '');
+            break;
+            */
     }
 }
 const validarCampo = (expresion, input, campo) => {
@@ -93,26 +112,6 @@ const validarCampo = (expresion, input, campo) => {
         document.querySelector(`#grupo_${campo} .form_validacion-estado`).classList.remove('fa-circle-check');
         document.querySelector(`#grupo_${campo} .form_input-error`).classList.add('form_input-error-activo');
         campos[campo] = false;
-    }
-}
-
-const validarConstrasena2 = () => {
-    const inputContrasena1 = document.getElementById('contrasena-usuario');
-    const inputContrasena2 = document.getElementById('contrasena-usuario2');
-    if (inputContrasena1.value !== inputContrasena2.value) {
-        document.getElementById(`grupo_contrasena2`).classList.add('formulario_grupo-incorrecto');
-        document.getElementById(`grupo_contrasena2`).classList.remove('formulario_grupo-correcto');
-        document.querySelector(`#grupo_contrasena2 i`).classList.add('fa-circle-xmark');
-        document.querySelector(`#grupo_contrasena2 i`).classList.remove('fa-circle-check');
-        document.querySelector(`#grupo_contrasena2 .form_input-error`).classList.add('form_input-error-activo');
-        campos['contrasena2'] = false;
-    } else {
-        document.getElementById(`grupo_contrasena2`).classList.remove('formulario_grupo-incorrecto');
-        document.getElementById(`grupo_contrasena2`).classList.add('formulario_grupo-correcto');
-        document.querySelector(`#grupo_contrasena2 i`).classList.remove('fa-circle-xmark');
-        document.querySelector(`#grupo_contrasena2 i`).classList.add('fa-circle-check');
-        document.querySelector(`#grupo_contrasena2 .form_input-error`).classList.remove('form_input-error-activo');
-        campos['contrasena2'] = true;
     }
 }
 

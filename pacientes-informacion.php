@@ -105,7 +105,7 @@ if (!isset($_SESSION['username'])) {
                         <div class="form_grupo-input">
                             <input class="form_input" type="date" id="nacimiento-paciente" name="nacimiento-paciente"
                                 value="">
-                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                            <i class="form_validacion-estado select fa-solid fa-circle-xmark"></i>
                         </div>
                         <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->
