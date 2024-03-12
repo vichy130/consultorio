@@ -1,6 +1,6 @@
 var arrayConsultorios = [];
 var botonNuevoConsultorio = document.getElementById('boton-nuevo-consultorio');
-var tbodyConsultorios = document.getElementById('tbody-consultorios');
+var tConsultorios = document.getElementById('tabla-consultorios');
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     obtenerConsultorios();
 };
@@ -28,37 +28,63 @@ function obtenerConsultorios() {
 }
 function tablaConsultorios() {
     console.log(arrayConsultorios);
-    clearDiv(tbodyConsultorios);
-    arrayConsultorios.forEach(c => {
-        const celda = document.createElement('tr');
-        const nombreFila = document.createElement('td');
-        const domicilioFila = document.createElement('td');
-        const telefonoFila = document.createElement('td');
-        const editarFila = document.createElement('td');
-        const eliminarFila = document.createElement('td');
+    clearDiv(tConsultorios);
+    if (arrayConsultorios.length > 0) {
+        const thead=document.createElement('thead');
+        const propiedades=document.createElement('tr');
+        const nombre=document.createElement('th');
+        const domicilio=document.createElement('th');
+        const telefono=document.createElement('th');
+        const editar=document.createElement('th');
+        const eliminar=document.createElement('th');
 
-        const editarIcono = document.createElement('i');
-        const eliminarIcono = document.createElement('i');
+        nombre.textContent="Nombre";
+        domicilio.textContent="Domicilio";
+        telefono.textContent="Teléfono";
+        editar.textContent="Editar";
+        eliminar.textContent="Eliminar";
 
-        editarIcono.className = "far fa-edit editar-consultorio";
-        eliminarIcono.className = "fas fa-trash eliminar-consultorio";
+        propiedades.appendChild(nombre);
+        propiedades.appendChild(domicilio);
+        propiedades.appendChild(telefono);
+        propiedades.appendChild(editar);
+        propiedades.appendChild(eliminar);
+        thead.appendChild(propiedades);
+        tConsultorios.appendChild(thead);
 
-        editarIcono.dataset.id = c.id;
-        eliminarIcono.dataset.id = c.id;
+        const tbody=document.createElement('tbody');
+        arrayConsultorios.forEach(c => {
+            const celda = document.createElement('tr');
+            const nombreFila = document.createElement('td');
+            const domicilioFila = document.createElement('td');
+            const telefonoFila = document.createElement('td');
+            const editarFila = document.createElement('td');
+            const eliminarFila = document.createElement('td');
 
-        nombreFila.textContent = c.nombre;
-        domicilioFila.textContent = c.calle + " " + c.colonia + ", " + c.ciudad + " " + c.codigoPostal;
-        telefonoFila.textContent = c.telefono;
-        editarFila.append(editarIcono);
-        eliminarFila.append(eliminarIcono);
+            const editarIcono = document.createElement('i');
+            const eliminarIcono = document.createElement('i');
 
-        celda.append(nombreFila);
-        celda.append(domicilioFila);
-        celda.append(telefonoFila);
-        celda.append(editarFila);
-        celda.append(eliminarFila);
-        tbodyConsultorios.append(celda);
-    });
+            editarIcono.className = "far fa-edit editar-consultorio";
+            eliminarIcono.className = "fas fa-trash eliminar-consultorio";
+
+            editarIcono.dataset.id = c.id;
+            eliminarIcono.dataset.id = c.id;
+
+            nombreFila.textContent = c.nombre;
+            domicilioFila.textContent = c.calle + " " + c.colonia + ", " + c.ciudad + " " + c.codigoPostal;
+            telefonoFila.textContent = c.telefono;
+            editarFila.append(editarIcono);
+            eliminarFila.append(eliminarIcono);
+
+            celda.append(nombreFila);
+            celda.append(domicilioFila);
+            celda.append(telefonoFila);
+            celda.append(editarFila);
+            celda.append(eliminarFila);
+            tbody.append(celda);
+        });
+        tConsultorios.appendChild(tbody);
+    }
 }
 function clearDiv(div) {
     div.replaceChildren();
@@ -84,21 +110,21 @@ function consultorioEditar(idEditar) {
     window.location.href = "./consultorio.php?id=" + idEditar;
 }
 function consultorioEliminar(idEliminar) {
-    datos={id:idEliminar};
-    json=JSON.stringify(datos);
+    datos = { id: idEliminar };
+    json = JSON.stringify(datos);
     fetch('./controller/eliminar-consultorio.php', {
         method: 'POST',
         body: json
-    }).then(function(response){
+    }).then(function (response) {
         return response.text();
     })
-    .then(function (data){
-        arrayConsultorios=[];
-        clearDiv(tbodyConsultorios);
-        obtenerConsultorios();
-        console.log(data);
-        console.log("eliminacion exitosa");
-    });
+        .then(function (data) {
+            arrayConsultorios = [];
+            clearDiv(tbodyConsultorios);
+            obtenerConsultorios();
+            console.log(data);
+            console.log("eliminacion exitosa");
+        });
 }
 class Consultorio {
     set nombre(nombre) {

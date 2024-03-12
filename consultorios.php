@@ -35,8 +35,8 @@ unset($_SESSION['id_con']);
 
             <button class="boton azul" id="boton-nuevo-consultorio"><i class="fas fa-user-plus" ></i> Nuevo
                 consultorio</button>
-            <table class="table span-4">
-                <thead>
+            <table class="table span-4" id="tabla-consultorios">
+                <!--<thead>
                     <tr>
                         <th>Nombre</th>
                         <th>Domicilio</th>
@@ -46,7 +46,7 @@ unset($_SESSION['id_con']);
                     </tr>
                 </thead>
                 <tbody id="tbody-consultorios">
-                </tbody>
+                </tbody>-->
             </table>
 
     </div>

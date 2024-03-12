@@ -1,9 +1,9 @@
 var tabla = document.getElementById('tabla-pacientes');
-const cuerpoTabla = tabla.createTBody();
+var notabla = document.getElementById('no-tabla');
 var botonNuevoPaciente;
 var botonEditarPaciente;
 var botonEliminarPaciente;
-var array=[]; //array pacientes
+var array = []; //array pacientes
 
 botonNuevoPaciente = document.getElementById('nuevo-paciente-boton');
 botonNuevoPaciente.addEventListener('click', function (e) {
@@ -18,14 +18,14 @@ var botonCancelarEliminar = document.getElementById('botonCancelarEliminar');
 var cerrarModalPregunta = document.getElementById('cerrarModalPregunta');
 var cerrarModalExito = document.getElementById('cerrarModalExito');
 var cerrarModalError = document.getElementById('cerrarModalError');
-tabla.addEventListener('click', function(e){
+tabla.addEventListener('click', function (e) {
     e.preventDefault();
-    if(e.target.classList.contains("editar-paciente")){
-        const idEditar=e.target.dataset.id
+    if (e.target.classList.contains("editar-paciente")) {
+        const idEditar = e.target.dataset.id
         pacienteEditar(idEditar);
     }
-    if(e.target.classList.contains("eliminar-paciente")){
-        const idEliminar=e.target.dataset.id;
+    if (e.target.classList.contains("eliminar-paciente")) {
+        const idEliminar = e.target.dataset.id;
         preguntaEliminar(idEliminar);
     }
 });
@@ -59,7 +59,7 @@ function obtenerPacientes() {
                 paciente.id = p.id;
                 array.push(paciente);
             });
-        tablaPacientes();
+            tablaPacientes();
         })// FIN FETCH
         .catch(error => {
             console.error('Error:', error);
@@ -71,7 +71,7 @@ function clearDiv(div) {
 }
 function preguntaEliminar(idEliminar) {
     modalPregunta.style.display = 'block';
-    botonAceptarEliminar.onclick=function (e) {
+    botonAceptarEliminar.onclick = function (e) {
         e.preventDefault();
         eliminarPaciente(idEliminar);
         console.log('ejecucion aceptar eliminar');
@@ -103,7 +103,7 @@ function eliminarPaciente(idEliminar) {
                 modalError.style.display = 'block';
             }
             cerrarPregunta();
-            array=[];
+            array = [];
             clearDiv(cuerpoTabla);
             obtenerPacientes();
         })
@@ -111,46 +111,80 @@ function eliminarPaciente(idEliminar) {
             console.error('Error:', error);
         });
 }
-function tablaPacientes(){
-    array.forEach(pa => {
-        const celda= document.createElement('tr');
-        const idFila= document.createElement('td');
-        const nombreFila=document.createElement('td');
-        const apellidosFila=document.createElement('td');
-        const telefonoFila=document.createElement('td');
-        const editarFila=document.createElement('td');
-        const eliminarFila=document.createElement('td');
-        const iconoEditar=document.createElement('i');
-        const iconoEliminar=document.createElement('i');
+function tablaPacientes() {
+    if (array.length > 0) {
+        const thead=document.createElement('thead');
+        const propiedades=document.createElement('tr');
+        const registro=document.createElement('th');
+        const nombre=document.createElement('th');
+        const apellidos=document.createElement('th');
+        const telefono=document.createElement('th');
+        const editar=document.createElement('th');
+        const eliminar=document.createElement('th');
 
-        iconoEditar.className="far fa-edit editar-paciente";
-        iconoEliminar.className="fas fa-trash eliminar-paciente";
+        registro.textContent="Registro";
+        nombre.textContent="Nombre(s)";
+        apellidos.textContent="Apellidos";
+        telefono.textContent="Teléfono";
+        editar.textContent="Editar";
+        eliminar.textContent="Eliminar";
+        telefono.className="column-to-hide";
 
-        iconoEditar.dataset.id=pa.id;
-        iconoEliminar.dataset.id=pa.id;
+        propiedades.appendChild(registro);
+        propiedades.appendChild(nombre);
+        propiedades.appendChild(apellidos);
+        propiedades.appendChild(telefono);
+        propiedades.appendChild(editar);
+        propiedades.appendChild(eliminar);
+        thead.appendChild(propiedades);
+        tabla.appendChild(thead);
 
-        idFila.textContent=pa.id;
-        nombreFila.textContent=pa.nombre;
-        apellidosFila.textContent=pa.apellidoPaterno+" "+pa.apellidoMaterno;
-        telefonoFila.textContent=pa.celular;
+        const tbody=document.createElement('tbody');
+        
+        array.forEach(pa => {
+            const celda = document.createElement('tr');
+            const idFila = document.createElement('td');
+            const nombreFila = document.createElement('td');
+            const apellidosFila = document.createElement('td');
+            const telefonoFila = document.createElement('td');
+            const editarFila = document.createElement('td');
+            const eliminarFila = document.createElement('td');
+            const iconoEditar = document.createElement('i');
+            const iconoEliminar = document.createElement('i');
 
-        editarFila.appendChild(iconoEditar);
-        eliminarFila.appendChild(iconoEliminar);
-        celda.appendChild(idFila);
-        celda.appendChild(nombreFila);
-        celda.appendChild(apellidosFila);
-        celda.appendChild(telefonoFila);
-        celda.appendChild(editarFila);
-        celda.appendChild(eliminarFila);
-        cuerpoTabla.appendChild(celda);
-    });
+            iconoEditar.className = "far fa-edit editar-paciente";
+            iconoEliminar.className = "fas fa-trash eliminar-paciente";
 
+            iconoEditar.dataset.id = pa.id;
+            iconoEliminar.dataset.id = pa.id;
+
+            idFila.textContent = pa.id;
+            nombreFila.textContent = pa.nombre;
+            apellidosFila.textContent = pa.apellidoPaterno + " " + pa.apellidoMaterno;
+            telefonoFila.textContent = pa.celular;
+
+            editarFila.appendChild(iconoEditar);
+            eliminarFila.appendChild(iconoEliminar);
+            celda.appendChild(idFila);
+            celda.appendChild(nombreFila);
+            celda.appendChild(apellidosFila);
+            celda.appendChild(telefonoFila);
+            celda.appendChild(editarFila);
+            celda.appendChild(eliminarFila);
+            tbody.appendChild(celda);
+        });
+        tabla.appendChild(tbody);
+    } else {
+        const mensaje=document.createElement('p');
+        mensaje.textContent="No existen registros";
+        notabla.appendChild(mensaje);
+    }
 }
 function paciente() {
     window.location.href = "./pacientes-informacion.php";
 }
 function pacienteEditar(idEditar) {
-    window.location.href = "./pacientes-informacion.php?id="+idEditar;
+    window.location.href = "./pacientes-informacion.php?id=" + idEditar;
 }
 //CLASES
 class Paciente {

@@ -1,5 +1,5 @@
 var tabla = document.getElementById('tabla-consultas');
-const cuerpoTabla = tabla.createTBody();
+var notabla=document.getElementById('no-tabla');
 var botonNuevaConsulta;
 var botonEditarConsulta;
 var botonEliminarConsulta;
@@ -67,10 +67,6 @@ function obtenerConsultas() {
         });
 }//END FUNCTION OBTENERCONSULTAS
 
-//FUNCION BORRAR TABLA
-function clearDiv(div) {
-    div.replaceChildren();
-}
 function preguntaEliminar(idEliminar) {
     modalPregunta.style.display = 'block';
     botonAceptarEliminar.onclick = function (e) {
@@ -93,7 +89,7 @@ function eliminarConsulta(idEliminar) {
             array = [];
             clearDiv(cuerpoTabla);
             obtenerConsultas();
-            console.log("DATA : "+data)
+            console.log("DATA : " + data)
             if (data == "1") {
                 modalExito.style.display = 'block';
             } else {
@@ -114,32 +110,61 @@ function cerrarError() {
     modalError.style.display = 'none';
 }
 function tablaConsultas() {
-    array.forEach(co => {
-        const celda = document.createElement('tr');
-        const filaFecha = document.createElement('td');
-        const filaMotivo = document.createElement('td');
-        const filaEditar = document.createElement('td');
-        const filaEliminar = document.createElement('td');
-        const iconoEditar = document.createElement('i');
-        const iconoEliminar = document.createElement('i');
+    if (array.length > 0) {
+        const thead=document.createElement('thead');
+        const propiedades=document.createElement('tr');
+        const fecha=document.createElement('th');
+        const motivo=document.createElement('th');
+        const editar=document.createElement('th');
+        const eliminar=document.createElement('th');
 
-        iconoEditar.className = "far fa-edit editar-consulta";
-        iconoEliminar.className = "fas fa-trash eliminar-consulta";
+        fecha.textContent="Fecha";
+        motivo.textContent="Motivo de consulta";
+        motivo.className="column-to-hide";
+        editar.textContent="Editar";
+        eliminar.textContent="Eliminar";
 
-        iconoEditar.dataset.id = co.id;
-        iconoEliminar.dataset.id = co.id;
+        propiedades.appendChild(fecha);
+        propiedades.appendChild(motivo);
+        propiedades.appendChild(editar);
+        propiedades.appendChild(eliminar);
+        thead.appendChild(propiedades);
+        tabla.appendChild(thead);
 
-        filaFecha.textContent = co.fecha;
-        filaMotivo.textContent = co.motivoConsulta;
-        filaEditar.appendChild(iconoEditar);
-        filaEliminar.appendChild(iconoEliminar);
+        const tbody=document.createElement('tbody');
 
-        celda.appendChild(filaFecha);
-        celda.appendChild(filaMotivo);
-        celda.appendChild(filaEditar);
-        celda.appendChild(filaEliminar);
-        cuerpoTabla.appendChild(celda);
-    });
+        array.forEach(co => {
+            const celda = document.createElement('tr');
+            const filaFecha = document.createElement('td');
+            const filaMotivo = document.createElement('td');
+            const filaEditar = document.createElement('td');
+            const filaEliminar = document.createElement('td');
+            const iconoEditar = document.createElement('i');
+            const iconoEliminar = document.createElement('i');
+
+            iconoEditar.className = "far fa-edit editar-consulta";
+            iconoEliminar.className = "fas fa-trash eliminar-consulta";
+
+            iconoEditar.dataset.id = co.id;
+            iconoEliminar.dataset.id = co.id;
+
+            filaFecha.textContent = co.fecha;
+            filaMotivo.textContent = co.motivoConsulta;
+            filaEditar.appendChild(iconoEditar);
+            filaEliminar.appendChild(iconoEliminar);
+
+            celda.appendChild(filaFecha);
+            celda.appendChild(filaMotivo);
+            celda.appendChild(filaEditar);
+            celda.appendChild(filaEliminar);
+            tbody.appendChild(celda);
+        });
+        tabla.appendChild(tbody);
+    }else{
+        const mensaje=document.createElement('p');
+        mensaje.textContent="No existen registros";
+        notabla.appendChild(mensaje);
+    }
 }
 //FUNCION BORRAR TABLA
 function clearDiv(div) {

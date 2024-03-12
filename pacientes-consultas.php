@@ -79,15 +79,16 @@ if (isset($_SESSION["id_consulta"])) {
                 <button class="boton azul" id="nueva-consulta-boton"><i class="fas fa-plus"></i> Nueva
                     consulta</button>
                 <table class="table span-4" id="tabla-consultas">
-                    <thead>
+                    <!--<thead>
                         <tr>
                             <th>Fecha</th>
                             <th class="column-to-hide">Motivo de consulta</th>
                             <th>Editar</th>
                             <th>Eliminar</th>
                         </tr>
-                    </thead>
+                    </thead>-->
                 </table>
+                <div id="no-tabla"></div>
             </div>
             <!-- end div content-pacientes -->
         </div>

@@ -71,7 +71,7 @@ require("./php/conexion.php");
             <button class="boton azul" id="nuevo-paciente-boton"><i class="fas fa-user-plus"></i> Nuevo
                 paciente</button>
             <table class="table span-4" id="tabla-pacientes">
-                <thead>
+                <!--<thead>
                     <tr>
                         <th>Registro</th>
                         <th>Nombre(s)</th>
@@ -80,9 +80,9 @@ require("./php/conexion.php");
                         <th>Editar</th>
                         <th>Eliminar</th>
                     </tr>
-                </thead>
+                </thead>-->
             </table>
-
+            <div id="no-tabla"></div>
         </div>
         <!-- end div content-pacientes -->
         <?php require("./layout/footer.php"); ?>

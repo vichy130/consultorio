@@ -203,7 +203,7 @@ if (isset($_REQUEST["id"])) {
                             class="fas fa-plus"></i>Añadir</button>
 
                     <table class="table span-4" id="tabla-consultas-previas">
-                        <thead>
+                        <!--<thead>
                             <tr>
                                 <th>Comentarios</th>
                                 <th>Diagnostico</th>
@@ -213,9 +213,8 @@ if (isset($_REQUEST["id"])) {
                             </tr>
                         </thead>
                         <tbody id="tbody-consultas-previas">
-                        </tbody>
+                        </tbody>-->
                     </table>
-
                     <label class="formulario_grupo span-4" for="consultaindicaciones-paciente">Indicaciones
                         Generales</label>
 
@@ -288,8 +287,8 @@ if (isset($_REQUEST["id"])) {
                     <button class="boton azul" id="boton-medicamento-indicacion" type="button"><i
                             class="fas fa-plus"></i> Añadir</button>
 
-                    <table class="table span-4">
-                        <thead>
+                    <table class="table span-4" id="tabla-medicamento-indicacion">
+                        <!--<thead>
                             <tr>
                                 <th>Medicamento</th>
                                 <th>Indicaciones</th>
@@ -297,10 +296,8 @@ if (isset($_REQUEST["id"])) {
                             </tr>
                         </thead>
                         <tbody id="tbody-medicamento-indicacion">
-                        </tbody>
+                        </tbody>-->
                     </table>
-
-
                     <label class="formulario_grupo" for="estudiossolicitados-paciente">Estudios solicitados</label>
 
                     <!-- grupo: -->
@@ -315,15 +312,15 @@ if (isset($_REQUEST["id"])) {
 
                     <button class="boton azul" id="boton-estudios-solicitados" type="button"><i class="fas fa-plus"></i>
                         Añadir</button>
-                    <table class="table span-4">
-                        <thead>
+                    <table class="table span-4" id="tabla-estudios-solicitados">
+                        <!--<thead>
                             <tr>
                                 <th>Estudio</th>
                                 <th>Eliminar</th>
                             </tr>
                         </thead>
                         <tbody id="tbody-estudios-solicitados">
-                        </tbody>
+                        </tbody>-->
                     </table>
 
                     <!-- grupo: -->
@@ -340,15 +337,15 @@ if (isset($_REQUEST["id"])) {
                     <button class="boton azul" id="boton-terapia" type="button"><i class="fas fa-plus"></i>
                         Añadir</button>
 
-                    <table class="table span-4">
-                        <thead>
+                    <table class="table span-4" id="tabla-terapias-aplicadas">
+                        <!--<thead>
                             <tr>
                                 <th>Terapia aplicada</th>
                                 <th>Eliminar</th>
                             </tr>
                         </thead>
                         <tbody id="tbody-terapias-aplicadas">
-                        </tbody>
+                        </tbody>-->
                     </table>
 
                     <button class="input_submit boton amarillo span-2" id="boton-imprimir" type="button"><i

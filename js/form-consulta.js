@@ -6,14 +6,14 @@ var arrayConsultorios = [];
 var arrayCPrevias = [];
 var arrayMedicamentos = [];
 var arrayMedicamentoIndicaciones = [];
-var arrayEstudiosSolicitados=[];
-var arrayTerapiasAplicadas=[];
-var receta=new Date().getTime();
+var arrayEstudiosSolicitados = [];
+var arrayTerapiasAplicadas = [];
+var receta = new Date().getTime();
 var medicamentoDatalist = document.getElementById("consultanombremed-paciente");
-var tablaCPrevias = document.getElementById("tbody-consultas-previas");//
-var tablaMedicamentoIndicacion = document.getElementById("tbody-medicamento-indicacion");
-var tablaTerapiasAplicadas=document.getElementById("tbody-terapias-aplicadas");
-var tablaEstudiosSolicitados=document.getElementById("tbody-estudios-solicitados");
+var tablaCPrevias = document.getElementById("tabla-consultas-previas");//
+var tablaMedicamentoIndicacion = document.getElementById("tabla-medicamento-indicacion");
+var tablaTerapiasAplicadas = document.getElementById("tabla-terapias-aplicadas");
+var tablaEstudiosSolicitados = document.getElementById("tabla-estudios-solicitados");
 var indicacionesMedicamento = document.getElementById("indicacionesmed-paciente"); //INPUT
 //TABLA
 var selectConsultorio = document.getElementById("select-consultorio"); //SELECT
@@ -21,8 +21,8 @@ var selectMedicamentoHora = document.getElementById("select-medicamento-hora");
 var formConsulta = document.getElementById("form-consulta"); //FORM
 var anadirCPrevia = document.getElementById('boton-consulta-previa');//BOTON
 var anadirMedicamentoIndicacion = document.getElementById("boton-medicamento-indicacion");
-var anadirEstudioSolicitado=document.getElementById("boton-estudios-solicitados");
-var anadirTerapia=document.getElementById("boton-terapia");
+var anadirEstudioSolicitado = document.getElementById("boton-estudios-solicitados");
+var anadirTerapia = document.getElementById("boton-terapia");
 //VARIABLES
 
 //BOTONES -- EVENT LISTENERS
@@ -67,7 +67,7 @@ function obtenerConsulta() {
         .then(response => response.json())
         .then(data => {
             if (data && data.id != null) {
-                consulta = new Consulta(data.fecha, data.usuario, data.paciente, data.ta, data.oxigeno, data.pulso, data.peso, data.estatura, data.temperatura, data.motivoConsulta, data.exploracion, data.indicaciones,data.receta, data.consultorio);
+                consulta = new Consulta(data.fecha, data.usuario, data.paciente, data.ta, data.oxigeno, data.pulso, data.peso, data.estatura, data.temperatura, data.motivoConsulta, data.exploracion, data.indicaciones, data.receta, data.consultorio);
 
                 document.getElementById('consultafecha-paciente').value = consulta.fecha;
                 document.getElementById('vitalesta-paciente').value = consulta.ta;
@@ -81,30 +81,30 @@ function obtenerConsulta() {
                 document.getElementById('consultaindicaciones-paciente').value = consulta.indicaciones;
                 console.log(consulta.consultorio);
                 //pendiente
-                data.consultasPrevias.forEach(cp=>{
+                data.consultasPrevias.forEach(cp => {
                     var consultaPrevia = new ConsultaPrevia(cp.comentarios, cp.diagnostico, cp.estudios, cp.tratamiento);
-                    consultaPrevia.id=cp.id;
+                    consultaPrevia.id = cp.id;
                     arrayCPrevias.push(consultaPrevia);
                 });
                 actualizarTablaCPrevias();
-                data.medicamentosIndicacion.forEach(mi=>{
+                data.medicamentosIndicacion.forEach(mi => {
                     var medicamentoIndicacion = new MedicamentoIndicacion(mi.medicamento, mi.hora, mi.indicaciones);
-                    medicamentoIndicacion.id=mi.id;
-                    medicamentoIndicacion.receta=mi.receta;
+                    medicamentoIndicacion.id = mi.id;
+                    medicamentoIndicacion.receta = mi.receta;
                     arrayMedicamentoIndicaciones.push(medicamentoIndicacion);
                 });
                 actualizarTablaMedicamentoIndicacion();
-                data.terapiasAplicadas.forEach(t=>{
+                data.terapiasAplicadas.forEach(t => {
                     var terapiaAplicada = new TerapiaAplicada(t.terapia);
-                    terapiaAplicada.id=t.id;
-                    terapiaAplicada.consulta=t.consulta;
+                    terapiaAplicada.id = t.id;
+                    terapiaAplicada.consulta = t.consulta;
                     arrayTerapiasAplicadas.push(terapiaAplicada);
                 });
                 actualizarTablaTerapiasAplicadas();
-                data.estudiosSolicitados.forEach(e=>{
-                    var estudio= new EstudioSolicitado(e.estudio);
-                    estudio.id=e.id;
-                    estudio.receta=e.receta;
+                data.estudiosSolicitados.forEach(e => {
+                    var estudio = new EstudioSolicitado(e.estudio);
+                    estudio.id = e.id;
+                    estudio.receta = e.receta;
                     arrayEstudiosSolicitados.push(estudio);
                 })
                 actualizarTablaEstudiosSolicitados();
@@ -122,7 +122,7 @@ function obtenerConsultorios() {
         .then(data => {
             data.forEach((c) => {
                 consultorio = new Consultorio(c.nombre, c.calle, c.colonia, c.ciudad, c.codigoPostal, c.telefono);
-                consultorio.id=c.id;
+                consultorio.id = c.id;
                 arrayConsultorios.push(consultorio);
             });
             consultorioSelect();
@@ -138,7 +138,7 @@ function obtenerMedicamentos() { //pendiente
         .then(data => {
             data.forEach((m) => {
                 medicamento = new Medicamento(m.medicamento, m.tipo, m.descripcion);
-                medicamento.id=m.id;
+                medicamento.id = m.id;
                 arrayMedicamentos.push(medicamento);
             });
             actualizarDatalistMedicamentos();
@@ -165,7 +165,7 @@ function ingresarCPrevia() {
     let estudios = document.getElementById('consultapreviaestudio-paciente').value;
     let tratamiento = document.getElementById('consultapreviatratamiento-paciente').value;
     cPrevia = new ConsultaPrevia(comentarios, diagnostico, estudios, tratamiento);
-    cPrevia.id=new Date().getTime();
+    cPrevia.id = new Date().getTime();
     arrayCPrevias.push(cPrevia);
     actualizarTablaCPrevias();
 }
@@ -180,55 +180,55 @@ function ingresarMedicamentoIndicacion() {
     let indicaciones = indicacionesMedicamento.value;
     let hora = document.getElementById("select-medicamento-hora").value;
     medicamentoIndicacion = new MedicamentoIndicacion(med, hora, indicaciones);
-    medicamentoIndicacion.id=new Date().getTime();
-    medicamentoIndicacion.receta=receta;
+    medicamentoIndicacion.id = new Date().getTime();
+    medicamentoIndicacion.receta = receta;
     arrayMedicamentoIndicaciones.push(medicamentoIndicacion);
     actualizarTablaMedicamentoIndicacion();
 }
 //FUNCIONES INSERTAR ARRAY INGRESAR MEDICAMENTO
-function ingresarEstudioSolicitado(){
-    let estudioInput= document.getElementById('estudiossolicitados-paciente').value;
-    estudioSolicitado= new EstudioSolicitado(estudioInput);
-    estudioSolicitado.id=new Date().getTime();
-    estudioSolicitado.receta=receta;
+function ingresarEstudioSolicitado() {
+    let estudioInput = document.getElementById('estudiossolicitados-paciente').value;
+    estudioSolicitado = new EstudioSolicitado(estudioInput);
+    estudioSolicitado.id = new Date().getTime();
+    estudioSolicitado.receta = receta;
     arrayEstudiosSolicitados.push(estudioSolicitado);
     actualizarTablaEstudiosSolicitados();
 }
-function ingresarTerapia(){
-    let terapiaInput=document.getElementById('consultaterapia-paciente').value;
-    terapiaAplicada= new TerapiaAplicada(terapiaInput);
-    terapiaAplicada.id=new Date().getTime();
+function ingresarTerapia() {
+    let terapiaInput = document.getElementById('consultaterapia-paciente').value;
+    terapiaAplicada = new TerapiaAplicada(terapiaInput);
+    terapiaAplicada.id = new Date().getTime();
     arrayTerapiasAplicadas.push(terapiaAplicada);
     actualizarTablaTerapiasAplicadas();
 }
 //FETCH FORMULARIO Y ARRAYS
 //FETCH FORMULARIO Y ARRAYS
 
-tablaCPrevias.addEventListener('click', function(e){
+tablaCPrevias.addEventListener('click', function (e) {
     e.preventDefault();
-    if(e.target.classList.contains("eliminar-consulta-previa")){
-        const elementoEliminar=e.target.dataset.id;
+    if (e.target.classList.contains("eliminar-consulta-previa")) {
+        const elementoEliminar = e.target.dataset.id;
         eliminarConsultaPrevia(elementoEliminar);
     }
 });
-tablaEstudiosSolicitados.addEventListener('click', function(e){
+tablaEstudiosSolicitados.addEventListener('click', function (e) {
     e.preventDefault();
-    if(e.target.classList.contains("eliminar-estudio-solicitado")){
-        const elementoEliminar=e.target.dataset.id;
+    if (e.target.classList.contains("eliminar-estudio-solicitado")) {
+        const elementoEliminar = e.target.dataset.id;
         eliminarEstudioSolicitado(elementoEliminar);
     }
 });
-tablaMedicamentoIndicacion.addEventListener('click', function(e){
+tablaMedicamentoIndicacion.addEventListener('click', function (e) {
     e.preventDefault();
-    if(e.target.classList.contains("eliminar-medicamento-indicacion")){
-        const elementoEliminar=e.target.dataset.id;
+    if (e.target.classList.contains("eliminar-medicamento-indicacion")) {
+        const elementoEliminar = e.target.dataset.id;
         eliminarMedicamentoIndicacion(elementoEliminar);
     }
 });
-tablaTerapiasAplicadas.addEventListener('click', function(e){
+tablaTerapiasAplicadas.addEventListener('click', function (e) {
     e.preventDefault();
-    if(e.target.classList.contains("eliminar-terapia")){
-        const elementoEliminar=e.target.dataset.id;
+    if (e.target.classList.contains("eliminar-terapia")) {
+        const elementoEliminar = e.target.dataset.id;
         eliminarTerapiaAplicada(elementoEliminar);
     }
 });
@@ -236,16 +236,16 @@ tablaTerapiasAplicadas.addEventListener('click', function(e){
 formConsulta.addEventListener('submit', function (e) {
     e.preventDefault();
     var datosConsulta = new FormData(formConsulta);
-    var jsonReceta=JSON.stringify(receta);
-    var jsonConsultasPrevias=JSON.stringify(arrayCPrevias);
-    var jsonTerapiasAplicadas=JSON.stringify(arrayTerapiasAplicadas);
-    var jsonEstudiosSolicitados=JSON.stringify(arrayEstudiosSolicitados);
-    var jsonMedicamentoIndicaciones=JSON.stringify(arrayMedicamentoIndicaciones);
-    datosConsulta.append('jsonConsultasPrevias',jsonConsultasPrevias);
-    datosConsulta.append('jsonTerapiasAplicadas',jsonTerapiasAplicadas);
-    datosConsulta.append('jsonEstudiosSolicitados',jsonEstudiosSolicitados);
-    datosConsulta.append('jsonMedicamentoIndicaciones',jsonMedicamentoIndicaciones);
-    if (consulta!=null){
+    var jsonReceta = JSON.stringify(receta);
+    var jsonConsultasPrevias = JSON.stringify(arrayCPrevias);
+    var jsonTerapiasAplicadas = JSON.stringify(arrayTerapiasAplicadas);
+    var jsonEstudiosSolicitados = JSON.stringify(arrayEstudiosSolicitados);
+    var jsonMedicamentoIndicaciones = JSON.stringify(arrayMedicamentoIndicaciones);
+    datosConsulta.append('jsonConsultasPrevias', jsonConsultasPrevias);
+    datosConsulta.append('jsonTerapiasAplicadas', jsonTerapiasAplicadas);
+    datosConsulta.append('jsonEstudiosSolicitados', jsonEstudiosSolicitados);
+    datosConsulta.append('jsonMedicamentoIndicaciones', jsonMedicamentoIndicaciones);
+    if (consulta != null) {
         fetch('./controller/editar-consulta.php', {// Enviar los datos a PHP utilizando fetch
             method: 'POST',
             body: datosConsulta // El JSON que contiene los datos y el formulario
@@ -259,8 +259,8 @@ formConsulta.addEventListener('submit', function (e) {
             .catch(function (error) {
                 console.error('Error:', error);
             });
-    }else{
-        datosConsulta.append('jsonReceta',jsonReceta);
+    } else {
+        datosConsulta.append('jsonReceta', jsonReceta);
         fetch('./controller/nueva-consulta.php', {// Enviar los datos a PHP utilizando fetch
             method: 'POST',
             body: datosConsulta // El JSON que contiene los datos y el formulario
@@ -287,31 +287,57 @@ function clearDiv(div) {
 }
 function actualizarTablaCPrevias() {
     clearDiv(tablaCPrevias);
-    arrayCPrevias.forEach(cp => {
-        const celda = document.createElement('tr');
-        const comentariosFila = document.createElement('td');
-        const diagnosticoFila = document.createElement('td');
-        const estudiosFila = document.createElement('td');
-        const tratamientoFila = document.createElement('td');
-        const eliminarFila = document.createElement('td');
+    if (arrayCPrevias.length > 0) {
+        const thead = document.createElement('thead');
+        const propiedades = document.createElement('tr');
+        const comentarios = document.createElement('th');
+        const diagnostico = document.createElement('th');
+        const estudios = document.createElement('th');
+        const tratamientos = document.createElement('th');
+        const eliminar = document.createElement('th');
 
-        const iconoEliminar = document.createElement('i');
+        comentarios.textContent = "Comentarios";
+        diagnostico.textContent = "Diagnostico";
+        estudios.textContent = "Estudios";
+        tratamientos.textContent = "Tratamientos";
+        eliminar.textContent = "Eliminar";
 
-        iconoEliminar.dataset.id = cp.id;
-        comentariosFila.textContent = cp.comentarios;
-        diagnosticoFila.textContent = cp.diagnostico;
-        estudiosFila.textContent = cp.estudios;
-        tratamientoFila.textContent = cp.tratamiento;
-        iconoEliminar.className = "fas fa-trash eliminar-consulta-previa";
+        propiedades.appendChild(comentarios);
+        propiedades.appendChild(diagnostico);
+        propiedades.appendChild(estudios);
+        propiedades.appendChild(tratamientos);
+        propiedades.appendChild(eliminar);
+        thead.appendChild(propiedades);
+        tablaCPrevias.appendChild(thead);
 
-        eliminarFila.appendChild(iconoEliminar);
-        celda.appendChild(comentariosFila);
-        celda.appendChild(diagnosticoFila);
-        celda.appendChild(estudiosFila);
-        celda.appendChild(tratamientoFila);
-        celda.appendChild(eliminarFila);
-        tablaCPrevias.appendChild(celda);
-    });
+        const tbody = document.createElement('tbody');
+        arrayCPrevias.forEach(cp => {
+            const celda = document.createElement('tr');
+            const comentariosFila = document.createElement('td');
+            const diagnosticoFila = document.createElement('td');
+            const estudiosFila = document.createElement('td');
+            const tratamientoFila = document.createElement('td');
+            const eliminarFila = document.createElement('td');
+
+            const iconoEliminar = document.createElement('i');
+
+            iconoEliminar.dataset.id = cp.id;
+            comentariosFila.textContent = cp.comentarios;
+            diagnosticoFila.textContent = cp.diagnostico;
+            estudiosFila.textContent = cp.estudios;
+            tratamientoFila.textContent = cp.tratamiento;
+            iconoEliminar.className = "fas fa-trash eliminar-consulta-previa";
+
+            eliminarFila.appendChild(iconoEliminar);
+            celda.appendChild(comentariosFila);
+            celda.appendChild(diagnosticoFila);
+            celda.appendChild(estudiosFila);
+            celda.appendChild(tratamientoFila);
+            celda.appendChild(eliminarFila);
+            tbody.appendChild(celda);
+        });
+        tablaCPrevias.appendChild(tbody);
+    }
 }
 // TABLAS: CONSULTAS PREVIAS
 // DATALIST MEDICAMENTOS
@@ -326,98 +352,151 @@ function actualizarDatalistMedicamentos() {
 // DATALIST MEDICAMENTOS
 function actualizarTablaMedicamentoIndicacion() {
     clearDiv(tablaMedicamentoIndicacion);
-    arrayMedicamentoIndicaciones.forEach(i => {
-        const celda=document.createElement('tr');
-        const medicamentoFila=document.createElement('td');
-        const indicacionesFila=document.createElement('td');
-        const eliminarFila = document.createElement('td');
-        const iconoEliminar = document.createElement('i');
-        iconoEliminar.dataset.id = i.id;
-        iconoEliminar.className="fas fa-trash eliminar-medicamento-indicacion";
-        medicamentoFila.textContent=i.medicamento;
-        indicacionesFila.textContent=i.indicaciones;
+    if (arrayMedicamentoIndicaciones.length > 0) {
+        const thead = document.createElement('thead');
+        const propiedades = document.createElement('tr');
+        const medicamento = document.createElement('th');
+        const indicaciones = document.createElement('th');
+        const eliminar = document.createElement('th');
 
-        eliminarFila.appendChild(iconoEliminar);
-        celda.appendChild(medicamentoFila);
-        celda.appendChild(indicacionesFila);
-        celda.appendChild(eliminarFila);
-        tablaMedicamentoIndicacion.appendChild(celda);
-    });
+        medicamento.textContent = "Medicamento";
+        indicaciones.textContent = "Indicaciones";
+        eliminar.textContent = "Eliminar";
+
+        propiedades.appendChild(medicamento);
+        propiedades.appendChild(indicaciones);
+        propiedades.appendChild(eliminar);
+        thead.appendChild(propiedades);
+        tablaMedicamentoIndicacion.appendChild(thead);
+
+        const tbody = document.createElement('tbody');
+
+        arrayMedicamentoIndicaciones.forEach(i => {
+            const celda = document.createElement('tr');
+            const medicamentoFila = document.createElement('td');
+            const indicacionesFila = document.createElement('td');
+            const eliminarFila = document.createElement('td');
+            const iconoEliminar = document.createElement('i');
+            iconoEliminar.dataset.id = i.id;
+            iconoEliminar.className = "fas fa-trash eliminar-medicamento-indicacion";
+            medicamentoFila.textContent = i.medicamento;
+            indicacionesFila.textContent = i.indicaciones;
+
+            eliminarFila.appendChild(iconoEliminar);
+            celda.appendChild(medicamentoFila);
+            celda.appendChild(indicacionesFila);
+            celda.appendChild(eliminarFila);
+            tbody.appendChild(celda);
+        });
+        tablaMedicamentoIndicacion.appendChild(tbody);
+    }
 }
-function actualizarTablaTerapiasAplicadas(){
+function actualizarTablaTerapiasAplicadas() {
     clearDiv(tablaTerapiasAplicadas);
-    arrayTerapiasAplicadas.forEach(t=>{
-        const celda=document.createElement('tr');
-        const terapiaFila=document.createElement('td');
-        const eliminarFila = document.createElement('td');
-        const iconoEliminar = document.createElement('i');
-        iconoEliminar.dataset.id = t.id;
-        iconoEliminar.className="fas fa-trash eliminar-terapia";
+    if (arrayTerapiasAplicadas.length > 0) {
+        const thead = document.createElement('thead');
+        const propiedades = document.createElement('tr');
+        const terapia = document.createElement('th');
+        const eliminar = document.createElement('th');
+        terapia.textContent = "Terapia aplicada";
+        eliminar.textContent = "Eliminar";
 
-        terapiaFila.textContent=t.terapia;
-        eliminarFila.appendChild(iconoEliminar);
-        celda.appendChild(terapiaFila);
-        celda.appendChild(eliminarFila);
-        tablaTerapiasAplicadas.appendChild(celda);
-    });
+        propiedades.appendChild(terapia);
+        propiedades.appendChild(eliminar);
+        thead.appendChild(propiedades);
+        tablaTerapiasAplicadas.appendChild(thead);
+
+        const tbody = document.createElement('tbody');
+        arrayTerapiasAplicadas.forEach(t => {
+            const celda = document.createElement('tr');
+            const terapiaFila = document.createElement('td');
+            const eliminarFila = document.createElement('td');
+            const iconoEliminar = document.createElement('i');
+            iconoEliminar.dataset.id = t.id;
+            iconoEliminar.className = "fas fa-trash eliminar-terapia";
+
+            terapiaFila.textContent = t.terapia;
+            eliminarFila.appendChild(iconoEliminar);
+            celda.appendChild(terapiaFila);
+            celda.appendChild(eliminarFila);
+            tbody.appendChild(celda);
+        });
+        tablaTerapiasAplicadas.appendChild(tbody);
+    }
 }
-function actualizarTablaEstudiosSolicitados(){
+function actualizarTablaEstudiosSolicitados() {
     clearDiv(tablaEstudiosSolicitados);
-    arrayEstudiosSolicitados.forEach(e=>{
-        const celda=document.createElement('tr');
-        const estudioFila=document.createElement('td');
-        const eliminarFila = document.createElement('td');
-        const iconoEliminar = document.createElement('i');
-        iconoEliminar.dataset.id = e.id;
-        iconoEliminar.className="fas fa-trash eliminar-estudio-solicitado";
-        estudioFila.textContent=e.estudio;
+    if (arrayEstudiosSolicitados.length>0) {
+        const thead = document.createElement('thead');
+        const propiedades = document.createElement('tr');
+        const estudio = document.createElement('th');
+        const eliminar = document.createElement('th');
+        estudio.textContent = "Estudio";
+        eliminar.textContent = "Eliminar";
 
-        eliminarFila.appendChild(iconoEliminar);
-        celda.appendChild(estudioFila);
-        celda.appendChild(eliminarFila);
-        tablaEstudiosSolicitados.appendChild(celda);
-    });
+        propiedades.appendChild(estudio);
+        propiedades.appendChild(eliminar);
+        thead.appendChild(propiedades);
+        tablaEstudiosSolicitados.appendChild(thead);
+
+        const tbody = document.createElement('tbody');
+        arrayEstudiosSolicitados.forEach(e => {
+            const celda = document.createElement('tr');
+            const estudioFila = document.createElement('td');
+            const eliminarFila = document.createElement('td');
+            const iconoEliminar = document.createElement('i');
+            iconoEliminar.dataset.id = e.id;
+            iconoEliminar.className = "fas fa-trash eliminar-estudio-solicitado";
+            estudioFila.textContent = e.estudio;
+
+            eliminarFila.appendChild(iconoEliminar);
+            celda.appendChild(estudioFila);
+            celda.appendChild(eliminarFila);
+            tablaEstudiosSolicitados.appendChild(celda);
+        });
+        tablaEstudiosSolicitados.appendChild(tbody);
+    }
 }
-function eliminarConsultaPrevia(id){
-    arrayCPrevias=arrayCPrevias.filter(cp => cp.id != id);
+function eliminarConsultaPrevia(id) {
+    arrayCPrevias = arrayCPrevias.filter(cp => cp.id != id);
     actualizarTablaCPrevias();
 }
-function eliminarEstudioSolicitado(id){
-    arrayEstudiosSolicitados=arrayEstudiosSolicitados.filter(es => es.id != id);
+function eliminarEstudioSolicitado(id) {
+    arrayEstudiosSolicitados = arrayEstudiosSolicitados.filter(es => es.id != id);
     actualizarTablaEstudiosSolicitados();
 }
-function eliminarMedicamentoIndicacion(id){
-    arrayMedicamentoIndicaciones=arrayMedicamentoIndicaciones.filter(mi => mi.id != id);
+function eliminarMedicamentoIndicacion(id) {
+    arrayMedicamentoIndicaciones = arrayMedicamentoIndicaciones.filter(mi => mi.id != id);
     actualizarTablaMedicamentoIndicacion();
 }
-function eliminarTerapiaAplicada(id){
-    arrayTerapiasAplicadas=arrayTerapiasAplicadas.filter(ta => ta.id != id);
+function eliminarTerapiaAplicada(id) {
+    arrayTerapiasAplicadas = arrayTerapiasAplicadas.filter(ta => ta.id != id);
     actualizarTablaTerapiasAplicadas();
 }
 //CLASES
 //CLASES
-class EstudioSolicitado{
-    constructor(estudio){
-        this._estudio=estudio;
+class EstudioSolicitado {
+    constructor(estudio) {
+        this._estudio = estudio;
     }
-    get id(){
+    get id() {
         return this._id;
     }
-    get estudio(){
+    get estudio() {
         return this._estudio;
     }
-    get receta(){
+    get receta() {
         return this._receta;
     }
-    set id(id){
-        this._id=id;
+    set id(id) {
+        this._id = id;
     }
-    set receta(receta){
-        this._receta=receta;
+    set receta(receta) {
+        this._receta = receta;
     }
 }
 class Consulta {
-    constructor(fecha, usuario, paciente, ta, oxigeno, pulso, peso, estatura, temperatura, motivoConsulta, exploracion, indicaciones,receta, consultorio) {
+    constructor(fecha, usuario, paciente, ta, oxigeno, pulso, peso, estatura, temperatura, motivoConsulta, exploracion, indicaciones, receta, consultorio) {
         this._fecha = fecha;
         this._usuario = usuario;
         this._paciente = paciente;
@@ -429,7 +508,7 @@ class Consulta {
         this.temperatura = temperatura;
         this._motivoConsulta = motivoConsulta;
         this._exploracion = exploracion;
-        this._indicaciones=indicaciones;
+        this._indicaciones = indicaciones;
         this._receta = receta;
         this._consultorio = consultorio;
     }
@@ -517,10 +596,10 @@ class Consulta {
     get consultorio() {
         return this._consultorio;
     }
-    set indicaciones(indicaciones){
-        this._indicaciones=indicaciones;
+    set indicaciones(indicaciones) {
+        this._indicaciones = indicaciones;
     }
-    get indicaciones(){
+    get indicaciones() {
         return this._indicaciones;
     }
 }
@@ -604,11 +683,11 @@ class ConsultaPrevia {
     get tratamiento() {
         return this._tratamiento;
     }
-    get consulta(){
+    get consulta() {
         return this._consulta;
     }
-    set consulta(consulta){
-        this._consulta=consulta;
+    set consulta(consulta) {
+        this._consulta = consulta;
     }
 }
 class Medicamento {
@@ -646,45 +725,45 @@ class MedicamentoIndicacion {
     get id() {
         return this._id;
     }
-    get medicamento(){
+    get medicamento() {
         return this._medicamento;
     }
-    get hora(){
+    get hora() {
         return this._hora;
     }
-    get indicaciones(){
+    get indicaciones() {
         return this._indicaciones;
     }
-    get receta(){
+    get receta() {
         return this._receta;
     }
-    set receta(receta){
-        this._receta=receta;
+    set receta(receta) {
+        this._receta = receta;
     }
 }
-class TerapiaAplicada{
-    constructor(terapia){
-        this._terapia=terapia;
+class TerapiaAplicada {
+    constructor(terapia) {
+        this._terapia = terapia;
     }
-    get id(){
+    get id() {
         return this._id;
     }
-    get terapia(){
+    get terapia() {
         return this._terapia;
     }
-    get consulta(){
+    get consulta() {
         return this._consulta;
     }
-    set id(id){
-        this._id=id;
+    set id(id) {
+        this._id = id;
     }
-    set terapia(terapia){
-        this._terapia=terapia;
+    set terapia(terapia) {
+        this._terapia = terapia;
     }
-    get consulta(){
-       return this._consulta; 
+    get consulta() {
+        return this._consulta;
     }
-    set consulta(consulta){
-        this._consulta=consulta;
+    set consulta(consulta) {
+        this._consulta = consulta;
     }
 }

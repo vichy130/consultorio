@@ -113,7 +113,9 @@
     cursor: pointer;
 }
 /*MODAL MODAL MODAL*/
-
+.form_input_small{
+    width:50%;
+   }
 
 
 
