@@ -19,8 +19,9 @@ const expresiones = {
     cigarros: /^$|^\d{1,2}$/,
     cigarrosantiguedad: /^$|^[a-zA-Z0-9]{1,45}$/,
     frecuencia: /^$|^[a-zA-Z0-9]{1,45}$/,
-    cantidad: /^$|^[a-zA-Z0-9]{1,45}$/
-
+    cantidad: /^$|^[a-zA-Z0-9]{1,45}$/,
+    tipos:/^$|^[a-zA-Z0-9]{1,45}$/,
+    adicciones:/^$|^[a-zA-Z0-9]{1,45}$/
 }
 const campos = {
     recomendo: false,
@@ -38,7 +39,8 @@ const campos = {
     cigarrosantiguedad: false,
     frecuencia: true,
     cantidad: true,
-
+    tipos:true,
+    adicciones:true
 }
 const camposHijo = {
     hijoedad: false,
@@ -91,11 +93,17 @@ const validarFormulario = (e) => {
         case "cantidad-paciente":
             validarCampo(expresiones.cantidad, e.target.value, 'cantidad');
             break;
-            /*
-        case "":
-            validarCampo(expresiones., e.target.value, '');
+        case "tipos-paciente":
+            validarCampo(expresiones.tipos, e.target.value, 'tipos');
             break;
-            */
+        case "adicciones-paciente":
+            validarCampo(expresiones.adicciones, e.target.value, 'adicciones');
+            break;
+        /*
+    case "":
+        validarCampo(expresiones., e.target.value, '');
+        break;
+        */
     }
 }
 const validarCampo = (expresion, input, campo) => {

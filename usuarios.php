@@ -30,8 +30,8 @@ unset($_SESSION['id_usuario']);
 
             <button class="boton azul" id="boton-nuevo-usuario"><i class="fas fa-user-plus"></i> Nuevo
                 Usuario</button>
-            <table class="table span-4">
-                <thead>
+            <table class="table span-4" id="tabla-usuarios">
+                <!--<thead>
                     <tr>
                         <th>Usuario</th>
                         <th class="column-to-hide">Nombre</th>
@@ -41,9 +41,7 @@ unset($_SESSION['id_usuario']);
                         <th>Editar</th>
                         <th>Eliminar</th>
                     </tr>
-                </thead>
-                <tbody id="tbody-usuarios">
-                </tbody>
+                </thead>-->
             </table>
         </div>
         <?php require("./layout/footer.php"); ?>

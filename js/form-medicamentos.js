@@ -1,7 +1,8 @@
 //VARIABLES
 var arrayMedicamentos = [];
 var botonNuevoMedicamento = document.getElementById("boton-nuevo-medicamento");
-var tablaMedicamentos = document.getElementById("tbody-tabla-medicamentos");
+var tablaMedicamentos = document.getElementById("tabla-medicamentos");
+var notabla = document.getElementById('no-tabla');
 //VARIABLES
 
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
@@ -52,36 +53,67 @@ function obtenerMedicamentos() { //pendiente
         });
 }
 function medicamentos() {
-    arrayMedicamentos.forEach((m) => {
-        const celda = document.createElement('tr');
-        const medicamentoFila = document.createElement('td');
-        const tipoFila = document.createElement('td');
-        const descripcionFila = document.createElement('td');
-        const editarFila = document.createElement('td');
-        const eliminarFila = document.createElement('td');
+    if (arrayMedicamentos.length>0) {
+        const thead=document.createElement('thead');
+        const propiedades=document.createElement('tr');
+        const medicamento=document.createElement('th');
+        const tipo=document.createElement('th');
+        const descripcion=document.createElement('th');
+        const editar=document.createElement('th');
+        const eliminar=document.createElement('th');
 
-        const iconoEditar = document.createElement('i');
-        const iconoEliminar = document.createElement('i');
+        medicamento.textContent="Fecha";
+        tipo.textContent="Motivo de consulta";
+        descripcion.textContent="Motivo de consulta";
+        descripcion.className="column-to-hide";
+        editar.textContent="Editar";
+        eliminar.textContent="Eliminar";
 
-        iconoEditar.dataset.id = m.id;
-        iconoEliminar.dataset.id = m.id;
+        propiedades.appendChild(medicamento);
+        propiedades.appendChild(tipo);
+        propiedades.appendChild(descripcion);
+        propiedades.appendChild(editar);
+        propiedades.appendChild(eliminar);
+        thead.appendChild(propiedades);
+        tablaMedicamentos.appendChild(thead);
 
-        iconoEditar.className = "far fa-edit editar-medicamento";
-        iconoEliminar.className = "fas fa-trash eliminar-medicamento";
+        const tbody=document.createElement('tbody');
+        arrayMedicamentos.forEach((m) => {
+            const celda = document.createElement('tr');
+            const medicamentoFila = document.createElement('td');
+            const tipoFila = document.createElement('td');
+            const descripcionFila = document.createElement('td');
+            const editarFila = document.createElement('td');
+            const eliminarFila = document.createElement('td');
 
-        medicamentoFila.textContent = m.medicamento;
-        tipoFila.textContent = m.tipo;
-        descripcionFila.textContent = m.descripcion;
+            const iconoEditar = document.createElement('i');
+            const iconoEliminar = document.createElement('i');
 
-        editarFila.appendChild(iconoEditar);
-        eliminarFila.appendChild(iconoEliminar);
-        celda.appendChild(medicamentoFila);
-        celda.appendChild(tipoFila);
-        celda.appendChild(descripcionFila);
-        celda.appendChild(editarFila);
-        celda.appendChild(eliminarFila);
-        tablaMedicamentos.appendChild(celda);
-    });
+            iconoEditar.dataset.id = m.id;
+            iconoEliminar.dataset.id = m.id;
+
+            iconoEditar.className = "far fa-edit editar-medicamento";
+            iconoEliminar.className = "fas fa-trash eliminar-medicamento";
+
+            medicamentoFila.textContent = m.medicamento;
+            tipoFila.textContent = m.tipo;
+            descripcionFila.textContent = m.descripcion;
+
+            editarFila.appendChild(iconoEditar);
+            eliminarFila.appendChild(iconoEliminar);
+            celda.appendChild(medicamentoFila);
+            celda.appendChild(tipoFila);
+            celda.appendChild(descripcionFila);
+            celda.appendChild(editarFila);
+            celda.appendChild(eliminarFila);
+            tbody.appendChild(celda);
+        });
+        tablaMedicamentos.appendChild(tbody);
+    }else{
+        const mensaje=document.createElement('p');
+        mensaje.textContent="No existen registros";
+        notabla.appendChild(mensaje);
+    }
 }
 function eliminarMedicamento(elementoEliminar) {
     var id = { id: elementoEliminar };

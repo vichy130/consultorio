@@ -325,16 +325,15 @@ if (isset($_SESSION["id_paciente"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: adicciones paciente -->
-                    <div class="formulario_grupo" id="grupo_adicciones">
+                    <div class="formulario_grupo span-2" id="grupo_adicciones">
                         <label class="form_label" for="adicciones-paciente">Addiciones</label>
                         <div class="form_grupo-input">
-                            <input class="form_input" type="text" id="adicciones-paciente" name="adicciones-paciente">
+                            <textarea class="form_textarea" id="adicciones-paciente" name="adicciones-paciente" rows="4"
+                                cols="50"></textarea>
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
                         <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->
-
-                    <div class="span-2"></div>
 
                     <!-- Grupo: alergias paciente -->
                     <div class="formulario_grupo span-2" id="grupo_alergias">

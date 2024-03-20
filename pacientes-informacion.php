@@ -160,7 +160,7 @@ if (!isset($_SESSION['username'])) {
                         <div class="form_grupo-input">
                             <input class="form_input form_input_small" type="text" id="cp-paciente" name="cp-paciente"
                                 placeholder="55555">
-                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                            <i class="form_validacion-estado spanone fa-solid fa-circle-xmark"></i>
                         </div>
                         <p class="form_input-error">El campo no debe estar vacío. Debe contener 5 dígitos</p>
                     </div><!-- end form-grupo -->

@@ -48,7 +48,7 @@ unset($_SESSION['id_con']);
                 <tbody id="tbody-consultorios">
                 </tbody>-->
             </table>
-
+    <div id="no-tabla"></div>
     </div>
     <?php require("./layout/footer.php"); ?>
     </div>

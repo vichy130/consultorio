@@ -1,6 +1,7 @@
 var arrayConsultorios = [];
 var botonNuevoConsultorio = document.getElementById('boton-nuevo-consultorio');
 var tConsultorios = document.getElementById('tabla-consultorios');
+var notabla=document.getElementById('no-tabla');
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     obtenerConsultorios();
 };
@@ -84,6 +85,10 @@ function tablaConsultorios() {
             tbody.append(celda);
         });
         tConsultorios.appendChild(tbody);
+    }else{
+        const mensaje=document.createElement('p');
+        mensaje.textContent="No existen registros";
+        notabla.appendChild(mensaje);
     }
 }
 function clearDiv(div) {
@@ -93,7 +98,7 @@ botonNuevoConsultorio.addEventListener('click', function (e) {
     e.preventDefault();
     redirectConsultorio();
 });
-tbodyConsultorios.addEventListener('click', function (e) {
+tConsultorios.addEventListener('click', function (e) {
     e.preventDefault();
     if (e.target.classList.contains('editar-consultorio')) {
         consultorioEditar(e.target.dataset.id);
@@ -120,7 +125,7 @@ function consultorioEliminar(idEliminar) {
     })
         .then(function (data) {
             arrayConsultorios = [];
-            clearDiv(tbodyConsultorios);
+            clearDiv(tConsultorios);
             obtenerConsultorios();
             console.log(data);
             console.log("eliminacion exitosa");
