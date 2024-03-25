@@ -20,8 +20,27 @@ const expresiones = {
     cigarrosantiguedad: /^$|^[a-zA-Z0-9]{1,45}$/,
     frecuencia: /^$|^[a-zA-Z0-9]{1,45}$/,
     cantidad: /^$|^[a-zA-Z0-9]{1,45}$/,
-    tipos:/^$|^[a-zA-Z0-9]{1,45}$/,
-    adicciones:/^$|^[a-zA-Z0-9]{1,45}$/
+    tipos: /^$|^[a-zA-Z0-9]{1,45}$/,
+    adicciones: /^$|^[a-zA-Z0-9]{1,45}$/,
+    alergias: /^$|^[a-zA-Z0-9]{1,45}$/,
+    desayuno: /^$|^[a-zA-Z0-9]{1,45}$/,
+    comida: /^$|^[a-zA-Z0-9]{1,45}$/,
+    cena: /^$|^[a-zA-Z0-9]{1,45}$/,
+    entrecomidas: /^$|^[a-zA-Z0-9]{1,45}$/,
+    agua: /^$|^[a-zA-Z0-9]{1,45}$/,
+    otrosliquidos: /^$|^[a-zA-Z0-9]{1,45}$/,
+    intolerancias: /^$|^[a-zA-Z0-9]{1,45}$/,
+    orinadia: /^$|^[a-zA-Z0-9]{1,45}$/,
+    orinanoche: /^$|^[a-zA-Z0-9]{1,45}$/,
+    orinacolor: /^$|^[a-zA-Z0-9]{1,45}$/,
+    orinaolor: /^$|^[a-zA-Z0-9]{1,45}$/,
+    orinamolestias: /^$|^[a-zA-Z0-9]{1,45}$/,
+    excrementoaldia: /^$|^[a-zA-Z0-9]{1,45}$/,
+    excrementoconsistencia: /^$|^[a-zA-Z0-9]{1,45}$/,
+    excrementoolor: /^$|^[a-zA-Z0-9]{1,45}$/,
+    excrementocolor: /^$|^[a-zA-Z0-9]{1,45}$/,
+    excrementodolor: /^$|^[a-zA-Z0-9]{1,45}$/,
+    ejercicio:/^$|^[a-zA-Z0-9]{1,45}$/
 }
 const campos = {
     recomendo: false,
@@ -39,8 +58,27 @@ const campos = {
     cigarrosantiguedad: false,
     frecuencia: true,
     cantidad: true,
-    tipos:true,
-    adicciones:true
+    tipos: true,
+    adicciones: true,
+    alergias: true,
+    desayuno: true,
+    comida: true,
+    cena: true,
+    entrecomidas: true,
+    agua: true,
+    otrosliquidos: true,
+    intolerancias: true,
+    orinadia: true,
+    orinanoche: true,
+    orinacolor: true,
+    orinaolor: true,
+    orinamolestias: true,
+    excrementoaldia: true,
+    excrementoconsistencia: true,
+    excrementoolor: true,
+    excrementocolor: true,
+    excrementodolor: true,
+    ejercicio:true
 }
 const camposHijo = {
     hijoedad: false,
@@ -99,6 +137,64 @@ const validarFormulario = (e) => {
         case "adicciones-paciente":
             validarCampo(expresiones.adicciones, e.target.value, 'adicciones');
             break;
+        case "alergias-paciente":
+            validarCampo(expresiones.alergias, e.target.value, 'alergias');
+            break;
+        case "desayuno-paciente":
+            validarCampo(expresiones.desayuno, e.target.value, 'desayuno');
+            break;
+        case "comida-paciente":
+            validarCampo(expresiones.comida, e.target.value, 'comida');
+            break;
+        case "cena-paciente":
+            validarCampo(expresiones.cena, e.target.value, 'cena');
+            break;
+        case "entrecomidas-paciente":
+            validarCampo(expresiones.entrecomidas, e.target.value, 'entrecomidas');
+            break;
+        case "agua-paciente":
+            validarCampo(expresiones.agua, e.target.value, 'agua');
+            break;
+        case "otrosliquidos-paciente":
+            validarCampo(expresiones.otrosliquidos, e.target.value, 'otrosliquidos');
+            break;
+        case "intolerancias-paciente":
+            validarCampo(expresiones.intolerancias, e.target.value, 'intolerancias');
+            break;
+        case "orinadia-paciente":
+            validarCampo(expresiones.orinadia, e.target.value, 'orinadia');
+            break;
+        case "orinanoche-paciente":
+            validarCampo(expresiones.orinanoche, e.target.value, 'orinanoche');
+            break;
+        case "orinacolor-paciente":
+            validarCampo(expresiones.orinacolor, e.target.value, 'orinacolor');
+            break;
+        case "orinaolor-paciente":
+            validarCampo(expresiones.orinaolor, e.target.value, 'orinaolor');
+            break;
+        case "excrementoaldia-paciente":
+            validarCampo(expresiones.excrementoaldia, e.target.value, 'excrementoaldia');
+            break;
+        case "orinamolestias-paciente":
+            validarCampo(expresiones.orinamolestias, e.target.value, 'orinamolestias');
+            break;
+        case "excrementoconsistencia-paciente":
+            validarCampo(expresiones.excrementoconsistencia, e.target.value, 'excrementoconsistencia');
+            break;
+        case "excrementoolor-paciente":
+            validarCampo(expresiones.excrementoolor, e.target.value, 'excrementoolor');
+            break;
+        case "excrementocolor-paciente":
+            validarCampo(expresiones.excrementocolor, e.target.value, 'excrementocolor');
+            break;
+        case "excrementodolor-paciente":
+            validarCampo(expresiones.excrementodolor, e.target.value, 'excrementodolor');
+            break;
+            case "ejercicio-paciente":
+        validarCampo(expresiones.ejercicio, e.target.value, 'ejercicio');
+        break;
+        
         /*
     case "":
         validarCampo(expresiones., e.target.value, '');
@@ -109,15 +205,15 @@ const validarFormulario = (e) => {
 const validarCampo = (expresion, input, campo) => {
     if (expresion.test(input)) {
         document.getElementById(`grupo_${campo}`).classList.remove('formulario_grupo-incorrecto');
-        document.getElementById(`grupo_${campo}`).classList.add('formulario_grupo-correcto');
+        /*document.getElementById(`grupo_${campo}`).classList.add('formulario_grupo-correcto');*/
         document.querySelector(`#grupo_${campo} .form_validacion-estado`).classList.remove('fa-circle-xmark');
-        document.querySelector(`#grupo_${campo} .form_validacion-estado`).classList.add('fa-circle-check'); document.querySelector(`#grupo_${campo} .form_input-error`).classList.remove('form_input-error-activo');
+        /*document.querySelector(`#grupo_${campo} .form_validacion-estado`).classList.add('fa-circle-check'); document.querySelector(`#grupo_${campo} .form_input-error`).classList.remove('form_input-error-activo');*/
         campos[campo] = true;
     } else {
         document.getElementById(`grupo_${campo}`).classList.add('formulario_grupo-incorrecto');
-        document.getElementById(`grupo_${campo}`).classList.remove('formulario_grupo-correcto');
+       /* document.getElementById(`grupo_${campo}`).classList.remove('formulario_grupo-correcto');*/
         document.querySelector(`#grupo_${campo} .form_validacion-estado`).classList.add('fa-circle-xmark');
-        document.querySelector(`#grupo_${campo} .form_validacion-estado`).classList.remove('fa-circle-check');
+       /* document.querySelector(`#grupo_${campo} .form_validacion-estado`).classList.remove('fa-circle-check');*/
         document.querySelector(`#grupo_${campo} .form_input-error`).classList.add('form_input-error-activo');
         campos[campo] = false;
     }
@@ -130,8 +226,15 @@ inputs.forEach((input) => {
 
 formFicha.addEventListener('submit', (e) => {
     e.preventDefault();
-    if (true) {
-        /*enviarFormUsuario();*/
+    var i=true;
+    for(const key in campos){
+        if(campos[key]===false){
+            i=false;
+            break;
+        }
+    }
+    if (i) {
+        enviarFormFicha();
         console.log("enviado");
     } else {
         console.log("NO se pudo enviar");

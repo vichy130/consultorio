@@ -458,7 +458,7 @@ if (isset($_SESSION["id_paciente"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: orina olor paciente -->
-                    <div class="formulario_grupo" id="grupo_orinaolor-paciente">
+                    <div class="formulario_grupo" id="grupo_orinaolor">
                         <label class="form_label" for="orinaolor-paciente">Orina: olor</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="orinaolor-paciente" name="orinaolor-paciente">
@@ -468,7 +468,7 @@ if (isset($_SESSION["id_paciente"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo:orina molestias paciente -->
-                    <div class="formulario_grupo span-2" id="grupo_orinamolestias-paciente">
+                    <div class="formulario_grupo span-2" id="grupo_orinamolestias">
                         <label class="form_label" for="orinamolestias-paciente">Molestias</label>
                         <div class="form_grupo-input">
                             <textarea class="form_textarea" id="orinamolestias-paciente" name="orinamolestias-paciente"
@@ -481,7 +481,7 @@ if (isset($_SESSION["id_paciente"])) {
                     <label class="formulario_grupo span-4">Gastroenterólogia</label>
 
                     <!-- Grupo: excremento dia paciente -->
-                    <div class="formulario_grupo" id="grupo_excrementoaldia-paciente">
+                    <div class="formulario_grupo" id="grupo_excrementoaldia">
                         <label class="form_label" for="excrementoaldia-paciente">Excremento al día</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="excrementoaldia-paciente"
@@ -492,7 +492,7 @@ if (isset($_SESSION["id_paciente"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: excremento consistencia paciente -->
-                    <div class="formulario_grupo" id="grupo_excrementoconsistencia-paciente">
+                    <div class="formulario_grupo" id="grupo_excrementoconsistencia">
                         <label class="form_label" for="excrementoconsistencia-paciente">Consistencia</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="excrementoconsistencia-paciente"
@@ -503,7 +503,7 @@ if (isset($_SESSION["id_paciente"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: excremento olor paciente -->
-                    <div class="formulario_grupo" id="grupo_excrementoolor-paciente">
+                    <div class="formulario_grupo" id="grupo_excrementoolor">
                         <label class="form_label" for="excrementoolor-paciente">Olor</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="excrementoolor-paciente"
@@ -514,7 +514,7 @@ if (isset($_SESSION["id_paciente"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: excremento color paciente -->
-                    <div class="formulario_grupo" id="grupo_excrementocolor-paciente">
+                    <div class="formulario_grupo" id="grupo_excrementocolor">
                         <label class="form_label" for="excrementocolor-paciente">Color</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="excrementocolor-paciente"
@@ -525,7 +525,7 @@ if (isset($_SESSION["id_paciente"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: excremento dolor paciente -->
-                    <div class="formulario_grupo" id="grupo_excrementodolor-paciente">
+                    <div class="formulario_grupo" id="grupo_excrementodolor">
                         <label class="form_label" for="excrementodolor-paciente">Dolor</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="excrementodolor-paciente"
@@ -538,7 +538,7 @@ if (isset($_SESSION["id_paciente"])) {
                     <label class="formulario_grupo span-4">Ejercicio</label>
 
                     <!-- Grupo: ejercicio paciente -->
-                    <div class="formulario_grupo  span-2" id="grupo_ejercicio-paciente">
+                    <div class="formulario_grupo  span-2" id="grupo_ejercicio">
                         <label class="form_label" for="ejercicio-paciente">Ejercicio por semana</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="ejercicio-paciente" name="ejercicio-paciente">

@@ -52,7 +52,7 @@ function obtenerFicha() {
                 document.getElementById("recomendo-paciente").value = ficha.quienRecomendo;
                 validarCampo(expresiones.recomendo, ficha.quienRecomendo, 'recomendo');
                 document.getElementById("tipo-sangre").value = ficha.tipoSangre
-                validarCampo(expresiones.tipo,ficha.tipoSangre, 'tipo');
+                validarCampo(expresiones.tipo, ficha.tipoSangre, 'tipo');
                 document.getElementById("embarazos-paciente").value = ficha.embarazo;
                 validarCampo(expresiones.embarazos, ficha.embarazo, 'embarazos');
                 document.getElementById("partos-paciente").value = ficha.partos;
@@ -70,34 +70,60 @@ function obtenerFicha() {
                 document.getElementById("menstruacionperiodicidad-paciente").value = ficha.mensPeriodicidad;
                 validarCampo(expresiones.menstruacionperiodicidad, ficha.mensMolestias, 'menstruacionperiodicidad');
                 document.getElementById("menstruacionmolestias-paciente").value = ficha.mensMolestias;
-
+                validarCampo(expresiones.menstruacionmolestias, ficha.mensMolestias, 'menstruacionmolestias');
                 document.getElementById("fuma-paciente").value = ficha.fuma;
                 document.getElementById("cigarros-paciente").value = ficha.cigarrosDia;
+                validarCampo(expresiones.cigarros, ficha.cigarrosDia, 'cigarros');
                 document.getElementById("cigarros-antiguedad-paciente").value = ficha.fumaAntiguedad;
+                validarCampo(expresiones.cigarrosantiguedad, ficha.fumaAntiguedad, 'cigarrosantiguedad');
                 document.getElementById("alcohol-paciente").value = ficha.alcohol;
+
                 document.getElementById("frecuencia-paciente").value = ficha.alcFrecuencia;
+                validarCampo(expresiones.frecuencia, ficha.alcFrecuencia, 'frecuencia');
                 document.getElementById("cantidad-paciente").value = ficha.alcoholCantidad;
+                validarCampo(expresiones.cantidad, ficha.alcoholCantidad, 'cantidad');
                 document.getElementById("tipos-paciente").value = ficha.alcoholTipos;
+                validarCampo(expresiones.tipos, ficha.alcoholTipos, 'tipos');
                 document.getElementById("adicciones-paciente").value = ficha.adicciones;
+                validarCampo(expresiones.adicciones, ficha.adicciones, 'adicciones');
                 document.getElementById("alergias-paciente").value = ficha.alergias;
+                validarCampo(expresiones.alergias, ficha.alergias, 'alergias');
                 document.getElementById("desayuno-paciente").value = ficha.desayuno;
+                validarCampo(expresiones.desayuno, ficha.desayuno, 'desayuno');
                 document.getElementById("comida-paciente").value = ficha.comida;
+                validarCampo(expresiones.comida, ficha.comida, 'comida');
                 document.getElementById("cena-paciente").value = ficha.cena;
+                validarCampo(expresiones.cena, ficha.cena, 'cena');
                 document.getElementById("entrecomidas-paciente").value = ficha.entreComidas;
+                validarCampo(expresiones.entrecomidas, ficha.entreComidas, 'entrecomidas');
                 document.getElementById("agua-paciente").value = ficha.vasoAguaDia;
+                validarCampo(expresiones.agua, ficha.vasoAguaDia, 'agua');
                 document.getElementById("otrosliquidos-paciente").value = ficha.otrosLiquidos;
+                validarCampo(expresiones.otrosliquidos, ficha.otrosLiquidos, 'otrosliquidos');
                 document.getElementById("intolerancias-paciente").value = ficha.intolerancias;
+                validarCampo(expresiones.intolerancias, ficha.intolerancias, 'intolerancias');
                 document.getElementById("orinadia-paciente").value = ficha.orinaDia;
+                validarCampo(expresiones.orinadia, ficha.orinaDia, 'orinadia');
                 document.getElementById("orinanoche-paciente").value = ficha.orinaNoche;
+                validarCampo(expresiones.orinanoche, ficha.orinaNoche, 'orinanoche');
                 document.getElementById("orinacolor-paciente").value = ficha.orinaColor;
+                validarCampo(expresiones.orinacolor, ficha.orinaColor, 'orinacolor');
                 document.getElementById("orinaolor-paciente").value = ficha.orinaOlor;
+                validarCampo(expresiones.orinaolor, ficha.orinaOlor, 'orinaolor');
                 document.getElementById("orinamolestias-paciente").value = ficha.orinaMolestias;
+                validarCampo(expresiones.orinamolestias, ficha.orinaMolestias, 'orinamolestias');
                 document.getElementById("excrementoaldia-paciente").value = ficha.excrementoDia;
+                validarCampo(expresiones.excrementoaldia, ficha.excrementoDia, 'excrementoaldia');
                 document.getElementById("excrementoconsistencia-paciente").value = ficha.exConsistencia;
+                validarCampo(expresiones.excrementoconsistencia, ficha.exConsistencia, 'excrementoconsistencia');
                 document.getElementById("excrementoolor-paciente").value = ficha.exOlor;
+                validarCampo(expresiones.excrementoolor, ficha.exOlor, 'excrementoolor');
                 document.getElementById("excrementocolor-paciente").value = ficha.exColor;
+                validarCampo(expresiones.excrementocolor, ficha.exColor, 'excrementocolor');
                 document.getElementById("excrementodolor-paciente").value = ficha.exDolor;
+                validarCampo(expresiones.excrementodolor, ficha.exDolor, 'excrementodolor');
                 document.getElementById("ejercicio-paciente").value = ficha.ejercicioSemana;
+                validarCampo(expresiones.ejercicio, ficha.ejercicioSemana, 'ejercicio');
                 usuarioInput.textContent = "Ultima actualización realizada por: " + ficha.usuario + ".";
                 data.hijos.forEach(elemento => {
                     hijo = new Hijo();
@@ -166,7 +192,6 @@ botonAnadirAFamiliares.addEventListener("click", function (e) {
     insertarAFamiliar();
 });
 function enviarFormFicha() {
-    e.preventDefault();
     var datosFicha = new FormData(formFicha);
     jsonHijos = JSON.stringify(arrayHijos);
     jsonAntecedentes = JSON.stringify(arrayAntecedentes);
