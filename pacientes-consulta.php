@@ -51,7 +51,7 @@ if (isset($_REQUEST["id"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- grupo: -->
-                    <div class="formulario_grupo" id="grupo_select-consultorio">
+                    <div class="formulario_grupo" id="grupo_consultorio">
                         <label class="form_label" for="select-consultorio"><i
                                 class="izquierda fa fa-map-marker"></i>Consultorio</label>
                         <div class="form_grupo-input">
@@ -68,7 +68,7 @@ if (isset($_REQUEST["id"])) {
                     <label class="formulario_grupo span-4">Examen fisico</label>
 
                     <!-- grupo: -->
-                    <div class="formulario_grupo" id="grupo_vitalesta-paciente">
+                    <div class="formulario_grupo" id="grupo_vitalesta">
                         <label class="form_label" for="vitalesta-paciente">TA</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="vitalesta-paciente" name="vitalesta-paciente">
@@ -78,7 +78,7 @@ if (isset($_REQUEST["id"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- grupo: -->
-                    <div class="formulario_grupo" id="grupo_vitalesoxigeno-paciente">
+                    <div class="formulario_grupo" id="grupo_vitalesoxigeno">
                         <label class="form_label" for="vitalesoxigeno-paciente">Oxigeno</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="vitalesoxigeno-paciente"
@@ -89,7 +89,7 @@ if (isset($_REQUEST["id"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- grupo: -->
-                    <div class="formulario_grupo" id="grupo_vitalespulso-paciente">
+                    <div class="formulario_grupo" id="grupo_vitalespulso">
                         <label class="form_label" for="vitalespulso-paciente">Pulso</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="vitalespulso-paciente"
@@ -100,7 +100,7 @@ if (isset($_REQUEST["id"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- grupo: -->
-                    <div class="formulario_grupo" id="grupo_vitalespeso-paciente">
+                    <div class="formulario_grupo" id="grupo_vitalespeso">
                         <label class="form_label" for="vitalespeso-paciente">Peso</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="vitalespeso-paciente" name="vitalespeso-paciente">
@@ -110,7 +110,7 @@ if (isset($_REQUEST["id"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- grupo: -->
-                    <div class="formulario_grupo" id="grupo_vitalesestatura-paciente">
+                    <div class="formulario_grupo" id="grupo_vitalesestatura">
                         <label class="form_label" for="vitalesestatura-paciente">Estatura</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="vitalesestatura-paciente"
@@ -121,7 +121,7 @@ if (isset($_REQUEST["id"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- grupo: -->
-                    <div class="formulario_grupo" id="grupo_vitalestemperatura-paciente">
+                    <div class="formulario_grupo" id="grupo_vitalestemperatura">
                         <label class="form_label" for="vitalestemperatura-paciente">Temperatura</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="vitalestemperatura-paciente"
@@ -132,7 +132,7 @@ if (isset($_REQUEST["id"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- grupo: -->
-                    <div class="formulario_grupo span-4" id="grupo_consultamotivo-paciente">
+                    <div class="formulario_grupo span-4" id="grupo_consultamotivo">
                         <label class="form_label" for="consultamotivo-paciente">Motivo de consulta</label>
                         <div class="form_grupo-input">
                             <textarea class="form_textarea" type="text" id="consultamotivo-paciente"
@@ -143,7 +143,7 @@ if (isset($_REQUEST["id"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- grupo: -->
-                    <div class="formulario_grupo span-4" id="grupo_consultaexploracion-paciente">
+                    <div class="formulario_grupo span-4" id="grupo_consultaexploracion">
                         <label class="form_label" for="consultaexploracion-paciente">Exploración</label>
                         <div class="form_grupo-input">
                             <textarea class="form_textarea" type="text" id="consultaexploracion-paciente"
@@ -156,7 +156,7 @@ if (isset($_REQUEST["id"])) {
                     <label class="formulario_grupo span-4">Consultas externas</label>
 
                     <!-- grupo: -->
-                    <div class="formulario_grupo span-2" id="grupo_consultapreviacomentarios-paciente">
+                    <div class="formulario_grupo span-2" id="grupo_consultapreviacomentarios">
                         <label class="form_label" for="consultapreviacomentarios-paciente">Comentarios</label>
                         <div class="form_grupo-input">
                             <textarea class="form_textarea" type="text" id="consultapreviacomentarios-paciente"
@@ -167,7 +167,7 @@ if (isset($_REQUEST["id"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- grupo: -->
-                    <div class="formulario_grupo span-2" id="grupo_consultapreviadiagnostico-paciente">
+                    <div class="formulario_grupo span-2" id="grupo_consultapreviadiagnostico">
                         <label class="form_label" for="consultapreviadiagnostico-paciente">Diagnostico</label>
                         <div class="form_grupo-input">
                             <textarea class="form_textarea" type="text" id="consultapreviadiagnostico-paciente"
@@ -178,7 +178,7 @@ if (isset($_REQUEST["id"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- grupo: -->
-                    <div class="formulario_grupo span-2" id="grupo_consultapreviaestudio-paciente">
+                    <div class="formulario_grupo span-2" id="grupo_consultapreviaestudio">
                         <label class="form_label" for="consultapreviaestudio-paciente">Estudios</label>
                         <div class="form_grupo-input">
                             <textarea class="form_textarea" type="text" id="consultapreviaestudio-paciente"
@@ -189,7 +189,7 @@ if (isset($_REQUEST["id"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- grupo: -->
-                    <div class="formulario_grupo span-2" id="grupo_consultapreviatratamientos-paciente">
+                    <div class="formulario_grupo span-2" id="grupo_consultapreviatratamientos">
                         <label class="form_label" for="consultapreviatratamientos-paciente">Tratamiento</label>
                         <div class="form_grupo-input">
                             <textarea class="form_textarea" type="text" id="consultapreviatratamiento-paciente"
@@ -219,7 +219,7 @@ if (isset($_REQUEST["id"])) {
                         Generales</label>
 
                     <!-- grupo: -->
-                    <div class="formulario_grupo span-4" id="grupo_consultaindicaciones-paciente">
+                    <div class="formulario_grupo span-4" id="grupo_consultaindicaciones">
                         <div class="form_grupo-input">
                             <textarea class="form_textarea" type="text" id="consultaindicaciones-paciente"
                                 name="consultaindicaciones-paciente" rows="4" cols="50"> </textarea>
@@ -231,7 +231,7 @@ if (isset($_REQUEST["id"])) {
                     <label class="formulario_grupo span-4">Medicamento</label>
 
                     <!-- grupo: -->
-                    <div class="formulario_grupo span-2" id="grupo_consultanombremed-paciente">
+                    <div class="formulario_grupo span-2" id="grupo_consultanombremed">
                         <label class="form_label" for="consultanombremed-paciente">Nombre del medicamento</label>
                         <div class="form_grupo-input">
                             <input class="form_input" list="consultanombremed-paciente" id="input-medicamento">
@@ -274,7 +274,7 @@ if (isset($_REQUEST["id"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- grupo: -->
-                    <div class="formulario_grupo span-4" id="grupo_indicacionesmed-paciente">
+                    <div class="formulario_grupo span-4" id="grupo_indicacionesmed">
                         <label class="form_label" for="indicacionesmed-paciente">Indicaciones</label>
                         <div class="form_grupo-input">
                             <textarea class="form_textarea" id="indicacionesmed-paciente"
@@ -301,7 +301,7 @@ if (isset($_REQUEST["id"])) {
                     <label class="formulario_grupo" for="estudiossolicitados-paciente">Estudios solicitados</label>
 
                     <!-- grupo: -->
-                    <div class="formulario_grupo span-4" id="grupo_estudiossolicitados-paciente">
+                    <div class="formulario_grupo span-4" id="grupo_estudiossolicitados">
                         <div class="form_grupo-input">
                             <textarea class="form_textarea" type="text" id="estudiossolicitados-paciente"
                                 name="estudiossolicitados-paciente" rows="4" cols="50"> </textarea>
@@ -324,7 +324,7 @@ if (isset($_REQUEST["id"])) {
                     </table>
 
                     <!-- grupo: -->
-                    <div class="formulario_grupo span-4" id="grupo_consultaterapia-paciente">
+                    <div class="formulario_grupo span-4" id="grupo_consultaterapia">
                         <label class="form_label span-4" for="consultaterapia-paciente">Terapia</label>
                         <div class="form_grupo-input">
                             <textarea class="form_textarea" id="consultaterapia-paciente"
@@ -363,5 +363,5 @@ if (isset($_REQUEST["id"])) {
     <!-- end contenedor -->
 </body>
 <script src="./js/form-consulta.js"></script>
-
+<script src="./js/validacion-consulta.js"></script>
 </html>

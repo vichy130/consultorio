@@ -18,7 +18,6 @@ var indicacionesMedicamento = document.getElementById("indicacionesmed-paciente"
 //TABLA
 var selectConsultorio = document.getElementById("select-consultorio"); //SELECT
 var selectMedicamentoHora = document.getElementById("select-medicamento-hora");
-var formConsulta = document.getElementById("form-consulta"); //FORM
 var anadirCPrevia = document.getElementById('boton-consulta-previa');//BOTON
 var anadirMedicamentoIndicacion = document.getElementById("boton-medicamento-indicacion");
 var anadirEstudioSolicitado = document.getElementById("boton-estudios-solicitados");
@@ -233,8 +232,7 @@ tablaTerapiasAplicadas.addEventListener('click', function (e) {
     }
 });
 
-formConsulta.addEventListener('submit', function (e) {
-    e.preventDefault();
+function enviarFormConsulta() {
     var datosConsulta = new FormData(formConsulta);
     var jsonReceta = JSON.stringify(receta);
     var jsonConsultasPrevias = JSON.stringify(arrayCPrevias);
@@ -276,7 +274,7 @@ formConsulta.addEventListener('submit', function (e) {
                 console.error('Error:', error);
             });
     }
-});
+}
 //FETCH FORMULARIO Y ARRAYS
 //FETCH FORMULARIO Y ARRAYS
 
