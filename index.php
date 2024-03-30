@@ -27,14 +27,10 @@ if(!isset($_SESSION['username'])){
     <div class="contenedor">
         <?php require("./layout/menu.php"); ?>
 
-            <div class="content-general">Bienvenido (a)</div>
-
-            <div id="calendario">Calendario</div>
-
-
+            <div class="content-general">
+            </div>
         <?php require("./layout/footer.php"); ?>
     <!-- END contenedor -->
 </body>
-
-
+<script src="./form-inicio.js"></script>
 </html>

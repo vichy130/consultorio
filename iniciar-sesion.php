@@ -1,8 +1,5 @@
 <?php session_start();    
 
-if(isset($_SESSION['username'])){
-    echo $_SESSION['username'];
-}
 function redirect($url) {
     ob_start();
     header('Location: '.$url);
@@ -75,6 +72,6 @@ if(isset($_SESSION['username'] )){
     </div>
     <!-- end contenedor -->
     <script src="./js/form-iniciar-sesion.js"></script>
+    <script src="./js/validacion-iniciar-sesion.js"></script>
 </body>
-
 </html>
