@@ -104,7 +104,7 @@ function eliminarPaciente(idEliminar) {
             }
             cerrarPregunta();
             array = [];
-            clearDiv(cuerpoTabla);
+            clearDiv(tabla);
             obtenerPacientes();
         })
         .catch(function (error) {

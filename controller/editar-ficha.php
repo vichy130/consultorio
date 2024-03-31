@@ -70,6 +70,4 @@ if ($ficha->actualizar()) {
 } else {
     echo "Error al actualizar Ficha, intentalo nuevamente";
 }
-
-
 ?>
