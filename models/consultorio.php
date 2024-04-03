@@ -51,6 +51,7 @@ class Consultorio
     }
     public function insertar()
     {
+        if($this->nombre !=null || $this->calle!=null){
         include_once("../php/conexion.php");
         $query = "INSERT INTO consultorio (nombre,calle,colonia,ciudad,codigoPostal,telefono) VALUES (:nombre, :calle, :colonia, :ciudad, :codigoPostal, :telefono); ";
         try {
@@ -66,7 +67,8 @@ class Consultorio
             return true;
         } catch (PDOException $e) {
             return false;
-        }
+        }}
+        else{return false;}
     }
     public function obtener()
     {

@@ -62,15 +62,16 @@ class MedicamentoIndicacion
     }
     public function eliminar()
     {
-        $query = "DELETE FROM medicamentoIndicacion WHERE id=:id; ";
-        try {
-            $stmt = $this->conexion->getdbh()->prepare($query);
-            $stmt->bindParam(":id", $this->id);
-            $stmt->execute();
-        } catch (PDOException $e) {
-            echo "ERROR en eliminar medicamento Indicacion : ".$e->getMessage();
+        if($this->id != null){
+            $query = "DELETE FROM medicamentoIndicacion WHERE id=:id; ";
+            try {
+                $stmt = $this->conexion->getdbh()->prepare($query);
+                $stmt->bindParam(":id", $this->id);
+                $stmt->execute();
+            } catch (PDOException $e) {
+                echo "ERROR en eliminar medicamento Indicacion : ".$e->getMessage();
+            }
         }
-
     }
 }
 ?>

@@ -1,5 +1,6 @@
 <?php
 include_once("../models/conexion.php");
+
 class Medicamento
 {
     private $id;
@@ -37,6 +38,7 @@ class Medicamento
     }
     public function insertar()
     {
+        if($this->id!=null){
         $query = "INSERT INTO medicamento (id, medicamento, tipo, descripcion) VALUES (:id,:medicamento,:tipo,:descripcion); ";
         try {
             $stmt = $this->conexion->getdbh()->prepare($query);
@@ -50,6 +52,7 @@ class Medicamento
             echo "Error al insertar medicamento" . $e->getMessage();
             return false;
         }
+    }else{return false;}
     }
     public function obtener()
     {
@@ -83,6 +86,9 @@ class Medicamento
     }
     function actualizar()
     {
+        if($this->id==null){
+            return false;
+        }
         $query = "UPDATE medicamento SET
         medicamento=:medicamento, 
         tipo=:tipo,
