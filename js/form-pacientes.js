@@ -10,14 +10,7 @@ botonNuevoPaciente.addEventListener('click', function (e) {
     e.preventDefault();
     paciente();
 });
-var modalPregunta = document.getElementById('modalPregunta');
-var modalExito = document.getElementById('modalExito');
-var modalError = document.getElementById('modalError');
-var botonAceptarEliminar = document.getElementById('botonAceptarEliminar');
-var botonCancelarEliminar = document.getElementById('botonCancelarEliminar');
-var cerrarModalPregunta = document.getElementById('cerrarModalPregunta');
-var cerrarModalExito = document.getElementById('cerrarModalExito');
-var cerrarModalError = document.getElementById('cerrarModalError');
+
 tabla.addEventListener('click', function (e) {
     e.preventDefault();
     if (e.target.classList.contains("editar-paciente")) {
@@ -25,28 +18,17 @@ tabla.addEventListener('click', function (e) {
         pacienteEditar(idEditar);
     }
     if (e.target.classList.contains("eliminar-paciente")) {
-        const idEliminar = e.target.dataset.id;
-        preguntaEliminar(idEliminar);
+        modal.dataset.id = e.target.dataset.id;
+        modal.dataset.nombre = e.target.dataset.nombre;
+        modal.dataset.apellidoPaterno = e.target.dataset.apellidoPaterno;
+        modal.dataset.apellidoMaterno = e.target.dataset.apellidoMaterno;
+        modalBlock();
     }
 });
 
+
 // BOTONES
-botonCancelarEliminar.addEventListener('click', function (e) {
-    e.preventDefault();
-    cerrarPregunta();
-});
-cerrarModalPregunta.addEventListener('click', function (e) {
-    e.preventDefault()
-    cerrarPregunta();
-});
-cerrarModalExito.addEventListener('click', function (e) {
-    e.preventDefault();
-    cerrarExito();
-});
-cerrarModalError.addEventListener('click', function (e) {
-    e.preventDefault();
-    cerrarError()
-});
+
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     obtenerPacientes();
 };
@@ -69,25 +51,9 @@ function obtenerPacientes() {
 function clearDiv(div) {
     div.replaceChildren();
 }
-function preguntaEliminar(idEliminar) {
-    modalPregunta.style.display = 'block';
-    botonAceptarEliminar.onclick = function (e) {
-        e.preventDefault();
-        eliminarPaciente(idEliminar);
-        console.log('ejecucion aceptar eliminar');
-    };
-}
-function cerrarPregunta() {
-    modalPregunta.style.display = 'none';
-}
-function cerrarExito() {
-    modalExito.style.display = 'none';
-}
-function cerrarError() {
-    modalError.style.display = 'none';
-}
-function eliminarPaciente(idEliminar) {
-    var datos = { id: idEliminar };
+
+function eliminarPaciente() {
+    var datos = { id: modal.dataset.id };
     var json = JSON.stringify(datos);
     fetch('./controller/eliminar-paciente.php', {// Enviar los datos a PHP utilizando fetch
         method: 'POST',
@@ -97,12 +63,13 @@ function eliminarPaciente(idEliminar) {
             return response.text();
         })
         .then(function (data) {
-            if (data == "1") {
-                modalExito.style.display = 'block';
-            } else {
-                modalError.style.display = 'block';
+            if (data == "true") {
+                modal.dataset.confirm=true;
+            } else if(data=="false"){
+                modal.dataset.confirm=false;
+            }else {
+                modal.dataset.confirm=data;
             }
-            cerrarPregunta();
             array = [];
             clearDiv(tabla);
             obtenerPacientes();
@@ -113,22 +80,22 @@ function eliminarPaciente(idEliminar) {
 }
 function tablaPacientes() {
     if (array.length > 0) {
-        const thead=document.createElement('thead');
-        const propiedades=document.createElement('tr');
-        const registro=document.createElement('th');
-        const nombre=document.createElement('th');
-        const apellidos=document.createElement('th');
-        const telefono=document.createElement('th');
-        const editar=document.createElement('th');
-        const eliminar=document.createElement('th');
+        const thead = document.createElement('thead');
+        const propiedades = document.createElement('tr');
+        const registro = document.createElement('th');
+        const nombre = document.createElement('th');
+        const apellidos = document.createElement('th');
+        const telefono = document.createElement('th');
+        const editar = document.createElement('th');
+        const eliminar = document.createElement('th');
 
-        registro.textContent="Registro";
-        nombre.textContent="Nombre(s)";
-        apellidos.textContent="Apellidos";
-        telefono.textContent="Teléfono";
-        editar.textContent="Editar";
-        eliminar.textContent="Eliminar";
-        telefono.className="column-to-hide";
+        registro.textContent = "Registro";
+        nombre.textContent = "Nombre(s)";
+        apellidos.textContent = "Apellidos";
+        telefono.textContent = "Teléfono";
+        editar.textContent = "Editar";
+        eliminar.textContent = "Eliminar";
+        telefono.className = "column-to-hide";
 
         propiedades.appendChild(registro);
         propiedades.appendChild(nombre);
@@ -139,8 +106,8 @@ function tablaPacientes() {
         thead.appendChild(propiedades);
         tabla.appendChild(thead);
 
-        const tbody=document.createElement('tbody');
-        
+        const tbody = document.createElement('tbody');
+
         array.forEach(pa => {
             const celda = document.createElement('tr');
             const idFila = document.createElement('td');
@@ -157,6 +124,9 @@ function tablaPacientes() {
 
             iconoEditar.dataset.id = pa.id;
             iconoEliminar.dataset.id = pa.id;
+            iconoEliminar.dataset.nombre = pa.nombre;
+            iconoEliminar.dataset.apellidoPaterno = pa.apellidoPaterno;
+            iconoEliminar.dataset.apellidoMaterno = pa.apellidoMaterno;
 
             idFila.textContent = pa.id;
             nombreFila.textContent = pa.nombre;
@@ -175,8 +145,8 @@ function tablaPacientes() {
         });
         tabla.appendChild(tbody);
     } else {
-        const mensaje=document.createElement('p');
-        mensaje.textContent="No existen registros";
+        const mensaje = document.createElement('p');
+        mensaje.textContent = "No existen registros";
         notabla.appendChild(mensaje);
     }
 }
@@ -186,6 +156,55 @@ function paciente() {
 function pacienteEditar(idEditar) {
     window.location.href = "./pacientes-informacion.php?id=" + idEditar;
 }
+
+//MODAL
+//MODAL
+var modal = document.getElementById("modal");
+var modalContent = document.getElementById("modal-contenido");
+const botonModalAceptarEliminar = document.createElement('button');
+botonModalAceptarEliminar.textContent = "Aceptar";
+botonModalAceptarEliminar.className = "boton rojo aceptar-eliminar-paciente";
+const botonModalCancelarEliminar = document.createElement('button');
+botonModalCancelarEliminar.textContent = "Cancelar";
+botonModalCancelarEliminar.className = "boton azul cancelar-eliminar-paciente";
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+function modalBlock() {
+    clearDiv(modalContent);
+    modal.style.display = "block";
+    const titulo = document.createElement('h2');
+    const parrafo = document.createElement('p');
+    const strongElement = document.createElement('strong');
+    var nombre = modal.dataset.nombre + " " + modal.dataset.apellidoPaterno + " " + modal.dataset.apellidoMaterno;
+    const nombreNodo = document.createTextNode(nombre);
+    titulo.textContent = "Confirmar Eliminación";
+    parrafo.textContent = "¿Seguro que desea eliminar al paciente ";
+    strongElement.appendChild(nombreNodo);
+    strongElement.style.fontWeight = 'bold';
+    parrafo.appendChild(strongElement);
+    modalContent.appendChild(titulo);
+    modalContent.appendChild(parrafo);
+    parrafo.textContent += "?";
+    modalContent.appendChild(botonModalAceptarEliminar);
+    modalContent.appendChild(botonModalCancelarEliminar);
+}
+function modalEliminar() {
+    clearDiv(modalContent);
+
+}
+modal.addEventListener('click', function (e) {
+    e.preventDefault();
+    if (e.target.classList.contains("aceptar-eliminar-paciente")) {
+        eliminarPaciente();
+        modalEliminar();
+    };
+    if (e.target.classList.contains("cancelar-eliminar-paciente")){
+        modal.style.display = "none";
+    }
+})
 //CLASES
 class Paciente {
     constructor(

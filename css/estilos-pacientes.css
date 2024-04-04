@@ -63,7 +63,8 @@ html{
     background-color:#F4F4F2;  /* #83bc8a;*/
     margin: 10% auto;
     padding: 20px;
-    width: 60%;
+    width: 50%;
+    height:40%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     position: relative;
     color:#495464; /*#3b486e; #254e38 */

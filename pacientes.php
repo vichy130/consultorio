@@ -36,19 +36,17 @@ require("./php/conexion.php");
         <?php require("./layout/menu.php"); ?>
 
         <div class="content-general">
-            <div id="modalPregunta" class="modal-preguntar">
-                <div class="modal-contenido-preguntar">
-                    <span class="cerrar-modal" id="cerrarModalPregunta">&times;</span>
-                    <h2>Confirmar Eliminación</h2>
+
+                <div id="modal" class="modal-preguntar">
+                    <div id="modal-contenido" class="modal-contenido-preguntar">
+                    <span class="cerrar-modal" id="cerrarModal">&times;</span>
+                    <!-- <h2>Confirmar Eliminación</h2>
                     <br>
-                    <p>¿Seguro que desea eliminar a este paciente?</p>
-                    <div class="botones">
-                        <button class="boton rojo" id="botonAceptarEliminar">Aceptar</button>
-                        <button class="boton azul" id="botonCancelarEliminar">Cancelar</button>
+                    <p>¿Seguro que desea eliminar a este paciente?</p> -->
                     </div>
+
                 </div>
-            </div>
-            <div id="modalExito" class="modal-exito">
+            <!-- <div id="modalExito" class="modal-exito">
                 <div class="modal-contenido-exito">
                 <span class="cerrar-modal" id="cerrarModalExito">&times;</span>
                 <h2>¡Paciente eliminado!</h2>
@@ -63,7 +61,7 @@ require("./php/conexion.php");
                 <br>
                 <p>Porfavor, revisa la información e intenta de nuevo.</p>
                 </div>
-            </div>
+            </div> -->
 
             <label class="span-4">Pacientes</label>
             <input class="form_input span-2" type="text">
