@@ -193,7 +193,13 @@ function modalBlock() {
 }
 function modalEliminar() {
     clearDiv(modalContent);
+    if(modal.dataset.confirm==true){
 
+    }else if(modal.dataset.confirm=false){
+
+    }else{
+        //TODO
+    }
 }
 modal.addEventListener('click', function (e) {
     e.preventDefault();
