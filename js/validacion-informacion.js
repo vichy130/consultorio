@@ -1,6 +1,28 @@
 const formPaciente = document.getElementById('form-paciente');
 const inputsPaciente = document.querySelectorAll('#form-paciente input');
 const radio=document.getElementsByName('sexo');
+
+//INPUTS
+//INPUTS
+var inputNombre=document.getElementById('nombre-paciente');
+var inputApellidoPaterno=document.getElementById('apellidop-paciente');
+var inputApellidoMaterno=document.getElementById('apellidom-paciente');
+var inputNacimiento=document.getElementById('nacimiento-paciente');
+var inputLugar=document.getElementById('lugar-paciente');
+var inputCalle=document.getElementById('calle-paciente');
+var inputColonia=document.getElementById('colonia-paciente');
+var inputCiudad=document.getElementById('ciudad-paciente');
+var inputCp=document.getElementById('cp-paciente');
+var inputCasa=document.getElementById('telefono-casa-paciente');
+var inputOficina=document.getElementById('telefono-oficina-paciente');
+var inputCel=document.getElementById('telefono-cel-paciente');
+var inputCivil=document.getElementById('civil-paciente');
+var inputOcupacion=document.getElementById('ocupacion-paciente');
+var inputEscolaridad=document.getElementById('escolaridad-paciente');
+var inputEmail=document.getElementById('email-paciente');
+
+//INPUTS
+//INPUTS
 const expresiones = {
     nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
     apellidop: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
@@ -112,6 +134,26 @@ inputsPaciente.forEach((input) => {
     input.addEventListener('keyup', validarFormulario);
     input.addEventListener('blur', validarFormulario);
 });
+function validarInformacion(){
+    console.log("validandocampos");
+    validarCampo(expresiones.nombre, inputNombre.value, 'nombre');
+    validarCampo(expresiones.apellidop, inputApellidoPaterno.value, 'apellidop');
+    validarCampo(expresiones.apellidom, inputApellidoMaterno.value, 'apellidom');
+    validarCampo(expresiones.nacimiento, inputNacimiento.value, 'nacimiento');
+    validarCampo(expresiones.lugar, inputLugar.value, 'lugar');
+    validarCampo(expresiones.calle, inputCalle.value, 'calle');
+    validarCampo(expresiones.colonia, inputColonia.value, 'colonia');
+    validarCampo(expresiones.ciudad, inputCiudad.value, 'ciudad');
+    validarCampo(expresiones.cp, inputCp.value, 'cp');
+    validarCampo(expresiones.casa, inputCasa.value, 'casa');
+    validarCampo(expresiones.oficina, inputOficina.value, 'oficina');
+    validarCampo(expresiones.celular, inputCel.value, 'celular');
+    validarCampo(expresiones.estadoCivil, inputCivil.value, 'estadoCivil');
+    validarCampo(expresiones.ocupacion, inputOcupacion.value, 'ocupacion');
+    validarCampo(expresiones.escolaridad, inputEscolaridad.value, 'escolaridad');
+    validarCampo(expresiones.email, inputEmail.value, 'email');
+
+}
 formPaciente.addEventListener('submit', (e) => {
     e.preventDefault();
     var i=true;
@@ -122,9 +164,15 @@ formPaciente.addEventListener('submit', (e) => {
         }
     }
     if (i) {
+        inputsPaciente.forEach(input => {
+            if (input.disabled) {
+                input.disabled = false;
+            }
+        })
         enviarFormPaciente();
     } else {
         //todo
+        validarInformacion();
         console.log("No se cumplieron los campos");
     }
 });

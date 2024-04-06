@@ -1,7 +1,10 @@
 const formFicha = document.getElementById('form-ficha');
+var paciente;
+
+// INPUTS
+// INPUTS
 const inputHijoEdad = document.getElementById('hijoedad-paciente');
 const inputs = document.querySelectorAll('#form-ficha input, #form-ficha select, #form-ficha textarea');
-var paciente;
 var inputRecomendo=document.getElementById("recomendo-paciente");
 var inputTipoSangre = document.getElementById("tipo-sangre");
 var inputEmbarazos = document.getElementById("embarazos-paciente");
@@ -14,13 +17,9 @@ var inputMenstruacion = document.getElementById("menstruacion-paciente");
 var inputMenstruacionPeriodicidad = document.getElementById("menstruacionperiodicidad-paciente");
 var inputMenstruacionMolestias = document.getElementById("menstruacionmolestias-paciente");
 var inputFuma = document.getElementById("fuma-paciente");
-inputFuma.addEventListener('change', deshabilitarFuma)
-
 var inputCigarros = document.getElementById("cigarros-paciente");
 var inputCigarrosAntiguedad = document.getElementById("cigarros-antiguedad-paciente");
 var inputAlcohol = document.getElementById("alcohol-paciente");
-inputAlcohol.addEventListener('change', deshabilitarAlcohol);
-
 var inputFrecuencia = document.getElementById("frecuencia-paciente");
 var inputCantidad = document.getElementById("cantidad-paciente");
 var inputTipos = document.getElementById("tipos-paciente");
@@ -44,6 +43,11 @@ var inputExcrementoOlor = document.getElementById("excrementoolor-paciente");
 var inputExcrementoColor = document.getElementById("excrementocolor-paciente");
 var inputExcrementoDolor = document.getElementById("excrementodolor-paciente");
 var inputEjercicio = document.getElementById("ejercicio-paciente");
+//INPUTS
+//INPUTS
+
+inputAlcohol.addEventListener('change', deshabilitarAlcohol);
+inputFuma.addEventListener('change', deshabilitarFuma)
 
 const expresiones = {
     recomendo: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0\s]{1,100}$/,

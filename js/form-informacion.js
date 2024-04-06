@@ -12,43 +12,28 @@ function obtenerPaciente() {
             if (data && data.id != null) {
                 paciente = new Paciente(data.nombre, data.apellidoPaterno, data.apellidoMaterno, data.sexo, data.fechaNacimiento, data.lugarNacimiento, data.calle, data.colonia, data.ciudad, data.codigoPostal, data.telCasa, data.telOficina, data.celular, data.edoCivil, data.ocupacion, data.escolaridad, data.correo);
                 paciente.id = data.id;
-                document.getElementById('nombre-paciente').value = paciente.nombre;
-                validarCampo(expresiones.nombre, paciente.nombre, 'nombre');
-                document.getElementById('apellidop-paciente').value = paciente.apellidoPaterno;
-                validarCampo(expresiones.apellidop, paciente.apellidoPaterno, 'apellidop');
-                document.getElementById('apellidom-paciente').value = paciente.apellidoMaterno;
-                validarCampo(expresiones.apellidom, paciente.apellidoMaterno, 'apellidom');
+                inputNombre.value = paciente.nombre;
+                inputApellidoPaterno.value = paciente.apellidoPaterno;
+                inputApellidoMaterno.value = paciente.apellidoMaterno;
                 for (const i in sexo) {
                     if (i == paciente.sexo) {
                         document.getElementById(sexo[i]).checked = true;
                     }
                 }
-                document.getElementById('nacimiento-paciente').value = paciente.fechaNacimiento;
-                validarCampo(expresiones.nacimiento, paciente.fechaNacimiento, 'nacimiento');
-                document.getElementById('lugar-paciente').value = paciente.lugarNacimiento;
-                validarCampo(expresiones.lugar, paciente.lugarNacimiento, 'lugar');
-                document.getElementById('calle-paciente').value = paciente.calle;
-                validarCampo(expresiones.calle, paciente.calle, 'calle');
-                document.getElementById('colonia-paciente').value = paciente.colonia;
-                validarCampo(expresiones.colonia, paciente.colonia, 'colonia');
-                document.getElementById('ciudad-paciente').value = paciente.ciudad;
-                validarCampo(expresiones.ciudad, paciente.ciudad, 'ciudad');
-                document.getElementById('cp-paciente').value = paciente.codigoPostal;
-                validarCampo(expresiones.cp, paciente.codigoPostal, 'cp');
-                document.getElementById('telefono-casa-paciente').value = paciente.telCasa;
-                validarCampo(expresiones.casa, paciente.telCasa, 'casa');
-                document.getElementById('telefono-oficina-paciente').value = paciente.telOficina;
-                validarCampo(expresiones.oficina, paciente.telOficina, 'oficina');
-                document.getElementById('telefono-cel-paciente').value = paciente.celular;
-                validarCampo(expresiones.celular, paciente.celular, 'celular');
-                document.getElementById('civil-paciente').value = paciente.edoCivil;
-                validarCampo(expresiones.estadoCivil, paciente.edoCivil, 'estadoCivil');
-                document.getElementById('ocupacion-paciente').value = paciente.ocupacion;
-                validarCampo(expresiones.ocupacion, paciente.ocupacion, 'ocupacion');
-                document.getElementById('escolaridad-paciente').value = paciente.escolaridad;
-                validarCampo(expresiones.escolaridad, paciente.escolaridad, 'escolaridad');
-                document.getElementById('email-paciente').value = paciente.correo;
-                validarCampo(expresiones.email, paciente.correo, 'email');
+                inputNacimiento.value = paciente.fechaNacimiento;
+                inputLugar.value = paciente.lugarNacimiento;
+                inputCalle.value = paciente.calle;
+                inputColonia.value = paciente.colonia;
+                inputCiudad.value = paciente.ciudad;
+                inputCp.value = paciente.codigoPostal;
+                inputCasa.value = paciente.telCasa;
+                inputOficina.value = paciente.telOficina;
+                inputCel.value = paciente.celular;
+                inputCivil.value = paciente.edoCivil;
+                inputOcupacion.value = paciente.ocupacion;
+                inputEscolaridad.value = paciente.escolaridad;
+                inputEmail.value = paciente.correo;
+                validarInformacion();
             }
         })// FIN FETCH
         .catch(error => {
