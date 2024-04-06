@@ -1,8 +1,8 @@
 <?php
-include_once("../models/conexion.php");
-include_once("../models/hijo.php");
-include_once("../models/antecedente-paciente.php");
-include_once("../models/antecedente-familia.php");
+include_once ("../models/conexion.php");
+include_once ("../models/hijo.php");
+include_once ("../models/antecedente-paciente.php");
+include_once ("../models/antecedente-familia.php");
 class Ficha
 {
     private $id;
@@ -70,7 +70,7 @@ class Ficha
     {
         $this->paciente = $paciente;
     }
-    public function setValues($paciente, $tipoSangre, $quienRecomendo, $embarazo, $partos, $cesareas, $abortos, $muertos, $enfs, $fuma, $cigarrosDia, $fumaAntiguedad, $alcohol, $alcFrecuencia, $alcoholCantidad, $alcoholTipos, $adicciones, $alergias, $desayuno, $comida, $cena, $entreComidas, $vasoAguaDia, $otrosLiquidos, $intolerancias, $orinaDia, $orinaNoche, $orinaColor, $orinaOlor, $orinaMolestias, $excrementoDia, $exConsistencia, $exOlor, $exColor, $exDolor, $fechaMenstruacion, $mensPeriodicidad, $mensMolestias, $ejercicioSemana, $fecha,$hora, $usuario)
+    public function setValues($paciente, $tipoSangre, $quienRecomendo, $embarazo, $partos, $cesareas, $abortos, $muertos, $enfs, $fuma, $cigarrosDia, $fumaAntiguedad, $alcohol, $alcFrecuencia, $alcoholCantidad, $alcoholTipos, $adicciones, $alergias, $desayuno, $comida, $cena, $entreComidas, $vasoAguaDia, $otrosLiquidos, $intolerancias, $orinaDia, $orinaNoche, $orinaColor, $orinaOlor, $orinaMolestias, $excrementoDia, $exConsistencia, $exOlor, $exColor, $exDolor, $fechaMenstruacion, $mensPeriodicidad, $mensMolestias, $ejercicioSemana, $fecha, $hora, $usuario)
     {
         $this->paciente = $paciente;
         $this->tipoSangre = $tipoSangre;
@@ -111,7 +111,7 @@ class Ficha
         $this->mensPeriodicidad = $mensPeriodicidad;
         $this->mensMolestias = $mensMolestias;
         $this->ejercicioSemana = $ejercicioSemana;
-        $this->fecha = $fecha; 
+        $this->fecha = $fecha;
         $this->hora = $hora;
         $this->usuario = $usuario;
     }
@@ -169,20 +169,27 @@ class Ficha
     //SET GET
     function insertar()
     {
-        $query = "INSERT INTO ficha (paciente, tipoSangre, quienRecomendo, embarazo, partos, cesareas, abortos, muertos, enfs, fuma, cigarrosDia, fumaAntiguedad, alcohol, alcFrecuencia, alcoholCantidad, alcoholTipos, adicciones, alergias, desayuno, comida, cena, entreComidas, vasoAguaDia, otrosLiquidos, intolerancias, orinaDia, orinaNoche, orinaColor, orinaOlor, orinaMolestias, excrementoDia, exConsistencia, exOlor, exColor, exDolor, fechaMenstruacion, mensPeriodicidad, mensMolestias, ejercicioSemana, fecha, hora, usuario) 
-                  VALUES (:paciente, :tipoSangre, :quienRecomendo, :embarazo, :partos, :cesareas, :abortos, :muertos, :enfs, :fuma, :cigarrosDia, :fumaAntiguedad, :alcohol, :alcFrecuencia, :alcoholCantidad, :alcoholTipos, :adicciones, :alergias, :desayuno, :comida, :cena, :entreComidas, :vasoAguaDia, :otrosLiquidos, :intolerancias, :orinaDia, :orinaNoche, :orinaColor, :orinaOlor, :orinaMolestias, :excrementoDia, :exConsistencia, :exOlor, :exColor, :exDolor, :fechaMenstruacion, :mensPeriodicidad, :mensMolestias, :ejercicioSemana, :fecha, :hora, :usuario); ";
+        if ($this->fechaMenstruacion == null || $this->embarazo == null || $this->partos == null || $this->cesareas == null || $this->abortos == null || $this->muertos == null || $this->enfs == null || $this->mensPeriodicidad == null || $this->mensMolestias == null) {
+            $query = "INSERT INTO ficha (paciente, tipoSangre, quienRecomendo, fuma, cigarrosDia, fumaAntiguedad, alcohol, alcFrecuencia, alcoholCantidad, alcoholTipos, adicciones, alergias, desayuno, comida, cena, entreComidas, vasoAguaDia, otrosLiquidos, intolerancias, orinaDia, orinaNoche, orinaColor, orinaOlor, orinaMolestias, excrementoDia, exConsistencia, exOlor, exColor, exDolor, ejercicioSemana, fecha, hora, usuario) 
+            VALUES (:paciente, :tipoSangre, :quienRecomendo, :fuma, :cigarrosDia, :fumaAntiguedad, :alcohol, :alcFrecuencia, :alcoholCantidad, :alcoholTipos, :adicciones, :alergias, :desayuno, :comida, :cena, :entreComidas, :vasoAguaDia, :otrosLiquidos, :intolerancias, :orinaDia, :orinaNoche, :orinaColor, :orinaOlor, :orinaMolestias, :excrementoDia, :exConsistencia, :exOlor, :exColor, :exDolor,  :ejercicioSemana, :fecha, :hora, :usuario); ";
+        } else {
+            $query = "INSERT INTO ficha (paciente, tipoSangre, quienRecomendo, embarazo, partos, cesareas, abortos, muertos, enfs, fuma, cigarrosDia, fumaAntiguedad, alcohol, alcFrecuencia, alcoholCantidad, alcoholTipos, adicciones, alergias, desayuno, comida, cena, entreComidas, vasoAguaDia, otrosLiquidos, intolerancias, orinaDia, orinaNoche, orinaColor, orinaOlor, orinaMolestias, excrementoDia, exConsistencia, exOlor, exColor, exDolor, fechaMenstruacion, mensPeriodicidad, mensMolestias, ejercicioSemana, fecha, hora, usuario) 
+            VALUES (:paciente, :tipoSangre, :quienRecomendo, :embarazo, :partos, :cesareas, :abortos, :muertos, :enfs, :fuma, :cigarrosDia, :fumaAntiguedad, :alcohol, :alcFrecuencia, :alcoholCantidad, :alcoholTipos, :adicciones, :alergias, :desayuno, :comida, :cena, :entreComidas, :vasoAguaDia, :otrosLiquidos, :intolerancias, :orinaDia, :orinaNoche, :orinaColor, :orinaOlor, :orinaMolestias, :excrementoDia, :exConsistencia, :exOlor, :exColor, :exDolor, :fechaMenstruacion, :mensPeriodicidad, :mensMolestias, :ejercicioSemana, :fecha, :hora, :usuario); ";
+        }
         try {
             $stmt = $this->conexion->getdbh()->prepare($query);
             // Vincula los parámetros con los valores reales
             $stmt->bindParam(':paciente', $this->paciente);
             $stmt->bindParam(':tipoSangre', $this->tipoSangre);
             $stmt->bindParam(':quienRecomendo', $this->quienRecomendo);
-            $stmt->bindParam(':embarazo', $this->embarazo);
-            $stmt->bindParam(':partos', $this->partos);
-            $stmt->bindParam(':cesareas', $this->cesareas);
-            $stmt->bindParam(':abortos', $this->abortos);
-            $stmt->bindParam(':muertos', $this->muertos);
-            $stmt->bindParam(':enfs', $this->enfs);
+            if ($this->embarazo != null) {
+                $stmt->bindParam(':embarazo', $this->embarazo);
+                $stmt->bindParam(':partos', $this->partos);
+                $stmt->bindParam(':cesareas', $this->cesareas);
+                $stmt->bindParam(':abortos', $this->abortos);
+                $stmt->bindParam(':muertos', $this->muertos);
+                $stmt->bindParam(':enfs', $this->enfs);
+            }
             $stmt->bindParam(':fuma', $this->fuma);
             $stmt->bindParam(':cigarrosDia', $this->cigarrosDia);
             $stmt->bindParam(':fumaAntiguedad', $this->fumaAntiguedad);
@@ -209,9 +216,11 @@ class Ficha
             $stmt->bindParam(':exOlor', $this->exOlor);
             $stmt->bindParam(':exColor', $this->exColor);
             $stmt->bindParam(':exDolor', $this->exDolor);
-            $stmt->bindParam(':fechaMenstruacion', $this->fechaMenstruacion);
-            $stmt->bindParam(':mensPeriodicidad', $this->mensPeriodicidad);
-            $stmt->bindParam(':mensMolestias', $this->mensMolestias);
+            if ($this->fechaMenstruacion != null) {
+                $stmt->bindParam(':fechaMenstruacion', $this->fechaMenstruacion);
+                $stmt->bindParam(':mensPeriodicidad', $this->mensPeriodicidad);
+                $stmt->bindParam(':mensMolestias', $this->mensMolestias);
+            }
             $stmt->bindParam(':ejercicioSemana', $this->ejercicioSemana);
             $stmt->bindParam(':fecha', $this->fecha);
             $stmt->bindParam(':hora', $this->hora);
@@ -279,7 +288,7 @@ class Ficha
             $stmt->bindParam(":paciente", $this->paciente, PDO::PARAM_INT);
             $stmt->execute();
             $datos = $stmt->fetch(PDO::FETCH_ASSOC);
-            if ($datos){
+            if ($datos) {
                 $this->id = $datos["id"];
                 $this->paciente = $datos["paciente"];
                 $this->tipoSangre = $datos["tipoSangre"];
@@ -320,7 +329,7 @@ class Ficha
                 $this->mensPeriodicidad = $datos["mensPeriodicidad"];
                 $this->mensMolestias = $datos["mensMolestias"];
                 $this->ejercicioSemana = $datos["ejercicioSemana"];
-                $this->fecha = $datos["fecha"]; 
+                $this->fecha = $datos["fecha"];
                 $this->hora = $datos["hora"];
                 $this->usuario = $datos["usuario"];
                 $this->obtenerHijos();
@@ -472,7 +481,7 @@ class Ficha
             $stmt->bindParam(':mensPeriodicidad', $this->mensPeriodicidad);
             $stmt->bindParam(':mensMolestias', $this->mensMolestias);
             $stmt->bindParam(':ejercicioSemana', $this->ejercicioSemana);
-            $stmt->bindParam(':fecha', $this->fecha); 
+            $stmt->bindParam(':fecha', $this->fecha);
             $stmt->bindParam(':hora', $this->hora);
             $stmt->bindParam(':usuario', $this->usuario);
             $stmt->bindParam(':id', $this->id);
@@ -533,20 +542,20 @@ class Ficha
         foreach ($arrayRecibido as $new) {
             $arrayNewId[] = $new->_id;
         }
-        $arrayEliminarId=array_diff($arrayOldId, $arrayNewId);
-        $arrayGuardarId=array_diff($arrayNewId, $arrayOldId);
+        $arrayEliminarId = array_diff($arrayOldId, $arrayNewId);
+        $arrayGuardarId = array_diff($arrayNewId, $arrayOldId);
 
-        foreach($arrayEliminarId as $id){
-           foreach($this->antecedentes as $elemento){
-            if($elemento->getId()==$id){
-                $elemento->eliminar();
+        foreach ($arrayEliminarId as $id) {
+            foreach ($this->antecedentes as $elemento) {
+                if ($elemento->getId() == $id) {
+                    $elemento->eliminar();
+                }
             }
-           }
         }
-        foreach ($arrayGuardarId as $id){
-            foreach($arrayRecibido as $elemento){
-                if($elemento->_id== $id){
-                    $arrayGuardar[]=$elemento;
+        foreach ($arrayGuardarId as $id) {
+            foreach ($arrayRecibido as $elemento) {
+                if ($elemento->_id == $id) {
+                    $arrayGuardar[] = $elemento;
                 }
             }
         }
@@ -569,20 +578,20 @@ class Ficha
         foreach ($arrayRecibido as $new) {
             $arrayNewId[] = $new->_id;
         }
-        $arrayEliminarId=array_diff($arrayOldId, $arrayNewId);
-        $arrayGuardarId=array_diff($arrayNewId, $arrayOldId);
+        $arrayEliminarId = array_diff($arrayOldId, $arrayNewId);
+        $arrayGuardarId = array_diff($arrayNewId, $arrayOldId);
 
-        foreach($arrayEliminarId as $id){
-           foreach($this->antecedentesFam as $elemento){
-            if($elemento->getId()==$id){
-                $elemento->eliminar();
+        foreach ($arrayEliminarId as $id) {
+            foreach ($this->antecedentesFam as $elemento) {
+                if ($elemento->getId() == $id) {
+                    $elemento->eliminar();
+                }
             }
-           }
         }
-        foreach ($arrayGuardarId as $id){
-            foreach($arrayRecibido as $elemento){
-                if($elemento->_id== $id){
-                    $arrayGuardar[]=$elemento;
+        foreach ($arrayGuardarId as $id) {
+            foreach ($arrayRecibido as $elemento) {
+                if ($elemento->_id == $id) {
+                    $arrayGuardar[] = $elemento;
                 }
             }
         }

@@ -43,9 +43,6 @@ const campos = {
 
 const validarFormulario = (e) => {
     switch (e.target.name) {
-        case "select-consultorio":
-            validarCampo(expresiones.consultorio, e.target.value, 'consultorio');
-            break;
         case "vitalesta-paciente":
             validarCampo(expresiones.vitalesta, e.target.value, 'vitalesta');
             break;
@@ -131,7 +128,7 @@ formConsulta.addEventListener('submit', (e) => {
             break;
         }
     }
-    if (i) {
+    if (true) {
         enviarFormConsulta();
         console.log("enviado");
     } else {

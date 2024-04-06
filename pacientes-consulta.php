@@ -57,9 +57,7 @@ if (isset($_REQUEST["id"])) {
                         <div class="form_grupo-input">
                             <select class="form_input" name="select-consultorio" id="select-consultorio">
                             </select>
-                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->
 
                     <div class="span-2"></div>
@@ -348,9 +346,9 @@ if (isset($_REQUEST["id"])) {
                         </tbody>-->
                     </table>
 
-                    <button class="input_submit boton amarillo span-2" id="boton-imprimir" type="button"><i
+                    <button class="input_submit boton amarillo span-2" id="boton-imprimir-receta" type="button" ><i
                             class="fa fa-print" aria-hidden="true"></i>
-                        Imprimir</button>
+                        Imprimir Receta</button>
                     <input class="input_submit boton azul span-2" type="submit" value="Guardar">
 
                 </form>

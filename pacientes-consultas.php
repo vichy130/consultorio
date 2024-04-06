@@ -15,8 +15,9 @@ if (!isset($_SESSION['username'])) {
 $id_paciente = 0;
 if (isset($_SESSION["id_paciente"])) {
     $id_paciente = $_SESSION["id_paciente"];
+}else {
+    redirect("./pacientes-informacion.php");
 }
-
 if (isset($_SESSION["id_consulta"])) {
     unset($_SESSION["id_consulta"]);
 }

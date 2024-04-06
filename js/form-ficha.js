@@ -3,6 +3,7 @@ var fecha = document.getElementById("fecha-ficha");
 var ocultoFecha = document.getElementById("oculto-fecha-ficha");
 var fetchedData;
 var ficha;
+var paciente;
 var arrayHijos = [];
 var arrayAntecedentes = [];
 var arrayAFamiliares = [];
@@ -37,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {// SE EJECUTA AUNQUE 
 });
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     obtenerFicha();
+
 };
 function obtenerFicha() {
     fetch('./controller/obtener-ficha.php')

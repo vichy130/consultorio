@@ -1,6 +1,7 @@
 
 var paciente;
 const sexo = { femenino: "femenino", masculino: "masculino", otro: "otro" };
+var botonImprimirPaciente=document.getElementById('boton-imprimir-paciente');
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     obtenerPaciente();
 };
@@ -58,17 +59,8 @@ function obtenerPaciente() {
 //LOAD HTML
 document.addEventListener('DOMContentLoaded', function () {// SE EJECUTA AUNQUE LOS RECURSOS NO HAN SIDO CARGADOS POR COMPLETO
 });
-const modalExito = document.getElementById('modalExito');//MODAL EXITO
-const botonCerrarModal = document.getElementById('cerrarModal');
-function mostrarModalExito() {
-    modalExito.style.display = "block";
-}
-function cerrarModalExito() {
-    modalExito.style.display = "none";
-}
-botonCerrarModal.addEventListener('click', cerrarModalExito);
+botonImprimirPaciente.addEventListener('click',imprimirPaciente);
 //FETCH FORMULARIO Y ARRAYS
-
 function enviarFormPaciente(){
     var datosPaciente = new FormData(formPaciente);
     if (paciente != null) {
@@ -82,7 +74,7 @@ function enviarFormPaciente(){
             .then(function (data) {
                 console.log(data);
                 if (data != null) {
-                    mostrarModalExito();
+                    console.log(data);
                 }
             })
             .catch(function (error) {
@@ -98,17 +90,22 @@ function enviarFormPaciente(){
             })
             .then(function (data) {
                 if (data == true) {
-                    mostrarModalExito();
                     fetchedData = data;
                     console.log(data);
                 } else {
                     console.log("error");
-                    mostrarModalError();
                 }
             })
             .catch(function (error) {
                 console.error('Error:', error);
             });
+    }
+}
+function imprimirPaciente(){
+    if (paciente!=null){
+        window.open("./print/paciente.php", "_blank");
+    }else{
+        
     }
 }
 //CLASES

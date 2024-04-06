@@ -39,15 +39,15 @@ if (isset($_SESSION["id_paciente"])) {
     } else {
         echo "contenedor-no";
     } ?>">
-        <?php require("./layout/menu.php"); ?>
+        <?php require ("./layout/menu.php"); ?>
         <div class="content">
-            <?php require("./layout/content-informacion.php"); ?>
-            <?php require("./layout/submenu-pacientes.php"); ?>
+            <?php require ("./layout/content-informacion.php"); ?>
+            <?php require ("./layout/submenu-pacientes.php"); ?>
             <div class="contenido">
                 <!-- FORM POST PHP -->
                 <!-- Modal de confirmación (oculto por defecto) -->
-                <div id="modalConfirmacion" class="modal">
-                    <div class="modal-content">
+                <div id="modal" class="modal">
+                    <div class="modal-contenido">
                         <span class="close" onclick="cerrarModal()">&times;</span>
                         <p id="mensajeModal">Mensaje de confirmación aquí.</p>
                     </div>
@@ -70,7 +70,7 @@ if (isset($_SESSION["id_paciente"])) {
                             <input class="form_input" type="text" id="recomendo-paciente" name="recomendo-paciente">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">Solo se permiten letras, el campo puede estar vacio</p>
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: tipo sangre -->
@@ -91,7 +91,7 @@ if (isset($_SESSION["id_paciente"])) {
                             </select>
                             <i class="form_validacion-estado select fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">Seleccione una opción</p>
                     </div><!-- end form-grupo -->
 
                     <label class="formulario_grupo span-4">Hijos</label>
@@ -104,7 +104,7 @@ if (isset($_SESSION["id_paciente"])) {
                                 name="hijoedad-paciente">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">Solo se permiten números</p>
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: sexo -->
@@ -118,11 +118,11 @@ if (isset($_SESSION["id_paciente"])) {
                         <p class="form_input-error"></p>
                     </div><!-- end form-grupo -->
 
-                    <button class="boton azul" id="agregarHijo" type="button"><i class="fas fa-plus"></i> Añadir
+                    <button class="boton azul boton-agregar-hijo" id="agregarHijo" type="button"><i class="fas fa-plus"></i> Añadir
                         Hijo</button>
 
-                        <table class="table span-4 tabla-hijos" id="tabla-hijos">
-                           <!-- <thead>
+                    <table class="table span-4 tabla-hijos" id="tabla-hijos">
+                        <!-- <thead>
                                 <tr>
                                     <th class="column-to-hide"></th>
                                     <th>Sexo</th>
@@ -132,11 +132,11 @@ if (isset($_SESSION["id_paciente"])) {
                             </thead>
                             <tbody id="tbody-hijos">
                             </tbody> -->
-                        </table>
-                    <label class="formulario_grupo span-4">Antecedentes gineco-obstétricos</label>
+                    </table>
+                    <label class="formulario_grupo span-4 femenino">Antecedentes gineco-obstétricos</label>
 
                     <!-- Grupo: Embarazos -->
-                    <div class="formulario_grupo" id="grupo_embarazos">
+                    <div class="formulario_grupo femenino" id="grupo_embarazos">
                         <label class="form_label" for="embarazos-paciente">Embarazos</label>
                         <div class="form_grupo-input">
                             <input class="form_input form_input_small" type="text" id="embarazos-paciente"
@@ -147,7 +147,7 @@ if (isset($_SESSION["id_paciente"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: Partos-->
-                    <div class=" formulario_grupo" id="grupo_partos">
+                    <div class=" formulario_grupo femenino" id="grupo_partos">
                         <label class="form_label" for="partos-paciente">Partos</label>
 
                         <div class="form_grupo-input">
@@ -159,7 +159,7 @@ if (isset($_SESSION["id_paciente"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: Cesareas -->
-                    <div class="formulario_grupo" id="grupo_cesareas">
+                    <div class="formulario_grupo femenino" id="grupo_cesareas">
                         <label class="form_label" for="cesareas-paciente">Cesáreas</label>
                         <div class="form_grupo-input">
                             <input class="form_input form_input_small" type="text" id="cesareas-paciente"
@@ -170,7 +170,7 @@ if (isset($_SESSION["id_paciente"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: Abortos -->
-                    <div class="formulario_grupo" id="grupo_abortos">
+                    <div class="formulario_grupo femenino" id="grupo_abortos">
                         <label class="form_label" for="abortos-paciente">Abortos</label>
                         <div class="form_grupo-input">
                             <input class="form_input form_input_small" type="text" id="abortos-paciente"
@@ -181,7 +181,7 @@ if (isset($_SESSION["id_paciente"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: Muertos -->
-                    <div class="formulario_grupo" id="grupo_muertos">
+                    <div class="formulario_grupo femenino" id="grupo_muertos">
                         <label class="form_label" for="muertos-paciente">Muertos</label>
 
                         <div class="form_grupo-input">
@@ -193,7 +193,7 @@ if (isset($_SESSION["id_paciente"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: ENFS -->
-                    <div class="formulario_grupo" id="grupo_enfs">
+                    <div class="formulario_grupo femenino" id="grupo_enfs">
                         <label class="form_label" for="enfs-paciente">ENFS</label>
                         <div class="form_grupo-input">
                             <input class="form_input form_input_small" type="text" id="enfs-paciente"
@@ -203,10 +203,10 @@ if (isset($_SESSION["id_paciente"])) {
                         <p class="form_input-error">Solo se permiten números</p>
                     </div><!-- end form-grupo -->
 
-                    <label class="formulario_grupo span-4">Ginecología</label>
+                    <label class="formulario_grupo span-4 femenino">Ginecología</label>
 
                     <!-- Grupo: Menstruacion -->
-                    <div class="formulario_grupo" id="grupo_menstruacion">
+                    <div class="formulario_grupo femenino" id="grupo_menstruacion">
                         <label class="form_label" for="menstruacion-paciente">Fecha última menstruación</label>
                         <div class="form_grupo-input">
                             <input class="form_input " type="date" id="menstruacion-paciente"
@@ -217,7 +217,7 @@ if (isset($_SESSION["id_paciente"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: Periodicidad -->
-                    <div class="formulario_grupo" id="grupo_menstruacionperiodicidad">
+                    <div class="formulario_grupo femenino" id="grupo_menstruacionperiodicidad">
                         <label class="form_label" for="menstruacionperiodicidad-paciente"><i
                                 class="icono izquierda fas fa-calendar"></i>Periodicidad</label>
                         <div class="form_grupo-input">
@@ -229,7 +229,7 @@ if (isset($_SESSION["id_paciente"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: Menstruacion molestias -->
-                    <div class="formulario_grupo span-2" id="grupo_menstruacionmolestias">
+                    <div class="formulario_grupo span-2 femenino" id="grupo_menstruacionmolestias">
                         <label class="form_label" for="menstruacionmolestias-paciente">Molestias</label>
                         <div class="form_grupo-input">
                             <textarea class="form_textarea" id="menstruacionmolestias-paciente"
@@ -641,7 +641,7 @@ if (isset($_SESSION["id_paciente"])) {
                         Añadir</button>
 
                     <table class="table span-4 tabla-antecedentes" id="tabla-antecedentes">
-                       <!-- <thead>
+                        <!-- <thead>
                             <tr>
                                 <th class="column-to-hide"></th>
                                 <th>Enfermedad</th>
@@ -656,7 +656,7 @@ if (isset($_SESSION["id_paciente"])) {
                     </table>
 
                     <!-- Grupo: firma  paciente -->
-                    <div class="formulario_grupo" id="grupo_firma-paciente">
+                    <!-- <div class="formulario_grupo" id="grupo_firma-paciente">
                         <label class="form_label" for="firma-paciente">Firma Paciente</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="file" id="firma-paciente" name="firma-paciente"
@@ -664,11 +664,7 @@ if (isset($_SESSION["id_paciente"])) {
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
                         <p class="form_input-error">El campo no debe estar vacío</p>
-                    </div><!-- end form-grupo -->
-
-                    <div class="formulario_grupo span-4">
-                        <label class="form_label" id="usuario-actualizacion"></label>
-                    </div><!-- end form-grupo -->
+                    </div>end form-grupo -->
 
                     <div class=""></div>
                     <div class=""></div>
@@ -678,14 +674,18 @@ if (isset($_SESSION["id_paciente"])) {
                     } else {
                         echo "Guardar";
                     } ?>">
+                    <div class="formulario_grupo span-4">
+                        <label class="form_label" id="usuario-actualizacion"></label>
+                    </div><!-- end form-grupo -->
                 </form>
             </div>
         </div>
-        <?php require("./layout/footer.php"); ?>
+        <?php require ("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
     <script src="./js/validacion-ficha.js"></script>
     <script src="./js/form-ficha.js"></script>
+
 </body>
 
 </html>

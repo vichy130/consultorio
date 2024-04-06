@@ -22,6 +22,7 @@ var anadirCPrevia = document.getElementById('boton-consulta-previa');//BOTON
 var anadirMedicamentoIndicacion = document.getElementById("boton-medicamento-indicacion");
 var anadirEstudioSolicitado = document.getElementById("boton-estudios-solicitados");
 var anadirTerapia = document.getElementById("boton-terapia");
+var botonImprimirReceta=document.getElementById("boton-imprimir-receta");
 //VARIABLES
 
 //BOTONES -- EVENT LISTENERS
@@ -29,6 +30,7 @@ anadirCPrevia.addEventListener("click", ingresarCPrevia);
 anadirMedicamentoIndicacion.addEventListener("click", ingresarMedicamentoIndicacion);
 anadirEstudioSolicitado.addEventListener("click", ingresarEstudioSolicitado);
 anadirTerapia.addEventListener("click", ingresarTerapia);
+botonImprimirReceta.addEventListener("click",imprimirReceta);
 //BOTONES
 
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
@@ -277,7 +279,13 @@ function enviarFormConsulta() {
 }
 //FETCH FORMULARIO Y ARRAYS
 //FETCH FORMULARIO Y ARRAYS
-
+function imprimirReceta(){
+    if (consulta!=null){
+        window.open("./print/receta.php", "_blank");
+    }else{
+        
+    }
+}
 
 // TABLAS: CONSULTAS PREVIAS
 function clearDiv(div) {

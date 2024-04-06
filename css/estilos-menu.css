@@ -13,7 +13,7 @@
     background: #495464;
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
-    line-height: 18px;
+    line-height: 10px;
     display: inline-block;
 }
 .navI .menu li a:hover{
@@ -59,7 +59,7 @@ margin-right: 10px;
     color:#F4F4F2;
 }
 .boton-menu{
-    padding:15px;
+    padding:12px;
     display: none;
 }
 .texto{

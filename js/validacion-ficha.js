@@ -1,11 +1,41 @@
 const formFicha = document.getElementById('form-ficha');
-
+const inputHijoEdad = document.getElementById('hijoedad-paciente');
 const inputs = document.querySelectorAll('#form-ficha input, #form-ficha select, #form-ficha textarea');
-
+var paciente;
+function obtenerPaciente() {
+    fetch('./controller/obtener-paciente.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.id != null) {
+                if (data.sexo != "femenino") {
+                    deshabilitarFemenino();
+                }
+            }
+        })// FIN FETCH
+        .catch(error => {
+            console.error('Error:', error);
+            console.log("catch");
+        });
+}
+function deshabilitarFemenino() {
+    var femeninoClass = document.getElementsByClassName('femenino');
+    for (var i = 0; i < femeninoClass.length; i++) {
+        femeninoClass[i].classList.add('hide');
+    }
+    campos.embarazos = true;
+    campos.partos = true;
+    campos.cesareas = true;
+    campos.abortos = true;
+    campos.muertos = true;
+    campos.enfs = true;
+    campos.menstruacion = true;
+    campos.menstruacionperiodicidad = true;
+    campos.menstruacionmolestias = true;
+}
 const expresiones = {
-    recomendo: /^[a-zA-ZÀ-ÿ\s]{1,100}$/,
+    recomendo: /^[a-zA-Z\s]{0,100}$/,
     tipo: /^[a-zA-Z-+]+$/,
-    hijoedad: /^(?:0|[1-9]\d?|1[01]\d|120)$/,
+    hijoedad: /^(?:\d{1,100})?$/,
     hijosexo: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
     embarazos: /^(?:0|1?\d|20)?$/,
     partos: /^(?:0|1?\d|20)?$/,
@@ -13,79 +43,79 @@ const expresiones = {
     abortos: /^(?:0|1?\d|20)?$/,
     muertos: /^(?:0|1?\d|20)?$/,
     enfs: /^(?:0|1?\d|20)?$/,
-    menstruacion: /^(\d{4}-\d{2}-\d{2})?$/,
-    menstruacionperiodicidad: /^$|^[a-zA-Z0-9]{1,200}$/,
+    menstruacion: /\S/,
+    menstruacionperiodicidad: /^[a-zA-Z0-9]{1,200}$/,
     menstruacionmolestias: /^$|^[a-zA-Z0-9]{1,200}$/,
-    cigarros: /^$|^\d{1,2}$/,
-    cigarrosantiguedad: /^$|^[a-zA-Z0-9]{1,45}$/,
-    frecuencia: /^$|^[a-zA-Z0-9]{1,45}$/,
-    cantidad: /^$|^[a-zA-Z0-9]{1,45}$/,
-    tipos: /^$|^[a-zA-Z0-9]{1,45}$/,
+    cigarros: /^\d{1,2}$/,
+    cigarrosantiguedad: /^[a-zA-Z0-9]{1,45}$/,
+    frecuencia: /^[a-zA-Z0-9]{1,45}$/,
+    cantidad: /^[a-zA-Z0-9]{1,45}$/,
+    tipos: /^[a-zA-Z0-9]{1,45}$/,
     adicciones: /^$|^[a-zA-Z0-9]{1,45}$/,
     alergias: /^$|^[a-zA-Z0-9]{1,45}$/,
-    desayuno: /^$|^[a-zA-Z0-9]{1,45}$/,
-    comida: /^$|^[a-zA-Z0-9]{1,45}$/,
-    cena: /^$|^[a-zA-Z0-9]{1,45}$/,
-    entrecomidas: /^$|^[a-zA-Z0-9]{1,45}$/,
-    agua: /^$|^[a-zA-Z0-9]{1,45}$/,
-    otrosliquidos: /^$|^[a-zA-Z0-9]{1,45}$/,
-    intolerancias: /^$|^[a-zA-Z0-9]{1,45}$/,
-    orinadia: /^$|^[a-zA-Z0-9]{1,45}$/,
-    orinanoche: /^$|^[a-zA-Z0-9]{1,45}$/,
-    orinacolor: /^$|^[a-zA-Z0-9]{1,45}$/,
-    orinaolor: /^$|^[a-zA-Z0-9]{1,45}$/,
-    orinamolestias: /^$|^[a-zA-Z0-9]{1,45}$/,
-    excrementoaldia: /^$|^[a-zA-Z0-9]{1,45}$/,
-    excrementoconsistencia: /^$|^[a-zA-Z0-9]{1,45}$/,
-    excrementoolor: /^$|^[a-zA-Z0-9]{1,45}$/,
-    excrementocolor: /^$|^[a-zA-Z0-9]{1,45}$/,
-    excrementodolor: /^$|^[a-zA-Z0-9]{1,45}$/,
-    ejercicio:/^$|^[a-zA-Z0-9]{1,45}$/
+    desayuno: /^[a-zA-Z0-9]{1,45}$/,
+    comida: /^[a-zA-Z0-9]{1,45}$/,
+    cena: /^[a-zA-Z0-9]{1,45}$/,
+    entrecomidas: /^[a-zA-Z0-9]{1,45}$/,
+    agua: /^[a-zA-Z0-9]{1,45}$/,
+    otrosliquidos: /^[a-zA-Z0-9]{1,45}$/,
+    intolerancias: /^[a-zA-Z0-9]{1,45}$/,
+    orinadia: /^[a-zA-Z0-9]{1,45}$/,
+    orinanoche: /^[a-zA-Z0-9]{1,45}$/,
+    orinacolor: /^[a-zA-Z0-9]{1,45}$/,
+    orinaolor: /^[a-zA-Z0-9]{1,45}$/,
+    orinamolestias: /^[a-zA-Z0-9]{1,45}$/,
+    excrementoaldia: /^[a-zA-Z0-9]{1,45}$/,
+    excrementoconsistencia: /^[a-zA-Z0-9]{1,45}$/,
+    excrementoolor: /^[a-zA-Z0-9]{1,45}$/,
+    excrementocolor: /^[a-zA-Z0-9]{1,45}$/,
+    excrementodolor: /^[a-zA-Z0-9]{1,45}$/,
+    ejercicio: /^[a-zA-Z0-9]{1,45}$/
 }
 const campos = {
-    recomendo: false,
+    recomendo: true,
+    hijoedad: true,
     tipo: false,
-    embarazos: true,
-    partos: true,
-    cesareas: true,
-    abortos: true,
-    muertos: true,
-    enfs: true,
-    menstruacion: true,
-    menstruacionperiodicidad: true,
-    menstruacionmolestias: true,
+    embarazos: false,
+    partos: false,
+    cesareas: false,
+    abortos: false,
+    muertos: false,
+    enfs: false,
+    menstruacion: false,
+    menstruacionperiodicidad: false,
+    menstruacionmolestias: false,
     cigarros: false,
     cigarrosantiguedad: false,
-    frecuencia: true,
-    cantidad: true,
-    tipos: true,
-    adicciones: true,
-    alergias: true,
-    desayuno: true,
-    comida: true,
-    cena: true,
-    entrecomidas: true,
-    agua: true,
-    otrosliquidos: true,
-    intolerancias: true,
-    orinadia: true,
-    orinanoche: true,
-    orinacolor: true,
-    orinaolor: true,
-    orinamolestias: true,
-    excrementoaldia: true,
-    excrementoconsistencia: true,
-    excrementoolor: true,
-    excrementocolor: true,
-    excrementodolor: true,
-    ejercicio:true
-}
-const camposHijo = {
-    hijoedad: false,
-    hijosexo: false,
+    frecuencia: false,
+    cantidad: false,
+    tipos: false,
+    adicciones: false,
+    alergias: false,
+    desayuno: false,
+    comida: false,
+    cena: false,
+    entrecomidas: false,
+    agua: false,
+    otrosliquidos: false,
+    intolerancias: false,
+    orinadia: false,
+    orinanoche: false,
+    orinacolor: false,
+    orinaolor: false,
+    orinamolestias: false,
+    excrementoaldia: false,
+    excrementoconsistencia: false,
+    excrementoolor: false,
+    excrementocolor: false,
+    excrementodolor: false,
+    ejercicio: false
 }
 const validarFormulario = (e) => {
     switch (e.target.name) {
+        case "hijoedad-paciente":
+            validarCampo(expresiones.hijoedad, e.target.value, 'hijoedad');
+            break;
         case "recomendo-paciente":
             validarCampo(expresiones.recomendo, e.target.value, 'recomendo');
             break;
@@ -191,10 +221,10 @@ const validarFormulario = (e) => {
         case "excrementodolor-paciente":
             validarCampo(expresiones.excrementodolor, e.target.value, 'excrementodolor');
             break;
-            case "ejercicio-paciente":
-        validarCampo(expresiones.ejercicio, e.target.value, 'ejercicio');
-        break;
-        
+        case "ejercicio-paciente":
+            validarCampo(expresiones.ejercicio, e.target.value, 'ejercicio');
+            break;
+
         /*
     case "":
         validarCampo(expresiones., e.target.value, '');
@@ -205,15 +235,16 @@ const validarFormulario = (e) => {
 const validarCampo = (expresion, input, campo) => {
     if (expresion.test(input)) {
         document.getElementById(`grupo_${campo}`).classList.remove('formulario_grupo-incorrecto');
-        /*document.getElementById(`grupo_${campo}`).classList.add('formulario_grupo-correcto');*/
+        document.getElementById(`grupo_${campo}`).classList.add('formulario_grupo-correcto');
         document.querySelector(`#grupo_${campo} .form_validacion-estado`).classList.remove('fa-circle-xmark');
-        /*document.querySelector(`#grupo_${campo} .form_validacion-estado`).classList.add('fa-circle-check'); document.querySelector(`#grupo_${campo} .form_input-error`).classList.remove('form_input-error-activo');*/
+        document.querySelector(`#grupo_${campo} .form_validacion-estado`).classList.add('fa-circle-check');
+        document.querySelector(`#grupo_${campo} .form_input-error`).classList.remove('form_input-error-activo');
         campos[campo] = true;
     } else {
         document.getElementById(`grupo_${campo}`).classList.add('formulario_grupo-incorrecto');
-       /* document.getElementById(`grupo_${campo}`).classList.remove('formulario_grupo-correcto');*/
+        document.getElementById(`grupo_${campo}`).classList.remove('formulario_grupo-correcto');
         document.querySelector(`#grupo_${campo} .form_validacion-estado`).classList.add('fa-circle-xmark');
-       /* document.querySelector(`#grupo_${campo} .form_validacion-estado`).classList.remove('fa-circle-check');*/
+        document.querySelector(`#grupo_${campo} .form_validacion-estado`).classList.remove('fa-circle-check');
         document.querySelector(`#grupo_${campo} .form_input-error`).classList.add('form_input-error-activo');
         campos[campo] = false;
     }
@@ -223,13 +254,13 @@ inputs.forEach((input) => {
     input.addEventListener('keyup', validarFormulario);
     input.addEventListener('blur', validarFormulario);
 });
-
+obtenerPaciente();
 formFicha.addEventListener('submit', (e) => {
     e.preventDefault();
-    var i=true;
-    for(const key in campos){
-        if(campos[key]===false){
-            i=false;
+    var i = true;
+    for (const key in campos) {
+        if (campos[key] === false) {
+            i = false;
             break;
         }
     }

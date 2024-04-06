@@ -247,7 +247,7 @@ if (!isset($_SESSION['username'])) {
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
-                        <button class="input_submit boton amarillo">Imprimir</button>
+                        <button class="input_submit boton amarillo" type="button" id="boton-imprimir-paciente">Imprimir Paciente</button>
                     </div>
 
                     <div class="formulario_grupo formulario_btn-enviar">

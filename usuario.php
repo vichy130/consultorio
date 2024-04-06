@@ -146,7 +146,7 @@ if (isset($_REQUEST["id"])) {
             </div><!-- end form-grupo -->
 
             <!-- Grupo: firma -->
-            <div class="formulario_grupo" id="grupo_firma">
+            <!-- <div class="formulario_grupo" id="grupo_firma">
                 <label class="form_label" for="firma-usuario">Firma Médico</label>
                 <div class="form_grupo-input">
                     <input class="form_input" type="file" id="firma-usuario" name="firma-usuario"
@@ -154,7 +154,7 @@ if (isset($_REQUEST["id"])) {
                     <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                 </div>
                 <p class="form_input-error">El archivo debe ser tipo JPG, JPEJ o PNG.</p>
-            </div><!-- end form-grupo -->
+            </div>end form-grupo -->
 
             <div class="form_mensaje span-4" id="form_mensaje">
                 <p><i class="fa-solid fa-circle-exclamation"></i> Error: Porfavor rellena el formulario correctamente.</p>
