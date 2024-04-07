@@ -1,7 +1,7 @@
 <?php /* edited 04 08 22*/
 session_start();
 
-include_once("../models/paciente.php");
+include_once ("../models/paciente.php");
 $paciente = new Paciente();
 $id_paciente = $_SESSION["id_paciente"];
 $nombre = $_POST["nombre-paciente"];
@@ -44,7 +44,10 @@ $paciente->setValues(
 );
 
 if ($paciente->actualizar()) {
-    echo "1";
-} else
-    echo "0";
+    $jsonPaciente = json_encode($paciente->getValues());
+    header('Content-Type: application/json');
+    echo $jsonPaciente;
+} else {
+    echo "false";
+}
 ?>

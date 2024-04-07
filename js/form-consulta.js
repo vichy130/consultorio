@@ -9,36 +9,35 @@ var arrayMedicamentoIndicaciones = [];
 var arrayEstudiosSolicitados = [];
 var arrayTerapiasAplicadas = [];
 var receta = new Date().getTime();
-var medicamentoDatalist = document.getElementById("consultanombremed-paciente");
+var medicamentoDatalist = document.getElementById("datalist-consultanombremed-paciente");
 var tablaCPrevias = document.getElementById("tabla-consultas-previas");//
 var tablaMedicamentoIndicacion = document.getElementById("tabla-medicamento-indicacion");
 var tablaTerapiasAplicadas = document.getElementById("tabla-terapias-aplicadas");
 var tablaEstudiosSolicitados = document.getElementById("tabla-estudios-solicitados");
-var indicacionesMedicamento = document.getElementById("indicacionesmed-paciente"); //INPUT
+var inputIndicacionesMedicamento = document.getElementById("indicacionesmed-paciente"); //INPUT
 //TABLA
 var selectConsultorio = document.getElementById("select-consultorio"); //SELECT
 var selectMedicamentoHora = document.getElementById("select-medicamento-hora");
 var anadirCPrevia = document.getElementById('boton-consulta-previa');//BOTON
-var anadirMedicamentoIndicacion = document.getElementById("boton-medicamento-indicacion");
 var anadirEstudioSolicitado = document.getElementById("boton-estudios-solicitados");
 var anadirTerapia = document.getElementById("boton-terapia");
-var botonImprimirReceta=document.getElementById("boton-imprimir-receta");
+var botonImprimirReceta = document.getElementById("boton-imprimir-receta");
 //VARIABLES
 
 //BOTONES -- EVENT LISTENERS
 anadirCPrevia.addEventListener("click", ingresarCPrevia);
-anadirMedicamentoIndicacion.addEventListener("click", ingresarMedicamentoIndicacion);
+// anadirMedicamentoIndicacion.addEventListener("click", ingresarMedicamentoIndicacion);
 anadirEstudioSolicitado.addEventListener("click", ingresarEstudioSolicitado);
 anadirTerapia.addEventListener("click", ingresarTerapia);
-botonImprimirReceta.addEventListener("click",imprimirReceta);
+botonImprimirReceta.addEventListener("click", imprimirReceta);
 //BOTONES
 
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     fetchedData = null;
     id = null;
+    obtenerMedicamentos();
     obtenerConsulta();
     obtenerConsultorios();
-    obtenerMedicamentos();
 };
 
 document.addEventListener('DOMContentLoaded', function () {// SE EJECUTA AUNQUE LOS RECURSOS NO HAN SIDO CARGADOS POR COMPLETO
@@ -70,17 +69,16 @@ function obtenerConsulta() {
             if (data && data.id != null) {
                 consulta = new Consulta(data.fecha, data.usuario, data.paciente, data.ta, data.oxigeno, data.pulso, data.peso, data.estatura, data.temperatura, data.motivoConsulta, data.exploracion, data.indicaciones, data.receta, data.consultorio);
 
-                document.getElementById('consultafecha-paciente').value = consulta.fecha;
-                document.getElementById('vitalesta-paciente').value = consulta.ta;
-                document.getElementById('vitalesoxigeno-paciente').value = consulta.oxigeno;
-                document.getElementById('vitalespulso-paciente').value = consulta.pulso;
-                document.getElementById('vitalespeso-paciente').value = consulta.peso;
-                document.getElementById('vitalesestatura-paciente').value = consulta.estatura;
-                document.getElementById('vitalestemperatura-paciente').value = consulta.temperatura;
-                document.getElementById('consultamotivo-paciente').value = consulta.motivoConsulta;
-                document.getElementById('consultaexploracion-paciente').value = consulta.exploracion;
-                document.getElementById('consultaindicaciones-paciente').value = consulta.indicaciones;
-                console.log(consulta.consultorio);
+                inputConsultaFecha.value = consulta.fecha;
+                inputVitalesta.value = consulta.ta;
+                inputVitalesoxigeno.value = consulta.oxigeno;
+                inputVitalespulso.value = consulta.pulso;
+                inputVitalespeso.value = consulta.peso;
+                inputVitalestatura.value = consulta.estatura;
+                inputVitalestemperatura.value = consulta.temperatura;
+                inputConsultamotivo.value = consulta.motivoConsulta;
+                inputConsultaexploracion.value = consulta.exploracion;
+                inputConsultaindicaciones.value = consulta.indicaciones;
                 //pendiente
                 data.consultasPrevias.forEach(cp => {
                     var consultaPrevia = new ConsultaPrevia(cp.comentarios, cp.diagnostico, cp.estudios, cp.tratamiento);
@@ -109,6 +107,7 @@ function obtenerConsulta() {
                     arrayEstudiosSolicitados.push(estudio);
                 })
                 actualizarTablaEstudiosSolicitados();
+                validarConsulta();
             }
         })// FIN FETCH
         .catch(error => {
@@ -150,11 +149,23 @@ function obtenerMedicamentos() { //pendiente
 }
 // FUNCIONES : OBTENER CONSULTORIOS
 function consultorioSelect() {
-    arrayConsultorios.forEach(consultorio => {
-        const opcion = document.createElement('option');
-        opcion.value = consultorio.id;
-        opcion.text = consultorio.nombre;
-        selectConsultorio.add(opcion);
+    return new Promise((resolve, reject) => {
+        arrayConsultorios.forEach(consultorio => {
+            const opcion = document.createElement('option');
+            opcion.value = consultorio.id;
+            opcion.text = consultorio.nombre;
+            selectConsultorio.add(opcion);
+            if (consulta != null) {
+                if (consulta.consultorio != null) {
+                    if (consulta.consultorio == opcion.value) {
+                        opcion.selected = true;
+                    }
+                }
+            }
+        });
+        setTimeout(() => {
+            resolve();
+        }, 2000);
     });
 }
 // FUNCIONES : OBTENER CONSULTORIOS
@@ -173,18 +184,21 @@ function ingresarCPrevia() {
 // FUNCIONES INSERTAR ARRAY INGRESAR CONSULTAS PREVIAS
 //FUNCIONES INSERTAR ARRAY INGRESAR MEDICAMENTO
 function ingresarMedicamentoIndicacion() {
-    let inputMedicamento = document.getElementById("input-medicamento").value;
-    const optionMedicamento = document.querySelector(`#consultanombremed-paciente option[value="${inputMedicamento}"]`);
-    //++++ aqui va un validator +++++++ //
+    // return new Promise((resolve, reject) => {
+    let inputMedicamento = document.getElementById("consultanombremed-paciente").value;
+    const optionMedicamento = document.querySelector(`#datalist-consultanombremed-paciente option[value="${inputMedicamento}"]`);
     const med = optionMedicamento.getAttribute('id-medicamento');
-    let medicamentoHora = selectMedicamentoHora.value;
-    let indicaciones = indicacionesMedicamento.value;
+    let indicaciones = inputIndicacionesMedicamento.value;
     let hora = document.getElementById("select-medicamento-hora").value;
-    medicamentoIndicacion = new MedicamentoIndicacion(med, hora, indicaciones);
+    var medicamentoIndicacion = new MedicamentoIndicacion(med, hora, indicaciones);
     medicamentoIndicacion.id = new Date().getTime();
     medicamentoIndicacion.receta = receta;
     arrayMedicamentoIndicaciones.push(medicamentoIndicacion);
     actualizarTablaMedicamentoIndicacion();
+    //     setTimeout(() => {
+    //         resolve();
+    //     }, 2000);
+    // });
 }
 //FUNCIONES INSERTAR ARRAY INGRESAR MEDICAMENTO
 function ingresarEstudioSolicitado() {
@@ -266,11 +280,11 @@ function enviarFormConsulta() {
             body: datosConsulta // El JSON que contiene los datos y el formulario
         })
             .then(function (response) {
-                return response.text();
+                return response.json();
             })
             .then(function (data) {
                 console.log(data);
-                // TODO
+                consulta = new Consulta(data.fecha, data.usuario, data.paciente, data.ta, data.oxigeno, data.pulso, data.peso, data.estatura, data.temperatura, data.motivoConsulta, data.exploracion, data.indicaciones, data.receta, data.consultorio);
             })
             .catch(function (error) {
                 console.error('Error:', error);
@@ -279,11 +293,11 @@ function enviarFormConsulta() {
 }
 //FETCH FORMULARIO Y ARRAYS
 //FETCH FORMULARIO Y ARRAYS
-function imprimirReceta(){
-    if (consulta!=null){
+function imprimirReceta() {
+    if (consulta != null) {
         window.open("./print/receta.php", "_blank");
-    }else{
-        
+    } else {
+        //TODO
     }
 }
 
@@ -385,7 +399,11 @@ function actualizarTablaMedicamentoIndicacion() {
             const iconoEliminar = document.createElement('i');
             iconoEliminar.dataset.id = i.id;
             iconoEliminar.className = "fas fa-trash eliminar-medicamento-indicacion";
-            medicamentoFila.textContent = i.medicamento;
+            arrayMedicamentos.forEach(m => {
+                if (m.id == i.medicamento) {
+                    medicamentoFila.textContent = m.medicamento;
+                }
+            });
             indicacionesFila.textContent = i.indicaciones;
 
             eliminarFila.appendChild(iconoEliminar);
@@ -432,7 +450,7 @@ function actualizarTablaTerapiasAplicadas() {
 }
 function actualizarTablaEstudiosSolicitados() {
     clearDiv(tablaEstudiosSolicitados);
-    if (arrayEstudiosSolicitados.length>0) {
+    if (arrayEstudiosSolicitados.length > 0) {
         const thead = document.createElement('thead');
         const propiedades = document.createElement('tr');
         const estudio = document.createElement('th');

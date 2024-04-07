@@ -16,10 +16,11 @@ $medicamento->setId($id);
 $medicamento->setValues($med, $tipo, $descripcion);
 if($medicamento->insertar()){
   $_SESSION['id_med']=$id;
-  echo $_SESSION['id_med'];
-  return true;
+  $jsonMedicamento = json_encode($medicamento->getValues());
+  header('Content-Type: application/json');
+  echo $jsonMedicamento;
 }else{
-  return false;
+  return "false";
 }
 
 

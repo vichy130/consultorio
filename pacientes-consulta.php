@@ -69,10 +69,10 @@ if (isset($_REQUEST["id"])) {
                     <div class="formulario_grupo" id="grupo_vitalesta">
                         <label class="form_label" for="vitalesta-paciente">TA</label>
                         <div class="form_grupo-input">
-                            <input class="form_input" type="text" id="vitalesta-paciente" name="vitalesta-paciente">
+                            <input class="form_input" type="text" id="vitalesta-paciente" name="vitalesta-paciente" placeholder="120/80">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">El campo no debe estar vacío. Solo se permiten números</p>
                     </div><!-- end form-grupo -->
 
                     <!-- grupo: -->
@@ -80,7 +80,7 @@ if (isset($_REQUEST["id"])) {
                         <label class="form_label" for="vitalesoxigeno-paciente">Oxigeno</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="vitalesoxigeno-paciente"
-                                name="vitalesoxigeno-paciente">
+                                name="vitalesoxigeno-paciente" placeholder="95">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
                         <p class="form_input-error">El campo no debe estar vacío</p>
@@ -91,7 +91,7 @@ if (isset($_REQUEST["id"])) {
                         <label class="form_label" for="vitalespulso-paciente">Pulso</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="vitalespulso-paciente"
-                                name="vitalespulso-paciente">
+                                name="vitalespulso-paciente" placeholder="80">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
                         <p class="form_input-error">El campo no debe estar vacío</p>
@@ -101,7 +101,7 @@ if (isset($_REQUEST["id"])) {
                     <div class="formulario_grupo" id="grupo_vitalespeso">
                         <label class="form_label" for="vitalespeso-paciente">Peso</label>
                         <div class="form_grupo-input">
-                            <input class="form_input" type="text" id="vitalespeso-paciente" name="vitalespeso-paciente">
+                            <input class="form_input" type="text" id="vitalespeso-paciente" name="vitalespeso-paciente" placeholder="60.5">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
                         <p class="form_input-error">El campo no debe estar vacío</p>
@@ -112,7 +112,7 @@ if (isset($_REQUEST["id"])) {
                         <label class="form_label" for="vitalesestatura-paciente">Estatura</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="vitalesestatura-paciente"
-                                name="vitalesestatura-paciente">
+                                name="vitalesestatura-paciente" placeholder="1.75">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
                         <p class="form_input-error">El campo no debe estar vacío</p>
@@ -123,7 +123,7 @@ if (isset($_REQUEST["id"])) {
                         <label class="form_label" for="vitalestemperatura-paciente">Temperatura</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="vitalestemperatura-paciente"
-                                name="vitalestemperatura-paciente">
+                                name="vitalestemperatura-paciente" placeholder="36.5">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
                         <p class="form_input-error">El campo no debe estar vacío</p>
@@ -137,7 +137,7 @@ if (isset($_REQUEST["id"])) {
                                 name="consultamotivo-paciente" rows="4" cols="50"> </textarea>
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">El campo no debe estar vacío. Solo se aceptan letras</p>
                     </div><!-- end form-grupo -->
 
                     <!-- grupo: -->
@@ -148,7 +148,7 @@ if (isset($_REQUEST["id"])) {
                                 name="consultaexploracion-paciente" rows="4" cols="50"></textarea>
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">El campo no debe estar vacío. Solo se aceptan letras y números</p>
                     </div><!-- end form-grupo -->
 
                     <label class="formulario_grupo span-4">Consultas externas</label>
@@ -161,7 +161,7 @@ if (isset($_REQUEST["id"])) {
                                 name="consultapreviacomentarios-paciente" rows="4" cols="50"> </textarea>
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">El campo no debe estar vacío. Solo se aceptan letras</p>
                     </div><!-- end form-grupo -->
 
                     <!-- grupo: -->
@@ -172,7 +172,7 @@ if (isset($_REQUEST["id"])) {
                                 name="consultapreviadiagnostico-paciente" rows="4" cols="50"> </textarea>
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">El campo no debe estar vacío. Solo se aceptan letras</p>
                     </div><!-- end form-grupo -->
 
                     <!-- grupo: -->
@@ -183,7 +183,7 @@ if (isset($_REQUEST["id"])) {
                                 name="consultapreviaestudio-paciente" rows="4" cols="50"> </textarea>
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">El campo no debe estar vacío. Solo se aceptan letras y números</p>
                     </div><!-- end form-grupo -->
 
                     <!-- grupo: -->
@@ -194,7 +194,7 @@ if (isset($_REQUEST["id"])) {
                                 name="consultapreviatratamientos-paciente" rows="4" cols="50"> </textarea>
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">El campo no debe estar vacío. Solo se aceptan letras y números</p>
                     </div><!-- end form-grupo -->
 
                     <button class="boton azul" id="boton-consulta-previa" type="button"><i
@@ -223,7 +223,7 @@ if (isset($_REQUEST["id"])) {
                                 name="consultaindicaciones-paciente" rows="4" cols="50"> </textarea>
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">El campo no debe estar vacío.Solo se aceptan letras y números</p>
                     </div><!-- end form-grupo -->
 
                     <label class="formulario_grupo span-4">Medicamento</label>
@@ -232,12 +232,12 @@ if (isset($_REQUEST["id"])) {
                     <div class="formulario_grupo span-2" id="grupo_consultanombremed">
                         <label class="form_label" for="consultanombremed-paciente">Nombre del medicamento</label>
                         <div class="form_grupo-input">
-                            <input class="form_input" list="consultanombremed-paciente" id="input-medicamento">
-                            <datalist class="form_input" id="consultanombremed-paciente">
+                            <input class="form_input" list="datalist-consultanombremed-paciente" id="consultanombremed-paciente">
+                            <datalist class="form_input" id="datalist-consultanombremed-paciente">
                             </datalist>
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">Solo se permiten medicamentos previamente registrados</p>
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
@@ -279,7 +279,7 @@ if (isset($_REQUEST["id"])) {
                                 name="indicacionesmed-paciente" rows="4" cols="50"> </textarea>
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">El campo no debe estar vacío. Solo se aceptan letras</p>
                     </div><!-- end form-grupo -->
 
                     <button class="boton azul" id="boton-medicamento-indicacion" type="button"><i
@@ -305,7 +305,7 @@ if (isset($_REQUEST["id"])) {
                                 name="estudiossolicitados-paciente" rows="4" cols="50"> </textarea>
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">El campo no debe estar vacío. Solo se aceptan letras y números</p>
                     </div><!-- end form-grupo -->
 
                     <button class="boton azul" id="boton-estudios-solicitados" type="button"><i class="fas fa-plus"></i>
@@ -329,7 +329,7 @@ if (isset($_REQUEST["id"])) {
                                 name="consultaterapia-paciente" rows="4" cols="50"> </textarea>
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">El campo no debe estar vacío. Solo se aceptan letras y números</p>
                     </div><!-- end form-grupo -->
 
                     <button class="boton azul" id="boton-terapia" type="button"><i class="fas fa-plus"></i>
@@ -360,6 +360,6 @@ if (isset($_REQUEST["id"])) {
     </div>
     <!-- end contenedor -->
 </body>
-<script src="./js/form-consulta.js"></script>
 <script src="./js/validacion-consulta.js"></script>
+<script src="./js/form-consulta.js"></script>
 </html>

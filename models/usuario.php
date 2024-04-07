@@ -71,6 +71,7 @@ class usuario
             return $stmt->execute();
         } catch (PDOException $e) {
             echo "Error al insertar Usuario" . $e->getMessage();
+            return false;
         }
     }
     function obtener()

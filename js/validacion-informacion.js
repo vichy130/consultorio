@@ -135,7 +135,6 @@ inputsPaciente.forEach((input) => {
     input.addEventListener('blur', validarFormulario);
 });
 function validarInformacion(){
-    console.log("validandocampos");
     validarCampo(expresiones.nombre, inputNombre.value, 'nombre');
     validarCampo(expresiones.apellidop, inputApellidoPaterno.value, 'apellidop');
     validarCampo(expresiones.apellidom, inputApellidoMaterno.value, 'apellidom');

@@ -202,7 +202,7 @@ class Consulta
             $stmt->bindParam(':temperatura', $this->temperatura);
             $stmt->bindParam(':motivoConsulta', $this->motivoConsulta);
             $stmt->bindParam(':exploracion', $this->exploracion);
-            $stmt->bindParam(':indicaciones', $this->exploracion);
+            $stmt->bindParam(':indicaciones', $this->indicaciones);
             $stmt->bindParam(':receta', $this->receta);
             $stmt->bindParam(':consultorio', $this->consultorio);
             $stmt->execute();
@@ -336,7 +336,7 @@ class Consulta
             $stmt->bindParam(':temperatura', $this->temperatura);
             $stmt->bindParam(':motivoConsulta', $this->motivoConsulta);
             $stmt->bindParam(':exploracion', $this->exploracion);
-            $stmt->bindParam(':indicaciones', $this->exploracion);
+            $stmt->bindParam(':indicaciones', $this->indicaciones);
             $stmt->bindParam(':consultorio', $this->consultorio);
             $stmt->execute();
             return true;

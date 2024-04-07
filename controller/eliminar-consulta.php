@@ -8,13 +8,13 @@ try {
         $consulta = new Consulta();
         $consulta->setId($id);
         if ($consulta->eliminar()) {
-            echo "1";
+            echo "true";
         } else {
-            echo "0";
+            echo "false";
         }
     }
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage();
-    echo "0";
+    echo "false";
 }
 ?>

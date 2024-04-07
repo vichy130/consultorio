@@ -15,9 +15,10 @@ $usuario->setUsername($username);
 $usuario->setValues($nombre, $apellidoPaterno, $apellidoMaterno, $telefono, $correo, $tipoUsuario);
 
 if ($usuario->actualizar()) {
-    echo "usuario actualizado";
-    echo $usuario->getUsername();
+    $jsonUsuario = json_encode($usuario->getValues());
+    header('Content-Type: application/json');
+    echo $jsonUsuario;
 } else {
-    echo "Error al actualizar usuario";
+    echo "false";
 }
 ?>

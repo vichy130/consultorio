@@ -394,7 +394,44 @@ class Ficha
     }
     function actualizar()
     {
-        $query = "UPDATE ficha SET 
+        if ($this->fechaMenstruacion == null || $this->embarazo == null || $this->partos == null || $this->cesareas == null || $this->abortos == null || $this->muertos == null || $this->enfs == null || $this->mensPeriodicidad == null || $this->mensMolestias == null) {
+            $query = "UPDATE ficha SET 
+            paciente = :paciente, 
+            tipoSangre = :tipoSangre, 
+            quienRecomendo = :quienRecomendo, 
+            fuma = :fuma, 
+            cigarrosDia = :cigarrosDia, 
+            fumaAntiguedad = :fumaAntiguedad, 
+            alcohol = :alcohol, 
+            alcFrecuencia = :alcFrecuencia, 
+            alcoholCantidad = :alcoholCantidad, 
+            alcoholTipos = :alcoholTipos, 
+            adicciones = :adicciones, 
+            alergias = :alergias, 
+            desayuno = :desayuno, 
+            comida = :comida, 
+            cena = :cena, 
+            entreComidas = :entreComidas, 
+            vasoAguaDia = :vasoAguaDia, 
+            otrosLiquidos = :otrosLiquidos, 
+            intolerancias = :intolerancias, 
+            orinaDia = :orinaDia, 
+            orinaNoche = :orinaNoche, 
+            orinaColor = :orinaColor, 
+            orinaOlor = :orinaOlor, 
+            orinaMolestias = :orinaMolestias, 
+            excrementoDia = :excrementoDia, 
+            exConsistencia = :exConsistencia, 
+            exOlor = :exOlor, 
+            exColor = :exColor, 
+            exDolor = :exDolor, 
+            ejercicioSemana = :ejercicioSemana, 
+            fecha = :fecha, 
+            hora = :hora, 
+            usuario = :usuario 
+            WHERE id = :id; ";
+        }else{
+            $query = "UPDATE ficha SET 
             paciente = :paciente, 
             tipoSangre = :tipoSangre, 
             quienRecomendo = :quienRecomendo, 
@@ -438,19 +475,20 @@ class Ficha
             hora = :hora, 
             usuario = :usuario 
             WHERE id = :id; ";
+        }
         try {
             $stmt = $this->conexion->getdbh()->prepare($query);
-
-            // Bind de los valores
             $stmt->bindParam(':paciente', $this->paciente);
             $stmt->bindParam(':tipoSangre', $this->tipoSangre);
             $stmt->bindParam(':quienRecomendo', $this->quienRecomendo);
-            $stmt->bindParam(':embarazo', $this->embarazo);
-            $stmt->bindParam(':partos', $this->partos);
-            $stmt->bindParam(':cesareas', $this->cesareas);
-            $stmt->bindParam(':abortos', $this->abortos);
-            $stmt->bindParam(':muertos', $this->muertos);
-            $stmt->bindParam(':enfs', $this->enfs);
+            if($this->embarazo != null || $this->partos!=null || $this->cesareas !=null || $this->abortos != null || $this->muertos!= null || $this->enfs != null ){
+                $stmt->bindParam(':embarazo', $this->embarazo);
+                $stmt->bindParam(':partos', $this->partos);
+                $stmt->bindParam(':cesareas', $this->cesareas);
+                $stmt->bindParam(':abortos', $this->abortos);
+                $stmt->bindParam(':muertos', $this->muertos);
+                $stmt->bindParam(':enfs', $this->enfs);
+            }
             $stmt->bindParam(':fuma', $this->fuma);
             $stmt->bindParam(':cigarrosDia', $this->cigarrosDia);
             $stmt->bindParam(':fumaAntiguedad', $this->fumaAntiguedad);
@@ -477,9 +515,11 @@ class Ficha
             $stmt->bindParam(':exOlor', $this->exOlor);
             $stmt->bindParam(':exColor', $this->exColor);
             $stmt->bindParam(':exDolor', $this->exDolor);
+            if($this->fechaMenstruacion != null  || $this->mensPeriodicidad !=null || $this->mensMolestias!= null){
             $stmt->bindParam(':fechaMenstruacion', $this->fechaMenstruacion);
             $stmt->bindParam(':mensPeriodicidad', $this->mensPeriodicidad);
             $stmt->bindParam(':mensMolestias', $this->mensMolestias);
+            }
             $stmt->bindParam(':ejercicioSemana', $this->ejercicioSemana);
             $stmt->bindParam(':fecha', $this->fecha);
             $stmt->bindParam(':hora', $this->hora);

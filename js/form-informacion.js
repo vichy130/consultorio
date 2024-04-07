@@ -54,13 +54,10 @@ function enviarFormPaciente(){
             body: datosPaciente // El JSON que contiene los datos y el formulario
         })
             .then(function (response) {
-                return response.text();
+                return response.json();
             })
             .then(function (data) {
                 console.log(data);
-                if (data != null) {
-                    console.log(data);
-                }
             })
             .catch(function (error) {
                 console.error('Error:', error);
@@ -71,15 +68,12 @@ function enviarFormPaciente(){
             body: datosPaciente // El JSON que contiene los datos y el formulario
         })
             .then(function (response) {
-                return response.text();
+                return response.json();
             })
             .then(function (data) {
-                if (data == true) {
-                    fetchedData = data;
-                    console.log(data);
-                } else {
-                    console.log("error");
-                }
+                console.log(data);
+                paciente = new Paciente(data.nombre, data.apellidoPaterno, data.apellidoMaterno, data.sexo, data.fechaNacimiento, data.lugarNacimiento, data.calle, data.colonia, data.ciudad, data.codigoPostal, data.telCasa, data.telOficina, data.celular, data.edoCivil, data.ocupacion, data.escolaridad, data.correo);
+                paciente.id = data.id;
             })
             .catch(function (error) {
                 console.error('Error:', error);

@@ -65,8 +65,10 @@ if ($ficha->insertar() == 1) {
     $ficha->setHijos($hijos);
     $ficha->setAntecedentes($antecedentes);
     $ficha->setAntecedentesFam($antecedentesFam);
-    echo "1";
+    $jsonFicha = json_encode($ficha->getValues());
+    header('Content-Type: application/json');
+    echo $jsonFicha;
 } else {
-    echo "0";
+    echo "false";
 }
 ?>

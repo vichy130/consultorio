@@ -12,8 +12,10 @@ $consultorio->setValues($nombre,$calle,$colonia,$ciudad,$codigoPostal,$telefono)
 if($consultorio->insertar()){
   echo "consultorio registrado";
   $_SESSION['id_med']=$consultorio->getId();
-  echo $_SESSION['id_med'];
+  $jsonConsultorio = json_encode($consultorio->getValues());
+  header('Content-Type: application/json');
+  echo $jsonConsultorio;
 }else{
-    echo "Error al registrar, intentalo nuevamente";
+    echo "false";
 }
 ?>

@@ -291,8 +291,8 @@ const validarCampo = (expresion, input, campo) => {
 }
 document.addEventListener('DOMContentLoaded', function () {// SE EJECUTA 
 obtenerPaciente();
-deshabilitarFuma();
-deshabilitarAlcohol();
+// deshabilitarFuma();
+// deshabilitarAlcohol();
 });
 
 inputs.forEach((input) => {
@@ -347,7 +347,6 @@ function deshabilitarFuma() {
                 campos.cigarros = true;
                 expresiones.cigarros = /^$|^\d{1,2}$/;
                 validarCampo(expresiones.cigarros,inputCigarros.value,'cigarros');
-
                 inputCigarrosAntiguedad.disabled=true;
                 inputCigarrosAntiguedad.value='';
                 campos.cigarrosantiguedad=true;
@@ -356,17 +355,17 @@ function deshabilitarFuma() {
                 resolve(); // Resolvemos la promesa si la operación se realizó con éxito
             } else {
                 inputCigarros.disabled = false;
-                inputCigarros.value = "";
+                // inputCigarros.value = "";
                 campos.cigarros = false;
                 expresiones.cigarros = /^\d{1,2}$/;
 
                 inputCigarrosAntiguedad.disabled=false;
-                inputCigarrosAntiguedad.value="";
+                // inputCigarrosAntiguedad.value="";
                 campos.cigarrosantiguedad=false;
                 expresiones.cigarrosantiguedad=/^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\s]{1,45}$/;
                 resolve(); // Resolvemos la promesa si la operación se realizó con éxito
             }
-        }, 1000); // Demora de 1 segundo
+        }, 2000); // Demora de 1 segundo
     });
 }
 
@@ -394,17 +393,17 @@ function deshabilitarAlcohol() {
                 resolve(); // Resolvemos la promesa si la operación se realizó con éxito
             } else {
                  inputFrecuencia.disabled = false;
-                inputFrecuencia.value = "";
+                // inputFrecuencia.value = "";
                 campos.frecuencia = false;
                 expresiones.frecuencia = /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\s]{1,45}$/;
 
                 inputCantidad.disabled = false;
-                inputCantidad.value = "";
+                // inputCantidad.value = "";
                 campos.cantidad = false;
                 expresiones.cantidad = /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\s]{1,45}$/;
 
                 inputTipos.disabled = false;
-                inputTipos.value = "";
+                // inputTipos.value = "";
                 campos.tipos = false;
                 expresiones.tipos = /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\s]{1,45}$/;
                 resolve(); // Resolvemos la promesa si la operación se realizó con éxito
@@ -419,10 +418,9 @@ function obtenerPaciente() {
         .then(data => {
             if (data && data.id != null) {
                 if (data.sexo != "femenino") {
-                    console.log("no FEMENINO");
+                    console.log("femenino");
                     deshabilitarFemenino();
                 }
-                console.log(data);
             }
         })// FIN FETCH
         .catch(error => {
@@ -435,6 +433,14 @@ function deshabilitarFemenino() {
     for (var i = 0; i < femeninoClass.length; i++) {
         femeninoClass[i].classList.add('hide');
     }
+    expresiones.embarazos= /^$|^(1[0-5]?|[0-9])$/;
+    expresiones.partos= /^$|^(1[0-5]?|[0-9])$/;
+    expresiones.cesareas= /^$|^(1[0-5]?|[0-9])$/;
+    expresiones.abortos= /^$|^(1[0-5]?|[0-9])$/;
+    expresiones.muertos= /^$|^(1[0-5]?|[0-9])$/;
+    expresiones.enfs= /^$|^(1[0-5]?|[0-9])$/;
+    expresiones.menstruacion= /.*/;
+    expresiones.menstruacionperiodicidad=  /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\s]{0,200}$/;
     campos.embarazos = true;
     campos.partos = true;
     campos.cesareas = true;

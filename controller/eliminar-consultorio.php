@@ -8,11 +8,11 @@ try {
         $consultorio = new Consultorio();
         $consultorio->setId($id);
         if ($consultorio->eliminar()) {
-            return true;
+            return "true";
         } else {
-            return false;
+            return "false";
         }
     }
 }catch(PDOException $e){
-    echo "ERROR al eliminar consultorio".$e->getMessage();
+    echo "Error".$e->getMessage();
 }

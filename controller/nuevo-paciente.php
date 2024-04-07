@@ -28,8 +28,10 @@ $celular, $edoCivil, $ocupacion, $escolaridad, $correo);
 
 if($paciente->insertar()==true){
   $_SESSION["id_paciente"]=$paciente->getId();
-  echo true;
+  $jsonPaciente = json_encode($paciente->getValues());
+  header('Content-Type: application/json');
+  echo $jsonPaciente;
 }else{
-    echo false;
+  echo "false";
 }
 ?>

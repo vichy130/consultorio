@@ -34,9 +34,6 @@ $consultorio = $_POST['select-consultorio'];
 $jsonReceta = $_POST['jsonReceta'];
 $recetaId = json_decode($jsonReceta);
 $receta->setValues($recetaId);
-echo $jsonTerapiasAplicadas;
-echo $jsonEstudiosSolicitados;
-echo $jsonMedicamentoIndicaciones;
 if ($receta->insertar()) {
   $consulta->setValues($fecha, $usuario, $paciente, $ta, $oxigeno, $pulso, $peso, $estatura, $temperatura, $motivoConsulta, $exploracion, $indicaciones, $receta->getValues(), $consultorio);
   if ($consulta->insertar()) {
@@ -44,6 +41,15 @@ if ($receta->insertar()) {
     $consulta->setTerapiasAplicadas($terapiasAplicadas);
     $consulta->setEstudiosSolicitados($estudiosSolicitados);
     $consulta->setMedicamentosIndicacion($MedicamentoIndicaciones);
+
+    $jsonConsulta = json_encode($consulta->getValues());
+    header('Content-Type: application/json');
+    echo $jsonConsulta;
   }
+  else{
+    echo "false";
+  }
+}else{
+  echo "false";
 }
 ?>

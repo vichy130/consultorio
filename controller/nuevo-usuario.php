@@ -16,10 +16,12 @@ $usuario->setUsername($username);
 $usuario->setValues($nombre,$apellidoPaterno,$apellidoMaterno,$telefono,$correo,$tipoUsuario);
 $usuario->setContrasena($contrasena);
 
-if($usuario->insertar()==1){
-  echo "Usuario registrado";
+if($usuario->insertar()){
+  $jsonUsuario = json_encode($usuario->getValues());
+  header('Content-Type: application/json');
+  echo $jsonUsuario;
 }else{
-    echo "Error al registrar, intentalo nuevamente";
+    echo "false";
 }
 
 ?>

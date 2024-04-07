@@ -13,8 +13,10 @@ $medicamento->setId($id);
 $medicamento->setValues($nombre, $tipo, $descripcion);
 
 if($medicamento->actualizar()){
-    return true;
+    $jsonMedicamento = json_encode($medicamento->getValues());
+    header('Content-Type: application/json');
+    echo $jsonMedicamento;
 }else {
-    return false;
+    return "false";
 }
 

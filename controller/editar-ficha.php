@@ -67,7 +67,10 @@ if ($ficha->actualizar()) {
     $ficha->actualizarHijos($hijos);
     $ficha->actualizarAntecedentes($antecedentes);
     $ficha->actualizarAntecedentesFam($antecedentesFam);
+    $jsonFicha = json_encode($ficha->getValues());
+    header('Content-Type: application/json');
+    echo $jsonFicha;
 } else {
-    echo "Error al actualizar Ficha, intentalo nuevamente";
+    echo "false";
 }
 ?>

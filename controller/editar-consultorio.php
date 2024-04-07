@@ -21,8 +21,10 @@ $consultorio->setValues(
     $telefono
 );
 if($consultorio->actualizar()){
-    return true;
+    $jsonConsultorio = json_encode($consultorio->getValues());
+    header('Content-Type: application/json');
+    echo $jsonConsultorio;
 }else {
-    echo "Error al editar consultorio";
+    echo "false";
 }
 
