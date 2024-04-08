@@ -100,12 +100,23 @@ inputs.forEach((input) => {
     input.addEventListener('keyup', validarFormulario);
     input.addEventListener('blur', validarFormulario);
 });
+function validarUsuario(){
+
+}
 
 formUsuario.addEventListener('submit', (e) => {
     e.preventDefault();
-    if (campos.usuario && campos.nombre && campos.apellidoPaterno && campos.apellidoMaterno && campos.contrasena && campos.contrasena2 && campos.correo && campos.firma) {
+    var i=true;
+    for(key in campos){
+        if(campos[key]===false){
+            i=false;
+            break;
+        }
+    }
+    if (i) {
         enviarFormUsuario();
     } else {
-        //todo
+        validarUsuario();
+        console.log("no se pudo enviar");
     }
 });

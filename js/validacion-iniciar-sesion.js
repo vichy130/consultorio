@@ -1,5 +1,8 @@
-const formulario=document.getElementById('form-iniciar-sesion');
+const formIniciarSesion=document.getElementById('form-iniciar-sesion');
 const inputs=document.querySelectorAll('#form-iniciar-sesion input');
+const inputUsername=document.getElementById('username');
+const inputContrasena=document.getElementById('contrasena');
+var datosIncorrectos=document.getElementById('grupo_datos-incorrectos');
 
 const expresiones = {
 	usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
@@ -15,13 +18,13 @@ const validarFormulario = (e)=>{
         break;
     }
 }
-
 const campos = {
     usuario:false,
     contrasena: false
 }
-
 const validarCampo = (expresion, input, campo) => {
+    datosIncorrectos.classList.remove('formulario_datos-incorrectos-activo');
+    datosIncorrectos.classList.add('formulario_datos-incorrectos');
     if(expresion.test(input.value)){
         document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
         document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
@@ -38,28 +41,32 @@ const validarCampo = (expresion, input, campo) => {
         campos[campo]=false;
     }
 }
-
+function datosIncorrectosActivo(){
+    datosIncorrectos.classList.add('formulario_datos-incorrectos-activo');
+    datosIncorrectos.classList.remove('formulario_datos-incorrectos');
+}
 inputs.forEach((input)=>{
     input.addEventListener('keyup',validarFormulario);
     input.addEventListener('blur',validarFormulario);
     
 });
-
-
-formulario.addEventListener('submit', (e)=>{
-    // e.preventDefault();
-    validarFormulario();
+function validarIniciarSesion(){
+    validarCampo(expresiones.usuario,inputUsername.value, 'usuario');
+    validarCampo(expresiones.password,inputContrasena.value,'contrasena');
+}
+formIniciarSesion.addEventListener('submit', (e)=>{
+    e.preventDefault();
     var i=true;
     for(key in campos){
-        if(campos.key===false){
+        if(campos[key]===false){
             i=false;
+            break;
         }
     }
     if(i){
-        document.querySelectorAll('formulario__grupo-correcto').forEach((icono) => {
-            icono.classList.remove('formulario__grupo-correcto');
-        });
+        enviarFormIniciarSesion();
     }else{
-        e.preventDefault();
+        validarIniciarSesion();
+        console.log("no se pudo enviar");
     }
 });

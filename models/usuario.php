@@ -89,12 +89,34 @@ class usuario
                 $this->apellidoMaterno = $datos["apellidoMaterno"];
                 $this->telefono = $datos["telefono"];
                 $this->correo = $datos["correo"];
-                $this->contrasena = $datos["contrasena"];
                 $this->tipoUsuario = $datos["tipoUsuario"];
             }
             return $this;
         } catch (PDOException $e) {
             echo "Error al buscar datos de Usuario" . $e->getMessage();
+        }
+    }
+    function validar(){
+        $query = "SELECT * FROM usuario WHERE username=:username and contrasena=:contrasena";
+        try {
+            $stmt = $this->conexion->getdbh()->prepare($query);
+            $stmt->bindParam(':username', $this->username);
+            $stmt->bindParam(':contrasena', $this->contrasena);
+            $stmt->execute();
+            $datos = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($datos) {
+                $this->username = $datos["username"];
+                $this->nombre = $datos["nombre"];
+                $this->apellidoPaterno = $datos["apellidoPaterno"];
+                $this->apellidoMaterno = $datos["apellidoMaterno"];
+                $this->telefono = $datos["telefono"];
+                $this->correo = $datos["correo"];
+                $this->tipoUsuario = $datos["tipoUsuario"];
+                return true;
+            }
+        } catch (PDOException $e) {
+            echo "Error al buscar datos de Usuario" . $e->getMessage();
+            return false;
         }
     }
     function eliminar()
