@@ -47,65 +47,65 @@ if (isset($_REQUEST['id'])) {
             <label class="formulario_grupo span-4">Consultorio</label>
 
             <!-- Grupo: -->
-            <div class="formulario_grupo span-2" id="grupo_nombre-consultorio">
+            <div class="formulario_grupo span-2" id="grupo_nombre">
                 <label class="form_label" for="nombre-consultorio">Nombre de consultorio</label>
                 <div class="form_grupo-input">
                     <input class="form_input" type="text" id="nombre-consultorio" name="nombre-consultorio">
                     <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                 </div>
-                <p class="form_input-error">El campo no puede estar vacío</p>
+                <p class="form_input-error">El campo no puede estar vacío. Solo permite letras y números, máximo 100 caracteres.</p>
             </div><!-- end form-grupo -->
 
             <label class="formulario_grupo span-4">Domicilio</label>
 
             <!-- Grupo: -->
-            <div class="formulario_grupo" id="grupo_calle-consultorio">
+            <div class="formulario_grupo" id="grupo_calle">
                 <label class="form_label" for="calle-consultorio">Calle</label>
                 <div class="form_grupo-input">
                     <input class="form_input" type="text" id="calle-consultorio" name="calle-consultorio">
                     <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                 </div>
-                <p class="form_input-error">El campo no puede estar vacío</p>
+                <p class="form_input-error">El campo no puede estar vacío. Solo permite letras y números, máximo 45 caracteres.</p>
             </div><!-- end form-grupo -->
 
             <!-- Grupo: -->
-            <div class="formulario_grupo" id="grupo_colonia-consultorio">
+            <div class="formulario_grupo" id="grupo_colonia">
                 <label class="form_label" for="colonia-consultorio">Colonia</label>
                 <div class="form_grupo-input">
                     <input class="form_input" type="text" id="colonia-consultorio" name="colonia-consultorio">
                     <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                 </div>
-                <p class="form_input-error">El campo no puede estar vacío</p>
+                <p class="form_input-error">El campo no puede estar vacío. Solo permite letras y números, máximo 45 caracteres.</p>
             </div><!-- end form-grupo -->
 
             <!-- Grupo: -->
-            <div class="formulario_grupo" id="grupo_ciudad-consultorio">
+            <div class="formulario_grupo" id="grupo_ciudad">
                 <label class="form_label" for="ciudad-consultorio">Ciudad</label>
                 <div class="form_grupo-input">
                     <input class="form_input" type="text" id="ciudad-consultorio" name="ciudad-consultorio">
                     <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                 </div>
-                <p class="form_input-error">El campo no puede estar vacío</p>
+                <p class="form_input-error">El campo no puede estar vacío. Solo permite letras y números, máximo 45 caracteres.</p>
             </div><!-- end form-grupo -->
 
             <!-- Grupo: -->
-            <div class="formulario_grupo" id="grupo_cp-consultorio">
+            <div class="formulario_grupo" id="grupo_cp">
                 <label class="form_label" for="cp-consultorio">Codigo postal</label>
                 <div class="form_grupo-input">
                     <input class="form_input" type="text" id="cp-consultorio" name="cp-consultorio">
                     <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                 </div>
-                <p class="form_input-error">El campo no puede estar vacío</p>
+                <p class="form_input-error">El campo no puede estar vacío. Solo permite letras y números, máximo 45 caracteres.</p>
             </div><!-- end form-grupo -->
 
             <!-- Grupo: -->
-            <div class="formulario_grupo" id="grupo_telefono-consultorio">
+            <div class="formulario_grupo" id="grupo_telefono">
                 <label class="form_label" for="telefono-consultorio">Teléfono</label>
                 <div class="form_grupo-input">
                     <input class="form_input" type="text" id="telefono-consultorio" name="telefono-consultorio">
                     <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                 </div>
-                <p class="form_input-error">El campo no puede estar vacío</p>
+                <p class="form_input-error">El campo no puede estar vacío. Solo permite letras y números, máximo 45 caracteres.<Nav></Nav></p>
             </div><!-- end form-grupo -->
 
             <button class="input_submit boton amarillo span-2">Imprimir</button>
@@ -118,6 +118,7 @@ if (isset($_REQUEST['id'])) {
         <!-- end FORM -->
 
         <?php require("./layout/footer.php"); ?>
+        <script src="./js/validacion-consultorio.js"></script>
         <script src="./js/form-consultorio.js"></script>
     </div>
     <!-- end contenedor -->

@@ -12,12 +12,13 @@ function obtenerConsultorio() {
             if (data != null) {
                 consultorio = new Consultorio(data.nombre, data.calle, data.colonia, data.ciudad, data.codigoPostal, data.telefono);
                 consultorio.id = data.id;
-                document.getElementById('nombre-consultorio').value = consultorio.nombre;
-                document.getElementById('calle-consultorio').value = consultorio.calle;
-                document.getElementById('colonia-consultorio').value = consultorio.colonia;
-                document.getElementById('ciudad-consultorio').value = consultorio.ciudad;
-                document.getElementById('cp-consultorio').value = consultorio.codigoPostal;
-                document.getElementById('telefono-consultorio').value = consultorio.telefono;
+                inputNombre.value = consultorio.nombre;
+                inputCalle.value = consultorio.calle;
+                inputColonia.value = consultorio.colonia;
+                inputCiudad.value = consultorio.ciudad;
+                inputCP.value = consultorio.codigoPostal;
+                inputTelefono.value = consultorio.telefono;
+                validarConsultorio();
             }
         })// FIN FETCH
         .catch(error => {
@@ -25,8 +26,7 @@ function obtenerConsultorio() {
             console.log("catch");
         });
 }
-formConsultorio.addEventListener('submit', function (e) {
-    e.preventDefault();
+function enviarFormConsultorio(){
     datosConsultorio = new FormData(formConsultorio);
     if (consultorio != null) {
         fetch('./controller/editar-consultorio.php', {
@@ -34,7 +34,7 @@ formConsultorio.addEventListener('submit', function (e) {
             body: datosConsultorio
         })
             .then(function (response) {
-                return response.text();
+                return response.json();
             })
             .then(function (data) {
                 console.log(data);
@@ -57,7 +57,7 @@ formConsultorio.addEventListener('submit', function (e) {
             console.log.error('Error:', error);
         })
     }
-});
+};
 
 class Consultorio {
     constructor(nombre, calle, colonia, ciudad, codigoPostal, telefono) {

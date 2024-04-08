@@ -67,7 +67,7 @@ if (isset($_REQUEST['id'])) {
                         <option value="Alopática">Alopática</option>
                         <option value="Nutriente">Nutriente</option>
                     </select>
-                    <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                    <i class="form_validacion-estado select fa-solid fa-circle-xmark"></i>
                 </div>
                 <p class="form_input-error">El campo no puede estar vacío</p>
             </div><!-- end form-grupo -->

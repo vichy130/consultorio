@@ -120,7 +120,7 @@ if (isset($_REQUEST["id"])) {
                         <option value="M">Médico</option>
                         <option value="S">Asistente</option>
                     </select>
-                    <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                    <i class="form_validacion-estado select fa-solid fa-circle-xmark"></i>
                 </div>
                 <p class="form_input-error">Selecciona un tipo de Usuario.</p>
             </div><!-- end form-grupo -->
