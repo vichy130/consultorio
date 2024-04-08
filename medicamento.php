@@ -54,7 +54,7 @@ if (isset($_REQUEST['id'])) {
                     <input class="form_input" type="text" id="nombre-medicamento" name="nombre-medicamento">
                     <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                 </div>
-                <p class="form_input-error">El campo no puede estar vacío</p>
+                <p class="form_input-error">El campo no puede estar vacío. Solo se permiten letras, máximo 100 caracteres</p>
             </div><!-- end form-grupo -->
 
             <!-- Grupo: -->
@@ -80,7 +80,7 @@ if (isset($_REQUEST['id'])) {
                         cols="50"></textarea>
                     <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                 </div>
-                <p class="form_input-error">El campo no puede estar vacío</p>
+                <p class="form_input-error">El campo no puede estar vacío. Solo se permiten letras, máximo 500 caracteres</p>
             </div><!-- end form-grupo -->
 
             <button class="input_submit boton amarillo span-2">Cancelar</button>
