@@ -22,8 +22,7 @@ function obtenerMedicamento() {
             console.log("catch");
         });
 };
-formMedicamento.addEventListener("submit", function (e) {
-    e.preventDefault();
+function enviarFormMedicamento(){
     datosMedicamento = new FormData(formMedicamento);
     if (medicamento != null ) {
         fetch('./controller/editar-medicamento.php', {// Enviar los datos a PHP utilizando fetch
@@ -57,7 +56,7 @@ formMedicamento.addEventListener("submit", function (e) {
                 console.error('Error:', error);
             });
     }
-});
+};
 class Medicamento {
     constructor(medicamento, tipo, descripcion) {
 

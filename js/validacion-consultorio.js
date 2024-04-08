@@ -1,11 +1,11 @@
 const inputs = document.querySelectorAll('#form-consultorio input');
-formConsultorio=document.getElementById('form-consultorio');
-inputNombre= document.getElementById('nombre-consultorio');
-inputCalle= document.getElementById('calle-consultorio');
-inputColonia=document.getElementById('colonia-consultorio');
-inputCiudad=document.getElementById('ciudad-consultorio');
-inputCP=document.getElementById('cp-consultorio');
-inputTelefono=document.getElementById('telefono-consultorio');
+var formConsultorio=document.getElementById('form-consultorio');
+var inputNombre= document.getElementById('nombre-consultorio');
+var inputCalle= document.getElementById('calle-consultorio');
+var inputColonia=document.getElementById('colonia-consultorio');
+var inputCiudad=document.getElementById('ciudad-consultorio');
+var inputCP=document.getElementById('cp-consultorio');
+var inputTelefono=document.getElementById('telefono-consultorio');
 
 const campos={
     nombre:false,

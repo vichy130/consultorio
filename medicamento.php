@@ -48,7 +48,7 @@ if (isset($_REQUEST['id'])) {
             <label class="formulario_grupo span-4">Medicamento</label>
 
             <!-- Grupo: -->
-            <div class="formulario_grupo span-2" id="grupo_nombre-medicamento">
+            <div class="formulario_grupo span-2" id="grupo_nombre">
                 <label class="form_label" for="nombre-medicamento">Nombre de medicamento</label>
                 <div class="form_grupo-input">
                     <input class="form_input" type="text" id="nombre-medicamento" name="nombre-medicamento">
@@ -58,7 +58,7 @@ if (isset($_REQUEST['id'])) {
             </div><!-- end form-grupo -->
 
             <!-- Grupo: -->
-            <div class="formulario_grupo span-2" id="grupo_tipo-medicamento">
+            <div class="formulario_grupo span-2" id="grupo_tipo">
                 <label class="form_label" for="tipo-medicamento">Tipo</label>
                 <div class="form_grupo-input">
                     <select class="form_input" name="tipo-medicamento" id="tipo-medicamento">
@@ -73,7 +73,7 @@ if (isset($_REQUEST['id'])) {
             </div><!-- end form-grupo -->
 
             <!-- Grupo: -->
-            <div class="formulario_grupo span-4" id="grupo_medicamento-descripcion">
+            <div class="formulario_grupo span-4" id="grupo_descripcion">
                 <label class="form_label" for="medicamento-descripcion">Descripción</label>
                 <div class="form_grupo-input">
                     <textarea class="form_textarea" id="medicamento-descripcion" name="medicamento-descripcion" rows="5"
@@ -86,13 +86,14 @@ if (isset($_REQUEST['id'])) {
             <button class="input_submit boton amarillo span-2">Cancelar</button>
 
             <div>
-                <input class="input_submit boton azul span-2" type="submit" value="Guardar">
+                <button class="input_submit boton azul span-2" type="submit">Guardar</button>
             </div>
 
         </form>
         <!-- end FORM -->
 
         <?php require("./layout/footer.php"); ?>
+        <script src="./js/validacion-medicamento.js"></script>
         <script src="./js/form-medicamento.js"></script>
     </div>
     <!-- end contenedor -->
