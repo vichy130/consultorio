@@ -12,6 +12,7 @@ if ($usuario->validar()) {
     $_SESSION['nombre'] = $usuario->getNombre();
     $_SESSION['apellidoPaterno'] = $usuario->getApellidoPaterno();
     $_SESSION['apellidoMaterno'] = $usuario->getApellidoMaterno();
+    $_SESSION['tipoUsuario']=$usuario->getTipoUsuario();
     // header('Content-Type: application/json');
     // $jsonUsuario = json_encode($usuarioDatos);
     // echo $jsonUsuario;

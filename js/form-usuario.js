@@ -18,20 +18,15 @@ function obtenerUsuario(){
             usuario.telefono = data.telefono;
             usuario.correo = data.correo;
             usuario.tipoUsuario = data.tipoUsuario;
-            document.getElementById('username-usuario').value=usuario.username;
-            validarCampo(expresiones.usuario,usuario.username, 'usuario');
-            document.getElementById('nombre-usuario').value=usuario.nombre;
-            validarCampo(expresiones.nombre,usuario.nombre, 'nombre');
-            document.getElementById('apellidoPaterno-usuario').value=usuario.apellidoPaterno;
-            validarCampo(expresiones.apellidoPaterno,usuario.apellidoPaterno, 'apellidoPaterno');
-            document.getElementById('apellidoMaterno-usuario').value=usuario.apellidoMaterno;
-            validarCampo(expresiones.apellidoMaterno,usuario.apellidoMaterno, 'apellidoMaterno');
-            document.getElementById('telefono-usuario').value=usuario.telefono;
-            validarCampo(expresiones.telefono,usuario.telefono, 'telefono');
-            document.getElementById('correo-usuario').value=usuario.correo;
-            validarCampo(expresiones.correo,usuario.correo, 'correo');
-            document.getElementById('tipo-usuario').value=usuario.tipoUsuario;
-            validarCampo(expresiones.tipo,usuario.tipo, 'tipo');
+            inputUsername.value=usuario.username;
+            inputNombre.value=usuario.nombre;
+            inputApellidoPaterno.value=usuario.apellidoPaterno;
+            inputApellidoMaterno.value=usuario.apellidoMaterno;
+            inputTelefono.value=usuario.telefono;
+            inputCorreo.value=usuario.correo;
+            inputTipo.value=usuario.tipoUsuario;
+            validarUsuarioExistente();
+            validarUsuario();
         }
     })// FIN FETCH
     .catch(error => {
@@ -50,7 +45,7 @@ function enviarFormUsuario(){
             body:datosUsuario
         })
         .then(function (response) {
-            return response.text();
+            return response.json();
         })
         .then(function (data) {
             console.log(data);

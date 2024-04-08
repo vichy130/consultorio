@@ -26,6 +26,15 @@ if(!isset($_SESSION['username'])){
     <?php require("./layout/menu.php"); ?>
     <div class="content-general">
             <label for="">Centro de reportes</label>
+            <div>
+                <h2>Consultas médicas</h2>
+            </div>
+            <div>
+                <h2>Medicamentos</h2>
+            </div>
+            <div>
+                <h2>pacientes</h2>
+            </div>
     </div>
     <?php require("./layout/footer.php"); ?>
     </div>

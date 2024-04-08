@@ -1,5 +1,5 @@
 <?php
-include_once("../models/conexion.php");
+include_once ("../models/conexion.php");
 class usuario
 {
     private $username;
@@ -30,15 +30,16 @@ class usuario
         $this->correo = $correo;
         $this->tipoUsuario = $tipoUsuario;
     }
-    public function getValues(){
-        return[
-            'username'=> $this->username,
-            'nombre'=> $this->nombre,
-            'apellidoPaterno'=>$this->apellidoPaterno,
-            'apellidoMaterno'=>$this->apellidoMaterno,
-            'telefono'=> $this->telefono,
-            'correo'=>$this->correo,
-            'tipoUsuario'=>$this->tipoUsuario
+    public function getValues()
+    {
+        return [
+            'username' => $this->username,
+            'nombre' => $this->nombre,
+            'apellidoPaterno' => $this->apellidoPaterno,
+            'apellidoMaterno' => $this->apellidoMaterno,
+            'telefono' => $this->telefono,
+            'correo' => $this->correo,
+            'tipoUsuario' => $this->tipoUsuario
         ];
     }
     public function setUsername($username)
@@ -49,20 +50,28 @@ class usuario
     {
         return $this->username;
     }
-    public function setContrasena($contrasena){
-        $this->contrasena=$contrasena;
+    public function setContrasena($contrasena)
+    {
+        $this->contrasena = $contrasena;
     }
     // public function getContrasena(){
     //     return $this->contrasena;
     // }
-    public function getNombre(){
+    public function getNombre()
+    {
         return $this->nombre;
     }
-    public function getApellidoPaterno(){
+    public function getApellidoPaterno()
+    {
         return $this->apellidoPaterno;
     }
-    public function getApellidoMaterno(){
+    public function getApellidoMaterno()
+    {
         return $this->apellidoMaterno;
+    }
+    public function getTipoUsuario()
+    {
+        return $this->tipoUsuario;
     }
     public function insertar()
     {
@@ -105,7 +114,8 @@ class usuario
             echo "Error al buscar datos de Usuario" . $e->getMessage();
         }
     }
-    function validar(){
+    function validar()
+    {
         $query = "SELECT * FROM usuario WHERE username=:username and contrasena=:contrasena";
         try {
             $stmt = $this->conexion->getdbh()->prepare($query);
@@ -141,15 +151,28 @@ class usuario
     }
     public function actualizar()
     {
-        $query = "UPDATE usuario set
-        username=:username,
-        nombre=:nombre,
-        apellidoPaterno=:apellidoPaterno,
-        apellidoMaterno=:apellidoMaterno,
-        telefono=:telefono,
-        correo=:correo,
-        tipoUsuario=:tipoUsuario
-        WHERE username=:username; ";
+        if ($this->contrasena == null) {
+            $query = "UPDATE usuario set
+            username=:username,
+            nombre=:nombre,
+            apellidoPaterno=:apellidoPaterno,
+            apellidoMaterno=:apellidoMaterno,
+            telefono=:telefono,
+            correo=:correo,
+            tipoUsuario=:tipoUsuario
+            WHERE username=:username; ";
+        } else {
+            $query = "UPDATE usuario set
+            username=:username,
+            nombre=:nombre,
+            apellidoPaterno=:apellidoPaterno,
+            apellidoMaterno=:apellidoMaterno,
+            telefono=:telefono,
+            correo=:correo,
+            tipoUsuario=:tipoUsuario,
+            contrasena=:contrasena
+            WHERE username=:username; ";
+        }
         try {
             $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(":username", $this->username);
@@ -159,6 +182,9 @@ class usuario
             $stmt->bindParam(":telefono", $this->telefono);
             $stmt->bindParam(":correo", $this->correo);
             $stmt->bindParam(":tipoUsuario", $this->tipoUsuario);
+            if ($this->contrasena != null) {
+                $stmt->bindParam(":contrasena", $this->contrasena);
+            }
             $stmt->bindParam(":username", $this->username);
             $stmt->execute();
             return true;

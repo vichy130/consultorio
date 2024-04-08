@@ -1,16 +1,24 @@
 const formUsuario = document.getElementById('form-usuario');
 const inputs = document.querySelectorAll('#form-usuario input, #form-usuario select');
+var inputUsername=document.getElementById('username-usuario');
+var inputNombre=document.getElementById('nombre-usuario');
+var inputApellidoPaterno=document.getElementById('apellidoPaterno-usuario');
+var inputApellidoMaterno=document.getElementById('apellidoMaterno-usuario');
+var inputTelefono=document.getElementById('telefono-usuario');
+var inputTipo=document.getElementById('tipo-usuario');
+var inputCorreo=document.getElementById('correo-usuario');
+var inputContrasenaUno=document.getElementById('contrasena-usuario');
+var inputContrasenaDos=document.getElementById('contrasena-usuario2');
 
 const expresiones = {
     usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
     nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
     apellidoPaterno: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
     apellidoMaterno: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
-    contrasena: /^.{8,12}$/, // 4 a 12 digitos.
+    contrasena:/^(.{8,12})$/, // 8 a 12 digitos.
     correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
     telefono: /^\d{7,14}$/, // 7 a 14 numeros.
     tipo: /^[a-zA-Z]$/,
-    firma: /(\.(jpg|jpeg|png))?$/
 }
 const campos = {
     usuario: false,
@@ -18,11 +26,14 @@ const campos = {
     apellidoPaterno: false,
     apellidoMaterno: false,
     contrasena: false,
-    contrasena2: false,
+    contrasena2: true,
     correo: false,
     telefono: false,
     tipo: false,
-    firma: false
+}
+function validarUsuarioExistente(){
+    campos.contrasena=true;
+    expresiones.contrasena=/^(.{8,12})?$/;
 }
 const validarFormulario = (e) => {
     switch (e.target.name) {
@@ -54,9 +65,6 @@ const validarFormulario = (e) => {
         case "contrasena-usuario2":
             validarConstrasena2();
             break;
-        case "firma-usuario":
-            validarCampo(expresiones.firma, e.target.value, 'firma');
-            break;
     }
 }
 const validarCampo = (expresion, input, campo) => {
@@ -77,9 +85,7 @@ const validarCampo = (expresion, input, campo) => {
 }
 
 const validarConstrasena2 = () => {
-    const inputContrasena1 = document.getElementById('contrasena-usuario');
-    const inputContrasena2 = document.getElementById('contrasena-usuario2');
-    if (inputContrasena1.value !== inputContrasena2.value) {
+    if (inputContrasenaUno.value !== inputContrasenaDos.value) {
         document.getElementById(`grupo_contrasena2`).classList.add('formulario_grupo-incorrecto');
         document.getElementById(`grupo_contrasena2`).classList.remove('formulario_grupo-correcto');
         document.querySelector(`#grupo_contrasena2 i`).classList.add('fa-circle-xmark');
@@ -101,9 +107,16 @@ inputs.forEach((input) => {
     input.addEventListener('blur', validarFormulario);
 });
 function validarUsuario(){
-
+    validarCampo(expresiones.usuario, inputUsername.value, 'usuario');
+    validarCampo(expresiones.nombre, inputNombre.value, 'nombre');
+    validarCampo(expresiones.apellidoPaterno, inputApellidoPaterno.value, 'apellidoPaterno');
+    validarCampo(expresiones.apellidoMaterno, inputApellidoMaterno.value, 'apellidoMaterno');
+    validarCampo(expresiones.telefono, inputTelefono.value, 'telefono');
+    validarCampo(expresiones.tipo, inputTipo.value, 'tipo');
+    validarCampo(expresiones.correo, inputCorreo.value, 'correo');
+    validarCampo(expresiones.contrasena, inputContrasenaUno.value, 'contrasena');
+    validarConstrasena2();
 }
-
 formUsuario.addEventListener('submit', (e) => {
     e.preventDefault();
     var i=true;
