@@ -52,8 +52,17 @@ class usuario
     public function setContrasena($contrasena){
         $this->contrasena=$contrasena;
     }
-    public function getContrasena(){
-        return $this->contrasena;
+    // public function getContrasena(){
+    //     return $this->contrasena;
+    // }
+    public function getNombre(){
+        return $this->nombre;
+    }
+    public function getApellidoPaterno(){
+        return $this->apellidoPaterno;
+    }
+    public function getApellidoMaterno(){
+        return $this->apellidoMaterno;
     }
     public function insertar()
     {

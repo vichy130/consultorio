@@ -7,12 +7,16 @@ $usuario = new Usuario();
 $usuario->setUsername($username);
 $usuario->setContrasena($password);
 if ($usuario->validar()) {
-    $_SESSION['username']=$usuario->getUsername();
     $usuarioDatos = $usuario->getValues();
-    header('Content-Type: application/json');
-    $jsonUsuario = json_encode($usuarioDatos);
-    echo $jsonUsuario;
-}else{
+    $_SESSION['username'] = $usuario->getUsername();
+    $_SESSION['nombre'] = $usuario->getNombre();
+    $_SESSION['apellidoPaterno'] = $usuario->getApellidoPaterno();
+    $_SESSION['apellidoMaterno'] = $usuario->getApellidoMaterno();
+    // header('Content-Type: application/json');
+    // $jsonUsuario = json_encode($usuarioDatos);
+    // echo $jsonUsuario;
+    echo "true";
+} else {
     echo "false";
 }
 

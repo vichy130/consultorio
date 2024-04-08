@@ -12,14 +12,6 @@ function enviarFormIniciarSesion() {
         })
         .then(function (data) {
             if (data) {
-                user = new Usuario();
-                user.username = data.username;
-                user.nombre = data.nombre;
-                user.apellidoPaterno = data.apellidoPaterno;
-                user.apellidoMaterno = data.apellidoMaterno;
-                user.telefono = data.telefono;
-                user.correo = data.correo;
-                user.tipoUsuario = data.tipoUsuario;
                 index();
             } else {
                 //TODO

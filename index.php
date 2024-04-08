@@ -32,5 +32,5 @@ if(!isset($_SESSION['username'])){
         <?php require("./layout/footer.php"); ?>
     <!-- END contenedor -->
 </body>
-<script src="./form-inicio.js"></script>
+<script src="./js/form-inicio.js"></script>
 </html>
