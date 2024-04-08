@@ -21,6 +21,9 @@ class Medicamento
     {
         $this->id = $id;
     }
+    public function getMedicamento(){
+       return $this->medicamento;
+    }
     public function setValues($medicamento, $tipo, $descripcion)
     {
         $this->medicamento = $medicamento;

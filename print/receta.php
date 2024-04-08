@@ -9,8 +9,23 @@ function redirect($url)
 session_start();
 include '../models/consulta.php';
 include '../models/paciente.php';
+include '../models/medicamento.php';
+include '../php/conexion.php';
+
 $consulta = new Consulta();
 $paciente = new Paciente();
+$medicamentos = array();
+
+$query = 'SELECT id FROM medicamento; ';
+$stmt = $dbh->prepare($query);
+$stmt->execute();
+while ($lista = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $medicamento = new Medicamento();
+    $medicamento->setId($lista['id']);
+    $medicamento->obtener();
+    $medicamentos[] = $medicamento->getValues();
+}
+
 $consultaDatos;
 if (isset($_SESSION['id_consulta'])) {
     $consulta->setId($_SESSION['id_consulta']);
@@ -37,6 +52,7 @@ class PDF extends FPDF
     private $paciente;
     private $medicamentosIndicacion;
     private $estudiosSolicitados;
+    private $arrayMedicamentos = array();
     function setPaciente($paciente)
     {
         $this->paciente = $paciente;
@@ -51,6 +67,10 @@ class PDF extends FPDF
         $this->consulta = $consulta;
         $this->medicamentosIndicacion = $consulta['medicamentosIndicacion'];
         $this->estudiosSolicitados = $consulta['estudiosSolicitados'];
+    }
+    function setArrayMedicamentos($arrayMedicamentos)
+    {
+        $this->arrayMedicamentos = $arrayMedicamentos;
     }
     function Header()
     {
@@ -121,17 +141,21 @@ class PDF extends FPDF
         $this->Cell(89, 5, 'Se solicita: ', 0, 0, '');
         $this->Cell(100, 5, 'Prescripcion: ', 0, 1, 'R');
         $this->SetFont('Arial', '', 11);
-        foreach ($this->medicamentosIndicacion as $med) {
-            // MULTICELL (ancho, tamaño linea, texto, borde,alineacion c o i, fondo)
-            $y = $this->GetY();
-            if ($y > 210) {
-                $this->AddPage('P', 'Letter');
-                $y = $this->GetY();
+        foreach ($this->medicamentosIndicacion as $medIndicacion) {
+            foreach ($this->arrayMedicamentos as $medicamento) {
+                if ($medIndicacion['medicamento'] == $medicamento['id']) {
+                    // MULTICELL (ancho, tamaño linea, texto, borde,alineacion c o i, fondo)
+                    $y = $this->GetY();
+                    if ($y > 210) {
+                        $this->AddPage('P', 'Letter');
+                        $y = $this->GetY();
+                    }
+                    $this->MultiCell(85, 5, $medicamento['medicamento'] . " " . $medicamento['descripcion']);
+                    $this->SetXY(99, $y);
+                    $this->MultiCell(100, 5, $medIndicacion['indicaciones']);
+                    $this->Ln(10);
+                }
             }
-            $this->MultiCell(85, 5, $med['medicamento']);
-            $this->SetXY(99, $y);
-            $this->MultiCell(100, 5, $med['indicaciones']);
-            $this->Ln(10);
         }
         $this->Ln(10);
         //ESTUDIOS
@@ -157,7 +181,13 @@ class PDF extends FPDF
         $this->Ln(1);
 
         //INDICACIONES GENERALES
+        $this->setXY(160, 240);
         $this->SetFont('Arial', 'B', 11);
+        //SetLineWidth(float width)
+        $this->SetLineWidth(.2);
+        // LINE (x,y coordenada inicio y x,y coordenada fin)
+        $this->Line(150, 240,193, 240);
+        // $this->Cell(60, 5, 'Dra. Maria del Refugio Gutierrez de la O ', 0, 1, '');
         $this->Cell(100, 5, 'Firma Medico ', 0, 1, '');
         $this->Ln(1);
     }
@@ -169,6 +199,7 @@ $pdf->AliasNbPages();
 $pdf->AddPage('P', 'Letter');
 $pdf->setConsulta($consultaDatos);
 $pdf->setPaciente($pacienteDatos);
+$pdf->setArrayMedicamentos($medicamentos);
 $pdf->cuerpo();
 $pdf->Output();
 ?>
