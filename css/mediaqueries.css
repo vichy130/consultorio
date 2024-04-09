@@ -16,6 +16,18 @@
     .column-to-hide{
         display:none;
     }
+    .modal-contenido {
+        display:grid;
+        grid-template-columns: 1fr;
+        grid-template-rows:1fr 1fr 1fr;
+        width: 40%;
+    }
+    .modal-mensaje{
+        justify-self: center;
+        align-self: center;
+        grid-column-start:1;
+        grid-column-end:2;
+    }
 }
 
 @media screen and (max-width: 1020px){ /* cuando la pantalla sea menor que 1020 px*/
@@ -47,6 +59,9 @@
     .contenedor .content-general, .contenedor-no .content-general{
         padding:20px;
     }
+    .modal-contenido {
+        width: 40%;
+    }
 } /* End media querie*/
 
 @media screen and (max-width: 1200px){ /* cuando la pantalla sea menor que 1200 px*/
@@ -60,10 +75,17 @@
         grid-template-areas: "nav"
                              "contenido"  ;                   
         }
+    .boton{
+        width: 100px;
+    }
 }
 @media screen and (min-width: 1700px){ /* cuando la pantalla sea mayor que 1700 px*/
 .form, .contenedor .content-pacientes, .contenedor-no .content-pacientes{
     padding:50px; /* padding del formulario de informacion */
+}
+.modal-contenido {
+    width: 20%;
+    height:20%;
 }
 }
 

@@ -18,7 +18,7 @@ if (isset($_SESSION["id_paciente"])) {
 }
 unset($_SESSION['id_con']);
 
-require("./php/conexion.php");
+require ("./php/conexion.php");
 ?>
 
 <!DOCTYPE html>
@@ -31,21 +31,21 @@ require("./php/conexion.php");
     <link rel="stylesheet" href="./css/estilos-pacientes.css">
     <title>Pacientes</title>
 </head>
+
 <body>
     <div class="contenedor">
-        <?php require("./layout/menu.php"); ?>
+        <?php require ("./layout/menu.php"); ?>
 
         <div class="content-general">
 
-                <div id="modal" class="modal-preguntar">
-                    <div id="modal-contenido" class="modal-contenido-preguntar">
+            <div id="modal" class="modal">
+                <div id="modal-contenido" class="modal-contenido">
                     <span class="cerrar-modal" id="cerrarModal">&times;</span>
                     <!-- <h2>Confirmar Eliminación</h2>
                     <br>
                     <p>¿Seguro que desea eliminar a este paciente?</p> -->
-                    </div>
-
                 </div>
+            </div>
             <!-- <div id="modalExito" class="modal-exito">
                 <div class="modal-contenido-exito">
                 <span class="cerrar-modal" id="cerrarModalExito">&times;</span>
@@ -83,7 +83,7 @@ require("./php/conexion.php");
             <div id="no-tabla"></div>
         </div>
         <!-- end div content-pacientes -->
-        <?php require("./layout/footer.php"); ?>
+        <?php require ("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
 </body>

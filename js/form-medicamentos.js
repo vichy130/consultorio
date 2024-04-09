@@ -63,8 +63,8 @@ function medicamentos() {
         const eliminar=document.createElement('th');
 
         medicamento.textContent="Fecha";
-        tipo.textContent="Motivo de consulta";
-        descripcion.textContent="Motivo de consulta";
+        tipo.textContent="Tipo";
+        descripcion.textContent="Descripción";
         descripcion.className="column-to-hide";
         editar.textContent="Editar";
         eliminar.textContent="Eliminar";

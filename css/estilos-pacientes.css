@@ -48,7 +48,7 @@ html{
 
 /*MODAL MODAL MODAL PREGUNTA*/
 /* Estilos para el modal */
-.modal-preguntar {
+.modal {
     display: none;
     position: fixed;
     top: 0;
@@ -59,20 +59,15 @@ html{
     z-index: 1;
 }
 
-.modal-contenido-preguntar {
+.modal-contenido {
     background-color:#F4F4F2;  /* #83bc8a;*/
     margin: 10% auto;
     padding: 20px;
-    width: 50%;
-    height:40%;
+    width: 30%;
+    height:30%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    position: relative;
+    /* position: relative; */
     color:#495464; /*#3b486e; #254e38 */
-}
-.botones{
-    display: flex;
-    justify-content: space-between; /* Espacio igual entre los botones */
-    flex-direction: row;
 }
 .cerrar-modal {
     position: absolute;
@@ -84,45 +79,38 @@ html{
 /*MODAL MODAL MODAL*/
 /*MODAL MODAL MODAL EXITO*/
 /* Estilos para el modal */
-.modal-exito{
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.7);
-    z-index: 1;
-}
 .modal-contenido-exito {
     background-color:#86bada;  /* #83bc8a;*/
-    margin: 10% auto;
-    padding: 20px;
-    width: 60%;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    position: relative;
-    color:#3b486e; /*#3b486e; #254e38 */
 }
 /*MODAL MODAL MODAL*/
 /*MODAL MODAL MODAL ERROR*/
 /* Estilos para el modal */
-.modal-error{
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.7);
-    z-index: 1;
-}
 .modal-contenido-error {
     background-color: #c14228;  /* #83bc8a;*/
-    margin: 10% auto;
-    padding: 20px;
-    width: 60%;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    position: relative;
     color:#510202; /*#3b486e; #254e38 */
 }
 /*MODAL MODAL MODAL*/
+
+.modal-contenido{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:1fr 1fr
+}
+/* ACOMODO DEL MODAL*/
+.modal-mensaje{
+    justify-self: center;
+    align-self: center;
+    grid-column-start:1;
+    grid-column-end:3;
+}
+.modal-mensaje h2 {
+    margin-bottom: 10px; 
+}
+.modal-boton{
+    justify-self: center;
+    align-self: center;
+}
+.modal-boton-dos-espacios{
+    grid-column-start:1;
+    grid-column-end:3;
+}

@@ -63,12 +63,13 @@ function eliminarPaciente() {
             return response.text();
         })
         .then(function (data) {
-            if (data == "true") {
-                modal.dataset.confirm=true;
-            } else if(data=="false"){
-                modal.dataset.confirm=false;
-            }else {
-                modal.dataset.confirm=data;
+            clearDiv(modalContent);
+            if(data==="true"){
+                modalExito();
+            }else if(data==="false"){
+                modalNoExito();
+            }else{
+                modalError();
             }
             array = [];
             clearDiv(tabla);
@@ -167,6 +168,9 @@ botonModalAceptarEliminar.className = "boton rojo aceptar-eliminar-paciente";
 const botonModalCancelarEliminar = document.createElement('button');
 botonModalCancelarEliminar.textContent = "Cancelar";
 botonModalCancelarEliminar.className = "boton azul cancelar-eliminar-paciente";
+botonModalAceptarCerrar=document.createElement('button');
+botonModalAceptarCerrar.textContent = "Cerrar";
+botonModalAceptarCerrar.className = "boton azul modal-cerrar";
 window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
@@ -174,40 +178,79 @@ window.onclick = function (event) {
 }
 function modalBlock() {
     clearDiv(modalContent);
+    modalContent.classList.remove('modal-contenido-exito');
+    modalContent.classList.remove('modal-contenido-error');
+    modalContent.style.gridTemplateRows = '1fr 1fr';
+
     modal.style.display = "block";
+    const divMensaje=document.createElement('div');
+    const divBoton=document.createElement('div');
+    const divBotonDos=document.createElement('div');
     const titulo = document.createElement('h2');
     const parrafo = document.createElement('p');
     const strongElement = document.createElement('strong');
     var nombre = modal.dataset.nombre + " " + modal.dataset.apellidoPaterno + " " + modal.dataset.apellidoMaterno;
     const nombreNodo = document.createTextNode(nombre);
+
+    divMensaje.className="modal-mensaje";
+    divBoton.className="modal-boton";
+    divBotonDos.className="modal-boton";
+
     titulo.textContent = "Confirmar Eliminación";
     parrafo.textContent = "¿Seguro que desea eliminar al paciente ";
     strongElement.appendChild(nombreNodo);
     strongElement.style.fontWeight = 'bold';
     parrafo.appendChild(strongElement);
-    modalContent.appendChild(titulo);
-    modalContent.appendChild(parrafo);
+
+    divMensaje.appendChild(titulo);
+    divMensaje.appendChild(parrafo);
     parrafo.textContent += "?";
-    modalContent.appendChild(botonModalAceptarEliminar);
-    modalContent.appendChild(botonModalCancelarEliminar);
+
+    modalContent.appendChild(divMensaje);
+    divBoton.appendChild(botonModalAceptarEliminar);
+    divBotonDos.appendChild(botonModalCancelarEliminar);
+    modalContent.appendChild(divBoton);
+    modalContent.appendChild(divBotonDos);
 }
-function modalEliminar() {
-    clearDiv(modalContent);
-    if(modal.dataset.confirm==true){
+function modalExito(){
+    console.log("modal exito");
+    modalContent.classList.add('modal-contenido-exito');
+ 
+    const divMensaje=document.createElement('div');
+    const divBoton=document.createElement('div');
+    const titulo = document.createElement('h2');
+    const parrafo = document.createElement('p');
 
-    }else if(modal.dataset.confirm=false){
+    titulo.textContent = "¡Paciente eliminado!";
+    parrafo.textContent = "Los datos se han eliminado con éxito.";
 
-    }else{
-        //TODO
-    }
+    divMensaje.className="modal-mensaje";
+    divBoton.className="modal-boton modal-boton-dos-espacios";
+
+    divMensaje.appendChild(titulo);
+    divMensaje.appendChild(parrafo);
+
+    modalContent.appendChild(divMensaje);
+    divBoton.appendChild(botonModalAceptarCerrar);
+    modalContent.appendChild(divBoton);
+}
+function modalNoExito(){
+    modalContent.classList.add('modal-contenido-error');
+    console.log("modal no exito");
+}
+function modalError(){
+    modalContent.classList.add('modal-contenido-error');
+    console.log("modal error");
 }
 modal.addEventListener('click', function (e) {
     e.preventDefault();
     if (e.target.classList.contains("aceptar-eliminar-paciente")) {
         eliminarPaciente();
-        modalEliminar();
     };
     if (e.target.classList.contains("cancelar-eliminar-paciente")){
+        modal.style.display = "none";
+    }
+    if (e.target.classList.contains("modal-cerrar")){
         modal.style.display = "none";
     }
 })
