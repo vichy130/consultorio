@@ -202,7 +202,7 @@ class Consulta
             $stmt->bindParam(':temperatura', $this->temperatura);
             $stmt->bindParam(':motivoConsulta', $this->motivoConsulta);
             $stmt->bindParam(':exploracion', $this->exploracion);
-            $stmt->bindParam(':indicaciones', $this->indicaciones);
+            $stmt->bindParam(':indicaciones', $this->exploracion);
             $stmt->bindParam(':receta', $this->receta);
             $stmt->bindParam(':consultorio', $this->consultorio);
             $stmt->execute();
@@ -336,7 +336,7 @@ class Consulta
             $stmt->bindParam(':temperatura', $this->temperatura);
             $stmt->bindParam(':motivoConsulta', $this->motivoConsulta);
             $stmt->bindParam(':exploracion', $this->exploracion);
-            $stmt->bindParam(':indicaciones', $this->indicaciones);
+            $stmt->bindParam(':indicaciones', $this->exploracion);
             $stmt->bindParam(':consultorio', $this->consultorio);
             $stmt->execute();
             return true;
@@ -494,8 +494,7 @@ class Consulta
             $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
             return $stmt->execute();
         } catch (PDOException $e) {
-            echo "Error al eliminar consulta " . $e->getMessage();
-            return false;
+            return $e->getMessage();
         }
     }
 }

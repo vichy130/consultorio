@@ -10,7 +10,6 @@ $telefono = $_POST["telefono-consultorio"];
 $consultorio = new consultorio(); 
 $consultorio->setValues($nombre,$calle,$colonia,$ciudad,$codigoPostal,$telefono);
 if($consultorio->insertar()){
-  echo "consultorio registrado";
   $_SESSION['id_med']=$consultorio->getId();
   $jsonConsultorio = json_encode($consultorio->getValues());
   header('Content-Type: application/json');

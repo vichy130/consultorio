@@ -18,7 +18,7 @@ unset($_SESSION['id_med']);
 unset($_REQUEST['id']);
 unset($_SESSION['id_con']);
 
-require("./php/conexion.php");
+require ("./php/conexion.php");
 ?>
 
 <!DOCTYPE html>
@@ -34,45 +34,23 @@ require("./php/conexion.php");
 
 <body>
     <div class="contenedor">
-        <?php require("./layout/menu.php"); ?>
+        <?php require ("./layout/menu.php"); ?>
 
         <div class="content-general">
-            <div id="modalPregunta" class="modal-preguntar">
-                <div class="modal-contenido-preguntar">
-                    <span class="cerrar-modal" id="cerrarModalPregunta">&times;</span>
-                    <h2>Confirmar Eliminación</h2>
-                    <br>
-                    <p>¿Seguro que desea eliminar este medicamento?</p>
-                    <div class="botones">
-                        <button class="boton rojo" id="botonAceptarEliminar">Aceptar</button>
-                        <button class="boton azul" id="botonCancelarEliminar">Cancelar</button>
+
+                <div id="modal" class="modal">
+                    <div id="modal-contenido" class="modal-contenido">
+                        <span class="cerrar-modal" id="cerrarModal">&times;</span>
                     </div>
                 </div>
-            </div>
-            <div id="modalExito" class="modal-exito">
-                <div class="modal-contenido-exito">
-                    <span class="cerrar-modal" id="cerrarModalExito">&times;</span>
-                    <h2>¡Medicamento eliminado!</h2>
-                    <br>
-                    <p>Los datos se han eliminado con éxito.</p>
-                </div>
-            </div>
-            <div id="modalError" class="modal-error">
-                <div class="modal-contenido-error">
-                    <span class="cerrar-modal" id="cerrarModalError">&times;</span>
-                    <h2>El medicamento NO ha sido eliminado</h2>
-                    <br>
-                    <p>Porfavor, revisa la información e intenta de nuevo.</p>
-                </div>
-            </div>
 
-            <label class="span-4">Medicamentos</label>
-            <input class="form_input span-2" type="text">
-            <button class="boton azul"><i class="fas fa-search"></i> Buscar</button>
-            <button class="boton azul" id="boton-nuevo-medicamento"><i class="fas fa-user-plus"></i> Nuevo
-                medicamento</button>
-            <table class="table span-4" id="tabla-medicamentos">
-                <!--<thead>
+                <label class="span-4">Medicamentos</label>
+                <input class="form_input span-2" type="text">
+                <button class="boton azul"><i class="fas fa-search"></i> Buscar</button>
+                <button class="boton azul" id="boton-nuevo-medicamento"><i class="fas fa-user-plus"></i> Nuevo
+                    medicamento</button>
+                <table class="table span-4" id="tabla-medicamentos">
+                    <!--<thead>
                     <tr>
                         <th>Medicamento</th>
                         <th>Tipo</th>
@@ -81,13 +59,13 @@ require("./php/conexion.php");
                         <th>Eliminar</th>
                     </tr>
                 </thead>-->
-            </table>
-            <div id="no-tabla"></div>
+                </table>
+                <div id="no-tabla"></div>
+            </div>
+            <!-- end div content-pacientes -->
+            <?php require ("./layout/footer.php"); ?>
         </div>
-        <!-- end div content-pacientes -->
-        <?php require("./layout/footer.php"); ?>
-    </div>
-    <!-- end contenedor -->
+        <!-- end contenedor -->
 </body>
 <script src="./js/form-medicamentos.js"></script>
 

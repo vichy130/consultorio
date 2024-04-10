@@ -10,14 +10,6 @@ botonNuevaConsulta.addEventListener('click', function (e) {
     e.preventDefault();
     consulta();
 });
-var modalPregunta = document.getElementById('modalPregunta');
-var modalExito = document.getElementById('modalExito');
-var modalError = document.getElementById('modalError');
-var botonAceptarEliminar = document.getElementById('botonAceptarEliminar');
-var botonCancelarEliminar = document.getElementById('botonCancelarEliminar');
-var cerrarModalPregunta = document.getElementById('cerrarModalPregunta');
-var cerrarModalExito = document.getElementById('cerrarModalExito');
-var cerrarModalError = document.getElementById('cerrarModalError');
 
 tabla.addEventListener('click', function (e) {
     e.preventDefault();
@@ -26,27 +18,12 @@ tabla.addEventListener('click', function (e) {
         consultaEditar(idEditar);
     }
     if (e.target.classList.contains("eliminar-consulta")) {
-        const idEliminar = e.target.dataset.id;
-        preguntaEliminar(idEliminar);
+        modal.dataset.id = e.target.dataset.id;
+        modal.dataset.fecha=e.target.dataset.fecha;
+        modalBlock();
     }
 });
 // BOTONES
-botonCancelarEliminar.addEventListener('click', function (e) {
-    e.preventDefault();
-    cerrarPregunta();
-});
-cerrarModalPregunta.addEventListener('click', function (e) {
-    e.preventDefault()
-    cerrarPregunta();
-});
-cerrarModalExito.addEventListener('click', function (e) {
-    e.preventDefault();
-    cerrarExito();
-});
-cerrarModalError.addEventListener('click', function (e) {
-    e.preventDefault();
-    cerrarError()
-});
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     obtenerConsultas();
 };
@@ -67,15 +44,8 @@ function obtenerConsultas() {
         });
 }//END FUNCTION OBTENERCONSULTAS
 
-function preguntaEliminar(idEliminar) {
-    modalPregunta.style.display = 'block';
-    botonAceptarEliminar.onclick = function (e) {
-        e.preventDefault();
-        eliminarConsulta(idEliminar);
-    };
-}
-function eliminarConsulta(idEliminar) {
-    var datos = { id: idEliminar };
+function eliminarConsulta() {
+    var datos = { id: modal.dataset.id };
     var json = JSON.stringify(datos);
     fetch('./controller/eliminar-consulta.php', {// Enviar los datos a PHP utilizando fetch
         method: 'POST',
@@ -85,29 +55,18 @@ function eliminarConsulta(idEliminar) {
             return response.text();
         })
         .then(function (data) {
-            cerrarPregunta();
-            array = [];
-            clearDiv(cuerpoTabla);
-            obtenerConsultas();
-            console.log("DATA : " + data)
-            if (data == "1") {
-                modalExito.style.display = 'block';
-            } else {
-                modalError.style.display = 'block';
+            clearDiv(modalContent);
+            if(data==="true"){
+                modalExito();
+            }else{
+                modalError(data.toString());
             }
+            array = [];
+            obtenerConsultas();
         })
         .catch(function (error) {
             console.error('Error:', error);
         });
-}
-function cerrarPregunta() {
-    modalPregunta.style.display = 'none';
-}
-function cerrarExito() {
-    modalExito.style.display = 'none';
-}
-function cerrarError() {
-    modalError.style.display = 'none';
 }
 function tablaConsultas() {
     if (array.length > 0) {
@@ -147,6 +106,7 @@ function tablaConsultas() {
 
             iconoEditar.dataset.id = co.id;
             iconoEliminar.dataset.id = co.id;
+            iconoEliminar.dataset.fecha=co.fecha;
 
             filaFecha.textContent = co.fecha;
             filaMotivo.textContent = co.motivoConsulta;
@@ -176,6 +136,128 @@ function consulta() {
 function consultaEditar(idEditar) {
     window.location.href = "./pacientes-consulta.php?id=" + idEditar;
 }
+
+//MODAL
+//MODAL
+var modal = document.getElementById("modal");
+var modalContent = document.getElementById("modal-contenido");
+const botonModalAceptarEliminar = document.createElement('button');
+botonModalAceptarEliminar.textContent = "Aceptar";
+botonModalAceptarEliminar.className = "boton rojo aceptar-eliminar-consulta";
+const botonModalCancelarEliminar = document.createElement('button');
+botonModalCancelarEliminar.textContent = "Cancelar";
+botonModalCancelarEliminar.className = "boton azul cancelar-eliminar-consulta";
+botonModalAceptarCerrar=document.createElement('button');
+botonModalAceptarCerrar.textContent = "Cerrar";
+botonModalAceptarCerrar.className = "boton azul modal-cerrar";
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+function modalBlock() {
+    clearDiv(modalContent);
+    modalContent.classList.remove('modal-contenido-exito');
+    modalContent.classList.remove('modal-contenido-error');
+    modalContent.classList.remove('modal-contenido-un-column');
+    botonModalAceptarCerrar.className = "boton azul modal-cerrar";
+    // modalContent.style.gridTemplateRows = '1fr 1fr';
+
+    modal.style.display = "block";
+    const divMensaje=document.createElement('div');
+    const divBoton=document.createElement('div');
+    const divBotonDos=document.createElement('div');
+    const titulo = document.createElement('h2');
+    const parrafo = document.createElement('p');
+    const strongElement = document.createElement('strong');
+    var fecha = modal.dataset.fecha;
+    const nombreNodo = document.createTextNode(fecha);
+
+    divMensaje.className="modal-mensaje";
+    divBoton.className="modal-boton";
+    divBotonDos.className="modal-boton";
+
+    titulo.textContent = "Confirmar Eliminación";
+    parrafo.textContent = "¿Seguro que desea eliminar la consulta con fecha: ";
+    strongElement.appendChild(nombreNodo);
+    strongElement.style.fontWeight = 'bold';
+    parrafo.appendChild(strongElement);
+
+    divMensaje.appendChild(titulo);
+    divMensaje.appendChild(parrafo);
+    parrafo.textContent += "?";
+
+    modalContent.appendChild(divMensaje);
+    divBoton.appendChild(botonModalAceptarEliminar);
+    divBotonDos.appendChild(botonModalCancelarEliminar);
+    modalContent.appendChild(divBoton);
+    modalContent.appendChild(divBotonDos);
+}
+function modalExito(){
+    modalContent.classList.add('modal-contenido-exito');
+    modalContent.classList.add('modal-contenido-un-column');
+    botonModalAceptarCerrar.className = "boton azul modal-cerrar";
+
+    const divMensaje=document.createElement('div');
+    const divBoton=document.createElement('div');
+    const titulo = document.createElement('h2');
+    const parrafo = document.createElement('p');
+
+    titulo.textContent = "¡Consulta eliminada!";
+    parrafo.textContent = "Los datos se han eliminado con éxito.";
+
+    divMensaje.className="modal-mensaje";
+    divBoton.className="modal-boton modal-boton-dos-espacios";
+
+    divMensaje.appendChild(titulo);
+    divMensaje.appendChild(parrafo);
+
+    modalContent.appendChild(divMensaje);
+    divBoton.appendChild(botonModalAceptarCerrar);
+    modalContent.appendChild(divBoton);
+}
+function modalError(error){
+    modalContent.classList.add('modal-contenido-error');
+    modalContent.classList.add('modal-contenido-un-column');
+    botonModalAceptarCerrar.className = "boton blanco modal-cerrar";
+
+    const divMensaje=document.createElement('div');
+    const divBoton=document.createElement('div');
+    const titulo = document.createElement('h2');
+    const parrafo = document.createElement('p');
+    const iconoAlerta=document.createElement('i');
+    iconoAlerta.className="fa-solid fa-bell";
+
+    divMensaje.className="modal-mensaje";
+    divBoton.className="modal-boton modal-boton-dos-espacios";
+
+    titulo.textContent = '¡La consulta NO ha sido eliminada!';
+    if(error!="false"){
+        parrafo.textContent = "Contacta a tu administrador, Error: "+error;
+    }else{
+        parrafo.textContent = "Porfavor, revisa la información e intenta de nuevo.";
+    }
+    divMensaje.appendChild(titulo);
+    divMensaje.appendChild(parrafo);
+
+    modalContent.appendChild(divMensaje);
+    divBoton.appendChild(botonModalAceptarCerrar);
+    modalContent.appendChild(divBoton);
+}
+modal.addEventListener('click', function (e) {
+    e.preventDefault();
+    if (e.target.classList.contains("aceptar-eliminar-consulta")) {
+        eliminarConsulta();
+    };
+    if (e.target.classList.contains("cancelar-eliminar-consulta")){
+        modal.style.display = "none";
+    }
+    if (e.target.classList.contains("modal-cerrar")){
+        modal.style.display = "none";
+    }
+})
+//MODAL END
+
 //CLASES
 class Consulta {
     constructor(fecha, usuario, paciente, ta, oxigeno, pulso, peso, estatura, temperatura, motivoConsulta, exploracion, receta, consultorio,/* consultasPrevias, terapias, medicamentosIndicacion, estudiosSolicitados*/) {

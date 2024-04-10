@@ -47,10 +47,11 @@ function enviarFormMedicamento(){
             body: datosMedicamento // El JSON que contiene los datos y el formulario
         })
             .then(function (response) {
-                return response.text();
+                return response.json();
             })
             .then(function (data) {
-                console.log(data);
+                medicamento= new Medicamento(data.medicamento, data.tipo, data.descripcion);
+                medicamento.id=data.id;
             })
             .catch(function (error) {
                 console.error('Error:', error);

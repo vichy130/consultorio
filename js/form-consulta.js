@@ -1,7 +1,7 @@
 //VARIABLES
 var fecha = document.getElementById("consultafecha-paciente");
 var ocultoFecha = document.getElementById("oculto-fecha-consulta");
-var consulta;
+var consultaObjeto;
 var arrayConsultorios = [];
 var arrayCPrevias = [];
 var arrayMedicamentos = [];
@@ -67,18 +67,18 @@ function obtenerConsulta() {
         .then(response => response.json())
         .then(data => {
             if (data && data.id != null) {
-                consulta = new Consulta(data.fecha, data.usuario, data.paciente, data.ta, data.oxigeno, data.pulso, data.peso, data.estatura, data.temperatura, data.motivoConsulta, data.exploracion, data.indicaciones, data.receta, data.consultorio);
-
-                inputConsultaFecha.value = consulta.fecha;
-                inputVitalesta.value = consulta.ta;
-                inputVitalesoxigeno.value = consulta.oxigeno;
-                inputVitalespulso.value = consulta.pulso;
-                inputVitalespeso.value = consulta.peso;
-                inputVitalestatura.value = consulta.estatura;
-                inputVitalestemperatura.value = consulta.temperatura;
-                inputConsultamotivo.value = consulta.motivoConsulta;
-                inputConsultaexploracion.value = consulta.exploracion;
-                inputConsultaindicaciones.value = consulta.indicaciones;
+                consultaObjeto = new Consulta(data.fecha, data.usuario, data.paciente, data.ta, data.oxigeno, data.pulso, data.peso, data.estatura, data.temperatura, data.motivoConsulta, data.exploracion, data.indicaciones, data.receta, data.consultorio);
+                receta=data.receta;
+                inputConsultaFecha.value = consultaObjeto.fecha;
+                inputVitalesta.value = consultaObjeto.ta;
+                inputVitalesoxigeno.value = consultaObjeto.oxigeno;
+                inputVitalespulso.value = consultaObjeto.pulso;
+                inputVitalespeso.value = consultaObjeto.peso;
+                inputVitalestatura.value = consultaObjeto.estatura;
+                inputVitalestemperatura.value = consultaObjeto.temperatura;
+                inputConsultamotivo.value = consultaObjeto.motivoConsulta;
+                inputConsultaexploracion.value = consultaObjeto.exploracion;
+                inputConsultaindicaciones.value = consultaObjeto.indicaciones;
                 //pendiente
                 data.consultasPrevias.forEach(cp => {
                     var consultaPrevia = new ConsultaPrevia(cp.comentarios, cp.diagnostico, cp.estudios, cp.tratamiento);
@@ -155,9 +155,9 @@ function consultorioSelect() {
             opcion.value = consultorio.id;
             opcion.text = consultorio.nombre;
             selectConsultorio.add(opcion);
-            if (consulta != null) {
-                if (consulta.consultorio != null) {
-                    if (consulta.consultorio == opcion.value) {
+            if (consultaObjeto != null) {
+                if (consultaObjeto.consultorio != null) {
+                    if (consultaObjeto.consultorio == opcion.value) {
                         opcion.selected = true;
                     }
                 }
@@ -259,7 +259,7 @@ function enviarFormConsulta() {
     datosConsulta.append('jsonTerapiasAplicadas', jsonTerapiasAplicadas);
     datosConsulta.append('jsonEstudiosSolicitados', jsonEstudiosSolicitados);
     datosConsulta.append('jsonMedicamentoIndicaciones', jsonMedicamentoIndicaciones);
-    if (consulta != null) {
+    if (consultaObjeto != null) {
         fetch('./controller/editar-consulta.php', {// Enviar los datos a PHP utilizando fetch
             method: 'POST',
             body: datosConsulta // El JSON que contiene los datos y el formulario
@@ -284,7 +284,9 @@ function enviarFormConsulta() {
             })
             .then(function (data) {
                 console.log(data);
-                consulta = new Consulta(data.fecha, data.usuario, data.paciente, data.ta, data.oxigeno, data.pulso, data.peso, data.estatura, data.temperatura, data.motivoConsulta, data.exploracion, data.indicaciones, data.receta, data.consultorio);
+                consultaObjeto = new Consulta(data.fecha, data.usuario, data.paciente, data.ta, data.oxigeno, data.pulso, data.peso, data.estatura, data.temperatura, data.motivoConsulta, data.exploracion, data.indicaciones, data.receta, data.consultorio);
+                receta=data.receta;
+                console.log(data.receta);
             })
             .catch(function (error) {
                 console.error('Error:', error);
@@ -294,7 +296,7 @@ function enviarFormConsulta() {
 //FETCH FORMULARIO Y ARRAYS
 //FETCH FORMULARIO Y ARRAYS
 function imprimirReceta() {
-    if (consulta != null) {
+    if (consultaObjeto != null) {
         window.open("./print/receta.php", "_blank");
     } else {
         //TODO

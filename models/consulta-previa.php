@@ -30,11 +30,9 @@ class ConsultaPrevia
             $stmt->bindParam(':estudios', $this->estudios);
             $stmt->bindParam(':tratamiento', $this->tratamiento);
             $stmt->bindParam(':consulta', $this->consulta);
-            $stmt->execute();
-            return true;
+            return $stmt->execute();
         } catch (PDOException $e) {
-            error_log("Error al insertar datos consulta previa: " . $e->getMessage());
-            return false; // Indicar que ha habido un error
+            return $e->getMessage();
         }
     }
     public function setId($id){
@@ -58,10 +56,9 @@ class ConsultaPrevia
         try {
             $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':id', $this->id);
-            $stmt->execute();
-            echo "consulta eliminada" . $this->id;
+            return $stmt->execute();
         } catch (PDOException $e) {
-            echo "Error al eliminar consulta previa" . $e->getMessage();
+            return $e->getMessage();
         }
     }
 }

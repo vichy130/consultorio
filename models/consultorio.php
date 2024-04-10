@@ -1,5 +1,5 @@
 <?php
-include_once("../models/conexion.php");
+include_once ("../models/conexion.php");
 class Consultorio
 {
     private $id;
@@ -51,24 +51,23 @@ class Consultorio
     }
     public function insertar()
     {
-        if($this->nombre !=null || $this->calle!=null){
-        include_once("../php/conexion.php");
-        $query = "INSERT INTO consultorio (nombre,calle,colonia,ciudad,codigoPostal,telefono) VALUES (:nombre, :calle, :colonia, :ciudad, :codigoPostal, :telefono); ";
-        try {
-            $stmt = $this->conexion->getdbh()->prepare($query);
-            $stmt->bindParam(':nombre', $this->nombre);
-            $stmt->bindParam(':calle', $this->calle);
-            $stmt->bindParam(':colonia', $this->colonia);
-            $stmt->bindParam(':ciudad', $this->ciudad);
-            $stmt->bindParam(':codigoPostal', $this->codigoPostal);
-            $stmt->bindParam(':telefono', $this->telefono);
-            $stmt->execute();
-            $this->id = $this->conexion->getdbh()->lastInsertId();
-            return true;
-        } catch (PDOException $e) {
-            return false;
-        }}
-        else{return false;}
+        if ($this->nombre != null || $this->calle != null) {
+            $query = "INSERT INTO consultorio (nombre,calle,colonia,ciudad,codigoPostal,telefono) VALUES (:nombre, :calle, :colonia, :ciudad, :codigoPostal, :telefono); ";
+            try {
+                $stmt = $this->conexion->getdbh()->prepare($query);
+                $stmt->bindParam(':nombre', $this->nombre);
+                $stmt->bindParam(':calle', $this->calle);
+                $stmt->bindParam(':colonia', $this->colonia);
+                $stmt->bindParam(':ciudad', $this->ciudad);
+                $stmt->bindParam(':codigoPostal', $this->codigoPostal);
+                $stmt->bindParam(':telefono', $this->telefono);
+                $stmt->execute();
+                $this->id = $this->conexion->getdbh()->lastInsertId();
+                return true;
+            } catch (PDOException $e) {
+                return $e->getMessage();
+            }
+        }
     }
     public function obtener()
     {
@@ -85,11 +84,10 @@ class Consultorio
                 $this->ciudad = $datos['ciudad'];
                 $this->codigoPostal = $datos['codigoPostal'];
                 $this->telefono = $datos['telefono'];
+                return true;
             }
-            return true;
         } catch (PDOException $e) {
-            echo "Error al obtener datos del paciente: " . $e->getMessage();
-            return false;
+            return $e->getMessage();
         }
     }
     public function actualizar()
@@ -107,8 +105,7 @@ class Consultorio
             $stmt->bindParam('telefono', $this->telefono);
             return $stmt->execute();
         } catch (PDOException $e) {
-            echo "No se pudieron actualizar los datos" . $e->getMessage();
-            return false;
+            return $e->getMessage();
         }
     }
     public function eliminar()
@@ -119,8 +116,7 @@ class Consultorio
             $stmt->bindParam('id', $this->id, PDO::PARAM_INT);
             return $stmt->execute();
         } catch (PDOException $e) {
-            echo "No se pudo eliminar " . $e->getMessage();
-            return false;
+            return $e->getMessage();
         }
     }
 }

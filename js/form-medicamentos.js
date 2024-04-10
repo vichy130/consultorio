@@ -16,8 +16,9 @@ tablaMedicamentos.addEventListener('click', function (e) {
         editarMedicamento(elementoEditar);
     }
     if (e.target.classList.contains("eliminar-medicamento")) {
-        const elementoEliminar = e.target.dataset.id;
-        eliminarMedicamento(elementoEliminar);
+        modal.dataset.id = e.target.dataset.id;
+        modal.dataset.medicamento=e.target.dataset.medicamento;
+        modalBlock();
     }
 });
 botonNuevoMedicamento.addEventListener('click', function (e) {
@@ -42,7 +43,7 @@ function obtenerMedicamentos() { //pendiente
         .then(response => response.json())
         .then(data => {
             data.forEach((m) => {
-                medicamento = new Medicamento(m.medicamento, m.tipo, m.descripcion);
+                var medicamento = new Medicamento(m.medicamento, m.tipo, m.descripcion);
                 medicamento.id = m.id;
                 arrayMedicamentos.push(medicamento);
             });
@@ -53,21 +54,21 @@ function obtenerMedicamentos() { //pendiente
         });
 }
 function medicamentos() {
-    if (arrayMedicamentos.length>0) {
-        const thead=document.createElement('thead');
-        const propiedades=document.createElement('tr');
-        const medicamento=document.createElement('th');
-        const tipo=document.createElement('th');
-        const descripcion=document.createElement('th');
-        const editar=document.createElement('th');
-        const eliminar=document.createElement('th');
+    if (arrayMedicamentos.length > 0) {
+        const thead = document.createElement('thead');
+        const propiedades = document.createElement('tr');
+        const medicamento = document.createElement('th');
+        const tipo = document.createElement('th');
+        const descripcion = document.createElement('th');
+        const editar = document.createElement('th');
+        const eliminar = document.createElement('th');
 
-        medicamento.textContent="Fecha";
-        tipo.textContent="Tipo";
-        descripcion.textContent="Descripción";
-        descripcion.className="column-to-hide";
-        editar.textContent="Editar";
-        eliminar.textContent="Eliminar";
+        medicamento.textContent = "Fecha";
+        tipo.textContent = "Tipo";
+        descripcion.textContent = "Descripción";
+        descripcion.className = "column-to-hide";
+        editar.textContent = "Editar";
+        eliminar.textContent = "Eliminar";
 
         propiedades.appendChild(medicamento);
         propiedades.appendChild(tipo);
@@ -77,7 +78,7 @@ function medicamentos() {
         thead.appendChild(propiedades);
         tablaMedicamentos.appendChild(thead);
 
-        const tbody=document.createElement('tbody');
+        const tbody = document.createElement('tbody');
         arrayMedicamentos.forEach((m) => {
             const celda = document.createElement('tr');
             const medicamentoFila = document.createElement('td');
@@ -91,6 +92,7 @@ function medicamentos() {
 
             iconoEditar.dataset.id = m.id;
             iconoEliminar.dataset.id = m.id;
+            iconoEliminar.dataset.medicamento=m.medicamento;
 
             iconoEditar.className = "far fa-edit editar-medicamento";
             iconoEliminar.className = "fas fa-trash eliminar-medicamento";
@@ -109,14 +111,14 @@ function medicamentos() {
             tbody.appendChild(celda);
         });
         tablaMedicamentos.appendChild(tbody);
-    }else{
-        const mensaje=document.createElement('p');
-        mensaje.textContent="No existen registros";
+    } else {
+        const mensaje = document.createElement('p');
+        mensaje.textContent = "No existen registros";
         notabla.appendChild(mensaje);
     }
 }
-function eliminarMedicamento(elementoEliminar) {
-    var id = { id: elementoEliminar };
+function eliminarMedicamento() {
+    var id = { id: modal.dataset.id };
     var jsonId = JSON.stringify(id);
     fetch('./controller/eliminar-medicamento.php', {// Enviar los datos a PHP utilizando fetch
         method: 'POST',
@@ -126,15 +128,16 @@ function eliminarMedicamento(elementoEliminar) {
             return response.text();
         })
         .then(function (data) {
-            /*cerrarPregunta();*/
+            clearDiv(modalContent);
+            console.log(data);
+            if (data === "true") {
+                modalExito();
+            } else {
+                modalError(data.toString());
+            }
             arrayMedicamentos = [];
             clearDiv(tablaMedicamentos);
             obtenerMedicamentos();
-            if (data) {
-                /*modalExito.style.display = 'block';*/
-            } else {
-                /*modalError.style.display = 'block';*/
-            }
         })
         .catch(function (error) {
             console.error('Error al eliminar Medicamento:', error);
@@ -143,6 +146,126 @@ function eliminarMedicamento(elementoEliminar) {
 function clearDiv(div) {
     div.replaceChildren();
 }
+//MODAL
+//MODAL
+var modal = document.getElementById("modal");
+var modalContent = document.getElementById("modal-contenido");
+const botonModalAceptarEliminar = document.createElement('button');
+botonModalAceptarEliminar.textContent = "Aceptar";
+botonModalAceptarEliminar.className = "boton rojo aceptar-eliminar-medicamento";
+const botonModalCancelarEliminar = document.createElement('button');
+botonModalCancelarEliminar.textContent = "Cancelar";
+botonModalCancelarEliminar.className = "boton azul cancelar-eliminar-medicamento";
+botonModalAceptarCerrar = document.createElement('button');
+botonModalAceptarCerrar.textContent = "Cerrar";
+botonModalAceptarCerrar.className = "boton azul modal-cerrar";
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+function modalBlock() {
+    clearDiv(modalContent);
+    modalContent.classList.remove('modal-contenido-exito');
+    modalContent.classList.remove('modal-contenido-error');
+    modalContent.classList.remove('modal-contenido-un-column');
+    botonModalAceptarCerrar.className = "boton azul modal-cerrar";
+    // modalContent.style.gridTemplateRows = '1fr 1fr';
+
+    modal.style.display = "block";
+    const divMensaje = document.createElement('div');
+    const divBoton = document.createElement('div');
+    const divBotonDos = document.createElement('div');
+    const titulo = document.createElement('h2');
+    const parrafo = document.createElement('p');
+    const strongElement = document.createElement('strong');
+    var medicamento = modal.dataset.medicamento;
+    const medicamentoNodo = document.createTextNode(medicamento);
+
+    divMensaje.className = "modal-mensaje";
+    divBoton.className = "modal-boton";
+    divBotonDos.className = "modal-boton";
+
+    titulo.textContent = "Confirmar Eliminación";
+    parrafo.textContent = "¿Seguro que desea eliminar el medicamento ";
+    strongElement.appendChild(medicamentoNodo);
+    strongElement.style.fontWeight = 'bold';
+    parrafo.appendChild(strongElement);
+
+    divMensaje.appendChild(titulo);
+    divMensaje.appendChild(parrafo);
+    parrafo.textContent += "?";
+
+    modalContent.appendChild(divMensaje);
+    divBoton.appendChild(botonModalAceptarEliminar);
+    divBotonDos.appendChild(botonModalCancelarEliminar);
+    modalContent.appendChild(divBoton);
+    modalContent.appendChild(divBotonDos);
+}
+function modalExito() {
+    modalContent.classList.add('modal-contenido-exito');
+    modalContent.classList.add('modal-contenido-un-column');
+    botonModalAceptarCerrar.className = "boton azul modal-cerrar";
+
+    const divMensaje = document.createElement('div');
+    const divBoton = document.createElement('div');
+    const titulo = document.createElement('h2');
+    const parrafo = document.createElement('p');
+
+    titulo.textContent = "¡Medicamento eliminado!";
+    parrafo.textContent = "Los datos se han eliminado con éxito.";
+
+    divMensaje.className = "modal-mensaje";
+    divBoton.className = "modal-boton modal-boton-dos-espacios";
+
+    divMensaje.appendChild(titulo);
+    divMensaje.appendChild(parrafo);
+
+    modalContent.appendChild(divMensaje);
+    divBoton.appendChild(botonModalAceptarCerrar);
+    modalContent.appendChild(divBoton);
+}
+function modalError(error) {
+    modalContent.classList.add('modal-contenido-error');
+    modalContent.classList.add('modal-contenido-un-column');
+    botonModalAceptarCerrar.className = "boton blanco modal-cerrar";
+
+    const divMensaje = document.createElement('div');
+    const divBoton = document.createElement('div');
+    const titulo = document.createElement('h2');
+    const parrafo = document.createElement('p');
+    const iconoAlerta = document.createElement('i');
+    iconoAlerta.className = "fa-solid fa-bell";
+
+    divMensaje.className = "modal-mensaje";
+    divBoton.className = "modal-boton modal-boton-dos-espacios";
+
+    titulo.textContent = '¡El medicamento NO ha sido eliminado!';
+    if (error != "false") {
+        parrafo.textContent = "Contacta a tu administrador, Error: " + error;
+    } else {
+        parrafo.textContent = "Porfavor, revisa la información e intenta de nuevo.";
+    }
+    divMensaje.appendChild(titulo);
+    divMensaje.appendChild(parrafo);
+
+    modalContent.appendChild(divMensaje);
+    divBoton.appendChild(botonModalAceptarCerrar);
+    modalContent.appendChild(divBoton);
+}
+modal.addEventListener('click', function (e) {
+    e.preventDefault();
+    if (e.target.classList.contains("aceptar-eliminar-medicamento")) {
+        eliminarMedicamento();
+    };
+    if (e.target.classList.contains("cancelar-eliminar-medicamento")) {
+        modal.style.display = "none";
+    }
+    if (e.target.classList.contains("modal-cerrar")) {
+        modal.style.display = "none";
+    }
+})
+//MODAL
 class Medicamento {
     constructor(medicamento, tipo, descripcion) {
         this._medicamento = medicamento;

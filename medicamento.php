@@ -14,7 +14,6 @@ if (!isset($_SESSION['username'])) {
 }
 if (isset($_REQUEST['id'])) {
     $_SESSION['id_med'] = $_REQUEST['id'];
-    echo $_SESSION['id_med'];
 }
 ?>
 
@@ -32,19 +31,16 @@ if (isset($_REQUEST['id'])) {
 <body>
 
     <div class="contenedor">
-        <?php require("./layout/menu.php"); ?>
-        <!-- 
-        <div id="modalExito" class="modal">
-            <div class="modal-contenido">
-                <span class="cerrar-modal" id="cerrarModal">&times;</span>
-                <h2>¡Medicamento creado!</h2>
-                <br>
-                <p>Los datos se han guardado con éxito.</p>
-            </div>
-        </div>
-        -->
+        <?php require ("./layout/menu.php"); ?>
 
         <form class="content-general" id="form-medicamento">
+
+            <!-- <div id="modal" class="modal">
+                <div id="modal-contenido" class="modal-contenido">
+                    <span class="cerrar-modal" id="cerrarModal">&times;</span>
+                </div>
+            </div> -->
+
             <label class="formulario_grupo span-4">Medicamento</label>
 
             <!-- Grupo: -->
@@ -54,7 +50,8 @@ if (isset($_REQUEST['id'])) {
                     <input class="form_input" type="text" id="nombre-medicamento" name="nombre-medicamento">
                     <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                 </div>
-                <p class="form_input-error">El campo no puede estar vacío. Solo se permiten letras, máximo 100 caracteres</p>
+                <p class="form_input-error">El campo no puede estar vacío. Solo se permiten letras, máximo 100
+                    caracteres</p>
             </div><!-- end form-grupo -->
 
             <!-- Grupo: -->
@@ -80,7 +77,8 @@ if (isset($_REQUEST['id'])) {
                         cols="50"></textarea>
                     <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                 </div>
-                <p class="form_input-error">El campo no puede estar vacío. Solo se permiten letras, máximo 500 caracteres</p>
+                <p class="form_input-error">El campo no puede estar vacío. Solo se permiten letras, máximo 500
+                    caracteres</p>
             </div><!-- end form-grupo -->
 
             <button class="input_submit boton amarillo span-2">Cancelar</button>
@@ -92,7 +90,7 @@ if (isset($_REQUEST['id'])) {
         </form>
         <!-- end FORM -->
 
-        <?php require("./layout/footer.php"); ?>
+        <?php require ("./layout/footer.php"); ?>
         <script src="./js/validacion-medicamento.js"></script>
         <script src="./js/form-medicamento.js"></script>
     </div>

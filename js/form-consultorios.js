@@ -28,7 +28,6 @@ function obtenerConsultorios() {
         });
 }
 function tablaConsultorios() {
-    console.log(arrayConsultorios);
     clearDiv(tConsultorios);
     if (arrayConsultorios.length > 0) {
         const thead=document.createElement('thead');
@@ -70,6 +69,7 @@ function tablaConsultorios() {
 
             editarIcono.dataset.id = c.id;
             eliminarIcono.dataset.id = c.id;
+            eliminarIcono.dataset.nombre=c.nombre;
 
             nombreFila.textContent = c.nombre;
             domicilioFila.textContent = c.calle + " " + c.colonia + ", " + c.ciudad + " " + c.codigoPostal;
@@ -104,18 +104,19 @@ tConsultorios.addEventListener('click', function (e) {
         consultorioEditar(e.target.dataset.id);
     }
     if (e.target.classList.contains('eliminar-consultorio')) {
-        consultorioEliminar(e.target.dataset.id);
+        modal.dataset.id=e.target.dataset.id;
+        modal.dataset.nombre=e.target.dataset.nombre;
+        modalBlock();
     }
 });
 function redirectConsultorio() {
-    console.log("ir a consultorio");
     window.location.href = "./consultorio.php";
 }
 function consultorioEditar(idEditar) {
     window.location.href = "./consultorio.php?id=" + idEditar;
 }
-function consultorioEliminar(idEliminar) {
-    datos = { id: idEliminar };
+function eliminarConsultorio() {
+    datos = { id: modal.dataset.id };
     json = JSON.stringify(datos);
     fetch('./controller/eliminar-consultorio.php', {
         method: 'POST',
@@ -124,13 +125,139 @@ function consultorioEliminar(idEliminar) {
         return response.text();
     })
         .then(function (data) {
+            clearDiv(modalContent);
+            if(data==="true"){
+                modalExito();
+            }else{
+                modalError(data.toString());
+            }
             arrayConsultorios = [];
             clearDiv(tConsultorios);
             obtenerConsultorios();
-            console.log(data);
-            console.log("eliminacion exitosa");
         });
 }
+
+//MODAL
+//MODAL
+var modal = document.getElementById("modal");
+var modalContent = document.getElementById("modal-contenido");
+const botonModalAceptarEliminar = document.createElement('button');
+botonModalAceptarEliminar.textContent = "Aceptar";
+botonModalAceptarEliminar.className = "boton rojo aceptar-eliminar-consultorio";
+const botonModalCancelarEliminar = document.createElement('button');
+botonModalCancelarEliminar.textContent = "Cancelar";
+botonModalCancelarEliminar.className = "boton azul cancelar-eliminar-consultorio";
+botonModalAceptarCerrar=document.createElement('button');
+botonModalAceptarCerrar.textContent = "Cerrar";
+botonModalAceptarCerrar.className = "boton azul modal-cerrar";
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+function modalBlock() {
+    clearDiv(modalContent);
+    modalContent.classList.remove('modal-contenido-exito');
+    modalContent.classList.remove('modal-contenido-error');
+    modalContent.classList.remove('modal-contenido-un-column');
+    botonModalAceptarCerrar.className = "boton azul modal-cerrar";
+    // modalContent.style.gridTemplateRows = '1fr 1fr';
+
+    modal.style.display = "block";
+    const divMensaje=document.createElement('div');
+    const divBoton=document.createElement('div');
+    const divBotonDos=document.createElement('div');
+    const titulo = document.createElement('h2');
+    const parrafo = document.createElement('p');
+    const strongElement = document.createElement('strong');
+    var nombre = modal.dataset.nombre;
+    const nombreNodo = document.createTextNode(nombre);
+
+    divMensaje.className="modal-mensaje";
+    divBoton.className="modal-boton";
+    divBotonDos.className="modal-boton";
+
+    titulo.textContent = "Confirmar Eliminación";
+    parrafo.textContent = "¿Seguro que desea eliminar el consultorio ";
+    strongElement.appendChild(nombreNodo);
+    strongElement.style.fontWeight = 'bold';
+    parrafo.appendChild(strongElement);
+
+    divMensaje.appendChild(titulo);
+    divMensaje.appendChild(parrafo);
+    parrafo.textContent += "?";
+
+    modalContent.appendChild(divMensaje);
+    divBoton.appendChild(botonModalAceptarEliminar);
+    divBotonDos.appendChild(botonModalCancelarEliminar);
+    modalContent.appendChild(divBoton);
+    modalContent.appendChild(divBotonDos);
+}
+function modalExito(){
+    modalContent.classList.add('modal-contenido-exito');
+    modalContent.classList.add('modal-contenido-un-column');
+    botonModalAceptarCerrar.className = "boton azul modal-cerrar";
+
+    const divMensaje=document.createElement('div');
+    const divBoton=document.createElement('div');
+    const titulo = document.createElement('h2');
+    const parrafo = document.createElement('p');
+
+    titulo.textContent = "¡Consultorio eliminado!";
+    parrafo.textContent = "Los datos se han eliminado con éxito.";
+
+    divMensaje.className="modal-mensaje";
+    divBoton.className="modal-boton modal-boton-dos-espacios";
+
+    divMensaje.appendChild(titulo);
+    divMensaje.appendChild(parrafo);
+
+    modalContent.appendChild(divMensaje);
+    divBoton.appendChild(botonModalAceptarCerrar);
+    modalContent.appendChild(divBoton);
+}
+function modalError(error){
+    modalContent.classList.add('modal-contenido-error');
+    modalContent.classList.add('modal-contenido-un-column');
+    botonModalAceptarCerrar.className = "boton blanco modal-cerrar";
+
+    const divMensaje=document.createElement('div');
+    const divBoton=document.createElement('div');
+    const titulo = document.createElement('h2');
+    const parrafo = document.createElement('p');
+    const iconoAlerta=document.createElement('i');
+    iconoAlerta.className="fa-solid fa-bell";
+
+    divMensaje.className="modal-mensaje";
+    divBoton.className="modal-boton modal-boton-dos-espacios";
+
+    titulo.textContent = '¡El consultorio NO ha sido eliminado!';
+    if(error!="false"){
+        parrafo.textContent = "Contacta a tu administrador, Error: "+error;
+    }else{
+        parrafo.textContent = "Porfavor, revisa la información e intenta de nuevo.";
+    }
+    divMensaje.appendChild(titulo);
+    divMensaje.appendChild(parrafo);
+
+    modalContent.appendChild(divMensaje);
+    divBoton.appendChild(botonModalAceptarCerrar);
+    modalContent.appendChild(divBoton);
+}
+modal.addEventListener('click', function (e) {
+    e.preventDefault();
+    if (e.target.classList.contains("aceptar-eliminar-consultorio")) {
+        eliminarConsultorio();
+    };
+    if (e.target.classList.contains("cancelar-eliminar-consultorio")){
+        modal.style.display = "none";
+    }
+    if (e.target.classList.contains("modal-cerrar")){
+        modal.style.display = "none";
+    }
+})
+//MODAL END
+
 class Consultorio {
     set nombre(nombre) {
         this._nombre = nombre;

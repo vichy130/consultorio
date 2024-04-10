@@ -1,13 +1,14 @@
 <?php
-session_start(); 
+session_start();
 
-function redirect($url) {
+function redirect($url)
+{
     ob_start();
-    header('Location:'.$url);
+    header('Location:' . $url);
     ob_end_flush();
     die();
 }
-if(!isset($_SESSION['username'])){
+if (!isset($_SESSION['username'])) {
     redirect("./iniciar-sesion.php");
     exit();
 }
@@ -17,6 +18,7 @@ unset($_SESSION['id_con']);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,16 +26,23 @@ unset($_SESSION['id_con']);
     <link rel="stylesheet" href="./css/estilos-pacientes.css">
     <title>Consultorios</title>
 </head>
+
 <body>
     <div class="contenedor">
-    <?php require("./layout/menu.php"); ?>
-    <div class="content-general">
+        <?php require ("./layout/menu.php"); ?>
+        <div class="content-general">
+
+            <div id="modal" class="modal">
+                <div id="modal-contenido" class="modal-contenido">
+                    <span class="cerrar-modal" id="cerrarModal">&times;</span>
+                </div>
+            </div>
             <label class="span-4" for="">Consultorios</label>
 
             <input class="form_input span-2" type="text">
             <button class="boton azul"><i class="fas fa-search"></i> Buscar</button>
 
-            <button class="boton azul" id="boton-nuevo-consultorio"><i class="fas fa-user-plus" ></i> Nuevo
+            <button class="boton azul" id="boton-nuevo-consultorio"><i class="fas fa-user-plus"></i> Nuevo
                 consultorio</button>
             <table class="table span-4" id="tabla-consultorios">
                 <!--<thead>
@@ -48,11 +57,12 @@ unset($_SESSION['id_con']);
                 <tbody id="tbody-consultorios">
                 </tbody>-->
             </table>
-    <div id="no-tabla"></div>
-    </div>
-    <?php require("./layout/footer.php"); ?>
+            <div id="no-tabla"></div>
+        </div>
+        <?php require ("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
-    <script src="./js/form-consultorios.js"  ></script>
+    <script src="./js/form-consultorios.js"></script>
 </body>
+
 </html>

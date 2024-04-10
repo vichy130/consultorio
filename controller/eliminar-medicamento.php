@@ -10,14 +10,12 @@ try {
         $id = $json['id'];
         $medicamento = new Medicamento();
         $medicamento->setId($id);
-        if ($medicamento->eliminar()) {
-            return true;
-        } else {
-            return false;
-        }
+        $respuesta=$medicamento->eliminar();
     }
 } catch (Exception $e) {
-    echo "Error: No se pudo eliminar Medicamento (PHP)" . $e->getMessage();
-    return false;
+    $respuesta= $e->getMessage();
 }
+header('Content-Type: application/json');
+$jsonrespuesta = json_encode($respuesta);
+echo $jsonrespuesta;
 ?>

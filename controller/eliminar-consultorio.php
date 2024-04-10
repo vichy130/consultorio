@@ -7,12 +7,11 @@ try {
         $id = $json['id'];
         $consultorio = new Consultorio();
         $consultorio->setId($id);
-        if ($consultorio->eliminar()) {
-            return "true";
-        } else {
-            return "false";
-        }
+        $respuesta=$consultorio->eliminar();
     }
 }catch(PDOException $e){
-    echo "Error".$e->getMessage();
+    $respuesta=$e->getMessage();
 }
+header('Content-Type: application/json');
+$jsonrespuesta = json_encode($respuesta);
+echo $jsonrespuesta;

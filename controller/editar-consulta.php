@@ -37,7 +37,8 @@ $consultorio = $_POST['select-consultorio'];
 
 $consulta->setId($_SESSION['id_consulta']);
 $receta=$consulta->getReceta();
-
+// echo $_SESSION['id_consulta'];
+// echo $receta;
 $consulta->setValues($fecha, $usuario, $paciente, $ta, $oxigeno, $pulso, $peso, $estatura, $temperatura, $motivoConsulta, $exploracion, $indicaciones,$receta, $consultorio);
 
 if($consulta->actualizar()){

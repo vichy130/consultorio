@@ -12,7 +12,6 @@ try {
     }
 } catch (Exception $e) {
     $respuesta=$e->getMessage();
-
 }
 // echo $respuesta;
 header('Content-Type: application/json');

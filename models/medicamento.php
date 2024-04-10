@@ -49,13 +49,12 @@ class Medicamento
             $stmt->bindParam(':tipo', $this->tipo);
             $stmt->bindParam(':descripcion', $this->descripcion);
             $stmt->bindParam(':id', $this->id);
-            $stmt->execute();
-            return true;
+            return $stmt->execute();
         } catch (PDOException $e) {
-            echo "Error al insertar medicamento" . $e->getMessage();
-            return false;
+            return $e->getMessage();
         }
-    }else{return false;}
+    }else{
+        return false;}
     }
     public function obtener()
     {
@@ -70,9 +69,10 @@ class Medicamento
                 $this->medicamento = $datos["medicamento"];
                 $this->tipo = $datos["tipo"];
                 $this->descripcion = $datos["descripcion"];
+                return true;
             }
         } catch (PDOException $e) {
-            echo "error al obtener medicamento" . $e->getMessage();
+            return $e->getMessage();
         }
     }
     function eliminar()
@@ -81,10 +81,9 @@ class Medicamento
         try {
             $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':id', $this->id);
-            $stmt->execute();
-            echo "medicamento eliminado" . $this->id;
+            return $stmt->execute();
         } catch (PDOException $e) {
-            echo "Error al eliminar medicamento" . $e->getMessage();
+            return $e->getMessage();
         }
     }
     function actualizar()
@@ -103,11 +102,9 @@ class Medicamento
             $stmt->bindParam(":tipo", $this->tipo);
             $stmt->bindParam(":descripcion", $this->descripcion);
             $stmt->bindParam(":id", $this->id);
-            $stmt->execute();
-            return true;
+            return $stmt->execute();
         } catch (PDOException $e) {
-            echo "ERROR actualizar medicamento" . $e->getMessage();
-            return false;
+            return $e->getMessage();
         }
     }
 }

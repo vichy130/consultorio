@@ -48,10 +48,12 @@ function enviarFormConsultorio(){
             body: datosConsultorio
         })
         .then(function(response){
-            return response.text();
+            return response.json();
         })
         .then(function (data){
-            console.log(data);
+            consultorio = new Consultorio(data.nombre, data.calle, data.colonia, data.ciudad, data.codigoPostal, data.telefono);
+            consultorio.id = data.id;
+            console.log(consultorio);
         })
         .catch (function (error){
             console.log.error('Error:', error);

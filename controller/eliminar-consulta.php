@@ -1,20 +1,18 @@
 <?php
 session_start();
-include_once("../models/consulta.php");
+include_once ("../models/consulta.php");
 try {
     $json = json_decode(file_get_contents('php://input'), true);
     if (isset($json['id'])) {
         $id = $json['id'];
         $consulta = new Consulta();
         $consulta->setId($id);
-        if ($consulta->eliminar()) {
-            echo "true";
-        } else {
-            echo "false";
-        }
+        $respuesta = $consulta->eliminar();
     }
 } catch (Exception $e) {
-    echo "Error: " . $e->getMessage();
-    echo "false";
+    $respuesta = $e->getMessage();
 }
+header('Content-Type: application/json');
+$jsonrespuesta = json_encode($respuesta);
+echo $jsonrespuesta;
 ?>

@@ -37,6 +37,7 @@ $receta->setValues($recetaId);
 if ($receta->insertar()) {
   $consulta->setValues($fecha, $usuario, $paciente, $ta, $oxigeno, $pulso, $peso, $estatura, $temperatura, $motivoConsulta, $exploracion, $indicaciones, $receta->getValues(), $consultorio);
   if ($consulta->insertar()) {
+    $_SESSION['id_consulta']=$consulta->getId();
     $consulta->setCPrevias($consultasP);
     $consulta->setTerapiasAplicadas($terapiasAplicadas);
     $consulta->setEstudiosSolicitados($estudiosSolicitados);

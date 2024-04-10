@@ -15,7 +15,7 @@ if (!isset($_SESSION['username'])) {
 $id_paciente = 0;
 if (isset($_SESSION["id_paciente"])) {
     $id_paciente = $_SESSION["id_paciente"];
-}else {
+} else {
     redirect("./pacientes-informacion.php");
 }
 if (isset($_SESSION["id_consulta"])) {
@@ -39,40 +39,19 @@ if (isset($_SESSION["id_consulta"])) {
 
 <body>
     <div class="contenedor">
-        <?php require("./layout/menu.php"); ?>
+        <?php require ("./layout/menu.php"); ?>
         <div class="content">
-            <?php require("./layout/content-informacion.php"); ?>
-            <?php require("./layout/submenu-pacientes.php"); ?>
+            <?php require ("./layout/content-informacion.php"); ?>
+            <?php require ("./layout/submenu-pacientes.php"); ?>
 
             <div class="content-pacientes">
-            <div id="modalPregunta" class="modal-preguntar">
-                <div class="modal-contenido-preguntar">
-                    <span class="cerrar-modal" id="cerrarModalPregunta">&times;</span>
-                    <h2>Confirmar Eliminación</h2>
-                    <br>
-                    <p>¿Seguro que desea eliminar esta consulta?</p>
-                    <div class="botones">
-                        <button class="boton rojo" id="botonAceptarEliminar">Aceptar</button>
-                        <button class="boton azul" id="botonCancelarEliminar">Cancelar</button>
+
+                <div id="modal" class="modal">
+                    <div id="modal-contenido" class="modal-contenido">
+                        <span class="cerrar-modal" id="cerrarModal">&times;</span>
                     </div>
                 </div>
-            </div>
-            <div id="modalExito" class="modal-exito">
-                <div class="modal-contenido-exito">
-                <span class="cerrar-modal" id="cerrarModalExito">&times;</span>
-                <h2>¡Consulta eliminada!</h2>
-                <br>
-                <p>Los datos se han eliminado con éxito.</p>
-                </div>
-            </div>
-            <div id="modalError" class="modal-error">
-                <div class="modal-contenido-error">
-                <span class="cerrar-modal" id="cerrarModalError">&times;</span>
-                <h2>La consulta No ha sido eliminada</h2>
-                <br>
-                <p>Porfavor, revisa la información e intenta de nuevo.</p>
-                </div>
-            </div>
+
                 <label class="span-4" for="">Consultas</label>
                 <input class="form_input" type="date">
                 <button class="boton azul"><i class="fas fa-search"></i> Buscar</button>
@@ -93,9 +72,10 @@ if (isset($_SESSION["id_consulta"])) {
             </div>
             <!-- end div content-pacientes -->
         </div>
-        <?php require("./layout/footer.php"); ?>
+        <?php require ("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
 </body>
 <script src="./js/form-consultas.js"></script>
+
 </html>
