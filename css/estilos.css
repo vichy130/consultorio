@@ -191,6 +191,10 @@ body{
 .rojo{
     background: #c14228;
 }
+.blanco{
+    background: #ffffff;
+    color: #3d3b3e;
+}
 .span-2{
     grid-column: span 2;
 }

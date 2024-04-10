@@ -20,8 +20,14 @@ unset($_SESSION['id_usuario']);
 
 <body>
     <div class="contenedor">
-        <?php require("./layout/menu.php"); ?>
+        <?php require ("./layout/menu.php"); ?>
         <div class="content-general">
+
+            <div id="modal" class="modal">
+                <div id="modal-contenido" class="modal-contenido">
+                    <span class="cerrar-modal" id="cerrarModal">&times;</span>
+                </div>
+            </div>
 
             <label class="span-4">Usuarios</label>
 
@@ -44,9 +50,10 @@ unset($_SESSION['id_usuario']);
                 </thead>-->
             </table>
         </div>
-        <?php require("./layout/footer.php"); ?>
+        <?php require ("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
     <script src="./js/form-usuarios.js"></script>
 </body>
+
 </html>

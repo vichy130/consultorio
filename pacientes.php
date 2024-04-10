@@ -41,9 +41,6 @@ require ("./php/conexion.php");
             <div id="modal" class="modal">
                 <div id="modal-contenido" class="modal-contenido">
                     <span class="cerrar-modal" id="cerrarModal">&times;</span>
-                    <!-- <h2>Confirmar Eliminación</h2>
-                    <br>
-                    <p>¿Seguro que desea eliminar a este paciente?</p> -->
                 </div>
             </div>
             <!-- <div id="modalExito" class="modal-exito">

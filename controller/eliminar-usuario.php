@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+$respuesta;
 include_once("../models/usuario.php");
 try {
     $json = json_decode(file_get_contents('php://input'), true);
@@ -8,14 +8,13 @@ try {
         $username= $json['id'];
         $usuario = new Usuario();
         $usuario->setUsername($username);
-        if ($usuario->eliminar()) {
-            return true;
-        } else {
-            return false;
-        }
+        $respuesta=$usuario->eliminar();
     }
 } catch (Exception $e) {
-    echo "Error: No se pudo eliminar usuario" . $e->getMessage();
-    return false;
+    $respuesta= $e->getMessage();
 }
+
+header('Content-Type: application/json');
+$jsonrespuesta = json_encode($respuesta);
+echo $jsonrespuesta;
 ?>

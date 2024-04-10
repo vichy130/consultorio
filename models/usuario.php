@@ -88,8 +88,7 @@ class usuario
             $stmt->bindParam(':tipoUsuario', $this->tipoUsuario);
             return $stmt->execute();
         } catch (PDOException $e) {
-            echo "Error al insertar Usuario" . $e->getMessage();
-            return false;
+            return $e->getMessage();
         }
     }
     function obtener()
@@ -111,7 +110,7 @@ class usuario
             }
             return $this;
         } catch (PDOException $e) {
-            echo "Error al buscar datos de Usuario" . $e->getMessage();
+           return $e->getMessage();
         }
     }
     function validar()
@@ -134,19 +133,18 @@ class usuario
                 return true;
             }
         } catch (PDOException $e) {
-            echo "Error al buscar datos de Usuario" . $e->getMessage();
-            return false;
+            return $e->getMessage();
         }
     }
     function eliminar()
     {
-        $query = "DELETE FROM usuario where username=:username; ";
+        $query = "DELETE FROM usuarios where username=:username; ";
         try {
             $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':username', $this->username);
-            $stmt->execute();
+            return $stmt->execute();
         } catch (PDOException $e) {
-            echo "Error al eliminar Usuario" . $e->getMessage();
+            return $e->getMessage();
         }
     }
     public function actualizar()
@@ -186,11 +184,10 @@ class usuario
                 $stmt->bindParam(":contrasena", $this->contrasena);
             }
             $stmt->bindParam(":username", $this->username);
-            $stmt->execute();
-            return true;
+            return $stmt->execute();
+            
         } catch (PDOException $e) {
-            echo "Error al actualizar usuario" . $e->getMessage();
-            return false;
+            return $e->getMessage();
         }
     }
 }

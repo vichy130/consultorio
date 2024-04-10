@@ -34,7 +34,11 @@ tUsuarios.addEventListener('click', function (e) {
         usuarioEditar(e.target.dataset.id);
     }
     if (e.target.classList.contains('eliminar-usuario')) {
-        usuarioEliminar(e.target.dataset.id);
+        modal.dataset.id = e.target.dataset.id;
+        console.log("modal dataset:");
+        console.log(modal.dataset.id);
+        modal.dataset.nombre = e.target.dataset.nombre;
+        modalBlock();
     }
 });
 botonNuevoUsuario.addEventListener('click', function (e) {
@@ -43,7 +47,7 @@ botonNuevoUsuario.addEventListener('click', function (e) {
 });
 function tablaUsuarios() {
     tUsuarios.replaceChildren();
-    if (arrayUsuarios.length>0) {
+    if (arrayUsuarios.length > 0) {
         const thead = document.createElement('thead');
         const propiedades = document.createElement('tr');
         const username = document.createElement('th');
@@ -53,15 +57,15 @@ function tablaUsuarios() {
         const tipoUsuario = document.createElement('th');
         const editar = document.createElement('th');
         const eliminar = document.createElement('th');
-        username.textContent="Usuario";
-        nombre.textContent="Nombre";
-        telefono.textContent="Teléfono";
-        correo.textContent="Email";
-        tipoUsuario.textContent="Tipo de usuario";
-        editar.textContent="Editar";
-        eliminar.textContent="Eliminar";
-        telefono.className="column-to-hide";
-        correo.className="column-to-hide";
+        username.textContent = "Usuario";
+        nombre.textContent = "Nombre";
+        telefono.textContent = "Teléfono";
+        correo.textContent = "Email";
+        tipoUsuario.textContent = "Tipo de usuario";
+        editar.textContent = "Editar";
+        eliminar.textContent = "Eliminar";
+        telefono.className = "column-to-hide";
+        correo.className = "column-to-hide";
         propiedades.appendChild(username);
         propiedades.appendChild(nombre);
         propiedades.appendChild(telefono);
@@ -92,6 +96,7 @@ function tablaUsuarios() {
 
             iconoEditar.dataset.id = u.username;
             iconoEliminar.dataset.id = u.username;
+            iconoEliminar.dataset.nombre=u.nombre;
 
             usernameFila.textContent = u.username;
             nombreFila.textContent = u.nombre + " " + u.apellidoPaterno + " " + u.apellidoMaterno;
@@ -112,9 +117,9 @@ function tablaUsuarios() {
             tbody.append(celda);
         });
         tUsuarios.appendChild(tbody);
-    }else{
-        const mensaje=document.createElement('p');
-        mensaje.textContent="No existen registros";
+    } else {
+        const mensaje = document.createElement('p');
+        mensaje.textContent = "No existen registros";
         notabla.appendChild(mensaje);
     }
 }
@@ -124,8 +129,9 @@ function usuar() {
 function usuarioEditar(idEditar) {
     window.location.href = './usuario.php?id=' + idEditar;
 }
-function usuarioEliminar(idEliminar) {
-    var datos = { id: idEliminar };
+function eliminarUsuario() {
+    console.log("eliminar usuario ()"+modal.dataset.id);
+    var datos = { id: modal.dataset.id };
     jsonDatos = JSON.stringify(datos);
     fetch('./controller/eliminar-usuario.php', {
         method: 'POST',
@@ -135,6 +141,13 @@ function usuarioEliminar(idEliminar) {
             return response.text();
         })
         .then(function (data) {
+            clearDiv(modalContent);
+            console.log(data);
+            if (data === "true") {
+                modalExito();
+            } else {
+                modalError(data.toString());
+            }
             arrayUsuarios = [];
             obtenerUsuarios();
         })
@@ -145,6 +158,127 @@ function usuarioEliminar(idEliminar) {
 function clearDiv(div) {
     div.replaceChildren();
 }
+//MODAL
+//MODAL
+var modal = document.getElementById("modal");
+var modalContent = document.getElementById("modal-contenido");
+const botonModalAceptarEliminar = document.createElement('button');
+botonModalAceptarEliminar.textContent = "Aceptar";
+botonModalAceptarEliminar.className = "boton rojo aceptar-eliminar";
+const botonModalCancelarEliminar = document.createElement('button');
+botonModalCancelarEliminar.textContent = "Cancelar";
+botonModalCancelarEliminar.className = "boton azul cancelar-eliminar";
+botonModalAceptarCerrar = document.createElement('button');
+botonModalAceptarCerrar.textContent = "Cerrar";
+botonModalAceptarCerrar.className = "boton azul modal-cerrar";
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+function modalBlock() {
+    clearDiv(modalContent);
+    modalContent.classList.remove('modal-contenido-exito');
+    modalContent.classList.remove('modal-contenido-error');
+    modalContent.classList.remove('modal-contenido-un-column');
+    botonModalAceptarCerrar.className = "boton azul modal-cerrar";
+    // modalContent.style.gridTemplateRows = '1fr 1fr';
+
+    modal.style.display = "block";
+    const divMensaje = document.createElement('div');
+    const divBoton = document.createElement('div');
+    const divBotonDos = document.createElement('div');
+    const titulo = document.createElement('h2');
+    const parrafo = document.createElement('p');
+    const strongElement = document.createElement('strong');
+    var nombre = modal.dataset.nombre;
+    const nombreNodo = document.createTextNode(nombre);
+
+    divMensaje.className = "modal-mensaje";
+    divBoton.className = "modal-boton";
+    divBotonDos.className = "modal-boton";
+
+    titulo.textContent = "Confirmar Eliminación";
+    parrafo.textContent = "¿Seguro que desea eliminar al usuario ";
+    strongElement.appendChild(nombreNodo);
+    strongElement.style.fontWeight = 'bold';
+    parrafo.appendChild(strongElement);
+
+    divMensaje.appendChild(titulo);
+    divMensaje.appendChild(parrafo);
+    parrafo.textContent += "?";
+
+    modalContent.appendChild(divMensaje);
+    divBoton.appendChild(botonModalAceptarEliminar);
+    divBotonDos.appendChild(botonModalCancelarEliminar);
+    modalContent.appendChild(divBoton);
+    modalContent.appendChild(divBotonDos);
+}
+function modalExito() {
+    modalContent.classList.add('modal-contenido-exito');
+    modalContent.classList.add('modal-contenido-un-column');
+    botonModalAceptarCerrar.className = "boton azul modal-cerrar";
+
+    const divMensaje = document.createElement('div');
+    const divBoton = document.createElement('div');
+    const titulo = document.createElement('h2');
+    const parrafo = document.createElement('p');
+
+    titulo.textContent = "¡Paciente eliminado!";
+    parrafo.textContent = "Los datos se han eliminado con éxito.";
+
+    divMensaje.className = "modal-mensaje";
+    divBoton.className = "modal-boton modal-boton-dos-espacios";
+
+    divMensaje.appendChild(titulo);
+    divMensaje.appendChild(parrafo);
+
+    modalContent.appendChild(divMensaje);
+    divBoton.appendChild(botonModalAceptarCerrar);
+    modalContent.appendChild(divBoton);
+}
+function modalError(error) {
+    modalContent.classList.add('modal-contenido-error');
+    modalContent.classList.add('modal-contenido-un-column');
+    botonModalAceptarCerrar.className = "boton blanco modal-cerrar";
+
+    const divMensaje = document.createElement('div');
+    const divBoton = document.createElement('div');
+    const titulo = document.createElement('h2');
+    const parrafo = document.createElement('p');
+    // const iconoAlerta = document.createElement('i');
+    // iconoAlerta.className = "fa-solid fa-bell";
+
+    divMensaje.className = "modal-mensaje";
+    divBoton.className = "modal-boton modal-boton-dos-espacios";
+
+    titulo.textContent = '¡El usuario NO ha sido eliminado!';
+    if (error != "false") {
+        parrafo.textContent = "Contacta a tu administrador, Error: " + error;
+    } else {
+        parrafo.textContent = "Porfavor, revisa la información e intenta de nuevo.";
+    }
+    divMensaje.appendChild(titulo);
+    divMensaje.appendChild(parrafo);
+
+    modalContent.appendChild(divMensaje);
+    divBoton.appendChild(botonModalAceptarCerrar);
+    modalContent.appendChild(divBoton);
+}
+modal.addEventListener('click', function (e) {
+    e.preventDefault();
+    if (e.target.classList.contains("aceptar-eliminar")) {
+        eliminarUsuario();
+    };
+    if (e.target.classList.contains("cancelar-eliminar")) {
+        modal.style.display = "none";
+    }
+    if (e.target.classList.contains("modal-cerrar")) {
+        modal.style.display = "none";
+    }
+})
+//MODAL END
+
 class Usuario {
     set username(username) {
         this._username = username;

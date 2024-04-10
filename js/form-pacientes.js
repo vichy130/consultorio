@@ -66,10 +66,8 @@ function eliminarPaciente() {
             clearDiv(modalContent);
             if(data==="true"){
                 modalExito();
-            }else if(data==="false"){
-                modalNoExito();
             }else{
-                modalError();
+                modalError(data.toString());
             }
             array = [];
             clearDiv(tabla);
@@ -157,7 +155,6 @@ function paciente() {
 function pacienteEditar(idEditar) {
     window.location.href = "./pacientes-informacion.php?id=" + idEditar;
 }
-
 //MODAL
 //MODAL
 var modal = document.getElementById("modal");
@@ -180,7 +177,9 @@ function modalBlock() {
     clearDiv(modalContent);
     modalContent.classList.remove('modal-contenido-exito');
     modalContent.classList.remove('modal-contenido-error');
-    modalContent.style.gridTemplateRows = '1fr 1fr';
+    modalContent.classList.remove('modal-contenido-un-column');
+    botonModalAceptarCerrar.className = "boton azul modal-cerrar";
+    // modalContent.style.gridTemplateRows = '1fr 1fr';
 
     modal.style.display = "block";
     const divMensaje=document.createElement('div');
@@ -213,9 +212,10 @@ function modalBlock() {
     modalContent.appendChild(divBotonDos);
 }
 function modalExito(){
-    console.log("modal exito");
     modalContent.classList.add('modal-contenido-exito');
- 
+    modalContent.classList.add('modal-contenido-un-column');
+    botonModalAceptarCerrar.className = "boton azul modal-cerrar";
+
     const divMensaje=document.createElement('div');
     const divBoton=document.createElement('div');
     const titulo = document.createElement('h2');
@@ -234,13 +234,33 @@ function modalExito(){
     divBoton.appendChild(botonModalAceptarCerrar);
     modalContent.appendChild(divBoton);
 }
-function modalNoExito(){
+function modalError(error){
     modalContent.classList.add('modal-contenido-error');
-    console.log("modal no exito");
-}
-function modalError(){
-    modalContent.classList.add('modal-contenido-error');
-    console.log("modal error");
+    modalContent.classList.add('modal-contenido-un-column');
+    botonModalAceptarCerrar.className = "boton blanco modal-cerrar";
+
+    const divMensaje=document.createElement('div');
+    const divBoton=document.createElement('div');
+    const titulo = document.createElement('h2');
+    const parrafo = document.createElement('p');
+    const iconoAlerta=document.createElement('i');
+    iconoAlerta.className="fa-solid fa-bell";
+
+    divMensaje.className="modal-mensaje";
+    divBoton.className="modal-boton modal-boton-dos-espacios";
+
+    titulo.textContent = '¡El paciente NO ha sido eliminado!';
+    if(error!="false"){
+        parrafo.textContent = "Contacta a tu administrador, Error: "+error;
+    }else{
+        parrafo.textContent = "Porfavor, revisa la información e intenta de nuevo.";
+    }
+    divMensaje.appendChild(titulo);
+    divMensaje.appendChild(parrafo);
+
+    modalContent.appendChild(divMensaje);
+    divBoton.appendChild(botonModalAceptarCerrar);
+    modalContent.appendChild(divBoton);
 }
 modal.addEventListener('click', function (e) {
     e.preventDefault();
@@ -254,6 +274,7 @@ modal.addEventListener('click', function (e) {
         modal.style.display = "none";
     }
 })
+//MODAL END
 //CLASES
 class Paciente {
     constructor(

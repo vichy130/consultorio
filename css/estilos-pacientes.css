@@ -86,14 +86,19 @@ html{
 /*MODAL MODAL MODAL ERROR*/
 /* Estilos para el modal */
 .modal-contenido-error {
-    background-color: #c14228;  /* #83bc8a;*/
-    color:#510202; /*#3b486e; #254e38 */
+    /* background-color: #ffe5df;  #83bc8a;   #c14228; */
+    color:#ffffff; /*#3b486e; #254e38 #510202;*/
+    background-color:#c14228;
 }
 /*MODAL MODAL MODAL*/
 
 .modal-contenido{
     display:grid;
     grid-template-columns:1fr 1fr;
+    grid-template-rows:1fr 1fr
+}
+.modal-contenido-un-column{
+    grid-template-columns:1fr;
     grid-template-rows:1fr 1fr
 }
 /* ACOMODO DEL MODAL*/
