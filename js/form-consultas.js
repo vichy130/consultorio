@@ -55,6 +55,7 @@ function eliminarConsulta() {
             return response.text();
         })
         .then(function (data) {
+            clearDiv(tabla);
             clearDiv(modalContent);
             if(data==="true"){
                 modalExito();
