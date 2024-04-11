@@ -33,15 +33,11 @@ if (isset($_REQUEST["id"])) {
     <div class="contenedor">
         <?php require("./layout/menu.php"); ?>
 
-        <!--<div id="modalExito" class="modal">
-            <div class="modal-contenido">
-                <span class="cerrar-modal" id="cerrarModal">&times;</span>
-                <h2>¡Usuario creado!</h2>
-                <br>
-                <p>Los datos se han guardado con éxito.</p>
+        <div id="modal" class="modal">
+                <div id="modal-contenido" class="modal-contenido">
+                    <span class="cerrar-modal" id="cerrarModal">&times;</span>
+                </div>
             </div>
-        </div>
--->
 
         <form class="content-general formulario" id="form-usuario">
 

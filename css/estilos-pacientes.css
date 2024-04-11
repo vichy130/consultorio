@@ -68,6 +68,7 @@ html{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     /* position: relative; */
     color:#495464; /*#3b486e; #254e38 */
+    line-height: 1.6 ;
 }
 .cerrar-modal {
     position: absolute;

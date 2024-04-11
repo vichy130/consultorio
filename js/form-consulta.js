@@ -66,53 +66,57 @@ function obtenerConsulta() {
     fetch('./controller/obtener-consulta.php')
         .then(response => response.json())
         .then(data => {
-            if (data && data.id != null) {
-                consultaObjeto = new Consulta(data.fecha, data.usuario, data.paciente, data.ta, data.oxigeno, data.pulso, data.peso, data.estatura, data.temperatura, data.motivoConsulta, data.exploracion, data.indicaciones, data.receta, data.consultorio);
-                receta=data.receta;
-                inputConsultaFecha.value = consultaObjeto.fecha;
-                inputVitalesta.value = consultaObjeto.ta;
-                inputVitalesoxigeno.value = consultaObjeto.oxigeno;
-                inputVitalespulso.value = consultaObjeto.pulso;
-                inputVitalespeso.value = consultaObjeto.peso;
-                inputVitalestatura.value = consultaObjeto.estatura;
-                inputVitalestemperatura.value = consultaObjeto.temperatura;
-                inputConsultamotivo.value = consultaObjeto.motivoConsulta;
-                inputConsultaexploracion.value = consultaObjeto.exploracion;
-                inputConsultaindicaciones.value = consultaObjeto.indicaciones;
-                //pendiente
-                data.consultasPrevias.forEach(cp => {
-                    var consultaPrevia = new ConsultaPrevia(cp.comentarios, cp.diagnostico, cp.estudios, cp.tratamiento);
-                    consultaPrevia.id = cp.id;
-                    arrayCPrevias.push(consultaPrevia);
-                });
-                actualizarTablaCPrevias();
-                data.medicamentosIndicacion.forEach(mi => {
-                    var medicamentoIndicacion = new MedicamentoIndicacion(mi.medicamento, mi.hora, mi.indicaciones);
-                    medicamentoIndicacion.id = mi.id;
-                    medicamentoIndicacion.receta = mi.receta;
-                    arrayMedicamentoIndicaciones.push(medicamentoIndicacion);
-                });
-                actualizarTablaMedicamentoIndicacion();
-                data.terapiasAplicadas.forEach(t => {
-                    var terapiaAplicada = new TerapiaAplicada(t.terapia);
-                    terapiaAplicada.id = t.id;
-                    terapiaAplicada.consulta = t.consulta;
-                    arrayTerapiasAplicadas.push(terapiaAplicada);
-                });
-                actualizarTablaTerapiasAplicadas();
-                data.estudiosSolicitados.forEach(e => {
-                    var estudio = new EstudioSolicitado(e.estudio);
-                    estudio.id = e.id;
-                    estudio.receta = e.receta;
-                    arrayEstudiosSolicitados.push(estudio);
-                })
-                actualizarTablaEstudiosSolicitados();
-                validarConsulta();
+            console.log(data);
+            if (data != null) {
+                if ('id' in data) {
+                    consultaObjeto = new Consulta(data.fecha, data.usuario, data.paciente, data.ta, data.oxigeno, data.pulso, data.peso, data.estatura, data.temperatura, data.motivoConsulta, data.exploracion, data.indicaciones, data.receta, data.consultorio);
+                    receta = data.receta;
+                    inputConsultaFecha.value = consultaObjeto.fecha;
+                    inputVitalesta.value = consultaObjeto.ta;
+                    inputVitalesoxigeno.value = consultaObjeto.oxigeno;
+                    inputVitalespulso.value = consultaObjeto.pulso;
+                    inputVitalespeso.value = consultaObjeto.peso;
+                    inputVitalestatura.value = consultaObjeto.estatura;
+                    inputVitalestemperatura.value = consultaObjeto.temperatura;
+                    inputConsultamotivo.value = consultaObjeto.motivoConsulta;
+                    inputConsultaexploracion.value = consultaObjeto.exploracion;
+                    inputConsultaindicaciones.value = consultaObjeto.indicaciones;
+                    //pendiente
+                    data.consultasPrevias.forEach(cp => {
+                        var consultaPrevia = new ConsultaPrevia(cp.comentarios, cp.diagnostico, cp.estudios, cp.tratamiento);
+                        consultaPrevia.id = cp.id;
+                        arrayCPrevias.push(consultaPrevia);
+                    });
+                    actualizarTablaCPrevias();
+                    data.medicamentosIndicacion.forEach(mi => {
+                        var medicamentoIndicacion = new MedicamentoIndicacion(mi.medicamento, mi.hora, mi.indicaciones);
+                        medicamentoIndicacion.id = mi.id;
+                        medicamentoIndicacion.receta = mi.receta;
+                        arrayMedicamentoIndicaciones.push(medicamentoIndicacion);
+                    });
+                    actualizarTablaMedicamentoIndicacion();
+                    data.terapiasAplicadas.forEach(t => {
+                        var terapiaAplicada = new TerapiaAplicada(t.terapia);
+                        terapiaAplicada.id = t.id;
+                        terapiaAplicada.consulta = t.consulta;
+                        arrayTerapiasAplicadas.push(terapiaAplicada);
+                    });
+                    actualizarTablaTerapiasAplicadas();
+                    data.estudiosSolicitados.forEach(e => {
+                        var estudio = new EstudioSolicitado(e.estudio);
+                        estudio.id = e.id;
+                        estudio.receta = e.receta;
+                        arrayEstudiosSolicitados.push(estudio);
+                    })
+                    actualizarTablaEstudiosSolicitados();
+                    validarConsulta();
+                } else {
+                    modalError(error, "obtener");
+                }
             }
         })// FIN FETCH
         .catch(error => {
-            console.error('Error:', error);
-            console.log("catch");
+            modalError(error, "obtener");
         });
 }
 //FUNCIONES: OBTENER CONSULTORIO
@@ -285,7 +289,7 @@ function enviarFormConsulta() {
             .then(function (data) {
                 console.log(data);
                 consultaObjeto = new Consulta(data.fecha, data.usuario, data.paciente, data.ta, data.oxigeno, data.pulso, data.peso, data.estatura, data.temperatura, data.motivoConsulta, data.exploracion, data.indicaciones, data.receta, data.consultorio);
-                receta=data.receta;
+                receta = data.receta;
                 console.log(data.receta);
             })
             .catch(function (error) {
@@ -499,6 +503,86 @@ function eliminarTerapiaAplicada(id) {
     arrayTerapiasAplicadas = arrayTerapiasAplicadas.filter(ta => ta.id != id);
     actualizarTablaTerapiasAplicadas();
 }
+
+//MODAL
+var modal = document.getElementById("modal");
+var modalContent = document.getElementById("modal-contenido");
+const botonModalCerrar = document.createElement('button');
+botonModalCerrar.textContent = "Cerrar";
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+function modalExito() {
+    clearDiv(modalContent);
+    botonModalCerrar.className = "boton azul modal-cerrar";
+    modalContent.classList.remove('modal-contenido-error');
+    modalContent.classList.add('modal-contenido-exito');
+    modalContent.classList.add('modal-contenido-un-column');
+    modal.style.display = "block";
+    const divMensaje = document.createElement('div');
+    const divBoton = document.createElement('div');
+    const titulo = document.createElement('h2');
+    const parrafo = document.createElement('p');
+
+    titulo.textContent = "¡Consulta guardada!";
+    parrafo.textContent = "Los datos se han almacenado con éxito.";
+
+    divMensaje.className = "modal-mensaje";
+    divBoton.className = "modal-boton modal-boton-dos-espacios";
+
+    divMensaje.appendChild(titulo);
+    divMensaje.appendChild(parrafo);
+
+    modalContent.appendChild(divMensaje);
+    divBoton.appendChild(botonModalCerrar);
+    modalContent.appendChild(divBoton);
+}
+function modalError(error, tipo) {
+    clearDiv(modalContent);
+    botonModalCerrar.className = "boton blanco modal-cerrar";
+    modalContent.classList.remove('modal-contenido-exito');
+    modalContent.classList.add('modal-contenido-error');
+    modalContent.classList.add('modal-contenido-un-column');
+
+    modal.style.display = "block";
+    const divMensaje = document.createElement('div');
+    const divBoton = document.createElement('div');
+    const titulo = document.createElement('h2');
+    const parrafo = document.createElement('p');
+
+    divMensaje.className = "modal-mensaje";
+    divBoton.className = "modal-boton modal-boton-dos-espacios";
+    if (tipo == "guardar") {
+        titulo.textContent = '¡Los cambios NO han sido guardados!';
+    } else if (tipo == "obtener") {
+        titulo.textContent = '¡La información no pudo ser obtenida!';
+    }
+    if (error != "false") {
+        parrafo.textContent = "Contacta a tu administrador, Error: " + error;
+    } else {
+        parrafo.textContent = "Porfavor, revisa la información e intenta de nuevo.";
+    }
+    divMensaje.appendChild(titulo);
+    divMensaje.appendChild(parrafo);
+
+    modalContent.appendChild(divMensaje);
+    divBoton.appendChild(botonModalCerrar);
+    modalContent.appendChild(divBoton);
+}
+modal.addEventListener('click', function (e) {
+    e.preventDefault();
+    if (e.target.classList.contains("modal-cerrar")) {
+        modal.style.display = "none";
+    }
+})
+//FUNCION BORRAR DIV
+function clearDiv(div) {
+    div.replaceChildren();
+}
+//MODAL END
+
 //CLASES
 //CLASES
 class EstudioSolicitado {

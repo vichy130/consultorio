@@ -1,5 +1,5 @@
 var tabla = document.getElementById('tabla-consultas');
-var notabla=document.getElementById('no-tabla');
+var notabla = document.getElementById('no-tabla');
 var botonNuevaConsulta;
 var botonEditarConsulta;
 var botonEliminarConsulta;
@@ -19,7 +19,7 @@ tabla.addEventListener('click', function (e) {
     }
     if (e.target.classList.contains("eliminar-consulta")) {
         modal.dataset.id = e.target.dataset.id;
-        modal.dataset.fecha=e.target.dataset.fecha;
+        modal.dataset.fecha = e.target.dataset.fecha;
         modalBlock();
     }
 });
@@ -32,15 +32,21 @@ function obtenerConsultas() {
     fetch('./controller/obtener-consultas.php')
         .then(response => response.json())
         .then(data => {
+            console.log(data);
             data.forEach((c) => {
-                var consulta = new Consulta(c.fecha, c.usuario, c.paciente, c.ta, c.oxigeno, c.pulso, c.peso, c.estatura, c.temperatura, c.motivoConsulta, c.exploracion, c.receta, c.consultorio);
-                consulta.id = c.id;
-                array.push(consulta);
+                if ('id' in c) {
+                    var consulta = new Consulta(c.fecha, c.usuario, c.paciente, c.ta, c.oxigeno, c.pulso, c.peso, c.estatura, c.temperatura, c.motivoConsulta, c.exploracion, c.receta, c.consultorio);
+                    consulta.id = c.id;
+                    array.push(consulta);
+                } else {
+                    modalError(c, "obtener");
+                    return;
+                }
             });
             tablaConsultas();
         })// FIN FETCH
         .catch(error => {
-            console.error('Error:', error);
+            modalError(error,"obtener");
         });
 }//END FUNCTION OBTENERCONSULTAS
 
@@ -57,9 +63,9 @@ function eliminarConsulta() {
         .then(function (data) {
             clearDiv(tabla);
             clearDiv(modalContent);
-            if(data==="true"){
+            if (data === "true") {
                 modalExito();
-            }else{
+            } else {
                 modalError(data.toString());
             }
             array = [];
@@ -71,18 +77,18 @@ function eliminarConsulta() {
 }
 function tablaConsultas() {
     if (array.length > 0) {
-        const thead=document.createElement('thead');
-        const propiedades=document.createElement('tr');
-        const fecha=document.createElement('th');
-        const motivo=document.createElement('th');
-        const editar=document.createElement('th');
-        const eliminar=document.createElement('th');
+        const thead = document.createElement('thead');
+        const propiedades = document.createElement('tr');
+        const fecha = document.createElement('th');
+        const motivo = document.createElement('th');
+        const editar = document.createElement('th');
+        const eliminar = document.createElement('th');
 
-        fecha.textContent="Fecha";
-        motivo.textContent="Motivo de consulta";
-        motivo.className="column-to-hide";
-        editar.textContent="Editar";
-        eliminar.textContent="Eliminar";
+        fecha.textContent = "Fecha";
+        motivo.textContent = "Motivo de consulta";
+        motivo.className = "column-to-hide";
+        editar.textContent = "Editar";
+        eliminar.textContent = "Eliminar";
 
         propiedades.appendChild(fecha);
         propiedades.appendChild(motivo);
@@ -91,7 +97,7 @@ function tablaConsultas() {
         thead.appendChild(propiedades);
         tabla.appendChild(thead);
 
-        const tbody=document.createElement('tbody');
+        const tbody = document.createElement('tbody');
 
         array.forEach(co => {
             const celda = document.createElement('tr');
@@ -107,7 +113,7 @@ function tablaConsultas() {
 
             iconoEditar.dataset.id = co.id;
             iconoEliminar.dataset.id = co.id;
-            iconoEliminar.dataset.fecha=co.fecha;
+            iconoEliminar.dataset.fecha = co.fecha;
 
             filaFecha.textContent = co.fecha;
             filaMotivo.textContent = co.motivoConsulta;
@@ -121,9 +127,9 @@ function tablaConsultas() {
             tbody.appendChild(celda);
         });
         tabla.appendChild(tbody);
-    }else{
-        const mensaje=document.createElement('p');
-        mensaje.textContent="No existen registros";
+    } else {
+        const mensaje = document.createElement('p');
+        mensaje.textContent = "No existen registros";
         notabla.appendChild(mensaje);
     }
 }
@@ -148,7 +154,7 @@ botonModalAceptarEliminar.className = "boton rojo aceptar-eliminar-consulta";
 const botonModalCancelarEliminar = document.createElement('button');
 botonModalCancelarEliminar.textContent = "Cancelar";
 botonModalCancelarEliminar.className = "boton azul cancelar-eliminar-consulta";
-botonModalAceptarCerrar=document.createElement('button');
+botonModalAceptarCerrar = document.createElement('button');
 botonModalAceptarCerrar.textContent = "Cerrar";
 botonModalAceptarCerrar.className = "boton azul modal-cerrar";
 window.onclick = function (event) {
@@ -165,18 +171,18 @@ function modalBlock() {
     // modalContent.style.gridTemplateRows = '1fr 1fr';
 
     modal.style.display = "block";
-    const divMensaje=document.createElement('div');
-    const divBoton=document.createElement('div');
-    const divBotonDos=document.createElement('div');
+    const divMensaje = document.createElement('div');
+    const divBoton = document.createElement('div');
+    const divBotonDos = document.createElement('div');
     const titulo = document.createElement('h2');
     const parrafo = document.createElement('p');
     const strongElement = document.createElement('strong');
     var fecha = modal.dataset.fecha;
     const nombreNodo = document.createTextNode(fecha);
 
-    divMensaje.className="modal-mensaje";
-    divBoton.className="modal-boton";
-    divBotonDos.className="modal-boton";
+    divMensaje.className = "modal-mensaje";
+    divBoton.className = "modal-boton";
+    divBotonDos.className = "modal-boton";
 
     titulo.textContent = "Confirmar Eliminación";
     parrafo.textContent = "¿Seguro que desea eliminar la consulta con fecha: ";
@@ -194,21 +200,21 @@ function modalBlock() {
     modalContent.appendChild(divBoton);
     modalContent.appendChild(divBotonDos);
 }
-function modalExito(){
+function modalExito() {
     modalContent.classList.add('modal-contenido-exito');
     modalContent.classList.add('modal-contenido-un-column');
     botonModalAceptarCerrar.className = "boton azul modal-cerrar";
 
-    const divMensaje=document.createElement('div');
-    const divBoton=document.createElement('div');
+    const divMensaje = document.createElement('div');
+    const divBoton = document.createElement('div');
     const titulo = document.createElement('h2');
     const parrafo = document.createElement('p');
 
     titulo.textContent = "¡Consulta eliminada!";
     parrafo.textContent = "Los datos se han eliminado con éxito.";
 
-    divMensaje.className="modal-mensaje";
-    divBoton.className="modal-boton modal-boton-dos-espacios";
+    divMensaje.className = "modal-mensaje";
+    divBoton.className = "modal-boton modal-boton-dos-espacios";
 
     divMensaje.appendChild(titulo);
     divMensaje.appendChild(parrafo);
@@ -217,25 +223,32 @@ function modalExito(){
     divBoton.appendChild(botonModalAceptarCerrar);
     modalContent.appendChild(divBoton);
 }
-function modalError(error){
+function modalError(error, tipo) {
+    clearDiv(modalContent);
+    modal.style.display = "block";
     modalContent.classList.add('modal-contenido-error');
     modalContent.classList.add('modal-contenido-un-column');
+    modalContent.classList.remove('modal-contenido-exito');
     botonModalAceptarCerrar.className = "boton blanco modal-cerrar";
 
-    const divMensaje=document.createElement('div');
-    const divBoton=document.createElement('div');
+    const divMensaje = document.createElement('div');
+    const divBoton = document.createElement('div');
     const titulo = document.createElement('h2');
     const parrafo = document.createElement('p');
-    const iconoAlerta=document.createElement('i');
-    iconoAlerta.className="fa-solid fa-bell";
+    const iconoAlerta = document.createElement('i');
+    iconoAlerta.className = "fa-solid fa-bell";
 
-    divMensaje.className="modal-mensaje";
-    divBoton.className="modal-boton modal-boton-dos-espacios";
+    divMensaje.className = "modal-mensaje";
+    divBoton.className = "modal-boton modal-boton-dos-espacios";
 
-    titulo.textContent = '¡La consulta NO ha sido eliminada!';
-    if(error!="false"){
-        parrafo.textContent = "Contacta a tu administrador, Error: "+error;
-    }else{
+    if (tipo == "eliminar") {
+        titulo.textContent = '¡La consulta NO ha sido eliminada!';
+    } else if (tipo == "obtener") {
+        titulo.textContent = '¡La información no pudo ser obtenida!';
+    }
+    if (error != "false") {
+        parrafo.textContent = "Contacta a tu administrador, Error: " + error;
+    } else {
         parrafo.textContent = "Porfavor, revisa la información e intenta de nuevo.";
     }
     divMensaje.appendChild(titulo);
@@ -250,10 +263,10 @@ modal.addEventListener('click', function (e) {
     if (e.target.classList.contains("aceptar-eliminar-consulta")) {
         eliminarConsulta();
     };
-    if (e.target.classList.contains("cancelar-eliminar-consulta")){
+    if (e.target.classList.contains("cancelar-eliminar-consulta")) {
         modal.style.display = "none";
     }
-    if (e.target.classList.contains("modal-cerrar")){
+    if (e.target.classList.contains("modal-cerrar")) {
         modal.style.display = "none";
     }
 })

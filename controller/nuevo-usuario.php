@@ -1,27 +1,26 @@
-<?php 
+<?php
 session_start();
-include_once("../models/usuario.php");
-$usuario = new usuario(); //Creamos al objeto
-//llenar al objeto con los valores del formulario
+include_once ("../models/usuario.php");
+$respuesta;
+try {
+  $usuario = new usuario();
+  $username = $_POST["username-usuario"];
+  $nombre = $_POST["nombre-usuario"];
+  $apellidoPaterno = $_POST["apellidoPaterno-usuario"];
+  $apellidoMaterno = $_POST["apellidoMaterno-usuario"];
+  $telefono = $_POST["telefono-usuario"];
+  $correo = $_POST["correo-usuario"];
+  $contrasena = $_POST["contrasena-usuario"];
+  $tipoUsuario = $_POST["tipo-usuario"];
+  $usuario->setUsername($username);
+  $usuario->setValues($nombre, $apellidoPaterno, $apellidoMaterno, $telefono, $correo, $tipoUsuario);
+  $usuario->setContrasena($contrasena);
+  $respuesta = $usuario->insertar();
 
-$username = $_POST["username-usuario"];
-$nombre = $_POST["nombre-usuario"];
-$apellidoPaterno = $_POST["apellidoPaterno-usuario"];
-$apellidoMaterno = $_POST["apellidoMaterno-usuario"];
-$telefono = $_POST["telefono-usuario"];
-$correo = $_POST["correo-usuario"];
-$contrasena = $_POST["contrasena-usuario"];
-$tipoUsuario = $_POST["tipo-usuario"];
-$usuario->setUsername($username);
-$usuario->setValues($nombre,$apellidoPaterno,$apellidoMaterno,$telefono,$correo,$tipoUsuario);
-$usuario->setContrasena($contrasena);
-
-if($usuario->insertar()){
-  $jsonUsuario = json_encode($usuario->getValues());
-  header('Content-Type: application/json');
-  echo $jsonUsuario;
-}else{
-    echo "false";
+} catch (PDOException $e) {
+  $respuesta = $e->getMessage();
 }
-
+header('Content-Type: application/json');
+$jsonRespuesta = json_encode($respuesta);
+echo $jsonRespuesta;
 ?>

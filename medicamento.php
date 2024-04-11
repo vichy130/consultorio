@@ -35,11 +35,11 @@ if (isset($_REQUEST['id'])) {
 
         <form class="content-general" id="form-medicamento">
 
-            <!-- <div id="modal" class="modal">
+            <div id="modal" class="modal">
                 <div id="modal-contenido" class="modal-contenido">
                     <span class="cerrar-modal" id="cerrarModal">&times;</span>
                 </div>
-            </div> -->
+            </div>
 
             <label class="formulario_grupo span-4">Medicamento</label>
 

@@ -108,7 +108,7 @@ class usuario
                 $this->correo = $datos["correo"];
                 $this->tipoUsuario = $datos["tipoUsuario"];
             }
-            return $this;
+            return $this->getValues();
         } catch (PDOException $e) {
            return $e->getMessage();
         }

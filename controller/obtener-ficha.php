@@ -1,14 +1,17 @@
 <?php
 session_start();
 include '../models/ficha-clinica.php';
-$ficha = new Ficha();
-$fichaDatos;
-if (isset($_SESSION['id_paciente'])) {
-    $ficha->setPaciente($_SESSION['id_paciente']);
-    $ficha->obtener();
-    $fichaDatos=$ficha->getValues();
+try {
+    $ficha = new Ficha();
+    $respuesta;
+    if (isset($_SESSION['id_paciente'])) {
+        $ficha->setPaciente($_SESSION['id_paciente']);
+        $respuesta = $ficha->obtener();
+    } 
+} catch (PDOException $e) {
+    $respuesta = $e->getMessage();
 }
 header('Content-Type: application/json');
-$jsonFicha = json_encode($fichaDatos);
-echo $jsonFicha;
+$jsonRespuesta = json_encode($respuesta);
+echo $jsonRespuesta;
 ?>

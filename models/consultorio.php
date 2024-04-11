@@ -61,9 +61,8 @@ class Consultorio
                 $stmt->bindParam(':ciudad', $this->ciudad);
                 $stmt->bindParam(':codigoPostal', $this->codigoPostal);
                 $stmt->bindParam(':telefono', $this->telefono);
-                $stmt->execute();
                 $this->id = $this->conexion->getdbh()->lastInsertId();
-                return true;
+                return $this->getValues();
             } catch (PDOException $e) {
                 return $e->getMessage();
             }
@@ -84,7 +83,7 @@ class Consultorio
                 $this->ciudad = $datos['ciudad'];
                 $this->codigoPostal = $datos['codigoPostal'];
                 $this->telefono = $datos['telefono'];
-                return true;
+                return $this->getValues();
             }
         } catch (PDOException $e) {
             return $e->getMessage();

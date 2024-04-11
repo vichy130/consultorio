@@ -111,18 +111,19 @@ function obtenerFicha() {
                 data.antecedentesFam.forEach(elemento => {
                     aFamiliar = new AntecedenteFamiliar();
                     aFamiliar.id = elemento.id;
-                    aFamiliar.parentesco = elemento.parentesco;
+                    aFamiliar.familiar = elemento.familiar;
                     aFamiliar.enfermedad = elemento.enfermedad;
                     aFamiliar.descripcion = elemento.descripcion;
                     arrayAFamiliares.push(aFamiliar);
                 });
                 actualizarTablaAFamiliares();
                 validarFicha();
+            }else{
+                modalError(data, "obtener");
             }
         })// FIN FETCH
         .catch(error => {
-            console.error('Error:', error);
-            console.log("catch");
+            modalError(error, "obtener");
         });
 }
 tablaHijos.addEventListener('click', function (e) {
@@ -226,16 +227,16 @@ function insertarAntecedente() {
     actualizarTablaAntecedentes();
 }
 function insertarAFamiliar() {
-    let parentesco = document.getElementById('parentesco-paciente').value;
+    let familiar = document.getElementById('parentesco-paciente').value;
     let enfermedad = document.getElementById('familiarenfermedad-paciente').value;
     let descripcion = document.getElementById('familiarenfermedad-descripcion-paciente').value;
     aFamiliar = new AntecedenteFamiliar();
     aFamiliar.id = new Date().getTime();
-    aFamiliar.parentesco = parentesco;
+    aFamiliar.familiar = familiar;
     aFamiliar.enfermedad = enfermedad;
     aFamiliar.descripcion = descripcion;
     arrayAFamiliares.push(aFamiliar);
-    console.log(parentesco);
+    console.log(familiar);
     actualizarTablaAFamiliares();
 }
 function actualizarTablaHijos() {
@@ -343,17 +344,17 @@ function actualizarTablaAFamiliares() {
         const thead = document.createElement('thead');
         const propiedades = document.createElement('tr');
         const registro = document.createElement('th');
-        const parentesco = document.createElement('th');
+        const familiar = document.createElement('th');
         const enfermedad = document.createElement('th');
         const descripcion = document.createElement('th');
         const eliminar = document.createElement('th');
-        parentesco.textContent = "Parentesco";
+        familiar.textContent = "Parentesco";
         enfermedad.textContent = "Enfermedad";
         descripcion.textContent = "Descripción";
         eliminar.textContent = "Eliminar";
         registro.className = "column-to-hide";
         propiedades.appendChild(registro);
-        propiedades.appendChild(parentesco);
+        propiedades.appendChild(familiar);
         propiedades.appendChild(enfermedad);
         propiedades.appendChild(descripcion);
         propiedades.appendChild(eliminar);
@@ -364,7 +365,7 @@ function actualizarTablaAFamiliares() {
             contador++;
             const celda = document.createElement('tr');
             const contadorFila = document.createElement('td');
-            const parentescoFila = document.createElement('td');
+            const familiarFila = document.createElement('td');
             const enfermedadFila = document.createElement('td');
             const descripcionFila = document.createElement('td');
             const eliminarFila = document.createElement('td');
@@ -374,12 +375,12 @@ function actualizarTablaAFamiliares() {
             iconoEliminar.dataset.id = elemento.id;
 
             contadorFila.textContent = contador;
-            parentescoFila.textContent = elemento.parentesco;
+            familiarFila.textContent = elemento.familiar;
             enfermedadFila.textContent = elemento.enfermedad;
             descripcionFila.textContent = elemento.descripcion;
 
             celda.append(contadorFila);
-            celda.append(parentescoFila);
+            celda.append(familiarFila);
             celda.append(enfermedadFila);
             celda.append(descripcionFila);
             eliminarFila.append(iconoEliminar);
@@ -404,6 +405,88 @@ function eliminarAFamiliar(id) {
     arrayAFamiliares = arrayAFamiliares.filter(ele => ele.id != id);
     actualizarTablaAFamiliares();
 }
+
+//MODAL
+var modal = document.getElementById("modal");
+var modalContent = document.getElementById("modal-contenido");
+const botonModalCerrar = document.createElement('button');
+botonModalCerrar.textContent = "Cerrar";
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+function modalExito() {
+    clearDiv(modalContent);
+    botonModalCerrar.className = "boton azul modal-cerrar";
+    modalContent.classList.remove('modal-contenido-error');
+    modalContent.classList.add('modal-contenido-exito');
+    modalContent.classList.add('modal-contenido-un-column');
+    modal.style.display = "block";
+    const divMensaje = document.createElement('div');
+    const divBoton = document.createElement('div');
+    const titulo = document.createElement('h2');
+    const parrafo = document.createElement('p');
+
+    titulo.textContent = "¡Paciente guardado!";
+    parrafo.textContent = "Los datos se han almacenado con éxito.";
+
+    divMensaje.className = "modal-mensaje";
+    divBoton.className = "modal-boton modal-boton-dos-espacios";
+
+    divMensaje.appendChild(titulo);
+    divMensaje.appendChild(parrafo);
+
+    modalContent.appendChild(divMensaje);
+    divBoton.appendChild(botonModalCerrar);
+    modalContent.appendChild(divBoton);
+    // setTimeout(modal.style.display = "none", 10000);
+}
+function modalError(error, tipo) {
+    clearDiv(modalContent);
+    botonModalCerrar.className = "boton blanco modal-cerrar";
+    modalContent.classList.remove('modal-contenido-exito');
+    modalContent.classList.add('modal-contenido-error');
+    modalContent.classList.add('modal-contenido-un-column');
+
+    modal.style.display = "block";
+    const divMensaje = document.createElement('div');
+    const divBoton = document.createElement('div');
+    const titulo = document.createElement('h2');
+    const parrafo = document.createElement('p');
+    // const iconoAlerta = document.createElement('i');
+    // iconoAlerta.className = "fa-solid fa-bell";
+
+    divMensaje.className = "modal-mensaje";
+    divBoton.className = "modal-boton modal-boton-dos-espacios";
+    if (tipo == "guardar") {
+        titulo.textContent = '¡Los cambios NO han sido guardados!';
+    } else if (tipo == "obtener") {
+        titulo.textContent = '¡La información no pudo ser obtenida!';
+    }
+    if (error != "false") {
+        parrafo.textContent = "Contacta a tu administrador, Error: " + error;
+    } else {
+        parrafo.textContent = "Porfavor, revisa la información e intenta de nuevo.";
+    }
+    divMensaje.appendChild(titulo);
+    divMensaje.appendChild(parrafo);
+
+    modalContent.appendChild(divMensaje);
+    divBoton.appendChild(botonModalCerrar);
+    modalContent.appendChild(divBoton);
+}
+modal.addEventListener('click', function (e) {
+    e.preventDefault();
+    if (e.target.classList.contains("modal-cerrar")) {
+        modal.style.display = "none";
+    }
+})
+//FUNCION BORRAR DIV
+function clearDiv(div) {
+    div.replaceChildren();
+}
+//MODAL END
 
 class Hijo {
     set id(id) {
@@ -458,11 +541,11 @@ class AntecedenteFamiliar {
     get id() {
         return this._id;
     }
-    set parentesco(parentesco) {
-        this._parentesco = parentesco;
+    set familiar(familiar) {
+        this._familiar = familiar;
     }
-    get parentesco() {
-        return this._parentesco;
+    get familiar() {
+        return this._familiar;
     }
     set enfermedad(enfermedad) {
         this._enfermedad = enfermedad;

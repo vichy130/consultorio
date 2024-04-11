@@ -36,6 +36,13 @@ if (isset($_REQUEST["id"])) {
             <?php require("./layout/content-informacion.php"); ?>
             <?php require("./layout/submenu-pacientes.php"); ?>
             <div class="contenido">
+
+            <div id="modal" class="modal">
+                <div id="modal-contenido" class="modal-contenido">
+                    <span class="cerrar-modal" id="cerrarModal">&times;</span>
+                </div>
+            </div>
+
                 <form class="form" id="form-consulta">
                     <label id="consulta-nombre" class="formulario_grupo span-4">
                         <h2></h2>

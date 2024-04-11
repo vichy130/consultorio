@@ -45,11 +45,10 @@ if (isset($_SESSION["id_paciente"])) {
             <?php require ("./layout/submenu-pacientes.php"); ?>
             <div class="contenido">
                 <!-- FORM POST PHP -->
-                <!-- Modal de confirmación (oculto por defecto) -->
+
                 <div id="modal" class="modal">
-                    <div class="modal-contenido">
-                        <span class="close" onclick="cerrarModal()">&times;</span>
-                        <p id="mensajeModal">Mensaje de confirmación aquí.</p>
+                    <div id="modal-contenido" class="modal-contenido">
+                        <span class="cerrar-modal" id="cerrarModal">&times;</span>
                     </div>
                 </div>
 
@@ -118,7 +117,8 @@ if (isset($_SESSION["id_paciente"])) {
                         <p class="form_input-error"></p>
                     </div><!-- end form-grupo -->
 
-                    <button class="boton azul boton-agregar-hijo" id="agregarHijo" type="button"><i class="fas fa-plus"></i> Añadir
+                    <button class="boton azul boton-agregar-hijo" id="agregarHijo" type="button"><i
+                            class="fas fa-plus"></i> Añadir
                         Hijo</button>
 
                     <table class="table span-4 tabla-hijos" id="tabla-hijos">

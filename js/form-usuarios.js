@@ -11,8 +11,9 @@ function obtenerUsuarios() {
     fetch('./controller/obtener-usuarios.php')
         .then(response => response.json())
         .then(data => {
+            console.log(data);
             data.forEach(element => {
-                usuario = new Usuario();
+                var usuario = new Usuario();
                 usuario.username = element.username;
                 usuario.nombre = element.nombre;
                 usuario.apellidoPaterno = element.apellidoPaterno;

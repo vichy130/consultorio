@@ -1,6 +1,8 @@
 <?php 
 session_start();
 include_once("../models/paciente.php");
+$respuesta;
+try{
 $paciente = new Paciente(); //Creamos al objeto
 //llenar al objeto con los valores del formulario
 $nombre  = $_POST["nombre-paciente"];
@@ -26,12 +28,13 @@ $fechaNacimiento, $sexo, $lugarNacimiento, $calle,
 $colonia, $ciudad, $codigoPostal, $telCasa, $telOficina,
 $celular, $edoCivil, $ocupacion, $escolaridad, $correo);
 
-if($paciente->insertar()==true){
-  $_SESSION["id_paciente"]=$paciente->getId();
-  $jsonPaciente = json_encode($paciente->getValues());
-  header('Content-Type: application/json');
-  echo $jsonPaciente;
-}else{
-  echo "false";
+$respuesta=$paciente->insertar();
+$_SESSION["id_paciente"]=$paciente->getId();
 }
+catch(PDOException $e){
+  $respuesta=$e->getMessage();
+}
+header('Content-Type: application/json');
+$jsonRespuesta = json_encode($respuesta);
+echo $jsonRespuesta;
 ?>

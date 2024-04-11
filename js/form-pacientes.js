@@ -36,15 +36,21 @@ function obtenerPacientes() {
     fetch('./controller/obtener-pacientes.php')
         .then(response => response.json())
         .then(data => {
+            console.log(data);
             data.forEach((p) => {
-                var paciente = new Paciente(p.nombre, p.apellidoPaterno, p.apellidoMaterno, p.sexo, p.fechaNacimiento, p.lugarNacimiento, p.calle, p.colonia, p.ciudad, p.codigoPostal, p.telCasa, p.telOficina, p.celular, p.edoCivil, p.ocupacion, p.escolaridad, p.correo);
-                paciente.id = p.id;
-                array.push(paciente);
+                if ('id' in p) {
+                    var paciente = new Paciente(p.nombre, p.apellidoPaterno, p.apellidoMaterno, p.sexo, p.fechaNacimiento, p.lugarNacimiento, p.calle, p.colonia, p.ciudad, p.codigoPostal, p.telCasa, p.telOficina, p.celular, p.edoCivil, p.ocupacion, p.escolaridad, p.correo);
+                    paciente.id = p.id;
+                    array.push(paciente);
+                } else {
+                    modalError(p, "obtener");
+                    return;
+                }
             });
             tablaPacientes();
         })// FIN FETCH
         .catch(error => {
-            console.error('Error:', error);
+            modalError(error, "obtener");
         });
 }
 //FUNCION BORRAR TABLA
@@ -64,17 +70,17 @@ function eliminarPaciente() {
         })
         .then(function (data) {
             clearDiv(modalContent);
-            if(data==="true"){
+            if (data === "true") {
                 modalExito();
-            }else{
-                modalError(data.toString());
+            } else {
+                modalError(data.toString(), "eliminar");
             }
             array = [];
             clearDiv(tabla);
             obtenerPacientes();
         })
         .catch(function (error) {
-            console.error('Error:', error);
+            modalError(error, "eliminar");
         });
 }
 function tablaPacientes() {
@@ -165,7 +171,7 @@ botonModalAceptarEliminar.className = "boton rojo aceptar-eliminar-paciente";
 const botonModalCancelarEliminar = document.createElement('button');
 botonModalCancelarEliminar.textContent = "Cancelar";
 botonModalCancelarEliminar.className = "boton azul cancelar-eliminar-paciente";
-botonModalAceptarCerrar=document.createElement('button');
+botonModalAceptarCerrar = document.createElement('button');
 botonModalAceptarCerrar.textContent = "Cerrar";
 botonModalAceptarCerrar.className = "boton azul modal-cerrar";
 window.onclick = function (event) {
@@ -182,18 +188,18 @@ function modalBlock() {
     // modalContent.style.gridTemplateRows = '1fr 1fr';
 
     modal.style.display = "block";
-    const divMensaje=document.createElement('div');
-    const divBoton=document.createElement('div');
-    const divBotonDos=document.createElement('div');
+    const divMensaje = document.createElement('div');
+    const divBoton = document.createElement('div');
+    const divBotonDos = document.createElement('div');
     const titulo = document.createElement('h2');
     const parrafo = document.createElement('p');
     const strongElement = document.createElement('strong');
     var nombre = modal.dataset.nombre + " " + modal.dataset.apellidoPaterno + " " + modal.dataset.apellidoMaterno;
     const nombreNodo = document.createTextNode(nombre);
 
-    divMensaje.className="modal-mensaje";
-    divBoton.className="modal-boton";
-    divBotonDos.className="modal-boton";
+    divMensaje.className = "modal-mensaje";
+    divBoton.className = "modal-boton";
+    divBotonDos.className = "modal-boton";
 
     titulo.textContent = "Confirmar Eliminación";
     parrafo.textContent = "¿Seguro que desea eliminar al paciente ";
@@ -211,21 +217,23 @@ function modalBlock() {
     modalContent.appendChild(divBoton);
     modalContent.appendChild(divBotonDos);
 }
-function modalExito(){
+function modalExito() {
+    clearDiv(modalContent);
     modalContent.classList.add('modal-contenido-exito');
     modalContent.classList.add('modal-contenido-un-column');
+    modalContent.classList.remove('modal-contenido-error');
     botonModalAceptarCerrar.className = "boton azul modal-cerrar";
 
-    const divMensaje=document.createElement('div');
-    const divBoton=document.createElement('div');
+    const divMensaje = document.createElement('div');
+    const divBoton = document.createElement('div');
     const titulo = document.createElement('h2');
     const parrafo = document.createElement('p');
 
     titulo.textContent = "¡Paciente eliminado!";
     parrafo.textContent = "Los datos se han eliminado con éxito.";
 
-    divMensaje.className="modal-mensaje";
-    divBoton.className="modal-boton modal-boton-dos-espacios";
+    divMensaje.className = "modal-mensaje";
+    divBoton.className = "modal-boton modal-boton-dos-espacios";
 
     divMensaje.appendChild(titulo);
     divMensaje.appendChild(parrafo);
@@ -234,25 +242,32 @@ function modalExito(){
     divBoton.appendChild(botonModalAceptarCerrar);
     modalContent.appendChild(divBoton);
 }
-function modalError(error){
+function modalError(error, tipo) {
+    clearDiv(modalContent);
+    modal.style.display = "block";
     modalContent.classList.add('modal-contenido-error');
     modalContent.classList.add('modal-contenido-un-column');
+    modalContent.classList.remove('modal-contenido-exito');
     botonModalAceptarCerrar.className = "boton blanco modal-cerrar";
 
-    const divMensaje=document.createElement('div');
-    const divBoton=document.createElement('div');
+    const divMensaje = document.createElement('div');
+    const divBoton = document.createElement('div');
     const titulo = document.createElement('h2');
     const parrafo = document.createElement('p');
-    const iconoAlerta=document.createElement('i');
-    iconoAlerta.className="fa-solid fa-bell";
+    const iconoAlerta = document.createElement('i');
+    iconoAlerta.className = "fa-solid fa-bell";
 
-    divMensaje.className="modal-mensaje";
-    divBoton.className="modal-boton modal-boton-dos-espacios";
+    divMensaje.className = "modal-mensaje";
+    divBoton.className = "modal-boton modal-boton-dos-espacios";
 
-    titulo.textContent = '¡El paciente NO ha sido eliminado!';
-    if(error!="false"){
-        parrafo.textContent = "Contacta a tu administrador, Error: "+error;
-    }else{
+    if (tipo == "eliminar") {
+        titulo.textContent = '¡El paciente NO ha sido eliminado!';
+    } else if (tipo == "obtener") {
+        titulo.textContent = '¡La información no pudo ser obtenida!';
+    }
+    if (error != "false") {
+        parrafo.textContent = "Contacta a tu administrador, Error: " + error;
+    } else {
         parrafo.textContent = "Porfavor, revisa la información e intenta de nuevo.";
     }
     divMensaje.appendChild(titulo);
@@ -267,10 +282,10 @@ modal.addEventListener('click', function (e) {
     if (e.target.classList.contains("aceptar-eliminar-paciente")) {
         eliminarPaciente();
     };
-    if (e.target.classList.contains("cancelar-eliminar-paciente")){
+    if (e.target.classList.contains("cancelar-eliminar-paciente")) {
         modal.style.display = "none";
     }
-    if (e.target.classList.contains("modal-cerrar")){
+    if (e.target.classList.contains("modal-cerrar")) {
         modal.style.display = "none";
     }
 })

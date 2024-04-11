@@ -69,7 +69,7 @@ class Medicamento
                 $this->medicamento = $datos["medicamento"];
                 $this->tipo = $datos["tipo"];
                 $this->descripcion = $datos["descripcion"];
-                return true;
+                return $this->getValues();
             }
         } catch (PDOException $e) {
             return $e->getMessage();

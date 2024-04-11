@@ -167,7 +167,7 @@ class Ficha
         ];
     }
     //SET GET
-    function insertar()
+    function insertar($hijos,$antecedentes,$antecedentesFam)
     {
         if ($this->fechaMenstruacion == null || $this->embarazo == null || $this->partos == null || $this->cesareas == null || $this->abortos == null || $this->muertos == null || $this->enfs == null || $this->mensPeriodicidad == null || $this->mensMolestias == null) {
             $query = "INSERT INTO ficha (paciente, tipoSangre, quienRecomendo, fuma, cigarrosDia, fumaAntiguedad, alcohol, alcFrecuencia, alcoholCantidad, alcoholTipos, adicciones, alergias, desayuno, comida, cena, entreComidas, vasoAguaDia, otrosLiquidos, intolerancias, orinaDia, orinaNoche, orinaColor, orinaOlor, orinaMolestias, excrementoDia, exConsistencia, exOlor, exColor, exDolor, ejercicioSemana, fecha, hora, usuario) 
@@ -225,11 +225,14 @@ class Ficha
             $stmt->bindParam(':fecha', $this->fecha);
             $stmt->bindParam(':hora', $this->hora);
             $stmt->bindParam(':usuario', $this->usuario);
-            $return = $stmt->execute();
+            $stmt->execute();
             $this->id = $this->conexion->getdbh()->lastInsertId();
-            return $return;
+            $this->setHijos($hijos);
+            $this->setAntecedentes($antecedentes);
+            $this->setAntecedentesFam($antecedentesFam);
+            return $this->getValues();
         } catch (PDOException $e) {
-            echo "Error al insertar ficha" . $e->getMessage();
+            return $e->getMessage();
         }
     }
     public function setHijos($hijos)
@@ -335,9 +338,10 @@ class Ficha
                 $this->obtenerHijos();
                 $this->obtenerAntecedentes();
                 $this->obtenerAntecedentesFam();
+                return $this->getValues();
             }
         } catch (PDOException $e) {
-            echo "Error al obtener " . $e->getMessage();
+            return $e->getMessage();
         }
     }
     function obtenerHijos()

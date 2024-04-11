@@ -32,20 +32,18 @@ if (!isset($_SESSION['username'])) {
     } else {
         echo "contenedor-no";
     } ?>">
-        <?php require("./layout/menu.php"); ?>
+        <?php require ("./layout/menu.php"); ?>
         <div class="content">
-            <?php require("./layout/content-informacion.php"); ?>
-            <?php require("./layout/submenu-pacientes.php"); ?>
+            <?php require ("./layout/content-informacion.php"); ?>
+            <?php require ("./layout/submenu-pacientes.php"); ?>
             <div class="contenido">
 
-                <div id="modalExito" class="modal">
-                    <div class="modal-contenido">
+                <div id="modal" class="modal">
+                    <div id="modal-contenido" class="modal-contenido">
                         <span class="cerrar-modal" id="cerrarModal">&times;</span>
-                        <h2>¡Paciente guardado!</h2>
-                        <br>
-                        <p>Los datos se han registrado con éxito.</p>
                     </div>
                 </div>
+
                 <form class="form" id="form-paciente">
 
                     <label class="formulario_grupo span-4">Informacion basica</label>
@@ -85,14 +83,14 @@ if (!isset($_SESSION['username'])) {
 
                     <!-- Grupo: Sexo paciente -->
                     <div class="formulario_grupo radio span-4" id="grupo_sexo">
-                    <div class="form_grupo-input">
-                        <label for="sexo-paciente"><i class=" fas fa-male"></i> Hombre</label>
-                        <input type="radio" id="masculino" name="sexo" value="masculino">
-                        <label for="sexo-paciente"><i class=" fas fa-female"></i> Mujer</label>
-                        <input type="radio" id="femenino" name="sexo" value="femenino">
-                        <label for="sexo-paciente">Otro</label>
-                        <input type="radio" id="otro" name="sexo" value="otro" checked>
-                        
+                        <div class="form_grupo-input">
+                            <label for="sexo-paciente"><i class=" fas fa-male"></i> Hombre</label>
+                            <input type="radio" id="masculino" name="sexo" value="masculino">
+                            <label for="sexo-paciente"><i class=" fas fa-female"></i> Mujer</label>
+                            <input type="radio" id="femenino" name="sexo" value="femenino">
+                            <label for="sexo-paciente">Otro</label>
+                            <input type="radio" id="otro" name="sexo" value="otro" checked>
+
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
                         <p class="form_input-error">Selecciona el sexo</p>
@@ -247,7 +245,8 @@ if (!isset($_SESSION['username'])) {
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo">
-                        <button class="input_submit boton amarillo" type="button" id="boton-imprimir-paciente">Imprimir Paciente</button>
+                        <button class="input_submit boton amarillo" type="button" id="boton-imprimir-paciente">Imprimir
+                            Paciente</button>
                     </div>
 
                     <div class="formulario_grupo formulario_btn-enviar">
@@ -258,7 +257,7 @@ if (!isset($_SESSION['username'])) {
             </div>
 
         </div>
-        <?php require("./layout/footer.php"); ?>
+        <?php require ("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
     <script src="./js/validacion-informacion.js"></script>

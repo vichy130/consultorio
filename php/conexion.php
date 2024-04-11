@@ -4,6 +4,7 @@
 //$user="agakhanc_regular";
 //$password="DeVUVOtH68Z1";
 $dbname="consultorio";
+// $_ENV['dbname']=
 $user="root";
 $password="";
 $options=array(

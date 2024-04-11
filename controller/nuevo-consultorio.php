@@ -1,20 +1,22 @@
-<?php 
-include_once("../models/consultorio.php");
-
-$nombre = $_POST["nombre-consultorio"];
-$calle = $_POST["calle-consultorio"];
-$colonia = $_POST["colonia-consultorio"];
-$ciudad = $_POST["ciudad-consultorio"];
-$codigoPostal = $_POST["cp-consultorio"];
-$telefono = $_POST["telefono-consultorio"];
-$consultorio = new consultorio(); 
-$consultorio->setValues($nombre,$calle,$colonia,$ciudad,$codigoPostal,$telefono);
-if($consultorio->insertar()){
-  $_SESSION['id_med']=$consultorio->getId();
-  $jsonConsultorio = json_encode($consultorio->getValues());
-  header('Content-Type: application/json');
-  echo $jsonConsultorio;
-}else{
-    echo "false";
+<?php
+include_once ("../models/consultorio.php");
+$respuesta;
+try {
+  $nombre = $_POST["nombre-consultorio"];
+  $calle = $_POST["calle-consultorio"];
+  $colonia = $_POST["colonia-consultorio"];
+  $ciudad = $_POST["ciudad-consultorio"];
+  $codigoPostal = $_POST["cp-consultorio"];
+  $telefono = $_POST["telefono-consultorio"];
+  $consultorio = new consultorio();
+  $consultorio->setValues($nombre, $calle, $colonia, $ciudad, $codigoPostal, $telefono);
+  $respuesta = $consultorio->insertar();
+  $_SESSION['id_med'] = $consultorio->getId();
+  
+} catch (PDOException $e) {
+  $respuesta = $e->getMessage();
 }
+header('Content-Type: application/json');
+$jsonRespuesta = json_encode($respuesta);
+echo $jsonRespuesta;
 ?>

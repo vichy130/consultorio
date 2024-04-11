@@ -51,6 +51,12 @@
 .formulario_datos-incorrectos-activo{
     display:block;
 }
+.formulario_captcha-error{
+    display:none;
+}
+.formulario_captcha-error-activo{
+    display:block;
+}
 .formulario_label{
     display: block;
     padding-bottom:5px;

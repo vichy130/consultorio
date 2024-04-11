@@ -38,19 +38,19 @@ require ("./php/conexion.php");
 
         <div class="content-general">
 
-                <div id="modal" class="modal">
-                    <div id="modal-contenido" class="modal-contenido">
-                        <span class="cerrar-modal" id="cerrarModal">&times;</span>
-                    </div>
+            <div id="modal" class="modal">
+                <div id="modal-contenido" class="modal-contenido">
+                    <span class="cerrar-modal" id="cerrarModal">&times;</span>
                 </div>
+            </div>
 
-                <label class="span-4">Medicamentos</label>
-                <input class="form_input span-2" type="text">
-                <button class="boton azul"><i class="fas fa-search"></i> Buscar</button>
-                <button class="boton azul" id="boton-nuevo-medicamento"><i class="fas fa-user-plus"></i> Nuevo
-                    medicamento</button>
-                <table class="table span-4" id="tabla-medicamentos">
-                    <!--<thead>
+            <label class="span-4">Medicamentos</label>
+            <input class="form_input span-2" type="text">
+            <button class="boton azul"><i class="fas fa-search"></i> Buscar</button>
+            <button class="boton azul" id="boton-nuevo-medicamento"><i class="fas fa-user-plus"></i> Nuevo
+                medicamento</button>
+            <table class="table span-4" id="tabla-medicamentos">
+                <!--<thead>
                     <tr>
                         <th>Medicamento</th>
                         <th>Tipo</th>
@@ -59,13 +59,13 @@ require ("./php/conexion.php");
                         <th>Eliminar</th>
                     </tr>
                 </thead>-->
-                </table>
-                <div id="no-tabla"></div>
-            </div>
-            <!-- end div content-pacientes -->
-            <?php require ("./layout/footer.php"); ?>
+            </table>
+            <div id="no-tabla"></div>
         </div>
-        <!-- end contenedor -->
+        <!-- end div content-pacientes -->
+        <?php require ("./layout/footer.php"); ?>
+    </div>
+    <!-- end contenedor -->
 </body>
 <script src="./js/form-medicamentos.js"></script>
 

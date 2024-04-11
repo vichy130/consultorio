@@ -122,10 +122,9 @@ class Paciente
             $stmt->bindParam(':correo', $this->correo);
             $stmt->execute();
             $this->id = $this->conexion->getdbh()->lastInsertId();
-            return true;
+            return $this->getValues();
         } catch (PDOException $e) {
-            echo "Error al insertar datos del paciente: " . $e->getMessage();
-            return false;
+            return $e->getMessage();
         }
     }
     public function obtener()
@@ -154,11 +153,10 @@ class Paciente
                 $this->ocupacion = $datos["ocupacion"];
                 $this->escolaridad = $datos["escolaridad"];
                 $this->correo = $datos["correo"];
+                return $this->getValues();
             }
-            return true;
         } catch (PDOException $e) {
-            echo "Error al obtener datos del paciente: " . $e->getMessage();
-            return null;
+            return $e->getMessage();
         }
     }
     public function actualizar()
@@ -191,10 +189,10 @@ class Paciente
             $stmt->bindParam(':escolaridad', $this->escolaridad);
             $stmt->bindParam(':correo', $this->correo);
             $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
-            return $stmt->execute();
+            $stmt->execute();
+            return $this->getValues();
         } catch (PDOException $e) {
-            echo "Error en la actualización: " . $e->getMessage();
-            return false;
+            return $e->getMessage();
         }
     }
     function eliminar()

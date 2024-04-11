@@ -2,6 +2,8 @@
 session_start();
 
 include_once ("../models/paciente.php");
+$respuesta;
+try {
 $paciente = new Paciente();
 $id_paciente = $_SESSION["id_paciente"];
 $nombre = $_POST["nombre-paciente"];
@@ -43,11 +45,12 @@ $paciente->setValues(
     $correo
 );
 
-if ($paciente->actualizar()) {
-    $jsonPaciente = json_encode($paciente->getValues());
-    header('Content-Type: application/json');
-    echo $jsonPaciente;
-} else {
-    echo "false";
+$respuesta = $paciente->actualizar();
+
+} catch (Exception $e) {
+$respuesta = $e->getMessage();
 }
+header('Content-Type: application/json');
+$jsonrespuesta = json_encode($respuesta);
+echo $jsonrespuesta;
 ?>

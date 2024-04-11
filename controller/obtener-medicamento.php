@@ -1,13 +1,17 @@
 <?php
 session_start();
 include '../models/medicamento.php';
-$medicamento = new Medicamento();
-if (isset($_SESSION['id_med'])) {
-    $medicamento->setId($_SESSION['id_med']);
-    $medicamento->obtener();
-    $medDatos = $medicamento->getValues();
+$respuesta;
+try {
+    $medicamento = new Medicamento();
+    if (isset($_SESSION['id_med'])) {
+        $medicamento->setId($_SESSION['id_med']);
+        $respuesta=$medicamento->obtener();
+    }
+} catch (PDOException $e) {
+    $respuesta = $e->getMessage();
 }
 header('Content-Type: application/json');
-$jsonMedicamento = json_encode($medDatos);
-echo $jsonMedicamento;
+$jsonRespuesta = json_encode($respuesta);
+echo $jsonRespuesta;
 ?>

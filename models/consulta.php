@@ -240,11 +240,12 @@ class Consulta
                 $this->obtenerTerapias();
                 $this->obtenerMedicamentoIndicacion();
                 $this->obtenerEstudiosSolicitados();
+                return true;
+            }else{
+                return false;
             }
-            return true;
         } catch (PDOException $e) {
-            echo "No se pudo obtener consulta" . $e->getMessage();
-            return false;
+            return $e->getMessage();
         }
     }
     public function obtenerConsultasPrevias()

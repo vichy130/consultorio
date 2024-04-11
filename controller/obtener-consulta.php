@@ -1,14 +1,20 @@
 <?php
 session_start();
 include '../models/consulta.php';
-$consulta = new Consulta();
-$consultaDatos;
-if (isset($_SESSION['id_consulta'])) {
-    $consulta->setId($_SESSION['id_consulta']);
-    $consulta->obtener();
-    $consultaDatos = $consulta->getValues();
+$respuesta;
+try {
+    $consulta = new Consulta();
+    $consultaDatos;
+    if (isset($_SESSION['id_consulta'])) {
+        $consulta->setId($_SESSION['id_consulta']);
+        $respuesta = $consulta->obtener();
+    } else {
+        $respuesta = null;
+    }
+} catch (PDOException $e) {
+    $respuesta = $e->getMessage();
 }
 header('Content-Type: application/json');
-$jsonConsulta = json_encode($consultaDatos);
-echo $jsonConsulta;
+$jsonRespuesta = json_encode($respuesta);
+echo $jsonRespuesta;
 ?>

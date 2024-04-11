@@ -1,12 +1,13 @@
-<?php session_start();    
+<?php session_start();
 
-function redirect($url) {
+function redirect($url)
+{
     ob_start();
-    header('Location: '.$url);
+    header('Location: ' . $url);
     ob_end_flush();
     die();
 }
-if(isset($_SESSION['username'] )){
+if (isset($_SESSION['username'])) {
     redirect("./index.php");
     exit();
 }
@@ -27,6 +28,7 @@ if(isset($_SESSION['username'] )){
         rel="stylesheet">
     <!-- roboto -->
     <script src="https://kit.fontawesome.com/0d1f50c390.js" crossorigin="anonymous"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <title>Inicio de sesión</title>
 </head>
 
@@ -35,6 +37,7 @@ if(isset($_SESSION['username'] )){
 
         <div class="content">
             <form id="form-iniciar-sesion">
+                <div class="g-recaptcha" data-sitekey="6LfFi7cpAAAAAE_XSP3nk8E3nseLWT7yUiHL2UH6"></div>
                 <!-- Grupo usuario -->
                 <div class="formulario__grupo" id="grupo__usuario">
                     <label class="formulario_label">Usuario</label>
@@ -42,7 +45,8 @@ if(isset($_SESSION['username'] )){
                         <input class="formulario_input" type="text" value="" name="username" id="username">
                         <i class="formulario__validacion-estado fas fa-times"></i>
                     </div>
-                    <p class="formulario__input-error">El usuario tiene que ser de 4 a 16 dígitos y solo puede contener números, letras y guion bajo.</p>
+                    <p class="formulario__input-error">El usuario tiene que ser de 4 a 16 dígitos y solo puede contener
+                        números, letras y guion bajo.</p>
                 </div>
                 <!-- Grupo Contraseña    -->
                 <div class="formulario__grupo" id="grupo__contrasena">
@@ -53,7 +57,12 @@ if(isset($_SESSION['username'] )){
                     </div>
                     <p class="formulario__input-error">La contraseña tiene que ser de 4 a 12 dígitos.</p>
                 </div>
-                <div class="texto formulario_datos-incorrectos" id="grupo_datos-incorrectos"><i class="fas fa-times"></i> Usuario o contraseña incorrecta, por favor intenta de nuevo.</div>
+                <div class="texto formulario_datos-incorrectos" id="grupo_datos-incorrectos"><i
+                        class="fas fa-times"></i> Usuario o contraseña incorrecta, por favor intenta de nuevo.
+                </div>
+                <div class="texto formulario_captcha-error" id="grupo_captcha-error"><i
+                        class="fas fa-times"></i> Por favor, completa el Captcha.
+                </div>
 
                 <div class="texto formulario_bloqueo">Cuenta bloqueada, <a href="">Desbloquea aquí</a></div>
                 <div class="formulario__boton">
@@ -68,11 +77,12 @@ if(isset($_SESSION['username'] )){
         <div class="footer">
             <div class="logo">
             </div>
-            <div class="texto-footer">Zapopan Jalisco, México. 2023</div>
+            <div class="texto-footer">Zapopan Jalisco, México. 2024</div>
         </div>
     </div>
     <!-- end contenedor -->
     <script src="./js/form-iniciar-sesion.js"></script>
     <script src="./js/validacion-iniciar-sesion.js"></script>
 </body>
+
 </html>
