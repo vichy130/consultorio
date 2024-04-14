@@ -1,5 +1,17 @@
 <?php
 session_start();
+function redirect($url)
+{
+    ob_start();
+    header('Location:' . $url);
+    ob_end_flush();
+    die();
+}
+if (!isset($_SESSION['username'])) {
+    redirect("./iniciar-sesion.php");
+    exit();
+}
+?>
 include_once ("../models/ficha-clinica.php");
 $respuesta;
 try {

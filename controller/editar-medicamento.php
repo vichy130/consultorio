@@ -1,5 +1,17 @@
 <?php
 session_start();
+function redirect($url)
+{
+    ob_start();
+    header('Location:' . $url);
+    ob_end_flush();
+    die();
+}
+if (!isset($_SESSION['username'])) {
+    redirect("./iniciar-sesion.php");
+    exit();
+}
+?>
 $respuesta;
 include_once ("../models/medicamento.php");
 try {

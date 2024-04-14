@@ -83,7 +83,7 @@ class usuario
     public function insertar()
     {
         $this->encriptar();
-        $query = "INSERTs INTO usuario (username,nombre,apellidoPaterno,apellidoMaterno,telefono,correo,contrasena,tipoUsuario)values (:username,:nombre,:apellidoPaterno,:apellidoMaterno,:telefono,:correo,:contrasena,:tipoUsuario); ";
+        $query = "INSERT INTO usuario (username,nombre,apellidoPaterno,apellidoMaterno,telefono,correo,contrasena,tipoUsuario)values (:username,:nombre,:apellidoPaterno,:apellidoMaterno,:telefono,:correo,:contrasena,:tipoUsuario); ";
         try {
             $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':username', $this->username);

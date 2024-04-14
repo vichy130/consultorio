@@ -1,5 +1,17 @@
 <?php
 session_start();
+function redirect($url)
+{
+    ob_start();
+    header('Location:' . $url);
+    ob_end_flush();
+    die();
+}
+if (!isset($_SESSION['username'])) {
+    redirect("./iniciar-sesion.php");
+    exit();
+}
+?>
 // error_reporting(E_ALL);
 // ini_set('display_errors', '1');
 include_once ("../models/consulta.php");

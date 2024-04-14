@@ -1,5 +1,21 @@
 <?php
 session_start();
+function redirect($url)
+{
+    ob_start();
+    header('Location:' . $url);
+    ob_end_flush();
+    die();
+}
+if (!isset($_SESSION['username'])) {
+    redirect("./iniciar-sesion.php");
+    exit();
+}else{
+    if($_SESSION['tipoUsuario']!="A"){
+        redirect("./index.php");
+        exit();
+    }
+}
 include '../models/usuario.php';
 $respuesta;
 try {

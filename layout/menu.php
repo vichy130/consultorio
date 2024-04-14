@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,24 +31,30 @@
             <li><a href="./pacientes.php"><i class="icono izquierda fas fa-hospital-user"></i>Pacientes</a></li>
             <li><a href="./medicamentos.php"><i class="icono izquierda fas fa-hospital-user"></i>Medicamentos</a></li>
             <li><a href="./reportes.php"><i class="icono izquierda fas fa-file"></i>Centro de reportes</a></li>
-            <li><a href="#"><i class="icono izquierda fas fa-cog"></i>Configuración<i
-                        class="icono derecha fas fa-chevron-down"></i></a>
-                <ul>
-                <?php if(isset($_SESSION['username'])){ 
-                    if($_SESSION['tipoUsuario']=='A'){
+            <?php if (isset($_SESSION['username'])) {
+                if ($_SESSION['tipoUsuario'] == 'A') {
                     ?>
-                        <li><a href="./usuarios.php"><i class="icono izquierda fas fa-user-tie"></i>Usuarios</a></li>
-                    <?php
-                    }
-                 }?>  
-                    <li><a href="./consultorios.php"><i class="icono izquierda fas fa-stethoscope"></i>Consultorios</a>
+                    <li><a href="#"><i class="icono izquierda fas fa-cog"></i>Configuración<i
+                                class="icono derecha fas fa-chevron-down"></i></a>
+                        <ul>
+                            <li><a href="./usuarios.php"><i class="icono izquierda fas fa-user-tie"></i>Usuarios</a></li>
+                            <li><a href="./consultorios.php"><i class="icono izquierda fas fa-stethoscope"></i>Consultorios</a>
+                            </li>
+                        </ul>
                     </li>
-                </ul>
-            </li>
-            <li><a href=""><i class="icono izquierda fas fa-user-circle"></i><?php if(isset($_SESSION['username'])){ echo $_SESSION['nombre']." ".$_SESSION['apellidoPaterno']; }?><i class="icono derecha fas fa-chevron-down"></i></a>
+                    <?php
+                }
+            } ?>
+            <li><a href=""><i class="icono izquierda fas fa-user-circle"></i>
+                    <?php if (isset($_SESSION['username'])) {
+                        echo $_SESSION['nombre'] . " " . $_SESSION['apellidoPaterno'];
+                    } ?><i
+                        class="icono derecha fas fa-chevron-down"></i>
+                </a>
                 <ul>
                     <li><a href="./mi-perfil.php"><i class="icono izquierda fas fa-id-badge"></i>Mi perfil</a></li>
-                    <li><a href="./php/cerrar-sesion.php"><i class="icono izquierda fas fa-sign-out-alt"></i>Cerrar sesión</a></li>
+                    <li><a href="./php/cerrar-sesion.php"><i class="icono izquierda fas fa-sign-out-alt"></i>Cerrar
+                            sesión</a></li>
                 </ul>
             </li>
         </ul>
