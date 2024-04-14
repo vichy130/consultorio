@@ -27,9 +27,9 @@ try {
   $telefono = $_POST["telefono-consultorio"];
   $consultorio = new consultorio();
   $consultorio->setValues($nombre, $calle, $colonia, $ciudad, $codigoPostal, $telefono);
-  $respuesta = $consultorio->insertar();
+  $respuesta=$consultorio->insertar();
   $_SESSION['id_med'] = $consultorio->getId();
-  
+
 } catch (PDOException $e) {
   $respuesta = $e->getMessage();
 }

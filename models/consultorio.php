@@ -51,21 +51,20 @@ class Consultorio
     }
     public function insertar()
     {
-        if ($this->nombre != null || $this->calle != null) {
-            $query = "INSERT INTO consultorio (nombre,calle,colonia,ciudad,codigoPostal,telefono) VALUES (:nombre, :calle, :colonia, :ciudad, :codigoPostal, :telefono); ";
-            try {
-                $stmt = $this->conexion->getdbh()->prepare($query);
-                $stmt->bindParam(':nombre', $this->nombre);
-                $stmt->bindParam(':calle', $this->calle);
-                $stmt->bindParam(':colonia', $this->colonia);
-                $stmt->bindParam(':ciudad', $this->ciudad);
-                $stmt->bindParam(':codigoPostal', $this->codigoPostal);
-                $stmt->bindParam(':telefono', $this->telefono);
-                $this->id = $this->conexion->getdbh()->lastInsertId();
-                return $this->getValues();
-            } catch (PDOException $e) {
-                return $e->getMessage();
-            }
+        $query = "INSERT INTO consultorio (nombre,calle,colonia,ciudad,codigoPostal,telefono) VALUES (:nombre, :calle, :colonia, :ciudad, :codigoPostal, :telefono); ";
+        try {
+            $stmt = $this->conexion->getdbh()->prepare($query);
+            $stmt->bindParam(':nombre', $this->nombre);
+            $stmt->bindParam(':calle', $this->calle);
+            $stmt->bindParam(':colonia', $this->colonia);
+            $stmt->bindParam(':ciudad', $this->ciudad);
+            $stmt->bindParam(':codigoPostal', $this->codigoPostal);
+            $stmt->bindParam(':telefono', $this->telefono);
+            $stmt->execute();
+            $this->id = $this->conexion->getdbh()->lastInsertId();
+            return $this->getValues();
+        } catch (PDOException $e) {
+            return $e->getMessage();
         }
     }
     public function obtener()
@@ -102,7 +101,8 @@ class Consultorio
             $stmt->bindParam('ciudad', $this->ciudad);
             $stmt->bindParam('codigoPostal', $this->codigoPostal);
             $stmt->bindParam('telefono', $this->telefono);
-            return $stmt->execute();
+            $stmt->execute();
+            return $this->getValues();
         } catch (PDOException $e) {
             return $e->getMessage();
         }

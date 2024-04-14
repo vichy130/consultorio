@@ -54,7 +54,7 @@ function captchaErrorActivo() {
     captchaError.classList.remove('formulario_captcha-error');
 }
 inputs.forEach((input) => {
-    input.addEventListener('keyup', validarFormulario);
+    // input.addEventListener('keyup', validarFormulario);
     input.addEventListener('blur', validarFormulario);
 
 });

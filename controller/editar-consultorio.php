@@ -16,9 +16,10 @@ if (!isset($_SESSION['username'])) {
         exit();
     }
 }
-$respuesta;
-include_once("../models/consultorio.php");
 
+include_once("../models/consultorio.php");
+$respuesta;
+try {
 $nombre=$_POST['nombre-consultorio'];
 $calle=$_POST['calle-consultorio'];
 $colonia=$_POST['colonia-consultorio'];
@@ -36,11 +37,12 @@ $consultorio->setValues(
     $codigoPostal,
     $telefono
 );
-if($consultorio->actualizar()){
-    $jsonConsultorio = json_encode($consultorio->getValues());
-    header('Content-Type: application/json');
-    echo $jsonConsultorio;
-}else {
-    echo "false";
+$respuesta=$consultorio->actualizar();
+
+}catch (Exception $e) {
+    $respuesta = $e->getMessage();
 }
+header('Content-Type: application/json');
+$jsonrespuesta = json_encode($respuesta);
+echo $jsonrespuesta;
 

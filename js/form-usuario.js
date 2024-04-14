@@ -1,108 +1,109 @@
 var usuario;
-const tipo={obtener: "obtener", guardar:"guardar", eliminar:"eliminar"};
-var botonGuardarUsuario=document.getElementById('boton-guardar-usuario');
-formUsuario=document.getElementById('form-usuario');
+const tipo = { obtener: "obtener", guardar: "guardar", eliminar: "eliminar" };
+var botonGuardarUsuario = document.getElementById('boton-guardar-usuario');
+formUsuario = document.getElementById('form-usuario');
 
 window.onload = function () {
     obtenerUsuario();
 };
-function obtenerUsuario(){
+function obtenerUsuario() {
     fetch('./controller/obtener-usuario.php')
-    .then(response => response.json())
-    .then(data => {
-        if (data != null) {
-            if('username' in data){
-                usuario = new Usuario();
-                usuario.username = data.username;
-                usuario.nombre = data.nombre;
-                usuario.apellidoPaterno = data.apellidoPaterno;
-                usuario.apellidoMaterno = data.apellidoMaterno;
-                usuario.telefono = data.telefono;
-                usuario.correo = data.correo;
-                usuario.tipoUsuario = data.tipoUsuario;
-                inputUsername.value=usuario.username;
-                inputNombre.value=usuario.nombre;
-                inputApellidoPaterno.value=usuario.apellidoPaterno;
-                inputApellidoMaterno.value=usuario.apellidoMaterno;
-                inputTelefono.value=usuario.telefono;
-                inputCorreo.value=usuario.correo;
-                inputTipo.value=usuario.tipoUsuario;
-                validarUsuarioExistente();
-                validarUsuario();
-            }else{
-                modalError(data, tipo.obtener);
+        .then(response => response.json())
+        .then(data => {
+            if (data != null) {
+                if ('username' in data) {
+                    usuario = new Usuario();
+                    usuario.username = data.username;
+                    usuario.nombre = data.nombre;
+                    usuario.apellidoPaterno = data.apellidoPaterno;
+                    usuario.apellidoMaterno = data.apellidoMaterno;
+                    usuario.telefono = data.telefono;
+                    usuario.correo = data.correo;
+                    usuario.tipoUsuario = data.tipoUsuario;
+                    inputUsername.value = usuario.username;
+                    inputNombre.value = usuario.nombre;
+                    inputApellidoPaterno.value = usuario.apellidoPaterno;
+                    inputApellidoMaterno.value = usuario.apellidoMaterno;
+                    inputTelefono.value = usuario.telefono;
+                    inputCorreo.value = usuario.correo;
+                    inputTipo.value = usuario.tipoUsuario;
+                    validarUsuarioExistente();
+                    validarUsuario();
+                } else {
+                    modalError(data, tipo.obtener);
+                }
             }
-        }
-    })// FIN FETCH
-    .catch(error => {
-        modalError(error, tipo.obtener)
-    });
+        })// FIN FETCH
+        .catch(error => {
+            modalError(error, tipo.obtener)
+        });
 }
 // FUNCION ENVIAR FORMULARIO A BD //
 // FUNCION ENVIAR FORMULARIO A BD //
-function enviarFormUsuario(){
-    datosUsuario=new FormData(formUsuario);
-    if(usuario!=null){
+function enviarFormUsuario() {
+    datosUsuario = new FormData(formUsuario);
+    if (usuario != null) {
         fetch('./controller/editar-usuario.php', {
-            method:'POST',
-            body:datosUsuario
+            method: 'POST',
+            body: datosUsuario
         })
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            console.log(data);
-            if (data != null) {
-                if('username' in data){
-                    usuario = new Usuario();
-                    usuario.username = data.username;
-                    usuario.nombre = data.nombre;
-                    usuario.apellidoPaterno = data.apellidoPaterno;
-                    usuario.apellidoMaterno = data.apellidoMaterno;
-                    usuario.telefono = data.telefono;
-                    usuario.correo = data.correo;
-                    usuario.tipoUsuario = data.tipoUsuario;
-                    modalExito();
-                }else{
-                    
-                    modalError(data, tipo.obtener);
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                console.log(data);
+                if (data != null) {
+                    if ('username' in data) {
+                        usuario = new Usuario();
+                        usuario.username = data.username;
+                        usuario.nombre = data.nombre;
+                        usuario.apellidoPaterno = data.apellidoPaterno;
+                        usuario.apellidoMaterno = data.apellidoMaterno;
+                        usuario.telefono = data.telefono;
+                        usuario.correo = data.correo;
+                        usuario.tipoUsuario = data.tipoUsuario;
+                        modalExito();
+                    } else {
+                        console.log("else");
+                        modalError(data, tipo.obtener);
+                    }
                 }
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-            modalError(error, tipo.obtener);
-        });
-    }else{
+            })
+            .catch(function (error) {
+                console.log(error);
+                modalError(error, tipo.obtener);
+            });
+    } else {
         fetch('./controller/nuevo-usuario.php', {
-            method:'POST',
-            body:datosUsuario
+            method: 'POST',
+            body: datosUsuario
         })
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            console.log(data);
-            if (data != null) {
-                if('username' in data){
-                    usuario = new Usuario();
-                    usuario.username = data.username;
-                    usuario.nombre = data.nombre;
-                    usuario.apellidoPaterno = data.apellidoPaterno;
-                    usuario.apellidoMaterno = data.apellidoMaterno;
-                    usuario.telefono = data.telefono;
-                    usuario.correo = data.correo;
-                    usuario.tipoUsuario = data.tipoUsuario;
-                    modalExito();
-                }else{
-                    console.log(data);
-                    modalError(data, tipo.obtener);
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                console.log(data);
+                if (data != null) {
+                    if ('username' in data) {
+                        usuario = new Usuario();
+                        usuario.username = data.username;
+                        usuario.nombre = data.nombre;
+                        usuario.apellidoPaterno = data.apellidoPaterno;
+                        usuario.apellidoMaterno = data.apellidoMaterno;
+                        usuario.telefono = data.telefono;
+                        usuario.correo = data.correo;
+                        usuario.tipoUsuario = data.tipoUsuario;
+                        modalExito();
+                    } else {
+                        console.log("else");
+                        console.log(data);
+                        modalError(data, tipo.obtener);
+                    }
                 }
-            }
-        })
-        .catch(function (error) {
-            modalError(error, tipo.obtener);
-        });
+            })
+            .catch(function (error) {
+                modalError(error, tipo.obtener);
+            });
     }
 };
 // FUNCION ENVIAR FORMULARIO A BD //
@@ -165,11 +166,13 @@ function modalError(error, tipo) {
     } else if (tipo == "obtener") {
         titulo.textContent = '¡La información no pudo ser obtenida!';
     }
-    if (error != "false") {
-        parrafo.textContent = "Contacta a tu administrador, Error: " + error;
-    }  if(error=="campos"){
+    if (error == "campos") {
         parrafo.textContent = "Porfavor, revisa todos los campos e intenta de nuevo.";
-    }else {
+    }
+    console.log(error);
+    if (error != "false" || error!=null) {
+        parrafo.textContent = "Contacta a tu administrador, Error: " + error;
+    } else {
         parrafo.textContent = "Porfavor, revisa la información e intenta de nuevo.";
     }
     divMensaje.appendChild(titulo);

@@ -89,7 +89,7 @@ formConsultorio.addEventListener('submit', (e)=>{
         console.log("enviado");
     }else{
         validarConsultorio();
-        console.log("NO se pudo enviar");
+        modalError("campos", tipo.guardar);
     }
 
 });

@@ -42,9 +42,18 @@ function enviarFormConsultorio(){
             })
             .then(function (data) {
                 console.log(data);
+                if (data!=null){
+                    if('id' in data){
+                        consultorio = new Consultorio(data.nombre, data.calle, data.colonia, data.ciudad, data.codigoPostal, data.telefono);
+                        consultorio.id = data.id;
+                        modalExito();
+                    }else{
+                        modalError(data,tipo.guardar);
+                    }
+                }
             })
             .catch(function (error) {
-                console.error('Error:', error);
+                modalError(error,tipo.guardar);
             });
     }else{
         fetch ('./controller/nuevo-consultorio.php', {
@@ -55,12 +64,19 @@ function enviarFormConsultorio(){
             return response.json();
         })
         .then(function (data){
-            consultorio = new Consultorio(data.nombre, data.calle, data.colonia, data.ciudad, data.codigoPostal, data.telefono);
-            consultorio.id = data.id;
-            console.log(consultorio);
+            console.log(data);
+            if (data!=null){
+                if('id' in data){
+                    consultorio = new Consultorio(data.nombre, data.calle, data.colonia, data.ciudad, data.codigoPostal, data.telefono);
+                    consultorio.id = data.id;
+                    modalExito();
+                }else{
+                    modalError(data,tipo.guardar);
+                }
+            }
         })
         .catch (function (error){
-            console.log.error('Error:', error);
+            modalError(error,tipo.guardar);
         })
     }
 };
