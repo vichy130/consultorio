@@ -1,6 +1,7 @@
 
 var paciente;
 const sexo = { femenino: "femenino", masculino: "masculino", otro: "otro" };
+// const tipo={obtener: "obtener", guardar:"guardar", eliminar:"eliminar"};
 var botonImprimirPaciente = document.getElementById('boton-imprimir-paciente');
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     obtenerPaciente();
@@ -36,12 +37,12 @@ function obtenerPaciente() {
                     inputEmail.value = paciente.correo;
                     validarInformacion();
                 }else{
-                    modalError(error, "obtener");
+                    modalError(error, tipo.obtener);
                 }
             }
         })// FIN FETCH
         .catch(error => {
-            modalError(error, "obtener");
+            modalError(error, tipo.obtener);
         });
 }
 //LOAD HTML
@@ -60,16 +61,18 @@ function enviarFormPaciente() {
                 return response.json();
             })
             .then(function (data) {
-                paciente = new Paciente(data.nombre, data.apellidoPaterno, data.apellidoMaterno, data.sexo, data.fechaNacimiento, data.lugarNacimiento, data.calle, data.colonia, data.ciudad, data.codigoPostal, data.telCasa, data.telOficina, data.celular, data.edoCivil, data.ocupacion, data.escolaridad, data.correo);
-                paciente.id = data.id;
-                if (paciente.id != null) {
-                    modalExito();
+                if ('id' in data) {
+                    paciente = new Paciente(data.nombre, data.apellidoPaterno, data.apellidoMaterno, data.sexo, data.fechaNacimiento, data.lugarNacimiento, data.calle, data.colonia, data.ciudad, data.codigoPostal, data.telCasa, data.telOficina, data.celular, data.edoCivil, data.ocupacion, data.escolaridad, data.correo);
+                    paciente.id = data.id;
+                    if(paciente.id != null){
+                        modalExito();
+                    }
                 } else {
-                    modalError(data, "guardar");
+                    modalError(data, tipo.guardar);
                 }
             })
             .catch(function (error) {
-                modalError(error, "guardar");
+                modalError(error, tipo.guardar);
             });
     } else {
         fetch('./controller/nuevo-paciente.php', {// Enviar los datos a PHP utilizando fetch
@@ -80,16 +83,18 @@ function enviarFormPaciente() {
                 return response.json();
             })
             .then(function (data) {
-                paciente = new Paciente(data.nombre, data.apellidoPaterno, data.apellidoMaterno, data.sexo, data.fechaNacimiento, data.lugarNacimiento, data.calle, data.colonia, data.ciudad, data.codigoPostal, data.telCasa, data.telOficina, data.celular, data.edoCivil, data.ocupacion, data.escolaridad, data.correo);
-                paciente.id = data.id;
-                if (paciente.id != null) {
-                    modalExito();
+                if ('id' in data) {
+                    paciente = new Paciente(data.nombre, data.apellidoPaterno, data.apellidoMaterno, data.sexo, data.fechaNacimiento, data.lugarNacimiento, data.calle, data.colonia, data.ciudad, data.codigoPostal, data.telCasa, data.telOficina, data.celular, data.edoCivil, data.ocupacion, data.escolaridad, data.correo);
+                    paciente.id = data.id;
+                    if(paciente.id != null){
+                        modalExito();
+                    }
                 } else {
-                    modalError(data, "guardar");
+                    modalError(data, tipo.guardar);
                 }
             })
             .catch(function (error) {
-                modalError(error, "guardar");
+                modalError(error,tipo.guardar);
             });
     }
 }
@@ -161,7 +166,9 @@ function modalError(error, tipo) {
     }
     if (error != "false") {
         parrafo.textContent = "Contacta a tu administrador, Error: " + error;
-    } else {
+    }  if(error=="campos"){
+        parrafo.textContent = "Porfavor, revisa todos los campos e intenta de nuevo.";
+    }else {
         parrafo.textContent = "Porfavor, revisa la información e intenta de nuevo.";
     }
     divMensaje.appendChild(titulo);

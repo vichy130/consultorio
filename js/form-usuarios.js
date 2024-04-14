@@ -1,32 +1,37 @@
 var tUsuarios = document.getElementById('tabla-usuarios');
 var notabla = document.getElementById('no-tabla');
 var arrayUsuarios = [];
+const tipo = { obtener: "obtener", guardar: "guardar", eliminar: "eliminar" };
 var botonNuevoUsuario = document.getElementById('boton-nuevo-usuario');
 
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     obtenerUsuarios();
 };
 function obtenerUsuarios() {
-    console.log("OBTENER");
     fetch('./controller/obtener-usuarios.php')
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             data.forEach(element => {
-                var usuario = new Usuario();
-                usuario.username = element.username;
-                usuario.nombre = element.nombre;
-                usuario.apellidoPaterno = element.apellidoPaterno;
-                usuario.apellidoMaterno = element.apellidoMaterno;
-                usuario.telefono = element.telefono;
-                usuario.correo = element.correo;
-                usuario.tipoUsuario = element.tipoUsuario;
-                arrayUsuarios.push(usuario);
+                if ('username' in element) {
+                    var usuario = new Usuario();
+                    usuario.username = element.username;
+                    usuario.nombre = element.nombre;
+                    usuario.apellidoPaterno = element.apellidoPaterno;
+                    usuario.apellidoMaterno = element.apellidoMaterno;
+                    usuario.telefono = element.telefono;
+                    usuario.correo = element.correo;
+                    usuario.tipoUsuario = element.tipoUsuario;
+                    arrayUsuarios.push(usuario);
+                } else {
+                    modalError(element, tipo.obtener);
+                    return;
+                }
             });
             tablaUsuarios();
         })// FIN FETCH
         .catch(error => {
-            console.error('Error:', error);
+            console.log(error);
+            modalError(error, tipo.obtener);
         });
 }
 tUsuarios.addEventListener('click', function (e) {
@@ -97,7 +102,7 @@ function tablaUsuarios() {
 
             iconoEditar.dataset.id = u.username;
             iconoEliminar.dataset.id = u.username;
-            iconoEliminar.dataset.nombre=u.nombre;
+            iconoEliminar.dataset.nombre = u.nombre;
 
             usernameFila.textContent = u.username;
             nombreFila.textContent = u.nombre + " " + u.apellidoPaterno + " " + u.apellidoMaterno;
@@ -131,7 +136,7 @@ function usuarioEditar(idEditar) {
     window.location.href = './usuario.php?id=' + idEditar;
 }
 function eliminarUsuario() {
-    console.log("eliminar usuario ()"+modal.dataset.id);
+    console.log("eliminar usuario ()" + modal.dataset.id);
     var datos = { id: modal.dataset.id };
     jsonDatos = JSON.stringify(datos);
     fetch('./controller/eliminar-usuario.php', {
@@ -147,13 +152,13 @@ function eliminarUsuario() {
             if (data === "true") {
                 modalExito();
             } else {
-                modalError(data.toString());
+                modalError(data.toString(), tipo.eliminar);
             }
             arrayUsuarios = [];
             obtenerUsuarios();
         })
         .catch(function (error) {
-            console.error('Error:', error);
+            modalError(error, tipo.eliminar);
         });
 }
 function clearDiv(div) {
@@ -238,22 +243,29 @@ function modalExito() {
     divBoton.appendChild(botonModalAceptarCerrar);
     modalContent.appendChild(divBoton);
 }
-function modalError(error) {
+function modalError(error, tipo) {
+    clearDiv(modalContent);
+    modal.style.display = "block";
     modalContent.classList.add('modal-contenido-error');
     modalContent.classList.add('modal-contenido-un-column');
+    modalContent.classList.remove('modal-contenido-exito');
     botonModalAceptarCerrar.className = "boton blanco modal-cerrar";
 
     const divMensaje = document.createElement('div');
     const divBoton = document.createElement('div');
     const titulo = document.createElement('h2');
     const parrafo = document.createElement('p');
-    // const iconoAlerta = document.createElement('i');
-    // iconoAlerta.className = "fa-solid fa-bell";
+    const iconoAlerta = document.createElement('i');
+    iconoAlerta.className = "fa-solid fa-bell";
 
     divMensaje.className = "modal-mensaje";
     divBoton.className = "modal-boton modal-boton-dos-espacios";
 
-    titulo.textContent = '¡El usuario NO ha sido eliminado!';
+    if (tipo == "eliminar") {
+        titulo.textContent = '¡El usuario NO ha sido eliminado!';
+    } else if (tipo == "obtener") {
+        titulo.textContent = '¡La información no pudo ser obtenida!';
+    }
     if (error != "false") {
         parrafo.textContent = "Contacta a tu administrador, Error: " + error;
     } else {

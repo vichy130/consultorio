@@ -3,6 +3,7 @@ var arrayMedicamentos = [];
 var botonNuevoMedicamento = document.getElementById("boton-nuevo-medicamento");
 var tablaMedicamentos = document.getElementById("tabla-medicamentos");
 var notabla = document.getElementById('no-tabla');
+const tipo={obtener: "obtener", guardar:"guardar", eliminar:"eliminar"};
 //VARIABLES
 
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
@@ -17,7 +18,7 @@ tablaMedicamentos.addEventListener('click', function (e) {
     }
     if (e.target.classList.contains("eliminar-medicamento")) {
         modal.dataset.id = e.target.dataset.id;
-        modal.dataset.medicamento=e.target.dataset.medicamento;
+        modal.dataset.medicamento = e.target.dataset.medicamento;
         modalBlock();
     }
 });
@@ -42,15 +43,21 @@ function obtenerMedicamentos() { //pendiente
     fetch('./controller/obtener-medicamentos.php')
         .then(response => response.json())
         .then(data => {
-            data.forEach((m) => {
-                var medicamento = new Medicamento(m.medicamento, m.tipo, m.descripcion);
-                medicamento.id = m.id;
-                arrayMedicamentos.push(medicamento);
-            });
+            if (data != null) {
+                data.forEach((m) => {
+                    if ('id' in m) {
+                        var medicamento = new Medicamento(m.medicamento, m.tipo, m.descripcion);
+                        medicamento.id = m.id;
+                        arrayMedicamentos.push(medicamento);
+                    } else {
+                        modalError(m, tipo.obtener);
+                    }
+                });
+            }
             medicamentos();
         })// FIN FETCH
         .catch(error => {
-            console.error('Error:', error);
+            modalError(error, tipo.obtener);
         });
 }
 function medicamentos() {
@@ -92,7 +99,7 @@ function medicamentos() {
 
             iconoEditar.dataset.id = m.id;
             iconoEliminar.dataset.id = m.id;
-            iconoEliminar.dataset.medicamento=m.medicamento;
+            iconoEliminar.dataset.medicamento = m.medicamento;
 
             iconoEditar.className = "far fa-edit editar-medicamento";
             iconoEliminar.className = "fas fa-trash eliminar-medicamento";
@@ -133,7 +140,7 @@ function eliminarMedicamento() {
             if (data === "true") {
                 modalExito();
             } else {
-                modalError(data.toString());
+                modalError(data.toString(), tipo.obtener);
             }
             arrayMedicamentos = [];
             clearDiv(tablaMedicamentos);
@@ -225,9 +232,12 @@ function modalExito() {
     divBoton.appendChild(botonModalAceptarCerrar);
     modalContent.appendChild(divBoton);
 }
-function modalError(error) {
+function modalError(error, tipo) {
+    clearDiv(modalContent);
+    modal.style.display = "block";
     modalContent.classList.add('modal-contenido-error');
     modalContent.classList.add('modal-contenido-un-column');
+    modalContent.classList.remove('modal-contenido-exito');
     botonModalAceptarCerrar.className = "boton blanco modal-cerrar";
 
     const divMensaje = document.createElement('div');
@@ -240,7 +250,11 @@ function modalError(error) {
     divMensaje.className = "modal-mensaje";
     divBoton.className = "modal-boton modal-boton-dos-espacios";
 
-    titulo.textContent = '¡El medicamento NO ha sido eliminado!';
+    if (tipo == "eliminar") {
+        titulo.textContent = '¡El medicamento NO ha sido eliminado!';
+    } else if (tipo == "obtener") {
+        titulo.textContent = '¡La información no pudo ser obtenida!';
+    }
     if (error != "false") {
         parrafo.textContent = "Contacta a tu administrador, Error: " + error;
     } else {

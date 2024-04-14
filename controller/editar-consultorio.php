@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+$respuesta;
 include_once("../models/consultorio.php");
 
 $nombre=$_POST['nombre-consultorio'];

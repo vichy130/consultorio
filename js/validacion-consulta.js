@@ -218,9 +218,8 @@ formConsulta.addEventListener('submit', (e) => {
     }
     if (i) {
         enviarFormConsulta();
-        console.log("enviado");
     } else {
         validarConsulta();
-        console.log("NO se pudo enviar");
+        modalError("campos",tipo.guardar);
     }
 });

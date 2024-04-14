@@ -185,7 +185,7 @@ class Consulta
         }
         return $terapiasAplicadas;
     }
-    public function insertar()
+    public function insertar($consultasP, $estudiosSolicitados, $medicamentoIndicaciones,$terapiasAplicadas)
     {
         $query = "INSERT INTO consulta (fecha, usuario, paciente,ta,oxigeno,pulso,peso,estatura,temperatura, motivoConsulta, exploracion, indicaciones, receta, consultorio) 
     VALUES (:fecha,:usuario,:paciente,:ta,:oxigeno,:pulso,:peso,:estatura,:temperatura,:motivoConsulta,:exploracion,:indicaciones,:receta,:consultorio); ";
@@ -206,11 +206,14 @@ class Consulta
             $stmt->bindParam(':receta', $this->receta);
             $stmt->bindParam(':consultorio', $this->consultorio);
             $stmt->execute();
+            $this->setCPrevias($consultasP);
+            $this->setEstudiosSolicitados($estudiosSolicitados);
+            $this->setMedicamentosIndicacion($medicamentoIndicaciones);
+            $this->setTerapiasAplicadas($terapiasAplicadas);
             $this->id = $this->conexion->getdbh()->lastInsertId();
-            return true;
+            return $this->getValues();
         } catch (PDOException $e) {
-            echo "No se pudo insertar nueva consulta" . $e->getMessage();
-            return false;
+            return $e->getMessage();
         }
     }
     public function obtener()
@@ -240,9 +243,7 @@ class Consulta
                 $this->obtenerTerapias();
                 $this->obtenerMedicamentoIndicacion();
                 $this->obtenerEstudiosSolicitados();
-                return true;
-            }else{
-                return false;
+                return $this->getValues();
             }
         } catch (PDOException $e) {
             return $e->getMessage();
@@ -260,7 +261,7 @@ class Consulta
                 $this->consultasPrevias[] = $conPre;
             }
         } catch (PDOException $e) {
-            echo "ERROR: " . $e->getMessage();
+            return $e->getMessage();
         }
     }
     public function obtenerMedicamentoIndicacion()
@@ -275,7 +276,7 @@ class Consulta
                 $this->medicamentosIndicacion[] = $mI;
             }
         } catch (PDOException $e) {
-            echo "Error al obtener medicamento Indicacion" . $e->getMessage();
+            return $e->getMessage();
         }
     }
     public function obtenerTerapias()
@@ -290,7 +291,7 @@ class Consulta
                 $this->terapiasAplicadas[] = $tA;
             }
         } catch (PDOException $e) {
-            echo "ERROR: " . $e->getMessage();
+            return $e->getMessage();
         }
     }
     public function obtenerEstudiosSolicitados()
@@ -305,10 +306,10 @@ class Consulta
                 $this->estudiosSolicitados[] = $estudio;
             }
         } catch (PDOException $e) {
-            echo "ERROR: " . $e->getMessage();
+            return $e->getMessage();
         }
     }
-    public function actualizar()
+    public function actualizar($consultasP, $estudiosSolicitados, $medicamentoIndicaciones,$terapiasAplicadas)
     {
         $query = "UPDATE consulta SET 
         fecha=:fecha,
@@ -340,11 +341,13 @@ class Consulta
             $stmt->bindParam(':indicaciones', $this->exploracion);
             $stmt->bindParam(':consultorio', $this->consultorio);
             $stmt->execute();
-            return true;
+            $this->actualizarConsultaPrevia($consultasP);
+            $this->actualizarEstudiosSolicitados($estudiosSolicitados);
+            $this->actualizarMedicamentoIndicacion($medicamentoIndicaciones);
+            $this->actualizarTerapiasAplicadas($terapiasAplicadas);
+            return $this->getValues();
         } catch (PDOException $e) {
-            echo "ERROR al actualizar CONSULTA: ";
-            echo $e->getMessage();
-            return false;
+            return $e->getMessage();
         }
     }
     public function actualizarConsultaPrevia($arrayRecibido)

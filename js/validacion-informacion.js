@@ -118,14 +118,14 @@ const validarCampo = (expresion, input, campo) => {
         document.getElementById(`grupo_${campo}`).classList.remove('formulario_grupo-incorrecto');
         document.getElementById(`grupo_${campo}`).classList.add('formulario_grupo-correcto');
         document.querySelector(`#grupo_${campo} .form_validacion-estado`).classList.remove('fa-circle-xmark');
-        /*document.querySelector(`#grupo_${campo} .form_validacion-estado`).classList.add('fa-circle-check');*/
+        document.querySelector(`#grupo_${campo} .form_validacion-estado`).classList.add('fa-circle-check');
         document.querySelector(`#grupo_${campo} .form_input-error`).classList.remove('form_input-error-activo');
         campos[campo] = true;
     } else {
         document.getElementById(`grupo_${campo}`).classList.add('formulario_grupo-incorrecto');
         document.getElementById(`grupo_${campo}`).classList.remove('formulario_grupo-correcto');
         document.querySelector(`#grupo_${campo} .form_validacion-estado`).classList.add('fa-circle-xmark');
-        /*document.querySelector(`#grupo_${campo} .form_validacion-estado`).classList.remove('fa-circle-check');*/
+        document.querySelector(`#grupo_${campo} .form_validacion-estado`).classList.remove('fa-circle-check');
         document.querySelector(`#grupo_${campo} .form_input-error`).classList.add('form_input-error-activo');
         campos[campo] = false;
     }
@@ -172,6 +172,6 @@ formPaciente.addEventListener('submit', (e) => {
     } else {
         //todo
         validarInformacion();
-        console.log("No se cumplieron los campos");
+        modalError("campos",tipo.guardar)
     }
 });

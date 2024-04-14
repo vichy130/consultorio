@@ -2,6 +2,7 @@ var arrayConsultorios = [];
 var botonNuevoConsultorio = document.getElementById('boton-nuevo-consultorio');
 var tConsultorios = document.getElementById('tabla-consultorios');
 var notabla=document.getElementById('no-tabla');
+const tipo={obtener: "obtener", guardar:"guardar", eliminar:"eliminar"};
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     obtenerConsultorios();
 };
@@ -10,21 +11,28 @@ function obtenerConsultorios() {
     fetch('./controller/obtener-consultorios.php')
         .then(response => response.json())
         .then(data => {
-            data.forEach((c) => {
-                var consultorio = new Consultorio();
-                consultorio.id = c.id;
-                consultorio.nombre = c.nombre;
-                consultorio.calle = c.calle;
-                consultorio.colonia = c.colonia;
-                consultorio.ciudad = c.ciudad;
-                consultorio.codigoPostal = c.codigoPostal;
-                consultorio.telefono = c.telefono;
-                arrayConsultorios.push(consultorio);
-            });
+            if(data!=null){
+                data.forEach((c) => {
+                    if ('id' in c){
+                        var consultorio = new Consultorio();
+                        consultorio.id = c.id;
+                        consultorio.nombre = c.nombre;
+                        consultorio.calle = c.calle;
+                        consultorio.colonia = c.colonia;
+                        consultorio.ciudad = c.ciudad;
+                        consultorio.codigoPostal = c.codigoPostal;
+                        consultorio.telefono = c.telefono;
+                        arrayConsultorios.push(consultorio);
+                    }else{
+                        modalError(c, tipo.obtener);
+                            return;
+                    }
+                });
+            }
             tablaConsultorios();
         })// FIN FETCH
         .catch(error => {
-            console.error('Error:', error);
+            modalError(error, tipo.obtener);
         });
 }
 function tablaConsultorios() {
@@ -129,7 +137,7 @@ function eliminarConsultorio() {
             if(data==="true"){
                 modalExito();
             }else{
-                modalError(data.toString());
+                modalError(data.toString(), tipo.eliminar);
             }
             arrayConsultorios = [];
             clearDiv(tConsultorios);
@@ -185,7 +193,7 @@ function modalBlock() {
 
     divMensaje.appendChild(titulo);
     divMensaje.appendChild(parrafo);
-    parrafo.textContent += "?";
+    parrafo.textContent += " y las consultas registradas?";
 
     modalContent.appendChild(divMensaje);
     divBoton.appendChild(botonModalAceptarEliminar);
@@ -216,25 +224,32 @@ function modalExito(){
     divBoton.appendChild(botonModalAceptarCerrar);
     modalContent.appendChild(divBoton);
 }
-function modalError(error){
+function modalError(error, tipo) {
+    clearDiv(modalContent);
+    modal.style.display = "block";
     modalContent.classList.add('modal-contenido-error');
     modalContent.classList.add('modal-contenido-un-column');
+    modalContent.classList.remove('modal-contenido-exito');
     botonModalAceptarCerrar.className = "boton blanco modal-cerrar";
 
-    const divMensaje=document.createElement('div');
-    const divBoton=document.createElement('div');
+    const divMensaje = document.createElement('div');
+    const divBoton = document.createElement('div');
     const titulo = document.createElement('h2');
     const parrafo = document.createElement('p');
-    const iconoAlerta=document.createElement('i');
-    iconoAlerta.className="fa-solid fa-bell";
+    const iconoAlerta = document.createElement('i');
+    iconoAlerta.className = "fa-solid fa-bell";
 
-    divMensaje.className="modal-mensaje";
-    divBoton.className="modal-boton modal-boton-dos-espacios";
+    divMensaje.className = "modal-mensaje";
+    divBoton.className = "modal-boton modal-boton-dos-espacios";
 
-    titulo.textContent = '¡El consultorio NO ha sido eliminado!';
-    if(error!="false"){
-        parrafo.textContent = "Contacta a tu administrador, Error: "+error;
-    }else{
+    if (tipo == "eliminar") {
+        titulo.textContent = '¡El consultorio NO ha sido eliminado!';
+    } else if (tipo == "obtener") {
+        titulo.textContent = '¡La información no pudo ser obtenida!';
+    }
+    if (error != "false") {
+        parrafo.textContent = "Contacta a tu administrador, Error: " + error;
+    } else {
         parrafo.textContent = "Porfavor, revisa la información e intenta de nuevo.";
     }
     divMensaje.appendChild(titulo);
@@ -243,6 +258,10 @@ function modalError(error){
     modalContent.appendChild(divMensaje);
     divBoton.appendChild(botonModalAceptarCerrar);
     modalContent.appendChild(divBoton);
+}
+//FUNCION BORRAR TABLA
+function clearDiv(div) {
+    div.replaceChildren();
 }
 modal.addEventListener('click', function (e) {
     e.preventDefault();

@@ -2,7 +2,7 @@ var fetchedDataFicha;
 var id;
 var antecedentes;
 var fetchedDataPaciente;
-
+const tipo={obtener: "obtener", guardar:"guardar", eliminar:"eliminar"};
 fetchedDataFicha = null;
 id = null;
 antecedentes = null;

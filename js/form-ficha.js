@@ -7,6 +7,7 @@ var paciente;
 var arrayHijos = [];
 var arrayAntecedentes = [];
 var arrayAFamiliares = [];
+// const tipo={obtener: "obtener", guardar:"guardar", eliminar:"eliminar"};
 var usuarioInput = document.getElementById('usuario-actualizacion');
 var tipoSangre = document.getElementById('tipo-sangre');
 var tablaHijos = document.getElementById('tabla-hijos');
@@ -38,92 +39,94 @@ document.addEventListener('DOMContentLoaded', function () {// SE EJECUTA AUNQUE 
 });
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     obtenerFicha();
-    deshabilitarFuma();
     deshabilitarAlcohol();
+    deshabilitarFuma();
 };
 function obtenerFicha() {
     fetch('./controller/obtener-ficha.php')
         .then(response => response.json())
         .then(data => {
-            if (data && data.id != null) {
-                console.log(data);
-                ficha = new Ficha(data.tipoSangre, data.quienRecomendo, data.embarazo, data.partos, data.cesareas, data.abortos, data.muertos, data.enfs, data.fuma, data.cigarrosDia, data.fumaAntiguedad, data.alcohol, data.alcFrecuencia, data.alcoholCantidad, data.alcoholTipos, data.adicciones, data.alergias, data.desayuno, data.comida, data.cena, data.entreComidas, data.vasoAguaDia, data.otrosLiquidos, data.intolerancias, data.orinaDia, data.orinaNoche, data.orinaColor, data.orinaOlor, data.orinaMolestias, data.excrementoDia, data.exConsistencia, data.exOlor, data.exColor, data.exDolor, data.fechaMenstruacion, data.mensPeriodicidad, data.mensMolestias, data.ejercicioSemana, data.fecha, data.hora);
-                ficha.id = data.id;
-                ficha.paciente = data.paciente;
-                ficha.usuario = data.usuario;
-                document.getElementById('fecha-ficha').value = ficha.fecha;
-                inputRecomendo.value = ficha.quienRecomendo;
-                inputTipoSangre.value = ficha.tipoSangre
-                inputEmbarazos.value = ficha.embarazo;
-                inputPartos.value = ficha.partos;
-                inputCesareas.value = ficha.cesareas;
-                inputAbortos.value = ficha.abortos;
-                inputMuertos.value = ficha.muertos;
-                inputEnfs.value = ficha.enfs;
-                inputMenstruacion.value = ficha.fechaMenstruacion;
-                inputMenstruacionPeriodicidad.value = ficha.mensPeriodicidad;
-                inputMenstruacionMolestias.value = ficha.mensMolestias;
-                inputFuma.value = ficha.fuma;
-                inputCigarros.value = ficha.cigarrosDia;
-                inputCigarrosAntiguedad.value = ficha.fumaAntiguedad;
-                inputAlcohol.value = ficha.alcohol;
-                inputFrecuencia.value = ficha.alcFrecuencia;
-                inputCantidad.value = ficha.alcoholCantidad;
-                inputTipos.value = ficha.alcoholTipos;
-                inputAdicciones.value = ficha.adicciones;
-                inputAlergias.value = ficha.alergias;
-                inputDesayuno.value = ficha.desayuno;
-                inputComida.value = ficha.comida;
-                inputCena.value = ficha.cena;
-                inputEntrecomidas.value = ficha.entreComidas;
-                inputAgua.value = ficha.vasoAguaDia;
-                inputOtrosLiquidos.value = ficha.otrosLiquidos;
-                inputIntolerancias.value = ficha.intolerancias;
-                inputOrinaDia.value = ficha.orinaDia;
-                inputOrinaNoche.value = ficha.orinaNoche;
-                inputOrinaColor.value = ficha.orinaColor;
-                inputOrinaOlor.value = ficha.orinaOlor;
-                inputOrinaMolestias.value = ficha.orinaMolestias;
-                inputExcrementoDia.value = ficha.excrementoDia;
-                inputExcrementoConsistencia.value = ficha.exConsistencia;
-                inputExcrementoOlor.value = ficha.exOlor;
-                inputExcrementoColor.value = ficha.exColor;
-                inputExcrementoDolor.value = ficha.exDolor;
-                inputEjercicio.value = ficha.ejercicioSemana;
-                usuarioInput.textContent = "Ultima actualización realizada por: " + ficha.usuario + ".";
-                data.hijos.forEach(elemento => {
-                    hijo = new Hijo();
-                    hijo.id = elemento.id;
-                    hijo.sexo = elemento.sexo;
-                    hijo.edad = elemento.edad;
-                    arrayHijos.push(hijo);
-                });
-                actualizarTablaHijos();
-                data.antecedentes.forEach(elemento => {
-                    antecedente = new Antecedente()
-                    antecedente.id = elemento.id;
-                    antecedente.enfermedad = elemento.enfermedad;
-                    antecedente.estaActiva = elemento.estaActiva;
-                    antecedente.descripcion = elemento.descripcion;
-                    arrayAntecedentes.push(antecedente);
-                });
-                actualizarTablaAntecedentes();
-                data.antecedentesFam.forEach(elemento => {
-                    aFamiliar = new AntecedenteFamiliar();
-                    aFamiliar.id = elemento.id;
-                    aFamiliar.familiar = elemento.familiar;
-                    aFamiliar.enfermedad = elemento.enfermedad;
-                    aFamiliar.descripcion = elemento.descripcion;
-                    arrayAFamiliares.push(aFamiliar);
-                });
-                actualizarTablaAFamiliares();
-                validarFicha();
-            }else{
-                modalError(data, "obtener");
+            if (data != null) {
+                if ('id' in data) {
+                    ficha = new Ficha(data.tipoSangre, data.quienRecomendo, data.embarazo, data.partos, data.cesareas, data.abortos, data.muertos, data.enfs, data.fuma, data.cigarrosDia, data.fumaAntiguedad, data.alcohol, data.alcFrecuencia, data.alcoholCantidad, data.alcoholTipos, data.adicciones, data.alergias, data.desayuno, data.comida, data.cena, data.entreComidas, data.vasoAguaDia, data.otrosLiquidos, data.intolerancias, data.orinaDia, data.orinaNoche, data.orinaColor, data.orinaOlor, data.orinaMolestias, data.excrementoDia, data.exConsistencia, data.exOlor, data.exColor, data.exDolor, data.fechaMenstruacion, data.mensPeriodicidad, data.mensMolestias, data.ejercicioSemana, data.fecha, data.hora);
+                    ficha.id = data.id;
+                    ficha.paciente = data.paciente;
+                    ficha.usuario = data.usuario;
+                    document.getElementById('fecha-ficha').value = ficha.fecha;
+                    inputRecomendo.value = ficha.quienRecomendo;
+                    inputTipoSangre.value = ficha.tipoSangre
+                    inputEmbarazos.value = ficha.embarazo;
+                    inputPartos.value = ficha.partos;
+                    inputCesareas.value = ficha.cesareas;
+                    inputAbortos.value = ficha.abortos;
+                    inputMuertos.value = ficha.muertos;
+                    inputEnfs.value = ficha.enfs;
+                    inputMenstruacion.value = ficha.fechaMenstruacion;
+                    inputMenstruacionPeriodicidad.value = ficha.mensPeriodicidad;
+                    inputMenstruacionMolestias.value = ficha.mensMolestias;
+                    inputFuma.value = ficha.fuma;
+                    inputCigarros.value = ficha.cigarrosDia;
+                    inputCigarrosAntiguedad.value = ficha.fumaAntiguedad;
+                    inputAlcohol.value = ficha.alcohol;
+                    inputFrecuencia.value = ficha.alcFrecuencia;
+                    inputCantidad.value = ficha.alcoholCantidad;
+                    inputTipos.value = ficha.alcoholTipos;
+                    inputAdicciones.value = ficha.adicciones;
+                    inputAlergias.value = ficha.alergias;
+                    inputDesayuno.value = ficha.desayuno;
+                    inputComida.value = ficha.comida;
+                    inputCena.value = ficha.cena;
+                    inputEntrecomidas.value = ficha.entreComidas;
+                    inputAgua.value = ficha.vasoAguaDia;
+                    inputOtrosLiquidos.value = ficha.otrosLiquidos;
+                    inputIntolerancias.value = ficha.intolerancias;
+                    inputOrinaDia.value = ficha.orinaDia;
+                    inputOrinaNoche.value = ficha.orinaNoche;
+                    inputOrinaColor.value = ficha.orinaColor;
+                    inputOrinaOlor.value = ficha.orinaOlor;
+                    inputOrinaMolestias.value = ficha.orinaMolestias;
+                    inputExcrementoDia.value = ficha.excrementoDia;
+                    inputExcrementoConsistencia.value = ficha.exConsistencia;
+                    inputExcrementoOlor.value = ficha.exOlor;
+                    inputExcrementoColor.value = ficha.exColor;
+                    inputExcrementoDolor.value = ficha.exDolor;
+                    inputEjercicio.value = ficha.ejercicioSemana;
+                    usuarioInput.textContent = "Ultima actualización realizada por: " + ficha.usuario + ".";
+                    data.hijos.forEach(elemento => {
+                        hijo = new Hijo();
+                        hijo.id = elemento.id;
+                        hijo.sexo = elemento.sexo;
+                        hijo.edad = elemento.edad;
+                        arrayHijos.push(hijo);
+                    });
+                    actualizarTablaHijos();
+                    data.antecedentes.forEach(elemento => {
+                        antecedente = new Antecedente()
+                        antecedente.id = elemento.id;
+                        antecedente.enfermedad = elemento.enfermedad;
+                        antecedente.estaActiva = elemento.estaActiva;
+                        antecedente.descripcion = elemento.descripcion;
+                        arrayAntecedentes.push(antecedente);
+                    });
+                    actualizarTablaAntecedentes();
+                    data.antecedentesFam.forEach(elemento => {
+                        aFamiliar = new AntecedenteFamiliar();
+                        aFamiliar.id = elemento.id;
+                        aFamiliar.familiar = elemento.familiar;
+                        aFamiliar.enfermedad = elemento.enfermedad;
+                        aFamiliar.descripcion = elemento.descripcion;
+                        arrayAFamiliares.push(aFamiliar);
+                    });
+                    actualizarTablaAFamiliares();
+                    validarFicha();
+
+                } else {
+                    modalError(data, tipo.obtener);
+                }
             }
         })// FIN FETCH
         .catch(error => {
-            modalError(error, "obtener");
+            modalError(error, tipo.obtener);
         });
 }
 tablaHijos.addEventListener('click', function (e) {
@@ -175,13 +178,28 @@ function enviarFormFicha() {
             body: datosFicha // El JSON que contiene los datos y el formulario
         })
             .then(function (response) {
-                return response.text();
+                return response.json();
             })
             .then(function (data) {
                 console.log(data);
+                if (data != null) {
+                    if ('id' in data) {
+                        console.log("id en data");
+                        console.log(data.quienRecomendo);
+                        ficha = new Ficha(data.tipoSangre, data.quienRecomendo, data.embarazo, data.partos, data.cesareas, data.abortos, data.muertos, data.enfs, data.fuma, data.cigarrosDia, data.fumaAntiguedad, data.alcohol, data.alcFrecuencia, data.alcoholCantidad, data.alcoholTipos, data.adicciones, data.alergias, data.desayuno, data.comida, data.cena, data.entreComidas, data.vasoAguaDia, data.otrosLiquidos, data.intolerancias, data.orinaDia, data.orinaNoche, data.orinaColor, data.orinaOlor, data.orinaMolestias, data.excrementoDia, data.exConsistencia, data.exOlor, data.exColor, data.exDolor, data.fechaMenstruacion, data.mensPeriodicidad, data.mensMolestias, data.ejercicioSemana, data.fecha, data.hora);
+                        ficha.id = data.id;
+                        ficha.paciente = data.paciente;
+                        ficha.usuario = data.usuario;
+                        modalExito();
+                    } else {
+                        console.log(data);
+                        modalError(data, tipo.guardar);
+                    }
+                }
             })
             .catch(function (error) {
-                console.error('Error:', error);
+                console.log(data);
+                modalError(error, tipo.guardar);
             });
     } else {
         fetch('./controller/nueva-ficha.php', {// Enviar los datos a PHP utilizando fetch
@@ -192,14 +210,24 @@ function enviarFormFicha() {
                 return response.json();
             })
             .then(function (data) {
-                console.log(data);
-                ficha = new Ficha(data.tipoSangre, data.quienRecomendo, data.embarazo, data.partos, data.cesareas, data.abortos, data.muertos, data.enfs, data.fuma, data.cigarrosDia, data.fumaAntiguedad, data.alcohol, data.alcFrecuencia, data.alcoholCantidad, data.alcoholTipos, data.adicciones, data.alergias, data.desayuno, data.comida, data.cena, data.entreComidas, data.vasoAguaDia, data.otrosLiquidos, data.intolerancias, data.orinaDia, data.orinaNoche, data.orinaColor, data.orinaOlor, data.orinaMolestias, data.excrementoDia, data.exConsistencia, data.exOlor, data.exColor, data.exDolor, data.fechaMenstruacion, data.mensPeriodicidad, data.mensMolestias, data.ejercicioSemana, data.fecha, data.hora);
-                ficha.id = data.id;
-                ficha.paciente = data.paciente;
-                ficha.usuario = data.usuario;
+                if (data != null) {
+                    if ('id' in data) {
+                        ficha = new Ficha(data.tipoSangre, data.quienRecomendo, data.embarazo, data.partos, data.cesareas, data.abortos, data.muertos, data.enfs, data.fuma, data.cigarrosDia, data.fumaAntiguedad, data.alcohol, data.alcFrecuencia, data.alcoholCantidad, data.alcoholTipos, data.adicciones, data.alergias, data.desayuno, data.comida, data.cena, data.entreComidas, data.vasoAguaDia, data.otrosLiquidos, data.intolerancias, data.orinaDia, data.orinaNoche, data.orinaColor, data.orinaOlor, data.orinaMolestias, data.excrementoDia, data.exConsistencia, data.exOlor, data.exColor, data.exDolor, data.fechaMenstruacion, data.mensPeriodicidad, data.mensMolestias, data.ejercicioSemana, data.fecha, data.hora);
+                        ficha.id = data.id;
+                        ficha.paciente = data.paciente;
+                        ficha.usuario = data.usuario;
+                        if(ficha.id != null){
+                            modalExito();
+                        }
+                    } else {
+                        console.log(data);
+                        modalError(data, tipo.guardar);
+                    }
+                }
             })
             .catch(function (error) {
-                console.error('Error:', error);
+                console.log(data);
+                modalError(error, tipo.guardar);
             });
     }
 };
@@ -428,7 +456,7 @@ function modalExito() {
     const titulo = document.createElement('h2');
     const parrafo = document.createElement('p');
 
-    titulo.textContent = "¡Paciente guardado!";
+    titulo.textContent = "¡Ficha clínica guardada!";
     parrafo.textContent = "Los datos se han almacenado con éxito.";
 
     divMensaje.className = "modal-mensaje";
@@ -443,6 +471,43 @@ function modalExito() {
     // setTimeout(modal.style.display = "none", 10000);
 }
 function modalError(error, tipo) {
+    clearDiv(modalContent);
+    botonModalCerrar.className = "boton blanco modal-cerrar";
+    modalContent.classList.remove('modal-contenido-exito');
+    modalContent.classList.add('modal-contenido-error');
+    modalContent.classList.add('modal-contenido-un-column');
+
+    modal.style.display = "block";
+    const divMensaje = document.createElement('div');
+    const divBoton = document.createElement('div');
+    const titulo = document.createElement('h2');
+    const parrafo = document.createElement('p');
+    // const iconoAlerta = document.createElement('i');
+    // iconoAlerta.className = "fa-solid fa-bell";
+
+    divMensaje.className = "modal-mensaje";
+    divBoton.className = "modal-boton modal-boton-dos-espacios";
+    if (tipo == "guardar") {
+        titulo.textContent = '¡Los cambios NO han sido guardados!';
+    } else if (tipo == "obtener") {
+        titulo.textContent = '¡La información no pudo ser obtenida!';
+    }
+    if (error != "false") {
+        parrafo.textContent = "Contacta a tu administrador, Error: " + error;
+    } if(error=="campos"){
+        parrafo.textContent = "Porfavor, revisa todos los campos e intenta de nuevo.";
+    }
+    else {
+        parrafo.textContent = "Porfavor, revisa la información e intenta de nuevo.";
+    }
+    divMensaje.appendChild(titulo);
+    divMensaje.appendChild(parrafo);
+
+    modalContent.appendChild(divMensaje);
+    divBoton.appendChild(botonModalCerrar);
+    modalContent.appendChild(divBoton);
+}
+function modalErrorCampos(error, tipo) {
     clearDiv(modalContent);
     botonModalCerrar.className = "boton blanco modal-cerrar";
     modalContent.classList.remove('modal-contenido-exito');

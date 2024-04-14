@@ -1,22 +1,22 @@
 <?php
 session_start();
+$respuesta;
+include_once ("../models/medicamento.php");
+try {
+    $medicamento = new Medicamento();
+    $id = $_SESSION['id_med'];
+    $nombre = $_POST['nombre-medicamento'];
+    $tipo = $_POST['tipo-medicamento'];
+    $descripcion = $_POST['medicamento-descripcion'];
 
-include_once("../models/medicamento.php");
-$medicamento=new Medicamento();
+    $medicamento->setId($id);
+    $medicamento->setValues($nombre, $tipo, $descripcion);
 
-$id=$_SESSION['id_med'];
-$nombre=$_POST['nombre-medicamento'];
-$tipo=$_POST['tipo-medicamento'];
-$descripcion=$_POST['medicamento-descripcion'];
+    $respuesta = $medicamento->actualizar();
 
-$medicamento->setId($id);
-$medicamento->setValues($nombre, $tipo, $descripcion);
-
-if($medicamento->actualizar()){
-    $jsonMedicamento = json_encode($medicamento->getValues());
-    header('Content-Type: application/json');
-    echo $jsonMedicamento;
-}else {
-    return "false";
+} catch (Exception $e) {
+    $respuesta = $e->getMessage();
 }
-
+header('Content-Type: application/json');
+$jsonrespuesta = json_encode($respuesta);
+echo $jsonrespuesta;

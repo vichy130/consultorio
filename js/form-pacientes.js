@@ -4,6 +4,7 @@ var botonNuevoPaciente;
 var botonEditarPaciente;
 var botonEliminarPaciente;
 var array = []; //array pacientes
+const tipo={obtener: "obtener", guardar:"guardar", eliminar:"eliminar"};
 
 botonNuevoPaciente = document.getElementById('nuevo-paciente-boton');
 botonNuevoPaciente.addEventListener('click', function (e) {
@@ -36,21 +37,22 @@ function obtenerPacientes() {
     fetch('./controller/obtener-pacientes.php')
         .then(response => response.json())
         .then(data => {
-            console.log(data);
-            data.forEach((p) => {
-                if ('id' in p) {
-                    var paciente = new Paciente(p.nombre, p.apellidoPaterno, p.apellidoMaterno, p.sexo, p.fechaNacimiento, p.lugarNacimiento, p.calle, p.colonia, p.ciudad, p.codigoPostal, p.telCasa, p.telOficina, p.celular, p.edoCivil, p.ocupacion, p.escolaridad, p.correo);
-                    paciente.id = p.id;
-                    array.push(paciente);
-                } else {
-                    modalError(p, "obtener");
-                    return;
-                }
-            });
+            if (data != null) {
+                data.forEach((p) => {
+                    if ('id' in p) {
+                        var paciente = new Paciente(p.nombre, p.apellidoPaterno, p.apellidoMaterno, p.sexo, p.fechaNacimiento, p.lugarNacimiento, p.calle, p.colonia, p.ciudad, p.codigoPostal, p.telCasa, p.telOficina, p.celular, p.edoCivil, p.ocupacion, p.escolaridad, p.correo);
+                        paciente.id = p.id;
+                        array.push(paciente);
+                    } else {
+                        modalError(p,tipo.obtener);
+                        return;
+                    }
+                });
+            }
             tablaPacientes();
         })// FIN FETCH
         .catch(error => {
-            modalError(error, "obtener");
+            modalError(error, tipo.obtener);
         });
 }
 //FUNCION BORRAR TABLA
@@ -73,14 +75,14 @@ function eliminarPaciente() {
             if (data === "true") {
                 modalExito();
             } else {
-                modalError(data.toString(), "eliminar");
+                modalError(data.toString(), tipo.eliminar);
             }
             array = [];
             clearDiv(tabla);
             obtenerPacientes();
         })
         .catch(function (error) {
-            modalError(error, "eliminar");
+            modalError(error, tipo.eliminar);
         });
 }
 function tablaPacientes() {

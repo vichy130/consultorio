@@ -11,12 +11,12 @@ function enviarFormIniciarSesion() {
             return response.json();
         })
         .then(function (data) {
-            if (data) {
+            if(data===true){
                 index();
-            } else {
-                //TODO
+            }else{
                 datosIncorrectosActivo();
             }
+      
         })
         .catch(function (error) {
             console.error('Error:', error);

@@ -1,18 +1,23 @@
 <?php
 session_start();
-$medicamentos=array();
+$medicamentos = array();
+$respuesta;
 include '../models/medicamento.php';
 include '../php/conexion.php';
-$query= 'SELECT id FROM medicamento; ';
-$stmt = $dbh->prepare($query);
-$stmt->execute();
-while($lista = $stmt->fetch(PDO::FETCH_ASSOC)){
-    $medicamento=new Medicamento();
-    $medicamento->setId($lista['id']);
-    $medicamento->obtener();
-    $medicamentos[]=$medicamento->getValues();
+try {
+    $query = 'SELECT id FROM medicamento; ';
+    $stmt = $dbh->prepare($query);
+    $stmt->execute();
+    while ($lista = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $medicamento = new Medicamento();
+        $medicamento->setId($lista['id']);
+        $medicamentos[] = $medicamento->obtener();
+    }
+    $respuesta = $medicamentos;
+} catch (PDOException $e) {
+    $respuesta = $e->getMessage();
 }
 header('Content-Type: application/json');
-$jsonMedicamentos = json_encode($medicamentos);
-echo $jsonMedicamentos;
+$jsonRespuesta = json_encode($respuesta);
+echo $jsonRespuesta;
 ?>

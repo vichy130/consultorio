@@ -130,6 +130,6 @@ formUsuario.addEventListener('submit', (e) => {
         enviarFormUsuario();
     } else {
         validarUsuario();
-        console.log("no se pudo enviar");
+        modalError("campos", tipo.guardar);
     }
 });

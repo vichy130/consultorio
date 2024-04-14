@@ -111,12 +111,12 @@ function obtenerConsulta() {
                     actualizarTablaEstudiosSolicitados();
                     validarConsulta();
                 } else {
-                    modalError(error, "obtener");
+                    modalError(error, tipo.obtener);
                 }
             }
         })// FIN FETCH
         .catch(error => {
-            modalError(error, "obtener");
+            modalError(error, tipo.obtener);
         });
 }
 //FUNCIONES: OBTENER CONSULTORIO
@@ -269,13 +269,23 @@ function enviarFormConsulta() {
             body: datosConsulta // El JSON que contiene los datos y el formulario
         })
             .then(function (response) {
-                return response.text();
+                return response.json();
             })
             .then(function (data) {
                 console.log(data);
+                if (data != null) {
+                    if (data.id !== undefined) {
+                        consultaObjeto = new Consulta(data.fecha, data.usuario, data.paciente, data.ta, data.oxigeno, data.pulso, data.peso, data.estatura, data.temperatura, data.motivoConsulta, data.exploracion, data.indicaciones, data.receta, data.consultorio);
+                        receta = data.receta;
+                        consultaObjeto.id = data.id;
+                        modalExito();
+                    } else {
+                        modalError(data, tipo.guardar)
+                    }
+                }
             })
             .catch(function (error) {
-                console.error('Error:', error);
+                modalError(error, tipo.guardar);
             });
     } else {
         datosConsulta.append('jsonReceta', jsonReceta);
@@ -287,13 +297,19 @@ function enviarFormConsulta() {
                 return response.json();
             })
             .then(function (data) {
-                console.log(data);
-                consultaObjeto = new Consulta(data.fecha, data.usuario, data.paciente, data.ta, data.oxigeno, data.pulso, data.peso, data.estatura, data.temperatura, data.motivoConsulta, data.exploracion, data.indicaciones, data.receta, data.consultorio);
-                receta = data.receta;
-                console.log(data.receta);
+                if (data = !null) {
+                    if ('id' in data) {
+                        consultaObjeto = new Consulta(data.fecha, data.usuario, data.paciente, data.ta, data.oxigeno, data.pulso, data.peso, data.estatura, data.temperatura, data.motivoConsulta, data.exploracion, data.indicaciones, data.receta, data.consultorio);
+                        receta = data.receta;
+                        consultaObjeto.id = data.id;
+                        modalExito();
+                    } else {
+                        modalError(data, tipo.guardar);
+                    }
+                }
             })
             .catch(function (error) {
-                console.error('Error:', error);
+                modalError(error, tipo.guardar);
             });
     }
 }
@@ -521,6 +537,7 @@ function modalExito() {
     modalContent.classList.add('modal-contenido-exito');
     modalContent.classList.add('modal-contenido-un-column');
     modal.style.display = "block";
+
     const divMensaje = document.createElement('div');
     const divBoton = document.createElement('div');
     const titulo = document.createElement('h2');
@@ -551,6 +568,8 @@ function modalError(error, tipo) {
     const divBoton = document.createElement('div');
     const titulo = document.createElement('h2');
     const parrafo = document.createElement('p');
+    // const iconoAlerta = document.createElement('i');
+    // iconoAlerta.className = "fa-solid fa-bell";
 
     divMensaje.className = "modal-mensaje";
     divBoton.className = "modal-boton modal-boton-dos-espacios";
@@ -561,6 +580,8 @@ function modalError(error, tipo) {
     }
     if (error != "false") {
         parrafo.textContent = "Contacta a tu administrador, Error: " + error;
+    } if (error == "campos") {
+        parrafo.textContent = "Porfavor, revisa todos los campos e intenta de nuevo.";
     } else {
         parrafo.textContent = "Porfavor, revisa la información e intenta de nuevo.";
     }

@@ -277,14 +277,14 @@ const validarCampo = (expresion, input, campo) => {
         document.getElementById(`grupo_${campo}`).classList.remove('formulario_grupo-incorrecto');
         document.getElementById(`grupo_${campo}`).classList.add('formulario_grupo-correcto');
         document.querySelector(`#grupo_${campo} .form_validacion-estado`).classList.remove('fa-circle-xmark');
-        // document.querySelector(`#grupo_${campo} .form_validacion-estado`).classList.add('fa-circle-check');
+        document.querySelector(`#grupo_${campo} .form_validacion-estado`).classList.add('fa-circle-check');
         document.querySelector(`#grupo_${campo} .form_input-error`).classList.remove('form_input-error-activo');
         campos[campo] = true;
     } else {
         document.getElementById(`grupo_${campo}`).classList.add('formulario_grupo-incorrecto');
         document.getElementById(`grupo_${campo}`).classList.remove('formulario_grupo-correcto');
         document.querySelector(`#grupo_${campo} .form_validacion-estado`).classList.add('fa-circle-xmark');
-        // document.querySelector(`#grupo_${campo} .form_validacion-estado`).classList.remove('fa-circle-check');
+        document.querySelector(`#grupo_${campo} .form_validacion-estado`).classList.remove('fa-circle-check');
         document.querySelector(`#grupo_${campo} .form_input-error`).classList.add('form_input-error-activo');
         campos[campo] = false;
     }
@@ -376,19 +376,19 @@ function deshabilitarAlcohol() {
                 inputFrecuencia.disabled = true;
                 inputFrecuencia.value = "";
                 campos.frecuencia = true;
-                expresiones.frecuencia =  /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\s]{1,45}$/;
+                expresiones.frecuencia =  /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\s]{0,45}$/;
                 validarCampo(expresiones.frecuencia,inputFrecuencia.value,'frecuencia');
 
                 inputCantidad.disabled = true;
                 inputCantidad.value = "";
                 campos.cantidad = true;
-                expresiones.cantidad =  /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\s]{1,45}$/;
+                expresiones.cantidad =  /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\s]{0,45}$/;
                 validarCampo(expresiones.cantidad,inputCantidad.value,'cantidad');
 
                 inputTipos.disabled = true;
                 inputTipos.value = "";
                 campos.tipos = true;
-                expresiones.tipos =  /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\s]{1,45}$/;
+                expresiones.tipos =  /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\s]{0,45}$/;
                 validarCampo(expresiones.tipos,inputTipos.value,'tipos');
                 resolve(); // Resolvemos la promesa si la operación se realizó con éxito
             } else {
@@ -408,7 +408,7 @@ function deshabilitarAlcohol() {
                 expresiones.tipos = /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\s]{1,45}$/;
                 resolve(); // Resolvemos la promesa si la operación se realizó con éxito
             }
-        }, 1000); // Demora de 2 seg
+        }, 1000); // Demora
     });
 }
 function obtenerPaciente() {
@@ -453,6 +453,7 @@ function deshabilitarFemenino() {
 }
 formFicha.addEventListener('submit', (e) => {
     e.preventDefault();
+    validarFicha();
     var i = true;
     for (const key in campos) {
         if (campos[key] === false) {
@@ -467,11 +468,10 @@ formFicha.addEventListener('submit', (e) => {
             }
         })
         enviarFormFicha();
-        console.log("enviado");
     } else {
-        validarFicha();
-        console.log("NO se pudo enviar");
+        modalError("campos",tipo.guardar);
     }
 });
+
 
 

@@ -41,7 +41,6 @@ class Medicamento
     }
     public function insertar()
     {
-        if($this->id!=null){
         $query = "INSERT INTO medicamento (id, medicamento, tipo, descripcion) VALUES (:id,:medicamento,:tipo,:descripcion); ";
         try {
             $stmt = $this->conexion->getdbh()->prepare($query);
@@ -49,12 +48,11 @@ class Medicamento
             $stmt->bindParam(':tipo', $this->tipo);
             $stmt->bindParam(':descripcion', $this->descripcion);
             $stmt->bindParam(':id', $this->id);
-            return $stmt->execute();
+            $stmt->execute();
+            return $this->getValues();
         } catch (PDOException $e) {
             return $e->getMessage();
         }
-    }else{
-        return false;}
     }
     public function obtener()
     {
@@ -88,9 +86,6 @@ class Medicamento
     }
     function actualizar()
     {
-        if($this->id==null){
-            return false;
-        }
         $query = "UPDATE medicamento SET
         medicamento=:medicamento, 
         tipo=:tipo,
@@ -102,7 +97,8 @@ class Medicamento
             $stmt->bindParam(":tipo", $this->tipo);
             $stmt->bindParam(":descripcion", $this->descripcion);
             $stmt->bindParam(":id", $this->id);
-            return $stmt->execute();
+            $stmt->execute();
+            return $this->getValues();
         } catch (PDOException $e) {
             return $e->getMessage();
         }

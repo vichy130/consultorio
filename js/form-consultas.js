@@ -39,14 +39,14 @@ function obtenerConsultas() {
                     consulta.id = c.id;
                     array.push(consulta);
                 } else {
-                    modalError(c, "obtener");
+                    modalError(c,tipo.obtener);
                     return;
                 }
             });
             tablaConsultas();
         })// FIN FETCH
         .catch(error => {
-            modalError(error,"obtener");
+            modalError(error,tipo.obtener);
         });
 }//END FUNCTION OBTENERCONSULTAS
 
@@ -66,13 +66,13 @@ function eliminarConsulta() {
             if (data === "true") {
                 modalExito();
             } else {
-                modalError(data.toString());
+                modalError(data.toString(), tipo.eliminar);
             }
             array = [];
             obtenerConsultas();
         })
         .catch(function (error) {
-            console.error('Error:', error);
+            modalError(error, tipo.eliminar)
         });
 }
 function tablaConsultas() {

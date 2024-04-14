@@ -666,8 +666,6 @@ if (isset($_SESSION["id_paciente"])) {
                         <p class="form_input-error">El campo no debe estar vacío</p>
                     </div>end form-grupo -->
 
-                    <div class=""></div>
-                    <div class=""></div>
                     <button class="input_submit boton amarillo span-2">Imprimir</button>
                     <input class="input_submit boton azul span-2" type="submit" value="<?php if (isset($_SESSION["id_paciente"])) {
                         echo "Actualizar Ficha";

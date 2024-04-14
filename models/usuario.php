@@ -9,6 +9,7 @@ class usuario
     private $telefono;
     private $correo;
     private $contrasena;
+    private $hashedPassword;
     private $tipoUsuario;
     private $conexion;
     function __construct()
@@ -30,6 +31,7 @@ class usuario
         $this->correo = $correo;
         $this->tipoUsuario = $tipoUsuario;
     }
+
     public function getValues()
     {
         return [
@@ -54,9 +56,14 @@ class usuario
     {
         $this->contrasena = $contrasena;
     }
-    // public function getContrasena(){
-    //     return $this->contrasena;
-    // }
+    public function getContrasena()
+    {
+        return $this->contrasena;
+    }
+    function getHashed()
+    {
+        return $this->hashedPassword;
+    }
     public function getNombre()
     {
         return $this->nombre;
@@ -75,7 +82,8 @@ class usuario
     }
     public function insertar()
     {
-        $query = "INSERT INTO usuario (username,nombre,apellidoPaterno,apellidoMaterno,telefono,correo,contrasena,tipoUsuario)values (:username,:nombre,:apellidoPaterno,:apellidoMaterno,:telefono,:correo,:contrasena,:tipoUsuario); ";
+        $this->encriptar();
+        $query = "INSERTs INTO usuario (username,nombre,apellidoPaterno,apellidoMaterno,telefono,correo,contrasena,tipoUsuario)values (:username,:nombre,:apellidoPaterno,:apellidoMaterno,:telefono,:correo,:contrasena,:tipoUsuario); ";
         try {
             $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':username', $this->username);
@@ -84,9 +92,10 @@ class usuario
             $stmt->bindParam(':apellidoMaterno', $this->apellidoMaterno);
             $stmt->bindParam(':telefono', $this->telefono);
             $stmt->bindParam(':correo', $this->correo);
-            $stmt->bindParam(':contrasena', $this->contrasena);
+            $stmt->bindParam(':contrasena', $this->hashedPassword);
             $stmt->bindParam(':tipoUsuario', $this->tipoUsuario);
-            return $stmt->execute();
+            $stmt->execute();
+            return $this->getValues();
         } catch (PDOException $e) {
             return $e->getMessage();
         }
@@ -107,38 +116,16 @@ class usuario
                 $this->telefono = $datos["telefono"];
                 $this->correo = $datos["correo"];
                 $this->tipoUsuario = $datos["tipoUsuario"];
+                $this->hashedPassword = $datos["contrasena"];
             }
             return $this->getValues();
-        } catch (PDOException $e) {
-           return $e->getMessage();
-        }
-    }
-    function validar()
-    {
-        $query = "SELECT * FROM usuario WHERE username=:username and contrasena=:contrasena";
-        try {
-            $stmt = $this->conexion->getdbh()->prepare($query);
-            $stmt->bindParam(':username', $this->username);
-            $stmt->bindParam(':contrasena', $this->contrasena);
-            $stmt->execute();
-            $datos = $stmt->fetch(PDO::FETCH_ASSOC);
-            if ($datos) {
-                $this->username = $datos["username"];
-                $this->nombre = $datos["nombre"];
-                $this->apellidoPaterno = $datos["apellidoPaterno"];
-                $this->apellidoMaterno = $datos["apellidoMaterno"];
-                $this->telefono = $datos["telefono"];
-                $this->correo = $datos["correo"];
-                $this->tipoUsuario = $datos["tipoUsuario"];
-                return true;
-            }
         } catch (PDOException $e) {
             return $e->getMessage();
         }
     }
     function eliminar()
     {
-        $query = "DELETE FROM usuarios where username=:username; ";
+        $query = "DELETE FROM usuario where username=:username; ";
         try {
             $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':username', $this->username);
@@ -149,8 +136,7 @@ class usuario
     }
     public function actualizar()
     {
-        if ($this->contrasena == null) {
-            $query = "UPDATE usuario set
+        $query = "UPDATE usuario set
             username=:username,
             nombre=:nombre,
             apellidoPaterno=:apellidoPaterno,
@@ -159,18 +145,6 @@ class usuario
             correo=:correo,
             tipoUsuario=:tipoUsuario
             WHERE username=:username; ";
-        } else {
-            $query = "UPDATE usuario set
-            username=:username,
-            nombre=:nombre,
-            apellidoPaterno=:apellidoPaterno,
-            apellidoMaterno=:apellidoMaterno,
-            telefono=:telefono,
-            correo=:correo,
-            tipoUsuario=:tipoUsuario,
-            contrasena=:contrasena
-            WHERE username=:username; ";
-        }
         try {
             $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(":username", $this->username);
@@ -180,12 +154,61 @@ class usuario
             $stmt->bindParam(":telefono", $this->telefono);
             $stmt->bindParam(":correo", $this->correo);
             $stmt->bindParam(":tipoUsuario", $this->tipoUsuario);
-            if ($this->contrasena != null) {
-                $stmt->bindParam(":contrasena", $this->contrasena);
-            }
+            $stmt->bindParam(":username", $this->username);
+            $stmt->execute();
+            return $this->getValues();
+
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return $e->getMessage();
+        }
+    }
+    function actualizarContrasena()
+    {
+        $this->encriptar();
+        $query = "UPDATE usuario set
+            contrasena=:contrasena
+            WHERE username=:username; ";
+        try {
+            $stmt = $this->conexion->getdbh()->prepare($query);
+            $stmt->bindParam(":contrasena", $this->hashedPassword);
             $stmt->bindParam(":username", $this->username);
             return $stmt->execute();
-            
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return $e->getMessage();
+        }
+    }
+    function encriptar()
+    {
+        $this->hashedPassword = password_hash($this->contrasena, PASSWORD_DEFAULT);
+    }
+    function validar()
+    {
+        $query = "SELECT * FROM usuario WHERE username=:username; ";
+        try {
+            $stmt = $this->conexion->getdbh()->prepare($query);
+            $stmt->bindParam(':username', $this->username);
+            $stmt->execute();
+            $datos = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($datos) {
+                $this->hashedPassword = $datos["contrasena"];
+                if (password_verify($this->contrasena, $this->hashedPassword)) {
+                    $this->username = $datos["username"];
+                    $this->nombre = $datos["nombre"];
+                    $this->apellidoPaterno = $datos["apellidoPaterno"];
+                    $this->apellidoMaterno = $datos["apellidoMaterno"];
+                    $this->telefono = $datos["telefono"];
+                    $this->correo = $datos["correo"];
+                    $this->tipoUsuario = $datos["tipoUsuario"];
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+
         } catch (PDOException $e) {
             return $e->getMessage();
         }

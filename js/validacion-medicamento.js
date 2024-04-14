@@ -67,9 +67,8 @@ formMedicamento.addEventListener('submit', (e)=>{
     }
     if(i){
         enviarFormMedicamento();
-        console.log('enviado');
     }else{
         validarMedicamento();
-        console.log('No se pudo enviar');
+        modalError("campos", tipo.guardar);
     }
 });

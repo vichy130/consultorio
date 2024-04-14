@@ -3,7 +3,7 @@ const inputs = document.querySelectorAll('#form-iniciar-sesion input');
 const inputUsername = document.getElementById('username');
 const inputContrasena = document.getElementById('contrasena');
 var datosIncorrectos = document.getElementById('grupo_datos-incorrectos');
-var captchaError=document.getElementById('grupo_captcha-error');
+var captchaError = document.getElementById('grupo_captcha-error');
 
 const expresiones = {
     usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
@@ -72,13 +72,15 @@ formIniciarSesion.addEventListener('submit', (e) => {
         }
     }
     // Validar reCAPTCHA
-    var response = grecaptcha.getResponse();
-    if (response.length === 0) {
-        i = false;
-        captchaErrorActivo();
-        console.log("error activo")
-    }
-     else if (i) {
+    // var response = grecaptcha.getResponse();
+    // if (response.length === 0) {
+    //     i = false;
+    //     captchaErrorActivo();
+    //     console.log("error activo")
+    // 
+    // }
+    //      else 
+    if (i) {
         enviarFormIniciarSesion();
     } else {
         validarIniciarSesion();

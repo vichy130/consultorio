@@ -396,7 +396,7 @@ class Ficha
             echo "Error al obtener Antecedente Familia" . $e->getMessage();
         }
     }
-    function actualizar()
+    function actualizar($hijos, $antecedentes, $antecedentesFam)
     {
         if ($this->fechaMenstruacion == null || $this->embarazo == null || $this->partos == null || $this->cesareas == null || $this->abortos == null || $this->muertos == null || $this->enfs == null || $this->mensPeriodicidad == null || $this->mensMolestias == null) {
             $query = "UPDATE ficha SET 
@@ -529,9 +529,13 @@ class Ficha
             $stmt->bindParam(':hora', $this->hora);
             $stmt->bindParam(':usuario', $this->usuario);
             $stmt->bindParam(':id', $this->id);
-            return $stmt->execute();
+            $stmt->execute();
+            $this->actualizarHijos($hijos);
+            $this->actualizarAntecedentes($antecedentes);
+            $this->actualizarAntecedentesFam($antecedentesFam);
+            return $this->getValues();
         } catch (PDOException $e) {
-            echo "Error al actualizar ficha" . $e->getMessage();
+            return $e->getMessage();
         }
     }
     function actualizarHijos($hijosNuevo)
