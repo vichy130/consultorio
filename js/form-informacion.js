@@ -167,7 +167,7 @@ function modalError(error, tipo) {
     if(error=="campos"){
         parrafo.textContent = "Porfavor, revisa todos los campos e intenta de nuevo.";
     }
-    if (error != "false") {
+    else if (error != "false") {
         parrafo.textContent = "Contacta a tu administrador, Error: " + error;
     }else {
         parrafo.textContent = "Porfavor, revisa la información e intenta de nuevo.";

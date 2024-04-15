@@ -139,7 +139,10 @@ function modalError(error, tipo) {
     } else if (tipo == "obtener") {
         titulo.textContent = '¡La información no pudo ser obtenida!';
     }
-    if (error != "false") {
+    if (error == "campos") {
+        parrafo.textContent = "Porfavor, revisa todos los campos e intenta de nuevo.";
+    } 
+    else if (error != "false") {
         parrafo.textContent = "Contacta a tu administrador, Error: " + error;
     } else {
         parrafo.textContent = "Porfavor, revisa la información e intenta de nuevo.";
