@@ -195,6 +195,10 @@ body{
     background: #ffffff;
     color: #3d3b3e;
 }
+.gris{
+    background: #8a8a8a;
+    color: #3d3b3e;
+}
 .span-2{
     grid-column: span 2;
 }

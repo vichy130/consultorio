@@ -1,24 +1,31 @@
 const formUsuario = document.getElementById('form-usuario');
 const inputs = document.querySelectorAll('#form-usuario input, #form-usuario select');
-var inputUsername=document.getElementById('username-usuario');
-var inputNombre=document.getElementById('nombre-usuario');
-var inputApellidoPaterno=document.getElementById('apellidoPaterno-usuario');
-var inputApellidoMaterno=document.getElementById('apellidoMaterno-usuario');
-var inputTelefono=document.getElementById('telefono-usuario');
-var inputTipo=document.getElementById('tipo-usuario');
-var inputCorreo=document.getElementById('correo-usuario');
-var inputContrasenaUno=document.getElementById('contrasena-usuario');
-var inputContrasenaDos=document.getElementById('contrasena-usuario2');
+var inputUsername = document.getElementById('username-usuario');
+var inputNombre = document.getElementById('nombre-usuario');
+var inputApellidoPaterno = document.getElementById('apellidoPaterno-usuario');
+var inputApellidoMaterno = document.getElementById('apellidoMaterno-usuario');
+var inputTelefono = document.getElementById('telefono-usuario');
+var inputTipo = document.getElementById('tipo-usuario');
+var inputCorreo = document.getElementById('correo-usuario');
+var inputContrasenaUno = document.getElementById('contrasena-usuario');
+var inputContrasenaDos = document.getElementById('contrasena-usuario2');
+var inputEspecialidad=document.getElementById('especialidad-usuario');
+var inputUniversidad=document.getElementById('universidad-usuario');
+var inputCedula=document.getElementById('cedula-usuario');
 
+inputTipo.addEventListener('change', validarMedico);
 const expresiones = {
     usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
     nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
     apellidoPaterno: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
     apellidoMaterno: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
-    contrasena:/^(.{8,12})$/, // 8 a 12 digitos.
+    contrasena: /^(.{8,12})$/, // 8 a 12 digitos.
     correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
     telefono: /^\d{7,14}$/, // 7 a 14 numeros.
     tipo: /^[a-zA-Z]$/,
+    especialidad: /^$|^[a-zA-ZÀ-ÿ\s]{0,100}$/,
+    universidad: /^$|^[a-zA-ZÀ-ÿ\s]{0,100}$/,
+    cedula: /^$|^\d{0,10}$/
 }
 const campos = {
     usuario: false,
@@ -30,10 +37,13 @@ const campos = {
     correo: false,
     telefono: false,
     tipo: false,
+    especialidad: true,
+    universidad: true,
+    cedula: true
 }
-function validarUsuarioExistente(){
-    campos.contrasena=true;
-    expresiones.contrasena=/^(.{8,12})?$/;
+function validarUsuarioExistente() {
+    campos.contrasena = true;
+    expresiones.contrasena = /^(.{8,12})?$/;
 }
 const validarFormulario = (e) => {
     switch (e.target.name) {
@@ -57,6 +67,15 @@ const validarFormulario = (e) => {
             break;
         case "correo-usuario":
             validarCampo(expresiones.correo, e.target.value, 'correo');
+            break;
+        case "especialidad-usuario":
+            validarCampo(expresiones.especialidad, inputEspecialidad.value, 'especialidad');
+            break;
+        case "universidad-usuario":
+            validarCampo(expresiones.universidad, inputUniversidad.value, 'universidad');
+            break;
+        case "cedula-usuario":
+            validarCampo(expresiones.cedula, inputCedula.value, 'cedula');
             break;
         case "contrasena-usuario":
             validarCampo(expresiones.contrasena, e.target.value, 'contrasena');
@@ -101,12 +120,44 @@ const validarConstrasena2 = () => {
         campos['contrasena2'] = true;
     }
 }
-
 inputs.forEach((input) => {
     input.addEventListener('keyup', validarFormulario);
     input.addEventListener('blur', validarFormulario);
 });
-function validarUsuario(){
+function validarMedico(){
+    if(inputTipo.value=='M'){
+        expresiones.especialidad=/^[a-zA-ZÀ-ÿ\s]{3,100}$/;
+        campos.especialidad=false;
+        inputEspecialidad.disabled=false;
+
+        expresiones.universidad=/^[a-zA-ZÀ-ÿ\s]{3,100}$/;
+        campos.universidad=false;
+        inputUniversidad.disabled=false; 
+
+        expresiones.cedula=/^\d{6,10}$/;
+        campos.cedula=false;
+        inputCedula.disabled=false;
+    }else{
+        expresiones.especialidad=/^$|^[a-zA-ZÀ-ÿ\s]{0,100}$/;
+        campos.especialidad=true;
+        inputEspecialidad.disabled=true;
+        inputEspecialidad.value="";
+        validarCampo(expresiones.especialidad, inputEspecialidad.value, 'especialidad');
+
+        expresiones.universidad= /^$|^[a-zA-ZÀ-ÿ\s]{0,100}$/;
+        campos.universidad=true;
+        inputUniversidad.disabled=true; 
+        inputUniversidad.value="";
+        validarCampo(expresiones.universidad, inputUniversidad.value, 'universidad');
+
+        expresiones.cedula=/^$|^\d{0,10}$/;
+        campos.cedula=true;
+        inputCedula.disabled=true;
+        inputCedula.value="";
+        validarCampo(expresiones.cedula, inputCedula.value, 'cedula');
+    }
+}
+function validarUsuario() {
     validarCampo(expresiones.usuario, inputUsername.value, 'usuario');
     validarCampo(expresiones.nombre, inputNombre.value, 'nombre');
     validarCampo(expresiones.apellidoPaterno, inputApellidoPaterno.value, 'apellidoPaterno');
@@ -115,20 +166,24 @@ function validarUsuario(){
     validarCampo(expresiones.tipo, inputTipo.value, 'tipo');
     validarCampo(expresiones.correo, inputCorreo.value, 'correo');
     validarCampo(expresiones.contrasena, inputContrasenaUno.value, 'contrasena');
+    validarCampo(expresiones.especialidad, inputEspecialidad.value, 'especialidad');
+    validarCampo(expresiones.universidad, inputUniversidad.value, 'universidad');
+    validarCampo(expresiones.cedula, inputCedula.value, 'cedula');
     validarConstrasena2();
 }
 formUsuario.addEventListener('submit', (e) => {
     e.preventDefault();
-    var i=true;
-    for(key in campos){
-        if(campos[key]===false){
-            i=false;
+    var i = true;
+    for (key in campos) {
+        if (campos[key] === false) {
+            i = false;
             break;
         }
     }
     if (i) {
         enviarFormUsuario();
     } else {
+        validarMedico();
         validarUsuario();
         modalError("campos", tipo.guardar);
     }

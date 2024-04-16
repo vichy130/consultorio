@@ -2,19 +2,19 @@
 session_start();
 function redirect($url)
 {
-    ob_start();
-    header('Location:' . $url);
-    ob_end_flush();
-    die();
+  ob_start();
+  header('Location:' . $url);
+  ob_end_flush();
+  die();
 }
 if (!isset($_SESSION['username'])) {
-    redirect("./iniciar-sesion.php");
+  redirect("./iniciar-sesion.php");
+  exit();
+} else {
+  if ($_SESSION['tipoUsuario'] != "A") {
+    redirect("./index.php");
     exit();
-}else{
-    if($_SESSION['tipoUsuario']!="A"){
-        redirect("./index.php");
-        exit();
-    }
+  }
 }
 include_once ("../models/usuario.php");
 $respuesta;
@@ -30,6 +30,12 @@ try {
   $tipoUsuario = $_POST["tipo-usuario"];
   $usuario->setUsername($username);
   $usuario->setValues($nombre, $apellidoPaterno, $apellidoMaterno, $telefono, $correo, $tipoUsuario);
+  if ($_POST['especialidad-usuario'] != null && $_POST['universidad-usuario'] && $_POST['cedula-usuario']) {
+    $especialidad = $_POST['especialidad-usuario'];
+    $universidad = $_POST['universidad-usuario'];
+    $cedula = $_POST['cedula-usuario'];
+    $usuario->setValuesMedico($especialidad, $universidad, $cedula);
+  }
   $usuario->setContrasena($contrasena);
   $respuesta = $usuario->insertar();
 

@@ -11,8 +11,8 @@ function redirect($url)
 if (!isset($_SESSION['username'])) {
     redirect("./iniciar-sesion.php");
     exit();
-}else{
-    if($_SESSION['tipoUsuario']!="A"){
+} else {
+    if ($_SESSION['tipoUsuario'] != "A") {
         redirect("./index.php");
         exit();
     }
@@ -36,13 +36,13 @@ if (isset($_REQUEST["id"])) {
 
 <body>
     <div class="contenedor">
-        <?php require("./layout/menu.php"); ?>
+        <?php require ("./layout/menu.php"); ?>
 
         <div id="modal" class="modal">
-                <div id="modal-contenido" class="modal-contenido">
-                    <span class="cerrar-modal" id="cerrarModal">&times;</span>
-                </div>
+            <div id="modal-contenido" class="modal-contenido">
+                <span class="cerrar-modal" id="cerrarModal">&times;</span>
             </div>
+        </div>
 
         <form class="content-general formulario" id="form-usuario">
 
@@ -94,7 +94,8 @@ if (isset($_REQUEST["id"])) {
             <div class="formulario_grupo" id="grupo_telefono">
                 <label class="form_label" for="telefono-usuario">Teléfono</label>
                 <div class="form_grupo-input">
-                    <input class="form_input" type="text" id="telefono-usuario" name="telefono-usuario" placeholder="33 3333 3333">
+                    <input class="form_input" type="text" id="telefono-usuario" name="telefono-usuario"
+                        placeholder="33 3333 3333">
                     <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                 </div>
                 <p class="form_input-error">El telefono solo puede contener números y el maximo son 14 dígitos.</p>
@@ -108,7 +109,8 @@ if (isset($_REQUEST["id"])) {
                         placeholder="correo@correo.com">
                     <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                 </div>
-                <p class="form_input-error">El correo solo puede contener letras, numeros, puntos, guiones y guion bajo.</p>
+                <p class="form_input-error">El correo solo puede contener letras, numeros, puntos, guiones y guion bajo.
+                </p>
             </div><!-- end form-grupo -->
 
             <!-- Grupo: tipo Usuario -->
@@ -124,6 +126,36 @@ if (isset($_REQUEST["id"])) {
                     <i class="form_validacion-estado select fa-solid fa-circle-xmark"></i>
                 </div>
                 <p class="form_input-error">Selecciona un tipo de Usuario.</p>
+            </div><!-- end form-grupo -->
+
+            <!-- Grupo: especialidad -->
+            <div class="formulario_grupo" id="grupo_especialidad">
+                <label class="form_label" for="especialidad-usuario">Especialidad</label>
+                <div class="form_grupo-input">
+                    <input class="form_input" type="text" id="especialidad-usuario" name="especialidad-usuario">
+                    <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                </div>
+                <p class="form_input-error">La especialidad solo puede contener letras y no debe estar vacío.</p>
+            </div><!-- end form-grupo -->
+
+            <!-- Grupo: universidad -->
+            <div class="formulario_grupo" id="grupo_universidad">
+                <label class="form_label" for="universidad-usuario">Universidad</label>
+                <div class="form_grupo-input">
+                    <input class="form_input" type="text" id="universidad-usuario" name="universidad-usuario">
+                    <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                </div>
+                <p class="form_input-error">Solo se puede contener letras y no debe estar vacío.</p>
+            </div><!-- end form-grupo -->
+
+            <!-- Grupo: cedula-->
+            <div class="formulario_grupo" id="grupo_cedula">
+                <label class="form_label" for="cedula-usuario">Cédula Profesional</label>
+                <div class="form_grupo-input">
+                    <input class="form_input" type="text" id="cedula-usuario" name="cedula-usuario">
+                    <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                </div>
+                <p class="form_input-error">Solo se puede contener números y no debe estar vacío.</p>
             </div><!-- end form-grupo -->
 
             <!-- Grupo: contrasena -->
@@ -158,15 +190,16 @@ if (isset($_REQUEST["id"])) {
             </div>end form-grupo -->
 
             <div class="form_mensaje span-4" id="form_mensaje">
-                <p><i class="fa-solid fa-circle-exclamation"></i> Error: Porfavor rellena el formulario correctamente.</p>
+                <p><i class="fa-solid fa-circle-exclamation"></i> Error: Porfavor rellena el formulario correctamente.
+                </p>
             </div>
 
             <div class="formulario_grupo formulario_btn-enviar span-4">
-            <input class="input_submit boton azul" type="submit" value="Guardar" id="boton-guardar-usuario">
+                <input class="input_submit boton azul" type="submit" value="Guardar" id="boton-guardar-usuario">
             </div>
         </form>
         <!-- end FORM -->
-        <?php require("./layout/footer.php"); ?>
+        <?php require ("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
     <script src="./js/form-usuario.js"></script>

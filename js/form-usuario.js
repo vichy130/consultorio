@@ -20,6 +20,9 @@ function obtenerUsuario() {
                     usuario.telefono = data.telefono;
                     usuario.correo = data.correo;
                     usuario.tipoUsuario = data.tipoUsuario;
+                    usuario.especialidad=data.especialidad;
+                    usuario.universidad=data.universidad;
+                    usuario.cedula=data.cedula;
                     inputUsername.value = usuario.username;
                     inputNombre.value = usuario.nombre;
                     inputApellidoPaterno.value = usuario.apellidoPaterno;
@@ -27,8 +30,13 @@ function obtenerUsuario() {
                     inputTelefono.value = usuario.telefono;
                     inputCorreo.value = usuario.correo;
                     inputTipo.value = usuario.tipoUsuario;
+                    inputEspecialidad.value=usuario.especialidad;
+                    inputUniversidad.value=usuario.universidad;
+                    inputCedula.value=usuario.cedula;
+                    console.log(usuario.cedula);
                     validarUsuarioExistente();
                     validarUsuario();
+                    validarMedico();
                 } else {
                     modalError(data, tipo.obtener);
                 }
@@ -64,14 +72,14 @@ function enviarFormUsuario() {
                         usuario.tipoUsuario = data.tipoUsuario;
                         modalExito();
                     } else {
-                        console.log("else");
-                        modalError(data, tipo.obtener);
+                        console.log(data);
+                        modalError(data, tipo.guardar);
                     }
                 }
             })
             .catch(function (error) {
                 console.log(error);
-                modalError(error, tipo.obtener);
+                modalError(error, tipo.guardar);
             });
     } else {
         fetch('./controller/nuevo-usuario.php', {
@@ -84,7 +92,11 @@ function enviarFormUsuario() {
             .then(function (data) {
                 console.log(data);
                 if (data != null) {
-                    if ('username' in data) {
+                    const expresion=/SQLSTATE\[23000\]/;
+                    if (expresion.test(data)){
+                        modalError("duplicate", tipo.guardar);
+                    }
+                    else if ('username' in data) {
                         usuario = new Usuario();
                         usuario.username = data.username;
                         usuario.nombre = data.nombre;
@@ -93,16 +105,19 @@ function enviarFormUsuario() {
                         usuario.telefono = data.telefono;
                         usuario.correo = data.correo;
                         usuario.tipoUsuario = data.tipoUsuario;
+                        usuario.especialidad=data.especialidad;
+                        usuario.universidad=data.universidad;
+                        usuario.cedula=data.cedula;
                         modalExito();
-                    } else {
-                        console.log("else");
+                    }else {
                         console.log(data);
-                        modalError(data, tipo.obtener);
+                        modalError(data, tipo.guardar);
                     }
                 }
             })
             .catch(function (error) {
-                modalError(error, tipo.obtener);
+                console.log(error);
+                modalError(error, tipo.guardar);
             });
     }
 };
@@ -168,6 +183,8 @@ function modalError(error, tipo) {
     }
     if (error == "campos") {
         parrafo.textContent = "Porfavor, revisa todos los campos e intenta de nuevo.";
+    }else if(error=="duplicate"){
+        parrafo.textContent = "El nombre de usuario ya existe, porfavor ingresa uno nuevo.";
     }
     else if (error != "false" || error!=null) {
         parrafo.textContent = "Contacta a tu administrador, Error: " + error;
@@ -235,5 +252,23 @@ class Usuario {
     }
     get tipoUsuario() {
         return this._tipoUsuario;
+    }
+    set especialidad(especialidad){
+        this._especialidad=especialidad;
+    }
+    get especialidad(){
+        return this._especialidad;
+    }
+    set universidad(universidad){
+        this._universidad=universidad;
+    }
+    get universidad(){
+        return this._universidad;
+    }
+    set cedula(cedula){
+        this._cedula=cedula;
+    }
+    get cedula(){
+       return this._cedula;
     }
 }

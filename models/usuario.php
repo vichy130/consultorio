@@ -12,6 +12,10 @@ class usuario
     private $hashedPassword;
     private $tipoUsuario;
     private $conexion;
+    //nuevos parametros:
+    private $especialidad;
+    private $universidad;
+    private $cedula;
     function __construct()
     {
         $this->conexion = new Conexion();
@@ -31,7 +35,15 @@ class usuario
         $this->correo = $correo;
         $this->tipoUsuario = $tipoUsuario;
     }
-
+    public function setValuesMedico(
+        $especialidad,
+        $universidad,
+        $cedula
+        ){
+        $this->especialidad=$especialidad;
+        $this->universidad=$universidad;
+        $this->cedula=$cedula;
+    }
     public function getValues()
     {
         return [
@@ -41,7 +53,10 @@ class usuario
             'apellidoMaterno' => $this->apellidoMaterno,
             'telefono' => $this->telefono,
             'correo' => $this->correo,
-            'tipoUsuario' => $this->tipoUsuario
+            'tipoUsuario' => $this->tipoUsuario,
+            'especialidad'=>$this->especialidad,
+            'universidad'=>$this->universidad,
+            'cedula'=>$this->cedula
         ];
     }
     public function setUsername($username)
@@ -80,10 +95,26 @@ class usuario
     {
         return $this->tipoUsuario;
     }
+    public function getEspecialidad(){
+        return $this->especialidad;
+    }
+    public function getUniversidad(){
+        return $this->universidad;
+    }
+    public function getCedula(){
+        return $this->cedula;
+    }
+    public function getTelefono(){
+        return $this->telefono;
+    }
     public function insertar()
     {
         $this->encriptar();
-        $query = "INSERT INTO usuario (username,nombre,apellidoPaterno,apellidoMaterno,telefono,correo,contrasena,tipoUsuario)values (:username,:nombre,:apellidoPaterno,:apellidoMaterno,:telefono,:correo,:contrasena,:tipoUsuario); ";
+        if($this->especialidad!=null && $this->universidad!=null && $this->cedula!=null){
+            $query = "INSERT INTO usuario (username,nombre,apellidoPaterno,apellidoMaterno,telefono,correo,contrasena,tipoUsuario,especialidad,universidad,cedula)values (:username,:nombre,:apellidoPaterno,:apellidoMaterno,:telefono,:correo,:contrasena,:tipoUsuario,:especialidad,:universidad,:cedula); ";
+        }else{
+            $query = "INSERT INTO usuario (username,nombre,apellidoPaterno,apellidoMaterno,telefono,correo,contrasena,tipoUsuario)values (:username,:nombre,:apellidoPaterno,:apellidoMaterno,:telefono,:correo,:contrasena,:tipoUsuario); ";
+        }
         try {
             $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':username', $this->username);
@@ -94,6 +125,11 @@ class usuario
             $stmt->bindParam(':correo', $this->correo);
             $stmt->bindParam(':contrasena', $this->hashedPassword);
             $stmt->bindParam(':tipoUsuario', $this->tipoUsuario);
+            if($this->especialidad!=null && $this->universidad!=null && $this->cedula!=null){
+                $stmt->bindParam(":especialidad", $this->especialidad);
+                $stmt->bindParam(":universidad", $this->universidad);
+                $stmt->bindParam(":cedula", $this->cedula);
+            }
             $stmt->execute();
             return $this->getValues();
         } catch (PDOException $e) {
@@ -117,6 +153,9 @@ class usuario
                 $this->correo = $datos["correo"];
                 $this->tipoUsuario = $datos["tipoUsuario"];
                 $this->hashedPassword = $datos["contrasena"];
+                $this->especialidad = $datos["especialidad"];
+                $this->universidad = $datos["universidad"];
+                $this->cedula = $datos["cedula"];
             }
             return $this->getValues();
         } catch (PDOException $e) {
@@ -136,7 +175,21 @@ class usuario
     }
     public function actualizar()
     {
-        $query = "UPDATE usuario set
+        if($this->especialidad!=null && $this->universidad!=null && $this->cedula!=null){
+            $query = "UPDATE usuario set
+            username=:username,
+            nombre=:nombre,
+            apellidoPaterno=:apellidoPaterno,
+            apellidoMaterno=:apellidoMaterno,
+            telefono=:telefono,
+            correo=:correo,
+            tipoUsuario=:tipoUsuario,
+            especialidad=:especialidad,
+            universidad=:universidad,
+            cedula=:cedula
+            WHERE username=:username; ";
+        }else{
+            $query = "UPDATE usuario set
             username=:username,
             nombre=:nombre,
             apellidoPaterno=:apellidoPaterno,
@@ -145,6 +198,8 @@ class usuario
             correo=:correo,
             tipoUsuario=:tipoUsuario
             WHERE username=:username; ";
+        }
+
         try {
             $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(":username", $this->username);
@@ -155,6 +210,11 @@ class usuario
             $stmt->bindParam(":correo", $this->correo);
             $stmt->bindParam(":tipoUsuario", $this->tipoUsuario);
             $stmt->bindParam(":username", $this->username);
+            if($this->especialidad!=null && $this->universidad!=null && $this->cedula!=null){
+                $stmt->bindParam(":especialidad", $this->especialidad);
+                $stmt->bindParam(":universidad", $this->universidad);
+                $stmt->bindParam(":cedula", $this->cedula);
+            }
             $stmt->execute();
             return $this->getValues();
 
@@ -201,6 +261,9 @@ class usuario
                     $this->telefono = $datos["telefono"];
                     $this->correo = $datos["correo"];
                     $this->tipoUsuario = $datos["tipoUsuario"];
+                    $this->especialidad = $datos["especialidad"];
+                    $this->universidad = $datos["universidad"];
+                    $this->cedula = $datos["cedula"];
                     return true;
                 } else {
                     return false;

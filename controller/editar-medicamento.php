@@ -11,7 +11,7 @@ if (!isset($_SESSION['username'])) {
     redirect("./iniciar-sesion.php");
     exit();
 }
-?>
+
 $respuesta;
 include_once ("../models/medicamento.php");
 try {

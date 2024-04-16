@@ -31,6 +31,12 @@ try {
     $usuario = new Usuario();
     $usuario->setUsername($username);
     $usuario->setValues($nombre, $apellidoPaterno, $apellidoMaterno, $telefono, $correo, $tipoUsuario);
+    if($_POST['especialidad-usuario']!=null && $_POST['universidad-usuario'] && $_POST['cedula-usuario']){
+        $especialidad=$_POST['especialidad-usuario'];
+        $universidad= $_POST['universidad-usuario'];
+        $cedula=$_POST['cedula-usuario'];
+        $usuario->setValuesMedico($especialidad, $universidad, $cedula);
+    }
 
     if($contrasena==$contrasenaDos && $contrasena!=null){
         $usuario->setContrasena($contrasena);

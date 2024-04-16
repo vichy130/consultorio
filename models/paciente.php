@@ -37,6 +37,14 @@ class Paciente
     {
         return $this->nombre;
     }
+    public function getApellidoPaterno()
+    {
+        return $this->apellidoPaterno;
+    }
+    public function getApellidoMaterno()
+    {
+        return $this->apellidoMaterno;
+    }
     public function setValues(
         $nombre,
         $apellidoPaterno,

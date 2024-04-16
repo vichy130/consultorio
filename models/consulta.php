@@ -46,6 +46,9 @@ class Consulta
     {
         return $this->paciente;
     }
+    public function getUsuario(){
+        return $this->usuario;
+    }
     public function setValues(
         $fecha,
         $usuario,

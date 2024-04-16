@@ -133,6 +133,7 @@ function obtenerConsultorios() {
         })// FIN FETCH
         .catch(error => {
             console.error('Error:', error);
+            modalError(error,tipo.obtener)
         });
 }
 //FUNCIONES: OBTENER MEDICAMENTOS
@@ -203,6 +204,8 @@ function ingresarMedicamentoIndicacion() {
     //         resolve();
     //     }, 2000);
     // });
+    inputMedicamento="";
+    inputIndicacionesMedicamento.value="";
 }
 //FUNCIONES INSERTAR ARRAY INGRESAR MEDICAMENTO
 function ingresarEstudioSolicitado() {
@@ -212,6 +215,7 @@ function ingresarEstudioSolicitado() {
     estudioSolicitado.receta = receta;
     arrayEstudiosSolicitados.push(estudioSolicitado);
     actualizarTablaEstudiosSolicitados();
+    estudioInput="";
 }
 function ingresarTerapia() {
     let terapiaInput = document.getElementById('consultaterapia-paciente').value;
@@ -219,6 +223,7 @@ function ingresarTerapia() {
     terapiaAplicada.id = new Date().getTime();
     arrayTerapiasAplicadas.push(terapiaAplicada);
     actualizarTablaTerapiasAplicadas();
+    terapiaInput="";
 }
 //FETCH FORMULARIO Y ARRAYS
 //FETCH FORMULARIO Y ARRAYS
@@ -285,6 +290,7 @@ function enviarFormConsulta() {
                 }
             })
             .catch(function (error) {
+                console.log(error);
                 modalError(error, tipo.guardar);
             });
     } else {
