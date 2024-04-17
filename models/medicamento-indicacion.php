@@ -46,7 +46,7 @@ class MedicamentoIndicacion
             $stmt->bindParam(':receta', $this->receta);
             return $stmt->execute();
         } catch (PDOException $e) {
-            echo "Error al insertar medicamento indicacion" . $e->getMessage();
+            return $e->getMessage();
         }
     }
     public function setId($id)
@@ -69,7 +69,7 @@ class MedicamentoIndicacion
                 $stmt->bindParam(":id", $this->id);
                 $stmt->execute();
             } catch (PDOException $e) {
-                echo "ERROR en eliminar medicamento Indicacion : ".$e->getMessage();
+                return $e->getMessage();
             }
         }
     }

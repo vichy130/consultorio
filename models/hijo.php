@@ -41,7 +41,7 @@ class Hijo
             // Ejecuta la consulta
             return $stmt->execute();
         } catch (PDOException $e) {
-            echo "Error en insertar hijo" . $e->getMessage();
+           return $e->getMessage();
         }
     }
     function eliminar()
@@ -51,9 +51,8 @@ class Hijo
             $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':id', $this->id);
             $stmt->execute();
-            echo "HIJO ELIMINADO" . $this->id;
         } catch (PDOException $e) {
-            echo "Error al eliminar Hijo" . $e->getMessage();
+            return  $e->getMessage();
         }
     }
 }

@@ -22,6 +22,7 @@ var anadirCPrevia = document.getElementById('boton-consulta-previa');//BOTON
 var anadirEstudioSolicitado = document.getElementById("boton-estudios-solicitados");
 var anadirTerapia = document.getElementById("boton-terapia");
 var botonImprimirReceta = document.getElementById("boton-imprimir-receta");
+var selectTamano=document.getElementById('select-tamano');
 //VARIABLES
 
 //BOTONES -- EVENT LISTENERS
@@ -322,10 +323,12 @@ function enviarFormConsulta() {
 //FETCH FORMULARIO Y ARRAYS
 //FETCH FORMULARIO Y ARRAYS
 function imprimirReceta() {
+    var tamano=selectTamano.value;
     if (consultaObjeto != null) {
-        window.open("./print/receta.php", "_blank");
+        window.open("./print/receta.php?size="+tamano,"_blank");
     } else {
         //TODO
+        modalError("imprimir", tipo.imprimir);
     }
 }
 
@@ -583,12 +586,16 @@ function modalError(error, tipo) {
         titulo.textContent = '¡Los cambios NO han sido guardados!';
     } else if (tipo == "obtener") {
         titulo.textContent = '¡La información no pudo ser obtenida!';
+    }else if(tipo=="imprimir"){
+        titulo.textContent = 'No se puede imprimir receta';
     }
     if (error == "campos") {
         parrafo.textContent = "Porfavor, revisa todos los campos e intenta de nuevo.";
     } 
     else if (error != "false") {
         parrafo.textContent = "Contacta a tu administrador, Error: " + error;
+    }else if(error=="imprimir"){
+        parrafo.textContent = "No existen datos para generar la receta";
     }else {
         parrafo.textContent = "Porfavor, revisa la información e intenta de nuevo.";
     }

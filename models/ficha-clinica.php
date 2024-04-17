@@ -358,7 +358,7 @@ class Ficha
             }
             return $hijos;
         } catch (PDOException $e) {
-            echo "Error al obtener hijos" . $e->getMessage();
+            return $e->getMessage();
         }
 
     }
@@ -376,7 +376,7 @@ class Ficha
             }
             return $ant;
         } catch (PDOException $e) {
-            echo "Error al obtener antecedentes" . $e->getMessage();
+            return $e->getMessage();
         }
     }
     function obtenerAntecedentesFam()
@@ -393,7 +393,7 @@ class Ficha
             }
             return $antFam;
         } catch (PDOException $e) {
-            echo "Error al obtener Antecedente Familia" . $e->getMessage();
+            return $e->getMessage();
         }
     }
     function actualizar($hijos, $antecedentes, $antecedentesFam)

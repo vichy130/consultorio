@@ -219,7 +219,6 @@ class usuario
             return $this->getValues();
 
         } catch (PDOException $e) {
-            echo $e->getMessage();
             return $e->getMessage();
         }
     }
@@ -235,7 +234,6 @@ class usuario
             $stmt->bindParam(":username", $this->username);
             return $stmt->execute();
         } catch (PDOException $e) {
-            echo $e->getMessage();
             return $e->getMessage();
         }
     }

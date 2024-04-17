@@ -52,7 +52,7 @@ class AntecedentePaciente
             $stmt->execute();
 
         } catch (PDOException $e) {
-            echo "Error al insertar datos: " . $e->getMessage();
+            return $e->getMessage();
         }
     }
     function eliminar()
@@ -61,13 +61,9 @@ class AntecedentePaciente
         try {
             $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
-            if ($stmt->execute()) {
-                echo "Eliminación exitosa.";
-            } else {
-                echo "Error al eliminar el registro.";
-            }
+            $stmt->execute();
         } catch (PDOException $e) {
-            echo "Error al eliminar: " . $e->getMessage();
+            return  $e->getMessage();
         }
     }
 }

@@ -30,17 +30,17 @@ if (isset($_REQUEST["id"])) {
 
 <body>
     <div class="contenedor">
-        <?php require("./layout/menu.php"); ?>
+        <?php require ("./layout/menu.php"); ?>
         <div class="content">
-            <?php require("./layout/content-informacion.php"); ?>
-            <?php require("./layout/submenu-pacientes.php"); ?>
+            <?php require ("./layout/content-informacion.php"); ?>
+            <?php require ("./layout/submenu-pacientes.php"); ?>
             <div class="contenido">
 
-            <div id="modal" class="modal">
-                <div id="modal-contenido" class="modal-contenido">
-                    <span class="cerrar-modal" id="cerrarModal">&times;</span>
+                <div id="modal" class="modal">
+                    <div id="modal-contenido" class="modal-contenido">
+                        <span class="cerrar-modal" id="cerrarModal">&times;</span>
+                    </div>
                 </div>
-            </div>
 
                 <form class="form" id="form-consulta">
                     <label id="consulta-nombre" class="formulario_grupo span-4">
@@ -75,7 +75,8 @@ if (isset($_REQUEST["id"])) {
                     <div class="formulario_grupo" id="grupo_vitalesta">
                         <label class="form_label" for="vitalesta-paciente">TA</label>
                         <div class="form_grupo-input">
-                            <input class="form_input" type="text" id="vitalesta-paciente" name="vitalesta-paciente" placeholder="120/80">
+                            <input class="form_input" type="text" id="vitalesta-paciente" name="vitalesta-paciente"
+                                placeholder="120/80">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
                         <p class="form_input-error">El campo no debe estar vacío. Solo se permiten números</p>
@@ -107,7 +108,8 @@ if (isset($_REQUEST["id"])) {
                     <div class="formulario_grupo" id="grupo_vitalespeso">
                         <label class="form_label" for="vitalespeso-paciente">Peso</label>
                         <div class="form_grupo-input">
-                            <input class="form_input" type="text" id="vitalespeso-paciente" name="vitalespeso-paciente" placeholder="60.5">
+                            <input class="form_input" type="text" id="vitalespeso-paciente" name="vitalespeso-paciente"
+                                placeholder="60.5">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
                         <p class="form_input-error">El campo no debe estar vacío</p>
@@ -238,7 +240,8 @@ if (isset($_REQUEST["id"])) {
                     <div class="formulario_grupo span-2" id="grupo_consultanombremed">
                         <label class="form_label" for="consultanombremed-paciente">Nombre del medicamento</label>
                         <div class="form_grupo-input">
-                            <input class="form_input" list="datalist-consultanombremed-paciente" id="consultanombremed-paciente">
+                            <input class="form_input" list="datalist-consultanombremed-paciente"
+                                id="consultanombremed-paciente">
                             <datalist class="form_input" id="datalist-consultanombremed-paciente">
                             </datalist>
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
@@ -352,20 +355,32 @@ if (isset($_REQUEST["id"])) {
                         </tbody>-->
                     </table>
 
-                    <button class="input_submit boton amarillo span-2" id="boton-imprimir-receta" type="button"><i
+                    <!-- grupo: -->
+                    <div class="formulario_grupo modal-boton" id="grupo_tamano">
+                        <label class="form_label" for="select-tamano">Tamaño de hoja</label>
+                        <div class="form_grupo-input">
+                            <select class="form_input" name="select-tamano" id="select-tamano">
+                                <option value="media">Media carta</option>
+                                <option value="carta">Carta</option>
+                            </select>
+                        </div>
+                    </div><!-- end form-grupo -->
+
+                    <button class="input_submit boton amarillo modal-boton" id="boton-imprimir-receta" type="button"><i
                             class="fa fa-print" aria-hidden="true"></i>
                         Imprimir Receta</button>
-                    <input class="input_submit boton azul span-2" type="submit" value="Guardar">
+                    <input class="input_submit boton azul modal-boton" type="submit" value="Guardar">
 
                 </form>
                 <!-- end FORM -->
             </div>
             <!-- end contenido -->
         </div>
-        <?php require("./layout/footer.php"); ?>
+        <?php require ("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
 </body>
 <script src="./js/validacion-consulta.js"></script>
 <script src="./js/form-consulta.js"></script>
+
 </html>

@@ -1,6 +1,6 @@
 
 var paciente;
-const sexo = { femenino: "femenino", masculino: "masculino", otro: "otro" };
+const sexo = { femenino: "femenino", masculino: "masculino", otro: "otro", imprimir:"imprimir" };
 // const tipo={obtener: "obtener", guardar:"guardar", eliminar:"eliminar"};
 var botonImprimirPaciente = document.getElementById('boton-imprimir-paciente');
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS

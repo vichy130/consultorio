@@ -42,7 +42,7 @@ const expresiones = {
     consultapreviadiagnostico: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s]{0,2000}$/,
     consultapreviaestudio: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s]{0,2000}$/,
     consultapreviatratamientos: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s]{0,2000}$/,
-    consultaindicaciones: /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s]{1,45}$/,
+    consultaindicaciones: /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s]{1,5000}$/,
     consultanombremed: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s]{0,100}$/,
     indicacionesmed: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s]{0,500}$/,
     estudiossolicitados: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s]{0,100}$/,

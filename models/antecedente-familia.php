@@ -45,7 +45,7 @@ class AntecedenteFamilia
             $stmt->bindParam(':ficha', $this->ficha);
             $stmt->execute();
         } catch (PDOException $e) {
-            echo "Error al insertar datos: " . $e->getMessage();
+            return $e->getMessage();
         }
     }
     function eliminar()
@@ -54,13 +54,9 @@ class AntecedenteFamilia
             $query = "DELETE FROM antecedentesFamilia WHERE id = :id; ";
             $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
-            if ($stmt->execute()) {
-                echo "Eliminación exitosa.";
-            } else {
-                echo "Error al eliminar el registro.";
-            }
+            $stmt->execute();
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            return $e->getMessage();
         }
     }
 }

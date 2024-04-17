@@ -1,9 +1,9 @@
 <?php
-include_once("../models/conexion.php");
-include("../models/consulta-previa.php");
-include("../models/terapia-aplicada.php");
-include("../models/estudio-solicitado.php");
-include("../models/medicamento-indicacion.php");
+include_once ("../models/conexion.php");
+include ("../models/consulta-previa.php");
+include ("../models/terapia-aplicada.php");
+include ("../models/estudio-solicitado.php");
+include ("../models/medicamento-indicacion.php");
 class Consulta
 {
     private $id;
@@ -28,7 +28,7 @@ class Consulta
     private $conexion;
     function __construct()
     {
-        $this->conexion= new Conexion();
+        $this->conexion = new Conexion();
     }
     public function getId()
     {
@@ -46,7 +46,8 @@ class Consulta
     {
         return $this->paciente;
     }
-    public function getUsuario(){
+    public function getUsuario()
+    {
         return $this->usuario;
     }
     public function setValues(
@@ -63,7 +64,8 @@ class Consulta
         $exploracion,
         $indicaciones,
         $receta,
-        $consultorio ) {
+        $consultorio
+    ) {
         $this->fecha = $fecha;
         $this->usuario = $usuario;
         $this->paciente = $paciente;
@@ -111,18 +113,19 @@ class Consulta
     {
         return $this->receta;
     }
-    public function getReceta(){
-        $query="SELECT receta FROM consulta where id=:id; ";
-        try{
-            $stmt=$this->conexion->getdbh()->prepare($query);
+    public function getReceta()
+    {
+        $query = "SELECT receta FROM consulta where id=:id; ";
+        try {
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(":id", $this->id);
             $stmt->execute();
-            $receta=$stmt->fetchColumn();
-            $this->receta=$receta;
+            $receta = $stmt->fetchColumn();
+            $this->receta = $receta;
             return $this->receta;
-        }catch(PDOException $e){
-            echo "ERROR al obtener Receta ".$e->getMessage();
-        } 
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
     }
     public function setMedicamentosIndicacion($medicamentosIndicacion)
     {
@@ -188,7 +191,7 @@ class Consulta
         }
         return $terapiasAplicadas;
     }
-    public function insertar($consultasP, $estudiosSolicitados, $medicamentoIndicaciones,$terapiasAplicadas)
+    public function insertar($consultasP, $estudiosSolicitados, $medicamentoIndicaciones, $terapiasAplicadas)
     {
         $query = "INSERT INTO consulta (fecha, usuario, paciente,ta,oxigeno,pulso,peso,estatura,temperatura, motivoConsulta, exploracion, indicaciones, receta, consultorio) 
     VALUES (:fecha,:usuario,:paciente,:ta,:oxigeno,:pulso,:peso,:estatura,:temperatura,:motivoConsulta,:exploracion,:indicaciones,:receta,:consultorio); ";
@@ -312,7 +315,7 @@ class Consulta
             return $e->getMessage();
         }
     }
-    public function actualizar($consultasP, $estudiosSolicitados, $medicamentoIndicaciones,$terapiasAplicadas)
+    public function actualizar($consultasP, $estudiosSolicitados, $medicamentoIndicaciones, $terapiasAplicadas)
     {
         $query = "UPDATE consulta SET 
         fecha=:fecha,
@@ -341,11 +344,14 @@ class Consulta
             $stmt->bindParam(':temperatura', $this->temperatura);
             $stmt->bindParam(':motivoConsulta', $this->motivoConsulta);
             $stmt->bindParam(':exploracion', $this->exploracion);
-            $stmt->bindParam(':indicaciones', $this->exploracion);
+            $stmt->bindParam(':indicaciones', $this->indicaciones);
             $stmt->bindParam(':consultorio', $this->consultorio);
             $stmt->execute();
             $this->actualizarConsultaPrevia($consultasP);
-            $this->actualizarEstudiosSolicitados($estudiosSolicitados);
+            $respuestaEstudiosSolicitados=$this->actualizarEstudiosSolicitados($estudiosSolicitados);
+            if($respuestaEstudiosSolicitados!=true){
+                return $respuestaEstudiosSolicitados;
+            }
             $this->actualizarMedicamentoIndicacion($medicamentoIndicaciones);
             $this->actualizarTerapiasAplicadas($terapiasAplicadas);
             return $this->getValues();
@@ -367,20 +373,20 @@ class Consulta
         foreach ($arrayRecibido as $new) {
             $arrayNewId[] = $new->_id;
         }
-        $arrayEliminarId=array_diff($arrayOldId, $arrayNewId);
-        $arrayGuardarId=array_diff($arrayNewId, $arrayOldId);
+        $arrayEliminarId = array_diff($arrayOldId, $arrayNewId);
+        $arrayGuardarId = array_diff($arrayNewId, $arrayOldId);
 
-        foreach($arrayEliminarId as $id){
-           foreach($this->consultasPrevias as $consultaPrevia){
-            if($consultaPrevia->getId()==$id){
-                $consultaPrevia->eliminar();
+        foreach ($arrayEliminarId as $id) {
+            foreach ($this->consultasPrevias as $consultaPrevia) {
+                if ($consultaPrevia->getId() == $id) {
+                    $consultaPrevia->eliminar();
+                }
             }
-           }
         }
-        foreach ($arrayGuardarId as $id){
-            foreach($arrayRecibido as $consultaPrevia){
-                if($consultaPrevia->_id== $id){
-                    $arrayGuardar[]=$consultaPrevia;
+        foreach ($arrayGuardarId as $id) {
+            foreach ($arrayRecibido as $consultaPrevia) {
+                if ($consultaPrevia->_id == $id) {
+                    $arrayGuardar[] = $consultaPrevia;
                 }
             }
         }
@@ -390,37 +396,42 @@ class Consulta
     }
     public function actualizarEstudiosSolicitados($arrayRecibido)
     {
-        $arrayNewId = array();
-        $arrayOldId = array();
-        $arrayGuardarId = array();
-        $arrayEliminarId = array();
-        $arrayGuardar = array();
-        $this->obtenerEstudiosSolicitados();
-        foreach ($this->estudiosSolicitados as $old) {
-            $arrayOldId[] = $old->getId();
-        }
-        foreach ($arrayRecibido as $new) {
-            $arrayNewId[] = $new->_id;
-        }
-        $arrayEliminarId=array_diff($arrayOldId, $arrayNewId);
-        $arrayGuardarId=array_diff($arrayNewId, $arrayOldId);
-
-        foreach($arrayEliminarId as $id){
-           foreach($this->estudiosSolicitados as $estudio){
-            if($estudio->getId()==$id){
-                $estudio->eliminar();
+        try {
+            $arrayNewId = array();
+            $arrayOldId = array();
+            $arrayGuardarId = array();
+            $arrayEliminarId = array();
+            $arrayGuardar = array();
+            $this->obtenerEstudiosSolicitados();
+            foreach ($this->estudiosSolicitados as $old) {
+                $arrayOldId[] = $old->getId();
             }
-           }
-        }
-        foreach ($arrayGuardarId as $id){
-            foreach($arrayRecibido as $estudio){
-                if($estudio->_id== $id){
-                    $arrayGuardar[]=$estudio;
+            foreach ($arrayRecibido as $new) {
+                $arrayNewId[] = $new->_id;
+            }
+            $arrayEliminarId = array_diff($arrayOldId, $arrayNewId);
+            $arrayGuardarId = array_diff($arrayNewId, $arrayOldId);
+
+            foreach ($arrayEliminarId as $id) {
+                foreach ($this->estudiosSolicitados as $estudio) {
+                    if ($estudio->getId() == $id) {
+                        $estudio->eliminar();
+                    }
                 }
             }
-        }
-        if (!empty($arrayGuardar)) {
-            $this->setEstudiosSolicitados($arrayGuardar);
+            foreach ($arrayGuardarId as $id) {
+                foreach ($arrayRecibido as $estudio) {
+                    if ($estudio->_id == $id) {
+                        $arrayGuardar[] = $estudio;
+                    }
+                }
+            }
+            if (!empty($arrayGuardar)) {
+                $this->setEstudiosSolicitados($arrayGuardar);
+            }
+            return true;
+        } catch (PDOException $e) {
+            return $e->getMessage();
         }
     }
     public function actualizarMedicamentoIndicacion($arrayRecibido)
@@ -437,20 +448,20 @@ class Consulta
         foreach ($arrayRecibido as $new) {
             $arrayNewId[] = $new->_id;
         }
-        $arrayEliminarId=array_diff($arrayOldId, $arrayNewId);
-        $arrayGuardarId=array_diff($arrayNewId, $arrayOldId);
+        $arrayEliminarId = array_diff($arrayOldId, $arrayNewId);
+        $arrayGuardarId = array_diff($arrayNewId, $arrayOldId);
 
-        foreach($arrayEliminarId as $id){
-           foreach($this->medicamentosIndicacion as $mi){
-            if($mi->getId()==$id){
-                $mi->eliminar();
+        foreach ($arrayEliminarId as $id) {
+            foreach ($this->medicamentosIndicacion as $mi) {
+                if ($mi->getId() == $id) {
+                    $mi->eliminar();
+                }
             }
-           }
         }
-        foreach ($arrayGuardarId as $id){
-            foreach($arrayRecibido as $mi){
-                if($mi->_id== $id){
-                    $arrayGuardar[]=$mi;
+        foreach ($arrayGuardarId as $id) {
+            foreach ($arrayRecibido as $mi) {
+                if ($mi->_id == $id) {
+                    $arrayGuardar[] = $mi;
                 }
             }
         }
@@ -472,20 +483,20 @@ class Consulta
         foreach ($arrayRecibido as $new) {
             $arrayNewId[] = $new->_id;
         }
-        $arrayEliminarId=array_diff($arrayOldId, $arrayNewId);
-        $arrayGuardarId=array_diff($arrayNewId, $arrayOldId);
+        $arrayEliminarId = array_diff($arrayOldId, $arrayNewId);
+        $arrayGuardarId = array_diff($arrayNewId, $arrayOldId);
 
-        foreach($arrayEliminarId as $id){
-           foreach($this->terapiasAplicadas as $ta){
-            if($ta->getId()==$id){
-                $ta->eliminar();
+        foreach ($arrayEliminarId as $id) {
+            foreach ($this->terapiasAplicadas as $ta) {
+                if ($ta->getId() == $id) {
+                    $ta->eliminar();
+                }
             }
-           }
         }
-        foreach ($arrayGuardarId as $id){
-            foreach($arrayRecibido as $ta){
-                if($ta->_id== $id){
-                    $arrayGuardar[]=$ta;
+        foreach ($arrayGuardarId as $id) {
+            foreach ($arrayRecibido as $ta) {
+                if ($ta->_id == $id) {
+                    $arrayGuardar[] = $ta;
                 }
             }
         }

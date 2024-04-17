@@ -34,7 +34,7 @@ if (!isset($_SESSION['username'])) {
                     <span class="cerrar-modal" id="cerrarModal">&times;</span>
                 </div>
             </div>
-
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia necessitatibus voluptate inventore placeat minus? Est, iste, beatae porro quod sunt aliquam suscipit nesciunt sit obcaecati alias ratione illo soluta aspernatur!
             <label for="">Mi perfil</label>
         </div>
         <?php require ("./layout/footer.php"); ?>

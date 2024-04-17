@@ -29,8 +29,7 @@ class TerapiaAplicada
             $stmt->execute();
             return true;
         }catch(PDOException $e){
-            echo "Error Terapia ".$e->getMessage();
-            return false;
+            return $e->getMessage();
         }
     }
     function eliminar(){
@@ -39,9 +38,8 @@ class TerapiaAplicada
             $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':id', $this->id);
             $stmt->execute();
-            echo "terapia elimiada" . $this->id;
         } catch (PDOException $e) {
-            echo "Error al eliminar terapia" . $e->getMessage();
+            return $e->getMessage();
         }
     }
     public function getValues(){

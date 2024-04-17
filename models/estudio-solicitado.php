@@ -31,8 +31,7 @@ class EstudioSolicitado
             $stmt->bindParam(':receta', $this->receta);
             return $stmt->execute();
         } catch (PDOException $e) {
-            echo "error al insertar un estudio solicitado" . $e->getMessage();
-            return false;
+            return $e->getMessage();
         }
     }
     function eliminar()
@@ -42,9 +41,9 @@ class EstudioSolicitado
             $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':id', $this->id);
             $stmt->execute();
-            echo "estudio eliminado" . $this->id;
+            return true;
         } catch (PDOException $e) {
-            echo "Error al eliminar Estudio" . $e->getMessage();
+            return $e->getMessage();
         }
     }
     public function setId($id)
