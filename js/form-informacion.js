@@ -3,6 +3,7 @@ var paciente;
 const sexo = { femenino: "femenino", masculino: "masculino", otro: "otro", imprimir:"imprimir" };
 // const tipo={obtener: "obtener", guardar:"guardar", eliminar:"eliminar"};
 var botonImprimirPaciente = document.getElementById('boton-imprimir-paciente');
+var botonCancelar=document.getElementById("boton-cancelar-paciente");
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     obtenerPaciente();
 };
@@ -185,6 +186,13 @@ modal.addEventListener('click', function (e) {
         modal.style.display = "none";
     }
 })
+botonCancelar.addEventListener('click', function(e){
+    e.preventDefault();
+    redirectPacientes();
+})
+function redirectPacientes() {
+    window.location.href = "./pacientes.php";
+}
 //FUNCION BORRAR DIV
 function clearDiv(div) {
     div.replaceChildren();

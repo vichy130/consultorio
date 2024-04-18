@@ -46,7 +46,17 @@ if (isset($_REQUEST["id"])) {
                     <label id="consulta-nombre" class="formulario_grupo span-4">
                         <h2></h2>
                     </label>
-                    <label id="consulta-titulo" class="formulario_grupo span-4">Consulta</label>
+
+                    <div class="span-4 titulo-iconos">
+                        <label id="consulta-titulo" class="formulario_grupo span-4">Consulta</label>
+                        <div class="margin-left" id="imprimir">
+                            <select class="form_input size-icon" name="select-tamano" id="select-tamano">
+                                <option value="media">media-carta</option>
+                                <option value="carta">Carta</option>
+                            </select>
+                            <i class="fa-solid fa-file-pdf size-icon" id="boton-imprimir-receta"></i>
+                        </div>
+                    </div>
 
                     <!-- grupo: -->
                     <div class="formulario_grupo">
@@ -356,20 +366,11 @@ if (isset($_REQUEST["id"])) {
                     </table>
 
                     <!-- grupo: -->
-                    <div class="formulario_grupo modal-boton" id="grupo_tamano">
-                        <label class="form_label" for="select-tamano">Tamaño de hoja</label>
-                        <div class="form_grupo-input">
-                            <select class="form_input" name="select-tamano" id="select-tamano">
-                                <option value="media">Media carta</option>
-                                <option value="carta">Carta</option>
-                            </select>
-                        </div>
-                    </div><!-- end form-grupo -->
+                    <button class="input_submit boton amarillo modal-boton span-2" id="boton-cancelar-consulta"
+                        type="button"><i class="fa-solid fa-left-long"></i> Regresar</button>
 
-                    <button class="input_submit boton amarillo modal-boton" id="boton-imprimir-receta" type="button"><i
-                            class="fa fa-print" aria-hidden="true"></i>
-                        Imprimir Receta</button>
-                    <input class="input_submit boton azul modal-boton" type="submit" value="Guardar">
+                    <button class="input_submit boton azul modal-boton span-2" id="boton-guardar"
+                        type="submit">Guardar</button>
 
                 </form>
                 <!-- end FORM -->

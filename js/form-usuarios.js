@@ -1,7 +1,7 @@
 var tUsuarios = document.getElementById('tabla-usuarios');
 var notabla = document.getElementById('no-tabla');
 var arrayUsuarios = [];
-const tipo = { obtener: "obtener", guardar: "guardar", eliminar: "eliminar" };
+const tipo = { obtener: "obtener", guardar: "guardar", eliminar: "eliminar" , imprimir:"imprimir"};
 var botonNuevoUsuario = document.getElementById('boton-nuevo-usuario');
 
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS

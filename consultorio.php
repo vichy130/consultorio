@@ -11,8 +11,8 @@ function redirect($url)
 if (!isset($_SESSION['username'])) {
     redirect("./iniciar-sesion.php");
     exit();
-}else{
-    if($_SESSION['tipoUsuario']!="A"){
+} else {
+    if ($_SESSION['tipoUsuario'] != "A") {
         redirect("./index.php");
         exit();
     }
@@ -45,11 +45,16 @@ if (isset($_REQUEST['id'])) {
         </div>
 
         <form class="content-general" id="form-consultorio">
-            <label class="formulario_grupo span-4">Consultorio</label>
+
+            <div class="span-4 titulo-iconos">
+                <label class="formulario_grupo span-4">Consultorio</label>
+                <i class="fa-solid fa-file-pdf size-icon margin-left" id="boton-imprimir-consultorio"></i>
+            </div>
 
             <!-- Grupo: -->
             <div class="formulario_grupo span-2" id="grupo_nombre">
                 <label class="form_label" for="nombre-consultorio">Nombre de consultorio</label>
+
                 <div class="form_grupo-input">
                     <input class="form_input" type="text" id="nombre-consultorio" name="nombre-consultorio">
                     <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
@@ -113,16 +118,19 @@ if (isset($_REQUEST['id'])) {
                 </div>
                 <p class="form_input-error">El campo no puede estar vacío. Solo permite letras y números, máximo 45
                     caracteres.
-                <Nav></Nav>
                 </p>
             </div><!-- end form-grupo -->
 
-            <button class="input_submit boton amarillo span-2">Imprimir</button>
-
-            <div>
-                <input class="input_submit boton azul span-2" type="submit" value="Guardar" id="boton-guardar">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div class="span-2 modal-boton">
+                <button class="input_submit boton amarillo" id="boton-cancelar-consultorio"><i
+                        class="fa-solid fa-left-long"></i> Regresar</button>
             </div>
-
+            <div class="span-2 modal-boton">
+                <input class="input_submit boton azul" type="submit" value="Guardar" id="boton-guardar">
+            </div>
         </form>
         <!-- end FORM -->
 

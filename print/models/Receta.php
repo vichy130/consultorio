@@ -166,9 +166,9 @@ class Receta extends FPDF
         $this->Cell(25, 5, 'Fecha: ', 0, 0, '');
         $this->SetFont('Arial', '', 11);
         $this->Cell(100, 5, $this->consulta['fecha'], 0, 1, '');
-        if($this->tamano=="carta"){
+        if ($this->tamano == "carta") {
             $this->Ln(10);
-        }else{
+        } else {
             $this->Ln(4);
         }
         //MEDICAMENTOS
@@ -181,25 +181,32 @@ class Receta extends FPDF
                 if ($medIndicacion['medicamento'] == $medicamento['id']) {
                     // MULTICELL (ancho, tamaño linea, texto, borde,alineacion c o i, fondo)
                     $y = $this->GetY();
-                    if ($y > 210) {
-                        $this->AddPage('P', 'Letter');
-                        $y = $this->GetY();
+                    if ($this->tamano == "carta") {
+                        if ($y > 210) {
+                            $this->AddPage('P', 'Letter');
+                            $y = $this->GetY();
+                        }
+                    } else {
+                        if ($y > 90) {
+                            $this->AddPage('L', array(139.7, 215.9));
+                            $y = $this->GetY();
+                        }
                     }
                     $this->MultiCell(89, 5, $this->convertir($medicamento['medicamento']) . " " . $this->convertir($medicamento['descripcion']), 0, 'L');
                     $this->SetXY(109, $y);
                     $this->MultiCell(90, 5, $this->convertir($medIndicacion['indicaciones']), 0, 'R');
-                    if($this->tamano=="carta"){
+                    if ($this->tamano == "carta") {
                         $this->Ln(7);
-                    }else{
+                    } else {
                         $this->Ln(2);
                     }
                 }
             }
         }
-        if($this->tamano=="carta"){
+        if ($this->tamano == "carta") {
             $this->Ln(10);
-        }else{
-            $this->Ln(4);
+        } else {
+            $this->Ln(2);
         }
         //ESTUDIOS
         if (count($this->estudiosSolicitados) > 0) {
@@ -210,21 +217,36 @@ class Receta extends FPDF
         foreach ($this->estudiosSolicitados as $estudio) {
             // MULTICELL (ancho, tamaño linea, texto, borde,alineacion c o i, fondo)
             $y = $this->GetY();
-            if ($y > 210) {
-                // $this->AddPage('P', 'Letter');
-                $this->AddPage();
-                $y = $this->GetY();
+            if ($this->tamano == "carta") {
+                if ($y > 210) {
+                    $this->AddPage('P', 'Letter');
+                    $y = $this->GetY();
+                    $this->Ln(7);
+                }
+            } else {
+                if ($y > 90) {
+                    $this->AddPage('L', array(139.7, 215.9));
+                    $y = $this->GetY();
+                    $this->Ln(2);
+                }
             }
             $this->MultiCell(189, 5, $this->convertir($estudio['estudio']));
-            $this->Ln(1);
-        }
-        if($this->tamano=="carta"){
-            $this->Ln(7);
-        }else{
-            $this->Ln(2);
+            $this->Ln(3);
         }
         //INDICACIONES GENERALES
         if ($this->consulta['indicaciones'] != null) {
+            $y = $this->GetY();
+            if ($this->tamano == "carta") {
+                if ($y > 210) {
+                    $this->AddPage('P', 'Letter');
+                    $y = $this->GetY();
+                }
+            } else {
+                if ($y > 80) {
+                    $this->AddPage('L', array(139.7, 215.9));
+                    $y = $this->GetY();
+                }
+            }
             $this->SetFont('Arial', 'B', 11);
             $this->Cell(100, 5, 'Indicaciones generales: ', 0, 1, '');
             $this->SetFont('Arial', '', 11);

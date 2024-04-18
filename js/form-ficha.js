@@ -18,6 +18,9 @@ var botonAnadirHijo = document.getElementById('agregarHijo');
 var botonAnadirAntecedente = document.getElementById('agregarAntecedente');
 var botonAnadirAFamiliares = document.getElementById('agregarAntecedenteFam');
 
+var botonCancelar=document.getElementById('boton-cancelar-ficha');
+var botonImprimirFicha=document.getElementById('boton-imprimir-ficha');
+
 document.addEventListener('DOMContentLoaded', function () {// SE EJECUTA AUNQUE LOS RECURSOS NO HAN SIDO CARGADOS POR COMPLETO
     var fechaHoy = new Date();
     var dia = fechaHoy.getDate();
@@ -162,6 +165,7 @@ botonAnadirAFamiliares.addEventListener("click", function (e) {
     e.preventDefault();
     insertarAFamiliar();
 });
+botonImprimirFicha.addEventListener('click', imprimirFicha);
 function enviarFormFicha() {
     var datosFicha = new FormData(formFicha);
     jsonHijos = JSON.stringify(arrayHijos);
@@ -549,6 +553,22 @@ modal.addEventListener('click', function (e) {
         modal.style.display = "none";
     }
 })
+botonImprimirFicha.addEventListener('click', imprimirFicha);
+function imprimirFicha(){
+    if (ficha != null) {
+        window.open("./print/ficha.php", "_blank");
+    } else {
+        modalError("imprimir", tipo.imprimir);
+    }
+}
+botonCancelar.addEventListener('click', function(e){
+    e.preventDefault();
+    redirectPacientes();
+})
+function redirectPacientes() {
+    window.location.href = "./pacientes.php";
+}
+
 //FUNCION BORRAR DIV
 function clearDiv(div) {
     div.replaceChildren();

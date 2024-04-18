@@ -3,7 +3,7 @@ var arrayMedicamentos = [];
 var botonNuevoMedicamento = document.getElementById("boton-nuevo-medicamento");
 var tablaMedicamentos = document.getElementById("tabla-medicamentos");
 var notabla = document.getElementById('no-tabla');
-const tipo={obtener: "obtener", guardar:"guardar", eliminar:"eliminar"};
+const tipo={obtener: "obtener", guardar:"guardar", eliminar:"eliminar",imprimir:"imprimir"};
 //VARIABLES
 
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS

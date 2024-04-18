@@ -30,7 +30,7 @@ if (isset($_SESSION["id_paciente"])) {
     <link rel="stylesheet" href="./css/estilos-pacientes-ficha.css">
     <link rel="stylesheet" href="./css/estilos-pacientes-informacion.css">
     <link rel="stylesheet" href="./css/mediaqueries.css">
-    <title>Ficha clinica</title>
+    <title>Ficha clínica</title>
 </head>
 
 <body>
@@ -53,6 +53,11 @@ if (isset($_SESSION["id_paciente"])) {
                 </div>
 
                 <form class="form" id="form-ficha">
+
+                    <div class="span-4 titulo-iconos">
+                        <label class="formulario_grupo">Ficha Clínica</label>
+                        <i class="fa-solid fa-file-pdf size-icon margin-left" id="boton-imprimir-ficha"></i>
+                    </div>
 
                     <!-- Grupo: Fecha -->
                     <div class="formulario_grupo" id="grupo_fecha">
@@ -666,12 +671,10 @@ if (isset($_SESSION["id_paciente"])) {
                         <p class="form_input-error">El campo no debe estar vacío</p>
                     </div>end form-grupo -->
 
-                    <button class="input_submit boton amarillo span-2">Imprimir</button>
-                    <input class="input_submit boton azul span-2" type="submit" value="<?php if (isset($_SESSION["id_paciente"])) {
-                        echo "Actualizar Ficha";
-                    } else {
-                        echo "Guardar";
-                    } ?>">
+                    <button class="input_submit boton amarillo span-2" id="boton-cancelar-ficha"><i class="fa-solid fa-left-long"></i> Regresar</button>
+
+                    <button class="input_submit boton azul span-2" type="submit">Guardar</button>
+
                     <div class="formulario_grupo span-4">
                         <label class="form_label" id="usuario-actualizacion"></label>
                     </div><!-- end form-grupo -->

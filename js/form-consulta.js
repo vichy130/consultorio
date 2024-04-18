@@ -2,6 +2,7 @@
 var fecha = document.getElementById("consultafecha-paciente");
 var ocultoFecha = document.getElementById("oculto-fecha-consulta");
 var consultaObjeto;
+var usuario;
 var arrayConsultorios = [];
 var arrayCPrevias = [];
 var arrayMedicamentos = [];
@@ -10,6 +11,7 @@ var arrayEstudiosSolicitados = [];
 var arrayTerapiasAplicadas = [];
 var receta = new Date().getTime();
 var medicamentoDatalist = document.getElementById("datalist-consultanombremed-paciente");
+var labelTamano = document.getElementById('label-tamano');
 var tablaCPrevias = document.getElementById("tabla-consultas-previas");//
 var tablaMedicamentoIndicacion = document.getElementById("tabla-medicamento-indicacion");
 var tablaTerapiasAplicadas = document.getElementById("tabla-terapias-aplicadas");
@@ -22,7 +24,11 @@ var anadirCPrevia = document.getElementById('boton-consulta-previa');//BOTON
 var anadirEstudioSolicitado = document.getElementById("boton-estudios-solicitados");
 var anadirTerapia = document.getElementById("boton-terapia");
 var botonImprimirReceta = document.getElementById("boton-imprimir-receta");
-var selectTamano=document.getElementById('select-tamano');
+var selectTamano = document.getElementById('select-tamano');
+var grupoTamano=document.getElementById('grupo_tamano');
+var botonGuardar=document.getElementById('boton-guardar');
+var divImprimirConsulta=document.getElementById('imprimir');
+botonCancelar=document.getElementById('boton-cancelar-consulta');
 //VARIABLES
 
 //BOTONES -- EVENT LISTENERS
@@ -111,12 +117,15 @@ function obtenerConsulta() {
                     })
                     actualizarTablaEstudiosSolicitados();
                     validarConsulta();
+                    obtenerUsuario();
                 } else {
-                    modalError(error, tipo.obtener);
+                    console.log(data);
+                    modalError(data, tipo.obtener);
                 }
             }
         })// FIN FETCH
         .catch(error => {
+            console.log(error);
             modalError(error, tipo.obtener);
         });
 }
@@ -134,7 +143,7 @@ function obtenerConsultorios() {
         })// FIN FETCH
         .catch(error => {
             console.error('Error:', error);
-            modalError(error,tipo.obtener)
+            modalError(error, tipo.obtener)
         });
 }
 //FUNCIONES: OBTENER MEDICAMENTOS
@@ -151,6 +160,35 @@ function obtenerMedicamentos() { //pendiente
         })// FIN FETCH
         .catch(error => {
             console.error('Error:', error);
+        });
+}
+function obtenerUsuario() { 
+    fetch('./controller/obtener-usuario-receta.php?id=' + consultaObjeto.usuario)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (data != null && 'nombre' in data) {
+                usuario = new Usuario();
+                usuario.username = data.username;
+                usuario.nombre = data.nombre;
+                usuario.apellidoPaterno = data.apellidoPaterno;
+                usuario.apellidoMaterno = data.apellidoMaterno;
+                usuario.telefono = data.telefono;
+                usuario.correo = data.correo;
+                usuario.tipoUsuario = data.tipoUsuario;
+                usuario.especialidad = data.especialidad;
+                usuario.universidad = data.universidad;
+                usuario.cedula = data.cedula;
+                if(usuario.tipoUsuario!='M'){
+                    divImprimirConsulta.style.display="none";
+                }else {
+                    divImprimirConsulta.style.display="block";
+                }
+            }
+        })// FIN FETCH
+        .catch(error => {
+            console.log(error);
+            modalError(error, tipo.obtener);
         });
 }
 // FUNCIONES : OBTENER CONSULTORIOS
@@ -205,8 +243,8 @@ function ingresarMedicamentoIndicacion() {
     //         resolve();
     //     }, 2000);
     // });
-    inputMedicamento="";
-    inputIndicacionesMedicamento.value="";
+    inputMedicamento = "";
+    inputIndicacionesMedicamento.value = "";
 }
 //FUNCIONES INSERTAR ARRAY INGRESAR MEDICAMENTO
 function ingresarEstudioSolicitado() {
@@ -216,7 +254,7 @@ function ingresarEstudioSolicitado() {
     estudioSolicitado.receta = receta;
     arrayEstudiosSolicitados.push(estudioSolicitado);
     actualizarTablaEstudiosSolicitados();
-    estudioInput="";
+    estudioInput = "";
 }
 function ingresarTerapia() {
     let terapiaInput = document.getElementById('consultaterapia-paciente').value;
@@ -224,7 +262,7 @@ function ingresarTerapia() {
     terapiaAplicada.id = new Date().getTime();
     arrayTerapiasAplicadas.push(terapiaAplicada);
     actualizarTablaTerapiasAplicadas();
-    terapiaInput="";
+    terapiaInput = "";
 }
 //FETCH FORMULARIO Y ARRAYS
 //FETCH FORMULARIO Y ARRAYS
@@ -284,6 +322,7 @@ function enviarFormConsulta() {
                         consultaObjeto = new Consulta(data.fecha, data.usuario, data.paciente, data.ta, data.oxigeno, data.pulso, data.peso, data.estatura, data.temperatura, data.motivoConsulta, data.exploracion, data.indicaciones, data.receta, data.consultorio);
                         receta = data.receta;
                         consultaObjeto.id = data.id;
+                        obtenerUsuario();
                         modalExito();
                     } else {
                         modalError(data, tipo.guardar)
@@ -309,6 +348,7 @@ function enviarFormConsulta() {
                         consultaObjeto = new Consulta(data.fecha, data.usuario, data.paciente, data.ta, data.oxigeno, data.pulso, data.peso, data.estatura, data.temperatura, data.motivoConsulta, data.exploracion, data.indicaciones, data.receta, data.consultorio);
                         receta = data.receta;
                         consultaObjeto.id = data.id;
+                        obtenerUsuario();
                         modalExito();
                     } else {
                         modalError(data, tipo.guardar);
@@ -323,9 +363,14 @@ function enviarFormConsulta() {
 //FETCH FORMULARIO Y ARRAYS
 //FETCH FORMULARIO Y ARRAYS
 function imprimirReceta() {
-    var tamano=selectTamano.value;
+    var tamano = selectTamano.value;
     if (consultaObjeto != null) {
-        window.open("./print/receta.php?size="+tamano,"_blank");
+        if(usuario.tipoUsuario=='M'){
+            window.open("./print/receta.php?size=" + tamano, "_blank");
+        }
+        else{
+            modalError("medico", tipo.imprimir);
+        }
     } else {
         //TODO
         modalError("imprimir", tipo.imprimir);
@@ -333,9 +378,6 @@ function imprimirReceta() {
 }
 
 // TABLAS: CONSULTAS PREVIAS
-function clearDiv(div) {
-    div.replaceChildren();
-}
 function actualizarTablaCPrevias() {
     clearDiv(tablaCPrevias);
     if (arrayCPrevias.length > 0) {
@@ -586,17 +628,20 @@ function modalError(error, tipo) {
         titulo.textContent = '¡Los cambios NO han sido guardados!';
     } else if (tipo == "obtener") {
         titulo.textContent = '¡La información no pudo ser obtenida!';
-    }else if(tipo=="imprimir"){
+    } else if (tipo == "imprimir") {
         titulo.textContent = 'No se puede imprimir receta';
     }
     if (error == "campos") {
         parrafo.textContent = "Porfavor, revisa todos los campos e intenta de nuevo.";
-    } 
+    } else if (error == "imprimir") {
+        parrafo.textContent = "No existen datos para generar la receta";
+    }
+    else if (error == "medico") {
+        parrafo.textContent = "La receta no ha sido actualizada por un Médico";
+    }
     else if (error != "false") {
         parrafo.textContent = "Contacta a tu administrador, Error: " + error;
-    }else if(error=="imprimir"){
-        parrafo.textContent = "No existen datos para generar la receta";
-    }else {
+    } else {
         parrafo.textContent = "Porfavor, revisa la información e intenta de nuevo.";
     }
     divMensaje.appendChild(titulo);
@@ -612,6 +657,14 @@ modal.addEventListener('click', function (e) {
         modal.style.display = "none";
     }
 })
+botonCancelar.addEventListener('click', function(e){
+    e.preventDefault();
+    redirectConsultas();
+})
+function redirectConsultas() {
+    window.location.href = "./pacientes-consultas.php";
+}
+
 //FUNCION BORRAR DIV
 function clearDiv(div) {
     div.replaceChildren();
@@ -910,5 +963,67 @@ class TerapiaAplicada {
     }
     set consulta(consulta) {
         this._consulta = consulta;
+    }
+}
+class Usuario {
+    set username(username) {
+        this._username = username;
+    }
+    get username() {
+        return this._username;
+    }
+    set nombre(nombre) {
+        this._nombre = nombre;
+    }
+    get nombre() {
+        return this._nombre;
+    }
+    set apellidoPaterno(apellidoPaterno) {
+        this._apellidoPaterno = apellidoPaterno;
+    }
+    get apellidoPaterno() {
+        return this._apellidoPaterno;
+    }
+    set apellidoMaterno(apellidoMaterno) {
+        this._apellidoMaterno = apellidoMaterno;
+    }
+    get apellidoMaterno() {
+        return this._apellidoMaterno;
+    }
+    set telefono(telefono) {
+        this._telefono = telefono;
+    }
+    get telefono() {
+        return this._telefono;
+    }
+    set correo(correo) {
+        this._correo = correo;
+    }
+    get correo() {
+        return this._correo;
+    }
+    set tipoUsuario(tipoUsuario) {
+        this._tipoUsuario = tipoUsuario;
+    }
+    get tipoUsuario() {
+        return this._tipoUsuario;
+    }
+    set especialidad(especialidad) {
+        this._especialidad = especialidad;
+    }
+    get especialidad() {
+        return this._especialidad;
+    }
+    set universidad(universidad) {
+        this._universidad = universidad;
+    }
+    get universidad() {
+        return this._universidad;
+    }
+    set cedula(cedula) {
+        this._cedula = cedula;
+    }
+    get cedula() {
+        return this._cedula;
     }
 }

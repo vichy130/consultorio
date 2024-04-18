@@ -46,7 +46,10 @@ if (!isset($_SESSION['username'])) {
 
                 <form class="form" id="form-paciente">
 
-                    <label class="formulario_grupo span-4">Informacion basica</label>
+                    <div class="span-4 titulo-iconos">
+                    <label class="formulario_grupo">Informacion basica</label>
+                    <i class="fa-solid fa-file-pdf size-icon margin-left" id="boton-imprimir-paciente"></i>
+                    </div>
 
                     <!-- Grupo: nombre paciente -->
                     <div class="formulario_grupo span-2" id="grupo_nombre">
@@ -244,13 +247,12 @@ if (!isset($_SESSION['username'])) {
                         <p class="form_input-error">El campo no debe estar vacío. Escribe un correo válido</p>
                     </div><!-- end form-grupo -->
 
-                    <div class="formulario_grupo">
-                        <button class="input_submit boton amarillo" type="button" id="boton-imprimir-paciente">Imprimir
-                            Paciente</button>
+                    <div class="formulario_grupo span-2 modal-boton">
+                        <button class="input_submit boton amarillo" type="button" id="boton-cancelar-paciente"><i class="fa-solid fa-left-long"></i> Regresar</button>
                     </div>
 
-                    <div class="formulario_grupo formulario_btn-enviar">
-                        <input class="input_submit boton azul" type="submit" value="Guardar Paciente">
+                    <div class="formulario_grupo formulario_btn-enviar span-2">
+                        <button class="input_submit boton azul" type="submit">Guardar</button>
                     </div>
                 </form>
                 <!-- end form -->

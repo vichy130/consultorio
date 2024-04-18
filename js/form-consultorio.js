@@ -1,7 +1,9 @@
 var consultorio;
 var botonGuardar = document.getElementById('boton-guardar');
 var formConsultorio = document.getElementById('form-consultorio');
-const tipo={obtener: "obtener", guardar:"guardar", eliminar:"eliminar"};
+var botonCancelar=document.getElementById('boton-cancelar-consultorio');
+var botonImprimirConsultorio=document.getElementById('boton-imprimir-consultorio');
+const tipo={obtener: "obtener", guardar:"guardar", eliminar:"eliminar", imprimir:"imprimir"};
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     obtenerConsultorio();
 };
@@ -160,6 +162,21 @@ modal.addEventListener('click', function (e) {
         modal.style.display = "none";
     }
 })
+botonImprimirConsultorio.addEventListener('click', imprimirConsultorio);
+function imprimirConsultorio(){
+    if (consultorio != null) {
+        window.open("./print/consultorio.php", "_blank");
+    } else {
+
+    }
+}
+botonCancelar.addEventListener('click', function(e){
+    e.preventDefault();
+    redirectConsultorios();
+})
+function redirectConsultorios() {
+    window.location.href = "./consultorios.php";
+}
 //FUNCION BORRAR DIV
 function clearDiv(div) {
     div.replaceChildren();

@@ -31,7 +31,7 @@ if (isset($_REQUEST["id"])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/estilos-pacientes.css">
-    <title>Nuevo Usuario</title>
+    <title>Usuario</title>
 </head>
 
 <body>
@@ -55,8 +55,7 @@ if (isset($_REQUEST["id"])) {
                         placeholder="John123">
                     <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                 </div>
-                <p class="form_input-error">El usuario tiene que ser de 4 a 16 dígitos y solo puede contener
-                    números, letras y guion bajo.</p>
+                <p class="form_input-error">El usuario tiene que ser de 4 a 16 dígitos y solo puede contener números, letras y guion bajo.</p>
             </div><!-- end form-grupo -->
 
             <!-- Grupo: nombre -->
@@ -165,7 +164,7 @@ if (isset($_REQUEST["id"])) {
                     <input class="form_input" type="password" id="contrasena-usuario" name="contrasena-usuario">
                     <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                 </div>
-                <p class="form_input-error">La contraseña tiene que ser de 8 a 12 dígitos.</p>
+                <p class="form_input-error">La contraseña deberá ser de 8 a 16 dígitos. Debe contener mayúsculas, minúsculas, números y símbolos.</p>
             </div><!-- end form-grupo -->
 
             <!-- Grupo: contrasena 2 -->
@@ -194,8 +193,10 @@ if (isset($_REQUEST["id"])) {
                 </p>
             </div>
 
-            <div class="formulario_grupo formulario_btn-enviar span-4">
-                <input class="input_submit boton azul" type="submit" value="Guardar" id="boton-guardar-usuario">
+            <button class="input_submit boton amarillo span-2 modal-boton" id="boton-cancelar-usuario"><i class="fa-solid fa-left-long"></i> Regresar</button>
+
+            <div class="formulario_grupo formulario_btn-enviar span-2 modal-boton">
+                <button class="input_submit boton azul" type="submit" id="boton-guardar-usuario">Guardar</button>
             </div>
         </form>
         <!-- end FORM -->

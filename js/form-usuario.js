@@ -1,7 +1,8 @@
 var usuario;
-const tipo = { obtener: "obtener", guardar: "guardar", eliminar: "eliminar" };
+const tipo = { obtener: "obtener", guardar: "guardar", eliminar: "eliminar", imprimir:"imprimir" };
 var botonGuardarUsuario = document.getElementById('boton-guardar-usuario');
 formUsuario = document.getElementById('form-usuario');
+var botonCancelar=document.getElementById('boton-cancelar-usuario');
 
 window.onload = function () {
     obtenerUsuario();
@@ -204,6 +205,13 @@ modal.addEventListener('click', function (e) {
         modal.style.display = "none";
     }
 })
+botonCancelar.addEventListener('click', function(e){
+    e.preventDefault();
+    redirectUsuarios();
+})
+function redirectUsuarios() {
+    window.location.href = "./usuarios.php";
+}
 //FUNCION BORRAR DIV
 function clearDiv(div) {
     div.replaceChildren();

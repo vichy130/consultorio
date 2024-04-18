@@ -21,13 +21,12 @@ var inputConsultaPreviaTratamiento = document.getElementById('consultapreviatrat
 var inputConsultaPreviaEstudio = document.getElementById('consultapreviaestudio-paciente');
 var inputConsultaPreviaDiagnostico = document.getElementById('consultapreviadiagnostico-paciente');
 var inputConsultaPreviaComentarios = document.getElementById('consultapreviacomentarios-paciente');
+
 //INPUT
 //INPUT
 inputConsultaNombreMed.addEventListener('keyup', validarConsultaNombreMed);
 inputConsultaNombreMed.addEventListener('blur', validarConsultaNombreMed);
 var anadirMedicamentoIndicacion = document.getElementById("boton-medicamento-indicacion");
-
-
 
 const expresiones = {
     vitalesta: /^\d{1,3}\/\d{1,3}$/,
@@ -36,17 +35,17 @@ const expresiones = {
     vitalespeso: /^\d{1,2}(?:\.\d)?$/,
     vitalesestatura: /^\d{1,3}(\.\d{1,2})?$/,
     vitalestemperatura: /^\d{1,2}(?:\.\d)?$/,
-    consultamotivo: /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s]{3,5000}$/,
-    consultaexploracion: /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s]{3,5000}$/,
-    consultapreviacomentarios: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s]{0,1000}$/,
-    consultapreviadiagnostico: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s]{0,2000}$/,
-    consultapreviaestudio: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s]{0,2000}$/,
-    consultapreviatratamientos: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s]{0,2000}$/,
-    consultaindicaciones: /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s]{1,5000}$/,
+    consultamotivo: /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s.,]{3,5000}$/,
+    consultaexploracion: /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s.,]{3,5000}$/,
+    consultapreviacomentarios: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s.,]{0,1000}$/,
+    consultapreviadiagnostico: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s.,]{0,2000}$/,
+    consultapreviaestudio: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s.,]{0,2000}$/,
+    consultapreviatratamientos: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s.,]{0,2000}$/,
+    consultaindicaciones: /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s.,]{1,5000}$/,
     consultanombremed: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s]{0,100}$/,
-    indicacionesmed: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s]{0,500}$/,
-    estudiossolicitados: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s]{0,100}$/,
-    consultaterapia: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s]{0,500}$/,
+    indicacionesmed: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s.,]{0,500}$/,
+    estudiossolicitados: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s.,]{0,100}$/,
+    consultaterapia: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s.,]{0,500}$/,
 }
 const campos = {
     vitalesta: false,

@@ -127,3 +127,16 @@ html{
 .display{
     display:block;
 }
+.size-icon {
+    font-size: 2em; 
+}
+.titulo-iconos {
+    display: flex; 
+    align-items: center; 
+}
+.margin-left{
+    margin-left: auto;
+}
+.contenedor {
+    display: flex;
+}

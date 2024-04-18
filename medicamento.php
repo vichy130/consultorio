@@ -81,10 +81,10 @@ if (isset($_REQUEST['id'])) {
                     caracteres</p>
             </div><!-- end form-grupo -->
 
-            <button class="input_submit boton amarillo span-2">Cancelar</button>
+            <button class="input_submit boton amarillo span-2" id="boton-cancelar-medicamento"><i class="fa-solid fa-left-long"></i> Regresar</button>
 
-            <div>
-                <button class="input_submit boton azul span-2" type="submit">Guardar</button>
+            <div class="span-2 modal-boton">
+                <button class="input_submit boton azul" type="submit">Guardar</button>
             </div>
 
         </form>

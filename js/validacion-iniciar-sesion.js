@@ -7,7 +7,7 @@ var captchaError = document.getElementById('grupo_captcha-error');
 
 const expresiones = {
     usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
-    password: /^.{4,12}$/, // 4 a 12 digitos.
+    password: /^.{8,16}$/, // 8 a 16 digitos.
 }
 const validarFormulario = (e) => {
     switch (e.target.name) {

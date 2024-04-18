@@ -1,6 +1,7 @@
 var formMedicamento = document.getElementById('form-medicamento');
 var medicamento;
-const tipo = { obtener: "obtener", guardar: "guardar" };
+var botonCancelar=document.getElementById('boton-cancelar-medicamento');
+const tipo = { obtener: "obtener", guardar: "guardar" , imprimir:"imprimir"};
 
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     obtenerMedicamento();
@@ -157,6 +158,13 @@ modal.addEventListener('click', function (e) {
         modal.style.display = "none";
     }
 })
+botonCancelar.addEventListener('click', function(e){
+    e.preventDefault();
+    redirectMedicamentos();
+})
+function redirectMedicamentos() {
+    window.location.href = "./medicamentos.php";
+}
 //FUNCION BORRAR DIV
 function clearDiv(div) {
     div.replaceChildren();

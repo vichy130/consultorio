@@ -55,7 +55,7 @@ if (isset($_SESSION['username'])) {
                         <input class="formulario_input" type="password" value="" name="contrasena" id="contrasena">
                         <i class="formulario__validacion-estado fas fa-times"></i>
                     </div>
-                    <p class="formulario__input-error">La contraseña tiene que ser de 4 a 12 dígitos.</p>
+                    <p class="formulario__input-error">La contraseña tiene que ser de 8 a 16 dígitos.</p>
                 </div>
                 <div class="texto formulario_datos-incorrectos" id="grupo_datos-incorrectos"><i
                         class="fas fa-times"></i> Usuario o contraseña incorrecta, por favor intenta de nuevo.
@@ -69,7 +69,7 @@ if (isset($_SESSION['username'])) {
                     <button class="boton" type="submit" id="boton-iniciar-sesion">Ingresar</button>
                 </div>
 
-                <div class="texto"><a class="" href="./resetear-contrasena.php"> ¿Olvidaste tu contraseña?</a></div>
+                <div class="texto"><a class="" href=""> ¿Olvidaste tu contraseña?</a></div>
             </form>
             <!-- end form -->
         </div>
