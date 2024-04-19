@@ -37,9 +37,12 @@ function obtenerPaciente() {
                     inputEscolaridad.value = paciente.escolaridad;
                     inputEmail.value = paciente.correo;
                     validarInformacion();
+                    botonImprimirPaciente.style.display="block";
                 }else{
                     modalError(error, tipo.obtener);
                 }
+            }else {
+                botonImprimirPaciente.style.display="none";
             }
         })// FIN FETCH
         .catch(error => {

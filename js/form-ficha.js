@@ -122,10 +122,12 @@ function obtenerFicha() {
                     });
                     actualizarTablaAFamiliares();
                     validarFicha();
-
+                    botonImprimirFicha.style.display="block";
                 } else {
                     modalError(data, tipo.obtener);
                 }
+            }else{
+                botonImprimirFicha.style.display="none";
             }
         })// FIN FETCH
         .catch(error => {
@@ -222,10 +224,12 @@ function enviarFormFicha() {
                         ficha.usuario = data.usuario;
                         if(ficha.id != null){
                             modalExito();
+                            botonImprimirFicha.style.display="block";
                         }
                     } else {
                         console.log(data);
                         modalError(data, tipo.guardar);
+                        botonImprimirFicha.style.display="none";
                     }
                 }
             })

@@ -1,52 +1,52 @@
 <?php
 require ('./fpdf/fpdf.php');
 
-class Ficha extends FPDF
+class FichaPDF extends FPDF
 {
-
-    private $id;
+    // private $id;
     private $paciente;
-    private $tipoSangre;
-    private $quienRecomendo;
-    private $embarazo;
-    private $partos;
-    private $cesareas;
-    private $abortos;
-    private $muertos;
-    private $enfs;
-    private $fuma;
-    private $cigarrosDia;
-    private $fumaAntiguedad;
-    private $alcohol;
-    private $alcFrecuencia;
-    private $alcoholCantidad;
-    private $alcoholTipos;
-    private $adicciones;
-    private $alergias;
-    private $desayuno;
-    private $comida;
-    private $cena;
-    private $entreComidas;
-    private $vasoAguaDia;
-    private $otrosLiquidos;
-    private $intolerancias;
-    private $orinaDia;
-    private $orinaNoche;
-    private $orinaColor;
-    private $orinaOlor;
-    private $orinaMolestias;
-    private $excrementoDia;
-    private $exConsistencia;
-    private $exOlor;
-    private $exColor;
-    private $exDolor;
-    private $fechaMenstruacion;
-    private $mensPeriodicidad;
-    private $mensMolestias;
-    private $ejercicioSemana;
-    private $fecha;
-    private $hora;
-    private $usuario;
+    private $ficha;
+    // private $tipoSangre;
+    // private $quienRecomendo;
+    // private $embarazo;
+    // private $partos;
+    // private $cesareas;
+    // private $abortos;
+    // private $muertos;
+    // private $enfs;
+    // private $fuma;
+    // private $cigarrosDia;
+    // private $fumaAntiguedad;
+    // private $alcohol;
+    // private $alcFrecuencia;
+    // private $alcoholCantidad;
+    // private $alcoholTipos;
+    // private $adicciones;
+    // private $alergias;
+    // private $desayuno;
+    // private $comida;
+    // private $cena;
+    // private $entreComidas;
+    // private $vasoAguaDia;
+    // private $otrosLiquidos;
+    // private $intolerancias;
+    // private $orinaDia;
+    // private $orinaNoche;
+    // private $orinaColor;
+    // private $orinaOlor;
+    // private $orinaMolestias;
+    // private $excrementoDia;
+    // private $exConsistencia;
+    // private $exOlor;
+    // private $exColor;
+    // private $exDolor;
+    // private $fechaMenstruacion;
+    // private $mensPeriodicidad;
+    // private $mensMolestias;
+    // private $ejercicioSemana;
+    // private $fecha;
+    // private $hora;
+    // private $usuario;
     private $hijos = array();
     private $antecedentes = array();
     private $antecedentesFam = array();
@@ -96,6 +96,14 @@ class Ficha extends FPDF
         $this->hora = $hora;
         $this->usuario = $usuario;
     }
+    function setPaciente($paciente)
+    {
+        $this->paciente = $paciente;
+    }
+    function setFicha($ficha)
+    {
+        $this->ficha = $ficha;
+    }
     public function setHijos($hijos)
     {
         $this->hijos = $hijos;
@@ -119,82 +127,133 @@ class Ficha extends FPDF
     function Header()
     {
         $titulo = $this->convertir("Ficha Clínica");
-        $this->fecha = $this->convertir("Fecha: 10/11/2024");
+        $fecha = $this->convertir("Fecha: ".$this->ficha['fecha']);
         $this->SetFont('Times', 'BI', 16);
         // CELL (width, height, text, border, end line, align)
         $this->Cell(100, 5, $titulo, 0, 0, '');
         $this->SetFont('Times', '', 12);
-        $this->Cell(89, 5, $this->fecha, 0, 1, 'R');
+        $this->Cell(89, 5, $fecha, 0, 1, 'R');
         $this->Ln(5);
     }
     function cuerpo()
     {
-        $nombre = $this->convertir("NOMBRE: Emiliano Alvaro Manzanos Avelardino");
-        $ta = $this->convertir("TA: 120/90");
-        $oxigeno = $this->convertir("OXIGENO: 95");
-        $pulso = $this->convertir("PULSO: 85 PPM");
-        $peso = $this->convertir("PESO: 80 KG");
-        $estatura = $this->convertir("ESTATURA: 164 CM");
-        $temperatura = $this->convertir("TEMP: 36.8 C");
-        $tipoSangre = $this->convertir("TIPO SANGRE: OB+");
-        $nacFecha = $this->convertir("NAC FECHA: 01/09/2000");
-        $edad = $this->convertir("EDAD: 28 años");
-        $sexo = $this->convertir("SEXO: Masculino");
-        $lugar = $this->convertir("LUGAR: Guadalajara, Jalisco");
-        $exploracionFisica = $this->convertir("Exploración Física");
+        $nac = new DateTime($this->paciente['fechaNacimiento']);
+        $hoy = new DateTime();
+        $dif = $nac->diff($hoy);
+        $edad = $dif->y;
+        $countHijos = 0;
+        $countH = 0;
+        $countM = 0;
+        $countO = 0;
+        $cadenaSexoHijo = "";
+        $cadenaEdades = "";
+        foreach ($this->hijos as $h) {
+            $countHijos++;
+            if ($cadenaEdades > 1) {
+                $cadenaEdades .= ", " . $h['edad'];
+            } else {
+                $cadenaEdades .= $h['edad'];
+            }
+            if ($h['sexo'] == "Hombre") {
+                $countH++;
+            } else if ($h['sexo'] == "Mujer") {
+                $countM++;
+            } else {
+                $countO++;
+            }
+        }
+        if ($countH > 0) {
+            $cadenaSexoHijo .= $countH . " Hombre ";
+        }
+        if ($countM > 0) {
+            $cadenaSexoHijo .= $countH . " Mujer ";
+        }
+        if ($countO > 0) {
+            $cadenaSexoHijo .= $countO . " Indef. ";
+        }
+        $fumaResultado="";
+        if($this->ficha['fuma']==0){
+            $fumaResultado="No";
+        }else{
+            $fumaResultado="Sí";
+        }
+        $alcoholResultado="";
+        if($this->ficha['alcohol']==0){
+            $alcoholResultado="No";
+        }else{
+            $alcoholResultado="Sí";
+        }
+        // $cadenaEdades=
+        $nombre = $this->convertir("NOMBRE: " . $this->paciente['nombre'] . " " . $this->paciente['apellidoPaterno'] . " " . $this->paciente['apellidoMaterno']);
+        // $ta = $this->convertir("TA: ");
+        // $oxigeno = $this->convertir("OXIGENO: ");
+        // $pulso = $this->convertir('PULSO: '..' PPM');
+        // $peso = $this->convertir('PESO:'..' KG');
+        // $estatura = $this->convertir('ESTATURA: '..' CM');
+        // $temperatura = $this->convertir('TEMP: '..' C');
+        $tipoSangre = $this->convertir("TIPO SANGRE: " . $this->ficha['tipoSangre']);
+        $nacFecha = $this->convertir("NAC FECHA: " . $this->paciente['fechaNacimiento']);
+        $edad = $this->convertir("EDAD: " . $edad);
+        $sexo = $this->convertir("SEXO: " . $this->paciente['sexo']);
+        $lugar = $this->convertir("LUGAR: " . $this->paciente['lugarNacimiento']);
         $datosPaciente = $this->convertir("Datos del Paciente");
-        $domicilioPaciente = $this->convertir("DOMICILIO: Juan Manuel #765 Col. La calma, Guadalajara Jalisco CP 49000");
-        $telCasa = $this->convertir("TEL: CASA 55 5555 55");
-        $telOficina = $this->convertir("OFICINA 55 5555 55");
-        $telCel = $this->convertir("CEL. 55 5555 55");
-        $edoCivil = $this->convertir("EDO CIVIL: Divorciado");
-        $ocupacion = $this->convertir("OCUPACIÓN: Empleada domestica");
-        $escolaridad = $this->convertir("ESCOLARIDAD: Universidad");
-        $email = $this->convertir("EMAIL: jalopez@hotmail.com");
-        $quienRecomendo = $this->convertir("QUIEN LO(A) RECOMENDO: Nombre de la persona");
-        $numHijos = $this->convertir("No. HIJOS: 2");
-        $sexoHijo = $this->convertir("SEXO: Masculino");
-        $edades = $this->convertir("EDADES: 10 y 12");
-        $embarazos = $this->convertir("EMBARAZOS: 3");
-        $partos = $this->convertir("PARTOS: 2");
-        $cesareas = $this->convertir("CESÁREAS: 1");
-        $abortos = $this->convertir("ABORTOS: 0");
-        $muertos = $this->convertir("MUERTOS: 0");
-        $enfs = $this->convertir("ENFS: Hipertensión");
+        $domicilioPaciente = $this->convertir("DOMICILIO: " . $this->paciente['calle'] ." ". $this->paciente['colonia'] ." ". $this->paciente['ciudad'] ." ". $this->paciente['codigoPostal']);
+        $telCasa = $this->convertir("TEL: CASA " . $this->paciente['telCasa']);
+        $telOficina = $this->convertir("OFICINA " . $this->paciente['telOficina']);
+        $telCel = $this->convertir("CEL. " . $this->paciente['celular']);
+        $edoCivil = $this->convertir("EDO CIVIL: " . $this->paciente['edoCivil']);
+        $ocupacion = $this->convertir("OCUPACIÓN: " . $this->paciente['ocupacion']);
+        $escolaridad = $this->convertir("ESCOLARIDAD: " . $this->paciente['escolaridad']);
+        $email = $this->convertir('EMAIL: ' . $this->paciente['correo']);
+        $quienRecomendo = $this->convertir("QUIEN LO(A) RECOMENDO: " . $this->ficha['quienRecomendo']);
+        $numHijos = $this->convertir("No. HIJOS: " . $countHijos);
+        $sexoHijo = $this->convertir("SEXO: " . $cadenaSexoHijo);
+        $edades = $this->convertir("EDADES: " . $cadenaEdades);
+        $embarazos = $this->convertir("EMBARAZOS: " . $this->ficha['embarazo']);
+        $partos = $this->convertir("PARTOS: " . $this->ficha['partos']);
+        $cesareas = $this->convertir("CESÁREAS: " . $this->ficha['cesareas']);
+        $abortos = $this->convertir("ABORTOS: " . $this->ficha['abortos']);
+        $muertos = $this->convertir("MUERTOS: " . $this->ficha['muertos']);
+        $enfs = $this->convertir("ENFS: " . $this->ficha['enfs']);
 
-        $antecNoPat=$this->convertir("Antecedentes no patológicos");
-        $fuma = $this->convertir("¿FUMA?: Sí");
-        $noPorDia = $this->convertir("#/ DÍA: 10");
-        $antiguedad = $this->convertir("ANTIGUEDAD: 5 años");
-        $alcohol = $this->convertir("ALCOHOL: Sí");
-        $frecuencia = $this->convertir("FRECUENCIA: Ocasional");
-        $cantidad = $this->convertir("CANTIDAD: 2 copas");
-        $tipos = $this->convertir("TIPOS: Cerveza y vino");
-        $adicciones = $this->convertir("ADICCIONES: Ninguna");
-        $alergias = $this->convertir("ALERGIAS: Polen");
-        $desayuno = $this->convertir("DESAYUNO: Café y pan");
-        $comida = $this->convertir("COMIDA: Pollo y arroz");
-        $cena = $this->convertir("CENA: Ensalada y pescado");
-        $entreComidas = $this->convertir("ENTRE COMIDAS: Frutas");
-        $vasosAguaDia = $this->convertir("VASOS DE AGUA AL DÍA: 8");
-        $otrosLiquidos = $this->convertir("OTROS LÍQUIDOS: Jugo de naranja");
-        $intolerancias = $this->convertir("INTOLERANCIAS: Lactosa");
-        $orina = $this->convertir("ORINA: Diurna");
-        $colorOrina = $this->convertir("COLOR Amarillo claro");
-        $olorOrina = $this->convertir("OLOR  Normal");
-        $molestiasOrina = $this->convertir("MOLESTIAS: Ninguna");
-        $excrementoDia = $this->convertir("EXCREMENTO AL DÍA: 1");
-        $consistenciaExcremento = $this->convertir("CONSISTENCIA: Normal");
-        $olorExcremento = $this->convertir("OLOR: Sin olor");
-        $colorExcremento = $this->convertir("COLOR: Marrón");
-        $dolorExcremento = $this->convertir("DOLOR: Ninguno");
-        $fechaUltimaMenstruacion = $this->convertir("FECHA ÚLTIMA MENSTRUACIÓN: 01/01/2024");
-        $periodicidadMenstruacion = $this->convertir("PERIODICIDAD: 28 días");
-        $molestiasMenstruacion = $this->convertir("MOLESTIAS: Ninguna");
-        $ejercicioSemana = $this->convertir("EJERCICIO SEMANA: 3 días");
-        $antecedentes = $this->convertir("Antecedentes: Ninguno");
-        $antecedentesFamiliares = $this->convertir("ANTECEDENTES FAMILIARES: Diabetes");
+        $antecNoPat = $this->convertir("Antecedentes no patológicos");
 
+        $fuma = $this->convertir("¿FUMA?: " .$fumaResultado);
+        $noPorDia = $this->convertir("#/ DÍA: " . $this->ficha['cigarrosDia']);
+        $antiguedad = $this->convertir("ANTIGUEDAD: " . $this->ficha['fumaAntiguedad']);
+        $alcohol = $this->convertir("ALCOHOL: " . $alcoholResultado);
+        $frecuencia = $this->convertir("FRECUENCIA: " . $this->ficha['alcFrecuencia']);
+        $cantidad = $this->convertir("CANTIDAD: " . $this->ficha['alcFrecuencia']);
+        $tipos = $this->convertir("TIPOS: " . $this->ficha['alcoholCantidad']);
+        $adicciones = $this->convertir("ADICCIONES: " . $this->ficha['adicciones']);
+        $alergias = $this->convertir("ALERGIAS: " . $this->ficha['alergias']);
+        $desayuno = $this->convertir("DESAYUNO: " . $this->ficha['desayuno']);
+        $comida = $this->convertir("COMIDA: " . $this->ficha['comida']);
+        $cena = $this->convertir("CENA: " . $this->ficha['cena']);
+        $entreComidas = $this->convertir("ENTRE COMIDAS: " . $this->ficha['entreComidas']);
+        $vasosAguaDia = $this->convertir("VASOS DE AGUA AL DÍA: " . $this->ficha['vasoAguaDia']);
+        $otrosLiquidos = $this->convertir("OTROS LÍQUIDOS: " . $this->ficha['otrosLiquidos']);
+        $intolerancias = $this->convertir("TIENE INTOLERANCIAS: " . $this->ficha['intolerancias']);
+        $orinaDia = $this->convertir("ORINA: DÍA" . $this->ficha['orinaDia']);
+        $orinaNoche = $this->convertir("NOCHE " . $this->ficha['orinaNoche']);
+        $colorOrina = $this->convertir("COLOR " . $this->ficha['orinaColor']);
+        $olorOrina = $this->convertir("OLOR  " . $this->ficha['orinaOlor']);
+        $molestiasOrina = $this->convertir('MOLESTIAS: ' . $this->ficha['orinaMolestias']);
+        $excrementoDia = $this->convertir("EXCREMENTO AL DÍA: " . $this->ficha['excrementoDia']);
+        $consistenciaExcremento = $this->convertir("CONSISTENCIA: " . $this->ficha['exConsistencia']);
+        $olorExcremento = $this->convertir("OLOR: " . $this->ficha['exOlor']);
+        $colorExcremento = $this->convertir("COLOR: "/*.$this->ficha['exColor']*/);
+        $dolorExcremento = $this->convertir("DOLOR: " . $this->ficha['exDolor']);
+        $fechaUltimaMenstruacion = $this->convertir("FECHA ÚLTIMA MENSTRUACIÓN: " . $this->ficha['fechaMenstruacion']);
+        $periodicidadMenstruacion = $this->convertir("PERIODICIDAD: " . $this->ficha['mensPeriodicidad']);
+        $molestiasMenstruacion = $this->convertir("MOLESTIAS: " . $this->ficha['mensMolestias']);
+        $ejercicioSemana = $this->convertir("EJERCICIO SEMANA: " . $this->ficha['ejercicioSemana']);
+        $alimentacion = $this->convertir("Alimentación");
+        $urologia = $this->convertir("Urología");
+        $gastro = $this->convertir("Gastroenterología");
+        $gine = $this->convertir("Ginecología");
+        $antec = $this->convertir("Antecedentes");
+        $antecFam = $this->convertir("Antecedentes Familiares");
 
         $this->SetFont('Arial', '', 11);
         // CELL (width, height, text, border, end line, align)
@@ -232,40 +291,40 @@ class Ficha extends FPDF
         // $this->Ln(2); //
 
         //Exploracion fisica //
-        $this->SetFont('Arial', 'I', 12);
-        $this->Cell(189, 10, $exploracionFisica, 0, 1);
+        // $this->SetFont('Arial', 'I', 12);
+        // $this->Cell(189, 10, $exploracionFisica, 0, 1);
 
-        /* $this->SetXY($x+189, $y);*/
-        $y = $this->GetY();
-        $x = $this->GetX();
+        // /* $this->SetXY($x+189, $y);*/
+        // $y = $this->GetY();
+        // $x = $this->GetX();
 
-        $this->SetFont('Arial', '', 11);
-        $this->MultiCell(47.25, 7, $ta, 1);
-        $this->SetXY($x + 47.25, $y);
-        $y = $this->GetY();
-        $x = $this->GetX();
+        // $this->SetFont('Arial', '', 11);
+        // $this->MultiCell(47.25, 7, $ta, 1);
+        // $this->SetXY($x + 47.25, $y);
+        // $y = $this->GetY();
+        // $x = $this->GetX();
 
-        $this->MultiCell(47.25, 7, $oxigeno, 1);
-        $this->SetXY($x + 47.25, $y);
-        $y = $this->GetY();
-        $x = $this->GetX();
+        // $this->MultiCell(47.25, 7, $oxigeno, 1);
+        // $this->SetXY($x + 47.25, $y);
+        // $y = $this->GetY();
+        // $x = $this->GetX();
 
-        $this->MultiCell(47.25, 7, $pulso, 1);
-        $this->SetXY($x + 47.25, $y);
-        $y = $this->GetY();
-        $x = $this->GetX();
+        // $this->MultiCell(47.25, 7, $pulso, 1);
+        // $this->SetXY($x + 47.25, $y);
+        // $y = $this->GetY();
+        // $x = $this->GetX();
 
-        $this->MultiCell(47.25, 7, $peso, 1);
-        /*$this->SetXY($x+47.25, $y);*/
-        $y = $this->GetY();
-        $x = $this->GetX();
+        // $this->MultiCell(47.25, 7, $peso, 1);
+        // /*$this->SetXY($x+47.25, $y);*/
+        // $y = $this->GetY();
+        // $x = $this->GetX();
 
-        $this->MultiCell(47.25, 7, $estatura, 1);
-        $this->SetXY($x + 47.25, $y);
-        $y = $this->GetY();
-        $x = $this->GetX();
+        // $this->MultiCell(47.25, 7, $estatura, 1);
+        // $this->SetXY($x + 47.25, $y);
+        // $y = $this->GetY();
+        // $x = $this->GetX();
 
-        $this->MultiCell(141.75, 7, $temperatura, 1);
+        // $this->MultiCell(141.75, 7, $temperatura, 1);
         /*$this->SetXY($x+141.75, $y);
         $y = $this->GetY();
         $x = $this->GetX();
@@ -378,7 +437,7 @@ class Ficha extends FPDF
         $this->Cell(189, 10, $antecNoPat, 0, 1);
         $y = $this->GetY();
         $x = $this->GetX();
-        
+
         $this->SetFont('Arial', '', 11);
         // MultiCell para "Fuma"
         $this->MultiCell(63, 7, $fuma, 1);
@@ -433,33 +492,221 @@ class Ficha extends FPDF
 
         // MultiCell para "Alergias"
         $this->MultiCell(189, 7, $alergias, 1);
+
+        $this->SetFont('Arial', 'I', 12);
+        $this->Cell(189, 10, $alimentacion, 0, 1);
+        $y = $this->GetY();
+        $x = $this->GetX();
+
+        $this->SetFont('Arial', '', 11);
+
+        // MultiCell para "Desayuno"
+        $this->MultiCell(189, 7, $desayuno, 1);
         // $this->SetXY($x + 189, $y);
         $y = $this->GetY();
         $x = $this->GetX();
 
-        // MultiCell para "Desayuno"
-        $this->MultiCell(63, 7, $desayuno, 1);
-        $this->SetXY($x + 63, $y);
-        $y = $this->GetY();
-        $x = $this->GetX();
-
         // MultiCell para "Comida"
-        $this->MultiCell(63, 7, $comida, 1);
-        $this->SetXY($x + 63, $y);
+        $this->MultiCell(189, 7, $comida, 1);
+        // $this->SetXY($x +189, $y);
         $y = $this->GetY();
         $x = $this->GetX();
 
         // MultiCell para "Cena"
-        $this->MultiCell(63, 7, $cena, 1);
+        $this->MultiCell(189, 7, $cena, 1);
+        // $this->SetXY($x + 189, $y);
+        $y = $this->GetY();
+        $x = $this->GetX();
+
+        // MultiCell para "Entre comidas"
+        $this->MultiCell(189, 7, $entreComidas, 1);
+        // $this->SetXY($x + 120, $y);
+        $y = $this->GetY();
+        $x = $this->GetX();
+
+        // MultiCell para "Vasos agua al día"
+        $this->MultiCell(60, 7, $vasosAguaDia, 1);
+        $this->SetXY($x + 60, $y);
+        $y = $this->GetY();
+        $x = $this->GetX();
+
+        // MultiCell para "Otros líquidos"
+        $this->MultiCell(129, 7, $otrosLiquidos, 1);
+        // $this->SetXY($x + 109, $y);
+        $y = $this->GetY();
+        $x = $this->GetX();
+
+        // MultiCell para "Tiene intolerancias"
+        $this->MultiCell(189, 7, $intolerancias, 1);
+        // $this->SetXY($x + 189, $y);
+        $y = $this->GetY();
+        $x = $this->GetX();
+
+        $this->SetFont('Arial', 'I', 12);
+        $this->Cell(189, 10, $urologia, 0, 1);
+        $y = $this->GetY();
+        $x = $this->GetX();
+
+        $this->SetFont('Arial', '', 11);
+
+        // MultiCell para "Orina: día o noche"
+        $this->MultiCell(63, 7, $orinaDia, 1);
         $this->SetXY($x + 63, $y);
         $y = $this->GetY();
         $x = $this->GetX();
 
+        // MultiCell para "Orina: día o noche"
+        $this->MultiCell(63, 7, $orinaNoche, 1);
+        $this->SetXY($x + 63, $y);
+        $y = $this->GetY();
+        $x = $this->GetX();
+
+        // MultiCell para "Color orina"
+        $this->MultiCell(63, 7, $colorOrina, 1);
+        // $this->SetXY($x + 63, $y);
+        $y = $this->GetY();
+        $x = $this->GetX();
+
+        // MultiCell para "Olor orina"
+        $this->MultiCell(63, 7, $olorOrina, 1);
+        $this->SetXY($x + 63, $y);
+        $y = $this->GetY();
+        $x = $this->GetX();
+
+        // MultiCell para "Molestias orina"
+        $this->MultiCell(126, 7, $molestiasOrina, 1);
+        // $this->SetXY($x + 126, $y);
+        // $y = $this->GetY();
+        // $x = $this->GetX();
+
+        $this->SetFont('Arial', 'I', 12);
+        $this->Cell(189, 10, $gastro, 0, 1);
+        $y = $this->GetY();
+        $x = $this->GetX();
+
+        $this->SetFont('Arial', '', 11);
+
+        // MultiCell para "Excremento al día"
+        $this->MultiCell(189, 7, $excrementoDia, 1);
+        // $this->SetXY($x + 189, $y);
+        $y = $this->GetY();
+        $x = $this->GetX();
+
+        // MultiCell para "Consistencia excremento"
+        $this->MultiCell(63, 7, $consistenciaExcremento, 1);
+        $this->SetXY($x + 63, $y);
+        $y = $this->GetY();
+        $x = $this->GetX();
+
+        // MultiCell para "Olor excremento"
+        $this->MultiCell(63, 7, $olorExcremento, 1);
+        $this->SetXY($x + 63, $y);
+        $y = $this->GetY();
+        $x = $this->GetX();
+
+        // MultiCell para "Color excremento"
+        $this->MultiCell(63, 7, $colorExcremento, 1);
+        // $this->SetXY($x + 63, $y);
+        $y = $this->GetY();
+        $x = $this->GetX();
+
+        // MultiCell para "Dolor excremento"
+        $this->MultiCell(189, 7, $dolorExcremento, 1);
+        // $this->SetXY($x + 119, $y);
+        // $y = $this->GetY();
+        // $x = $this->GetX();
+
+        $this->SetFont('Arial', 'I', 12);
+        $this->Cell(189, 10, $gine, 0, 1);
+        $y = $this->GetY();
+        $x = $this->GetX();
+
+        $this->SetFont('Arial', '', 11);
+
+        // MultiCell para "Fecha última menstruación"
+        $this->MultiCell(94.5, 7, $fechaUltimaMenstruacion, 1);
+        $this->SetXY($x + 94.5, $y);
+        $y = $this->GetY();
+        $x = $this->GetX();
+
+        // MultiCell para "Periodicidad menstruación"
+        $this->MultiCell(94.5, 7, $periodicidadMenstruacion, 1);
+        // $this->SetXY($x + 94.5, $y);
+        $y = $this->GetY();
+        $x = $this->GetX();
+
+        // MultiCell para "Molestias menstruación"
+        $this->MultiCell(189, 7, $molestiasMenstruacion, 1);
+        // $this->SetXY($x + 120, $y);
+        // $y = $this->GetY();
+        // $x = $this->GetX();
+
+        $this->Ln(7);
+        // MultiCell para "Ejercicio semana"
+        $this->MultiCell(189, 7, $ejercicioSemana, 1);
+        // $this->SetXY($x + 189, $y);
+        // $y = $this->GetY();
+        // $x = $this->GetX();
+
+        $this->SetFont('Arial', 'I', 12);
+        $this->Cell(189, 10, $antec, 0, 1);
+        $y = $this->GetY();
+        $x = $this->GetX();
+
+        $this->SetFont('Arial', '', 11);
+
+        foreach ($this->antecedentes as $a) {
+            $enfermedad = $this->convertir("ENFERMEDAD: " . $a['enfermedad']);
+            $descripcion = $this->convertir($a['descripcion']);
+
+            // MultiCell para "Antecedentes"
+            $this->MultiCell(189, 7, $enfermedad . ". " . $descripcion, 1);
+            // $this->SetXY($x + 94.5, $y);
+            $y = $this->GetY();
+            $x = $this->GetX();
+
+            // // MultiCell para "Antecedentes"
+            // $this->MultiCell(189, 7, $descripcion, 1);
+            // // $this->SetXY($x + 94.5, $y);
+            // $y = $this->GetY();
+            // $x = $this->GetX();
+        }
+
+        $this->SetFont('Arial', 'I', 12);
+        $this->Cell(189, 10, $antecFam, 0, 1);
+        $y = $this->GetY();
+        $x = $this->GetX();
+
+
+
+
+        $this->SetFont('Arial', '', 11);
+
+        foreach ($this->antecedentesFam as $a) {
+            $parentesco = $this->convertir("PARENTESCO: ".$a['familiar']);
+            $enfamiliar = $this->convertir("ENFERMEDAD: ".$a['enfermedad']);
+            $descfamiliar = $this->convertir("DESCRIPCIÓN: ".$a['descripcion']);
+
+            // MultiCell para "Antecedentes Fam"
+            $this->MultiCell(70, 7, $parentesco, 'TL');
+            $this->SetXY($x + 70, $y);
+            $y = $this->GetY();
+            $x = $this->GetX();
+
+            // MultiCell para "Antecedentes Fam"
+            $this->MultiCell(119, 7, $enfamiliar, 'TR');
+            // $this->SetXY($x + 94.5, $y);
+            $y = $this->GetY();
+            $x = $this->GetX();
+
+            // MultiCell para "Antecedentes Fam"
+            $this->MultiCell(189, 7, $descfamiliar, 'LRB');
+            // $this->SetXY($x + 94.5, $y);
+            $y = $this->GetY();
+            $x = $this->GetX();
+        }
 
     }
-
-
-
     function footer()
     {
         $this->SetY(-20);
