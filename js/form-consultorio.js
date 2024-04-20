@@ -23,9 +23,12 @@ function obtenerConsultorio() {
                     inputCP.value = consultorio.codigoPostal;
                     inputTelefono.value = consultorio.telefono;
                     validarConsultorio();
+                    botonImprimirConsultorio.style.display="block";
                 }else {
                     modalError(data, tipo.obtener);
                 }
+            }else{
+                botonImprimirConsultorio.style.display="none";
             }
         })// FIN FETCH
         .catch(error => {
@@ -49,9 +52,12 @@ function enviarFormConsultorio(){
                         consultorio = new Consultorio(data.nombre, data.calle, data.colonia, data.ciudad, data.codigoPostal, data.telefono);
                         consultorio.id = data.id;
                         modalExito();
+                        botonImprimirConsultorio.style.display="block";
                     }else{
                         modalError(data,tipo.guardar);
                     }
+                }else{
+                    botonImprimirConsultorio.style.display="none";
                 }
             })
             .catch(function (error) {
@@ -72,9 +78,12 @@ function enviarFormConsultorio(){
                     consultorio = new Consultorio(data.nombre, data.calle, data.colonia, data.ciudad, data.codigoPostal, data.telefono);
                     consultorio.id = data.id;
                     modalExito();
+                    botonImprimirConsultorio.style.display="block";
                 }else{
                     modalError(data,tipo.guardar);
                 }
+            }else{
+                botonImprimirConsultorio.style.display="none";
             }
         })
         .catch (function (error){
