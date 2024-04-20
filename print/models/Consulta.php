@@ -170,14 +170,15 @@ class ConsultaPDF extends FPDF
         $this->Ln(2);*/
         //Exploracion fisica //
 
-        $this->SetFont('Arial', 'I', 12);
-        $this->Cell(189, 10, $tituloConsultasEx, 0, 1);
-
-        $this->SetFont('Arial', '', 11);
-
-        $y = $this->GetY();
-        $x = $this->GetX();
-
+        if(count($this->cPrevias)>0){
+            $this->SetFont('Arial', 'I', 12);
+            $this->Cell(189, 10, $tituloConsultasEx, 0, 1);
+    
+            $this->SetFont('Arial', '', 11);
+    
+            $y = $this->GetY();
+            $x = $this->GetX();
+        }
         foreach ($this->cPrevias as $con) {
             $diagnostico = $this->convertir("DIAGNOSTICO: " . $con['diagnostico']);
             $estudio = $this->convertir("ESTUDIO: " . $con['estudios']);
@@ -204,7 +205,6 @@ class ConsultaPDF extends FPDF
             $x = $this->GetX();
         }
 
-
         $this->SetFont('Arial', 'I', 12);
         $this->Cell(189, 10, $tituloConsulta, 0, 1);
 
@@ -228,29 +228,31 @@ class ConsultaPDF extends FPDF
         $y = $this->GetY();
         $x = $this->GetX();
 
-        $this->SetFont('Arial', 'I', 12);
-        $this->Cell(189, 10, $tituloEstudiosSolicitados, 0, 1);
+        if(count($this->estudiosSolicitados)>0){
+            $this->SetFont('Arial', 'I', 12);
+            $this->Cell(189, 10, $tituloEstudiosSolicitados, 0, 1);
+    
+            $this->SetFont('Arial', '', 11);
+    
+            $y = $this->GetY();
+            $x = $this->GetX();
+        }
 
-        $this->SetFont('Arial', '', 11);
-
-        $y = $this->GetY();
-        $x = $this->GetX();
         foreach ($this->estudiosSolicitados as $estudio) {
-
             $estudioTexto = $this->convertir("ESTUDIO: " . $estudio['estudio']);
 
             $this->MultiCell(189, 7, $estudioTexto, 1);
-
-
         }
 
-        $this->SetFont('Arial', 'I', 12);
-        $this->Cell(189, 10, $tituloMedicamentosIndicacion, 0, 1);
-
-        $this->SetFont('Arial', '', 11);
-
-        $y = $this->GetY();
-        $x = $this->GetX();
+        if(count($this->medicamentosIndicacion)>0){
+            $this->SetFont('Arial', 'I', 12);
+            $this->Cell(189, 10, $tituloMedicamentosIndicacion, 0, 1);
+    
+            $this->SetFont('Arial', '', 11);
+    
+            $y = $this->GetY();
+            $x = $this->GetX();
+        }
 
         foreach ($this->medicamentosIndicacion as $med) {
             foreach ($this->medicamentos as $medNombre) {
