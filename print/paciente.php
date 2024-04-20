@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
 include '../models/paciente.php';
-include '../print/models/paciente.php';
+include '../print/models/Paciente.php';
 
 //obtener paciente
 try {

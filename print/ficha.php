@@ -22,6 +22,7 @@ include_once ("../models/antecedente-familia.php");
 include '../print/models/Ficha.php';
 include '../models/paciente.php';
 
+//obtener ficha
 try {
     $fichaC = new Ficha();
     if (isset($_SESSION['id_paciente'])) {

@@ -22,6 +22,9 @@ tabla.addEventListener('click', function (e) {
         modal.dataset.fecha = e.target.dataset.fecha;
         modalBlock();
     }
+    if(e.target.classList.contains("exportar-consulta")){
+        consultaExportar(e.target.dataset.id);
+    }
 });
 // BOTONES
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
@@ -82,17 +85,20 @@ function tablaConsultas() {
         const fecha = document.createElement('th');
         const motivo = document.createElement('th');
         const editar = document.createElement('th');
+        const exportar = document.createElement('th');
         const eliminar = document.createElement('th');
 
         fecha.textContent = "Fecha";
         motivo.textContent = "Motivo de consulta";
         motivo.className = "column-to-hide";
         editar.textContent = "Editar";
+        exportar.textContent="Exportar";
         eliminar.textContent = "Eliminar";
 
         propiedades.appendChild(fecha);
         propiedades.appendChild(motivo);
         propiedades.appendChild(editar);
+        propiedades.appendChild(exportar);
         propiedades.appendChild(eliminar);
         thead.appendChild(propiedades);
         tabla.appendChild(thead);
@@ -104,25 +110,31 @@ function tablaConsultas() {
             const filaFecha = document.createElement('td');
             const filaMotivo = document.createElement('td');
             const filaEditar = document.createElement('td');
+            const filaExportar = document.createElement('td');
             const filaEliminar = document.createElement('td');
             const iconoEditar = document.createElement('i');
+            const iconoExportar=document.createElement('i');
             const iconoEliminar = document.createElement('i');
 
             iconoEditar.className = "far fa-edit editar-consulta";
+            iconoExportar.className="fa-solid fa-file-pdf exportar-consulta";
             iconoEliminar.className = "fas fa-trash eliminar-consulta";
 
             iconoEditar.dataset.id = co.id;
+            iconoExportar.dataset.id=co.id;
             iconoEliminar.dataset.id = co.id;
             iconoEliminar.dataset.fecha = co.fecha;
 
             filaFecha.textContent = co.fecha;
             filaMotivo.textContent = co.motivoConsulta;
             filaEditar.appendChild(iconoEditar);
+            filaExportar.appendChild(iconoExportar);
             filaEliminar.appendChild(iconoEliminar);
 
             celda.appendChild(filaFecha);
             celda.appendChild(filaMotivo);
             celda.appendChild(filaEditar);
+            celda.appendChild(filaExportar);
             celda.appendChild(filaEliminar);
             tbody.appendChild(celda);
         });
@@ -142,6 +154,9 @@ function consulta() {
 }
 function consultaEditar(idEditar) {
     window.location.href = "./pacientes-consulta.php?id=" + idEditar;
+}
+function consultaExportar (idExportar){
+    window.open("./print/consulta.php?id="+ idExportar, "_blank");
 }
 
 //MODAL
@@ -258,6 +273,7 @@ function modalError(error, tipo) {
     divBoton.appendChild(botonModalAceptarCerrar);
     modalContent.appendChild(divBoton);
 }
+
 modal.addEventListener('click', function (e) {
     e.preventDefault();
     if (e.target.classList.contains("aceptar-eliminar-consulta")) {
