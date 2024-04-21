@@ -3,7 +3,10 @@ var arrayMedicamentos = [];
 var botonNuevoMedicamento = document.getElementById("boton-nuevo-medicamento");
 var tablaMedicamentos = document.getElementById("tabla-medicamentos");
 var notabla = document.getElementById('no-tabla');
-const tipo={obtener: "obtener", guardar:"guardar", eliminar:"eliminar",imprimir:"imprimir"};
+var botonBuscar = document.getElementById('boton-buscar-medicamento');
+var inputBuscar = document.getElementById('input-buscar');
+var iconoBuscar = document.getElementById('icono-buscar');
+const tipo = { obtener: "obtener", guardar: "guardar", eliminar: "eliminar", imprimir: "imprimir" };
 //VARIABLES
 
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
@@ -26,6 +29,26 @@ botonNuevoMedicamento.addEventListener('click', function (e) {
     e.preventDefault();
     med();
 });
+botonBuscar.addEventListener('click', function (e) {
+    e.preventDefault();
+    buscarMedicamentos();
+});
+inputBuscar.addEventListener('keyup', iconoBuscarActivar);
+inputBuscar.addEventListener('blur', iconoBuscarActivar);
+iconoBuscar.addEventListener('click', function (e) {
+    inputBuscar.value = "";
+    obtenerMedicamentos();
+    iconoBuscarActivar();
+});
+function iconoBuscarActivar() {
+    if (inputBuscar.value == null || inputBuscar.value == "") {
+        iconoBuscar.classList.add('form_validacion-buscar');
+        iconoBuscar.classList.remove('form_validacion-buscar-activo');
+    } else {
+        iconoBuscar.classList.remove('form_validacion-buscar');
+        iconoBuscar.classList.add('form_validacion-buscar-activo');
+    }
+}
 //EVENT LISTENER
 //FUNCION
 function med() {
@@ -44,6 +67,7 @@ function obtenerMedicamentos() { //pendiente
         .then(response => response.json())
         .then(data => {
             if (data != null) {
+                arrayMedicamentos = [];
                 data.forEach((m) => {
                     if ('id' in m) {
                         var medicamento = new Medicamento(m.medicamento, m.tipo, m.descripcion);
@@ -60,7 +84,48 @@ function obtenerMedicamentos() { //pendiente
             modalError(error, tipo.obtener);
         });
 }
+function buscarMedicamentos() {
+    stringBuscar = inputBuscar.value;
+    var arrayBuscar = stringBuscar.split(" ")
+    if (arrayBuscar.length < 6) {
+        datos = JSON.stringify(arrayBuscar);
+        console.log(datos);
+        // datos={hola: "hola"};
+        fetch('./controller/buscar-medicamentos.php', {
+            method: 'POST',
+            body: datos
+        })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                console.log(data);
+                if (data != null) {
+                    arrayMedicamentos = [];
+                    if (Array.isArray(data)) {
+                        data.forEach((m) => {
+                            if ('id' in m) {
+                                var medicamento = new Medicamento(m.medicamento, m.tipo, m.descripcion);
+                                medicamento.id = m.id;
+                                arrayMedicamentos.push(medicamento);
+                            } else {
+                                modalError(m, tipo.obtener);
+                            }
+                        });
+                    }
+                }
+                medicamentos();
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    } else {
+        modalError("palabras", tipo.obtener);
+    }
+}
 function medicamentos() {
+    clearDiv(tablaMedicamentos);
+    clearDiv(notabla);
     if (arrayMedicamentos.length > 0) {
         const thead = document.createElement('thead');
         const propiedades = document.createElement('tr');
@@ -70,7 +135,7 @@ function medicamentos() {
         const editar = document.createElement('th');
         const eliminar = document.createElement('th');
 
-        medicamento.textContent = "Fecha";
+        medicamento.textContent = "Nombre";
         tipo.textContent = "Tipo";
         descripcion.textContent = "Descripción";
         descripcion.className = "column-to-hide";
@@ -255,7 +320,10 @@ function modalError(error, tipo) {
     } else if (tipo == "obtener") {
         titulo.textContent = '¡La información no pudo ser obtenida!';
     }
-    if (error != "false") {
+    if(error=="palabras"){
+        parrafo.textContent = "Solo permite búsqueda de máximo 5 palabras";
+    }
+    else if (error != "false") {
         parrafo.textContent = "Contacta a tu administrador, Error: " + error;
     } else {
         parrafo.textContent = "Porfavor, revisa la información e intenta de nuevo.";

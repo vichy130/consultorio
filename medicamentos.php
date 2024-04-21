@@ -45,8 +45,15 @@ require ("./php/conexion.php");
             </div>
 
             <label class="span-4">Medicamentos</label>
-            <input class="form_input span-2" type="text">
-            <button class="boton azul"><i class="fas fa-search"></i> Buscar</button>
+            
+            <div class="formulario_grupo span-2">
+                <div class="form_grupo-input">
+                    <input class="form_input" type="text" id="input-buscar">
+                    <i id="icono-buscar" class="form_validacion-buscar fa-solid fa-xmark"></i>
+                </div>
+            </div>
+
+            <button class="boton azul" id="boton-buscar-medicamento"><i class="fas fa-search"></i> Buscar</button>
             <button class="boton azul" id="boton-nuevo-medicamento"><i class="fas fa-user-plus"></i> Nuevo
                 medicamento</button>
             <table class="table span-4" id="tabla-medicamentos">

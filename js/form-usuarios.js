@@ -1,5 +1,8 @@
 var tUsuarios = document.getElementById('tabla-usuarios');
 var notabla = document.getElementById('no-tabla');
+var botonBuscar = document.getElementById('boton-buscar-usuario');
+var inputBuscar = document.getElementById('input-buscar');
+var iconoBuscar=document.getElementById('icono-buscar');
 var arrayUsuarios = [];
 const tipo = { obtener: "obtener", guardar: "guardar", eliminar: "eliminar" , imprimir:"imprimir"};
 var botonNuevoUsuario = document.getElementById('boton-nuevo-usuario');

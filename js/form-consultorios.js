@@ -2,6 +2,9 @@ var arrayConsultorios = [];
 var botonNuevoConsultorio = document.getElementById('boton-nuevo-consultorio');
 var tConsultorios = document.getElementById('tabla-consultorios');
 var notabla=document.getElementById('no-tabla');
+var botonBuscar = document.getElementById('boton-buscar-consultorio');
+var inputBuscar = document.getElementById('input-buscar');
+var iconoBuscar=document.getElementById('icono-buscar');
 const tipo={obtener: "obtener", guardar:"guardar", eliminar:"eliminar", imprimir:"imprimir"};
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     obtenerConsultorios();

@@ -103,7 +103,7 @@ function modalExito() {
     const titulo = document.createElement('h2');
     const parrafo = document.createElement('p');
 
-    titulo.textContent = "¡Paciente guardado!";
+    titulo.textContent = "¡Medicamento guardado!";
     parrafo.textContent = "Los datos se han almacenado con éxito.";
 
     divMensaje.className = "modal-mensaje";
