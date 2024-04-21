@@ -3,12 +3,19 @@ var notabla = document.getElementById('no-tabla');
 var botonNuevaConsulta;
 var botonEditarConsulta;
 var botonEliminarConsulta;
+var botonBuscar = document.getElementById('boton-buscar-consulta');
+var inputBuscar = document.getElementById('input-buscar');
 var array = []; // array consultas
 
 botonNuevaConsulta = document.getElementById('nueva-consulta-boton');
 botonNuevaConsulta.addEventListener('click', function (e) {
     e.preventDefault();
     consulta();
+});
+botonBuscar.addEventListener('click', function (e) {
+    e.preventDefault();
+    fecha = inputBuscar.value;
+    buscarConsultas(fecha);
 });
 
 tabla.addEventListener('click', function (e) {
@@ -22,7 +29,7 @@ tabla.addEventListener('click', function (e) {
         modal.dataset.fecha = e.target.dataset.fecha;
         modalBlock();
     }
-    if(e.target.classList.contains("exportar-consulta")){
+    if (e.target.classList.contains("exportar-consulta")) {
         consultaExportar(e.target.dataset.id);
     }
 });
@@ -36,23 +43,57 @@ function obtenerConsultas() {
         .then(response => response.json())
         .then(data => {
             console.log(data);
+            array = [];
             data.forEach((c) => {
                 if ('id' in c) {
                     var consulta = new Consulta(c.fecha, c.usuario, c.paciente, c.ta, c.oxigeno, c.pulso, c.peso, c.estatura, c.temperatura, c.motivoConsulta, c.exploracion, c.receta, c.consultorio);
                     consulta.id = c.id;
                     array.push(consulta);
                 } else {
-                    modalError(c,tipo.obtener);
+                    modalError(c, tipo.obtener);
                     return;
                 }
             });
             tablaConsultas();
         })// FIN FETCH
         .catch(error => {
-            modalError(error,tipo.obtener);
+            modalError(error, tipo.obtener);
         });
 }//END FUNCTION OBTENERCONSULTAS
-
+function buscarConsultas(fecha) { //TODO
+    datos = JSON.stringify({ fecha: fecha });
+    console.log(fecha);
+    if (fecha == "") {
+        obtenerConsultas();
+    } else {
+        fetch('./controller/buscar-consultas.php', {// Enviar los datos a PHP utilizando fetch
+            method: 'POST',
+            body: datos  // El JSON que contiene los datos y el formulario
+        })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                array = [];
+                console.log(data);
+                data.forEach((c) => {
+                    if ('id' in c) {
+                        var consulta = new Consulta(c.fecha, c.usuario, c.paciente, c.ta, c.oxigeno, c.pulso, c.peso, c.estatura, c.temperatura, c.motivoConsulta, c.exploracion, c.receta, c.consultorio);
+                        consulta.id = c.id;
+                        array.push(consulta);
+                    } else {
+                        modalError(c, tipo.obtener);
+                        return;
+                    }
+                });
+                tablaConsultas();
+            })
+            .catch(function (error) {
+                console.log(error);
+                modalError(error, tipo.obtener);
+            });
+    }
+}
 function eliminarConsulta() {
     var datos = { id: modal.dataset.id };
     var json = JSON.stringify(datos);
@@ -79,6 +120,8 @@ function eliminarConsulta() {
         });
 }
 function tablaConsultas() {
+    clearDiv(tabla);
+    clearDiv(notabla);
     if (array.length > 0) {
         const thead = document.createElement('thead');
         const propiedades = document.createElement('tr');
@@ -92,7 +135,7 @@ function tablaConsultas() {
         motivo.textContent = "Motivo de consulta";
         motivo.className = "column-to-hide";
         editar.textContent = "Editar";
-        exportar.textContent="Exportar";
+        exportar.textContent = "Exportar";
         eliminar.textContent = "Eliminar";
 
         propiedades.appendChild(fecha);
@@ -113,15 +156,15 @@ function tablaConsultas() {
             const filaExportar = document.createElement('td');
             const filaEliminar = document.createElement('td');
             const iconoEditar = document.createElement('i');
-            const iconoExportar=document.createElement('i');
+            const iconoExportar = document.createElement('i');
             const iconoEliminar = document.createElement('i');
 
             iconoEditar.className = "far fa-edit editar-consulta";
-            iconoExportar.className="fa-solid fa-file-pdf exportar-consulta";
+            iconoExportar.className = "fa-solid fa-file-pdf exportar-consulta";
             iconoEliminar.className = "fas fa-trash eliminar-consulta";
 
             iconoEditar.dataset.id = co.id;
-            iconoExportar.dataset.id=co.id;
+            iconoExportar.dataset.id = co.id;
             iconoEliminar.dataset.id = co.id;
             iconoEliminar.dataset.fecha = co.fecha;
 
@@ -155,11 +198,9 @@ function consulta() {
 function consultaEditar(idEditar) {
     window.location.href = "./pacientes-consulta.php?id=" + idEditar;
 }
-function consultaExportar (idExportar){
-    window.open("./print/consulta.php?id="+ idExportar, "_blank");
+function consultaExportar(idExportar) {
+    window.open("./print/consulta.php?id=" + idExportar, "_blank");
 }
-
-//MODAL
 //MODAL
 var modal = document.getElementById("modal");
 var modalContent = document.getElementById("modal-contenido");
@@ -172,6 +213,7 @@ botonModalCancelarEliminar.className = "boton azul cancelar-eliminar-consulta";
 botonModalAceptarCerrar = document.createElement('button');
 botonModalAceptarCerrar.textContent = "Cerrar";
 botonModalAceptarCerrar.className = "boton azul modal-cerrar";
+//MODAL
 window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
@@ -273,7 +315,6 @@ function modalError(error, tipo) {
     divBoton.appendChild(botonModalAceptarCerrar);
     modalContent.appendChild(divBoton);
 }
-
 modal.addEventListener('click', function (e) {
     e.preventDefault();
     if (e.target.classList.contains("aceptar-eliminar-consulta")) {
@@ -287,7 +328,6 @@ modal.addEventListener('click', function (e) {
     }
 })
 //MODAL END
-
 //CLASES
 class Consulta {
     constructor(fecha, usuario, paciente, ta, oxigeno, pulso, peso, estatura, temperatura, motivoConsulta, exploracion, receta, consultorio,/* consultasPrevias, terapias, medicamentosIndicacion, estudiosSolicitados*/) {

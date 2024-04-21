@@ -53,8 +53,8 @@ if (isset($_SESSION["id_consulta"])) {
                 </div>
 
                 <label class="span-4" for="">Consultas</label>
-                <input class="form_input" type="date">
-                <button class="boton azul"><i class="fas fa-search"></i> Buscar</button>
+                <input class="form_input" type="date" id="input-buscar">
+                <button class="boton azul" id="boton-buscar-consulta"><i class="fas fa-search"></i> Buscar</button>
                 <div></div>
                 <button class="boton azul" id="nueva-consulta-boton"><i class="fas fa-plus"></i> Nueva
                     consulta</button>
