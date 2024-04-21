@@ -3,19 +3,30 @@ var notabla = document.getElementById('no-tabla');
 var botonNuevoPaciente;
 var botonEditarPaciente;
 var botonEliminarPaciente;
-var array = []; //array pacientes
-const tipo={obtener: "obtener", guardar:"guardar", eliminar:"eliminar"};
-
+botonBuscar = document.getElementById('boton-buscar-paciente');
+inputBuscar = document.getElementById('input-buscar');
 botonNuevoPaciente = document.getElementById('nuevo-paciente-boton');
+iconoBuscar=document.getElementById('icono-buscar');
+var array = []; //array pacientes
+const tipo = { obtener: "obtener", guardar: "guardar", eliminar: "eliminar" };
+
+
 botonNuevoPaciente.addEventListener('click', function (e) {
     e.preventDefault();
     paciente();
 });
-botonBuscar=document.getElementById('boton-buscar-paciente');
-inputBuscar=document.getElementById('input-buscar');
-botonBuscar.addEventListener('click', function (e){
+
+
+botonBuscar.addEventListener('click', function (e) {
     e.preventDefault();
     buscarPacientes();
+});
+inputBuscar.addEventListener('keyup',iconoBuscarActivar);
+inputBuscar.addEventListener('blur', iconoBuscarActivar);
+iconoBuscar.addEventListener('click', function (e){
+   inputBuscar.value="";
+   obtenerPacientes();
+   iconoBuscarActivar();
 });
 tabla.addEventListener('click', function (e) {
     e.preventDefault();
@@ -31,7 +42,15 @@ tabla.addEventListener('click', function (e) {
         modalBlock();
     }
 });
-
+function iconoBuscarActivar(){
+    if(inputBuscar.value==null || inputBuscar.value=="" ){
+        iconoBuscar.classList.add('form_validacion-buscar');
+        iconoBuscar.classList.remove('form_validacion-buscar-activo');
+    }else{
+        iconoBuscar.classList.remove('form_validacion-buscar');
+        iconoBuscar.classList.add('form_validacion-buscar-activo');
+    }
+}
 
 // BOTONES
 
@@ -43,13 +62,14 @@ function obtenerPacientes() {
         .then(response => response.json())
         .then(data => {
             if (data != null) {
+                array = [];
                 data.forEach((p) => {
                     if ('id' in p) {
                         var paciente = new Paciente(p.nombre, p.apellidoPaterno, p.apellidoMaterno, p.sexo, p.fechaNacimiento, p.lugarNacimiento, p.calle, p.colonia, p.ciudad, p.codigoPostal, p.telCasa, p.telOficina, p.celular, p.edoCivil, p.ocupacion, p.escolaridad, p.correo);
                         paciente.id = p.id;
                         array.push(paciente);
                     } else {
-                        modalError(p,tipo.obtener);
+                        modalError(p, tipo.obtener);
                         return;
                     }
                 });
@@ -60,10 +80,41 @@ function obtenerPacientes() {
             modalError(error, tipo.obtener);
         });
 }
-function buscarPacientes(){
-    stringBuscar=inputBuscar.value;
-    var arrayBuscar=stringBuscar.split(" ")
-    console.log(arrayBuscar);
+function buscarPacientes() {
+    stringBuscar = inputBuscar.value;
+    var arrayBuscar = stringBuscar.split(" ")
+    datos = JSON.stringify(arrayBuscar);
+    console.log(datos);
+    // datos={hola: "hola"};
+    fetch('./controller/buscar-pacientes.php', {
+        method: 'POST',
+        body: datos
+    })
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data);
+            if (data != null) {
+                array = [];
+                if (Array.isArray(data)) {
+                    data.forEach((p) => {
+                        if ('id' in p) {
+                            var paciente = new Paciente(p.nombre, p.apellidoPaterno, p.apellidoMaterno, p.sexo, p.fechaNacimiento, p.lugarNacimiento, p.calle, p.colonia, p.ciudad, p.codigoPostal, p.telCasa, p.telOficina, p.celular, p.edoCivil, p.ocupacion, p.escolaridad, p.correo);
+                            paciente.id = p.id;
+                            array.push(paciente);
+                        } else {
+                            modalError(p, tipo.obtener);
+                            return;
+                        }
+                    });
+                }
+            }
+            tablaPacientes();
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 }
 //FUNCION BORRAR TABLA
 function clearDiv(div) {
@@ -96,6 +147,8 @@ function eliminarPaciente() {
         });
 }
 function tablaPacientes() {
+    clearDiv(tabla);
+    clearDiv(notabla);
     if (array.length > 0) {
         const thead = document.createElement('thead');
         const propiedades = document.createElement('tr');

@@ -106,21 +106,35 @@ body{
 .form_validacion-estado{
     position:absolute;
     right:8px;
-    bottom:12.5px;
+    bottom:11px;
     z-index:100px;
     opacity:0;
+}
+.form_validacion-buscar{
+    position:absolute;
+    right:8px;
+    bottom:11px;
+    z-index:100px;
+    opacity:0;
+}
+.form_validacion-buscar-activo{
+    position:absolute;
+    right:8px;
+    bottom:11px;
+    z-index:100px;
+    opacity:1;
 }
 .form_validacion-estado.select{
     position:absolute;
     right:20px;
-    bottom:12.5px;
+    bottom:11px;
     z-index:100px;
     opacity:0;
 }
 .form_validacion-estado.spanone{
     position:absolute;
     right:91px;
-    bottom:12.5px;
+    bottom:12px;
     z-index:100px;
     opacity:0;
 }
