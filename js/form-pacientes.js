@@ -11,7 +11,12 @@ botonNuevoPaciente.addEventListener('click', function (e) {
     e.preventDefault();
     paciente();
 });
-
+botonBuscar=document.getElementById('boton-buscar-paciente');
+inputBuscar=document.getElementById('input-buscar');
+botonBuscar.addEventListener('click', function (e){
+    e.preventDefault();
+    buscarPacientes();
+});
 tabla.addEventListener('click', function (e) {
     e.preventDefault();
     if (e.target.classList.contains("editar-paciente")) {
@@ -54,6 +59,11 @@ function obtenerPacientes() {
         .catch(error => {
             modalError(error, tipo.obtener);
         });
+}
+function buscarPacientes(){
+    stringBuscar=inputBuscar.value;
+    var arrayBuscar=stringBuscar.split(" ")
+    console.log(arrayBuscar);
 }
 //FUNCION BORRAR TABLA
 function clearDiv(div) {

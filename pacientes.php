@@ -61,8 +61,8 @@ require ("./php/conexion.php");
             </div> -->
 
             <label class="span-4">Pacientes</label>
-            <input class="form_input span-2" type="text">
-            <button class="boton azul"><i class="fas fa-search"></i> Buscar</button>
+            <input class="form_input span-2" type="text" id="input-buscar">
+            <button class="boton azul" id="boton-buscar-paciente"><i class="fas fa-search"></i> Buscar</button>
             <button class="boton azul" id="nuevo-paciente-boton"><i class="fas fa-user-plus"></i> Nuevo
                 paciente</button>
             <table class="table span-4" id="tabla-pacientes">
