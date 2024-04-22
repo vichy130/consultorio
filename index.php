@@ -30,7 +30,10 @@ if(!isset($_SESSION['username'])){
         <?php require("./layout/menu.php"); ?>
             <div class="content-general">
                 <div id="titulo"><h2>Inicio</h2></div>
-                
+                <div class="pacientes">Pacientes</div>
+                <div class="consultas">Consultas</div>
+                <div class="medicamentos">Medicamentos</div>
+
             </div>
         <?php require("./layout/footer.php"); ?>
     <!-- END contenedor -->
