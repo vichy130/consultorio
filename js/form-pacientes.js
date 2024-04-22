@@ -24,6 +24,7 @@ botonBuscar.addEventListener('click', function (e) {
 inputBuscar.addEventListener('keyup', iconoBuscarActivar);
 inputBuscar.addEventListener('blur', iconoBuscarActivar);
 iconoBuscar.addEventListener('click', function (e) {
+    e.preventDefault();
     inputBuscar.value = "";
     obtenerPacientes();
     iconoBuscarActivar();

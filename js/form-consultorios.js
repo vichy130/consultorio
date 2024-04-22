@@ -9,12 +9,33 @@ const tipo={obtener: "obtener", guardar:"guardar", eliminar:"eliminar", imprimir
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     obtenerConsultorios();
 };
-
+botonBuscar.addEventListener('click', function (e) {
+    e.preventDefault();
+    buscarConsultorios();
+});
+inputBuscar.addEventListener('keyup', iconoBuscarActivar);
+inputBuscar.addEventListener('blur', iconoBuscarActivar);
+iconoBuscar.addEventListener('click', function (e) {
+    e.preventDefault();
+    inputBuscar.value = "";
+    obtenerConsultorios();
+    iconoBuscarActivar();
+});
+function iconoBuscarActivar() {
+    if (inputBuscar.value == null || inputBuscar.value == "") {
+        iconoBuscar.classList.add('form_validacion-buscar');
+        iconoBuscar.classList.remove('form_validacion-buscar-activo');
+    } else {
+        iconoBuscar.classList.remove('form_validacion-buscar');
+        iconoBuscar.classList.add('form_validacion-buscar-activo');
+    }
+}
 function obtenerConsultorios() {
     fetch('./controller/obtener-consultorios.php')
         .then(response => response.json())
         .then(data => {
             if(data!=null){
+                arrayConsultorios=[];
                 data.forEach((c) => {
                     if ('id' in c){
                         var consultorio = new Consultorio();
@@ -38,8 +59,56 @@ function obtenerConsultorios() {
             modalError(error, tipo.obtener);
         });
 }
+function buscarConsultorios() {
+    stringBuscar = inputBuscar.value;
+    var arrayBuscar = stringBuscar.split(" ")
+
+    if (arrayBuscar.length < 6) {
+        datos = JSON.stringify(arrayBuscar);
+        console.log(datos);
+        fetch('./controller/buscar-consultorios.php', {
+            method: 'POST',
+            body: datos
+        })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                console.log(data);
+                if (data != null) {
+                    arrayConsultorios = [];
+                    if (Array.isArray(data)) {
+                        data.forEach((c) => {
+                            if ('id' in c){
+                                var consultorio = new Consultorio();
+                                consultorio.id = c.id;
+                                consultorio.nombre = c.nombre;
+                                consultorio.calle = c.calle;
+                                consultorio.colonia = c.colonia;
+                                consultorio.ciudad = c.ciudad;
+                                consultorio.codigoPostal = c.codigoPostal;
+                                consultorio.telefono = c.telefono;
+                                arrayConsultorios.push(consultorio);
+                            }else{
+                                modalError(c, tipo.obtener);
+                                    return;
+                            }
+                        });
+                    }
+                }
+                tablaConsultorios();
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }else{
+        modalError("palabras", tipo.obtener);
+    }
+    }
 function tablaConsultorios() {
     clearDiv(tConsultorios);
+    clearDiv(notabla);
+
     if (arrayConsultorios.length > 0) {
         const thead=document.createElement('thead');
         const propiedades=document.createElement('tr');

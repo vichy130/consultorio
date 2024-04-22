@@ -2,11 +2,31 @@ var tUsuarios = document.getElementById('tabla-usuarios');
 var notabla = document.getElementById('no-tabla');
 var botonBuscar = document.getElementById('boton-buscar-usuario');
 var inputBuscar = document.getElementById('input-buscar');
-var iconoBuscar=document.getElementById('icono-buscar');
+var iconoBuscar = document.getElementById('icono-buscar');
 var arrayUsuarios = [];
-const tipo = { obtener: "obtener", guardar: "guardar", eliminar: "eliminar" , imprimir:"imprimir"};
+const tipo = { obtener: "obtener", guardar: "guardar", eliminar: "eliminar", imprimir: "imprimir" };
 var botonNuevoUsuario = document.getElementById('boton-nuevo-usuario');
-
+inputBuscar.addEventListener('keyup', iconoBuscarActivar);
+inputBuscar.addEventListener('blur', iconoBuscarActivar);
+iconoBuscar.addEventListener('click', function (e) {
+    e.preventDefault();
+    inputBuscar.value = "";
+    obtenerUsuarios();
+    iconoBuscarActivar();
+});
+botonBuscar.addEventListener('click', function (e) {
+    e.preventDefault();
+    buscarUsuarios();
+});
+function iconoBuscarActivar() {
+    if (inputBuscar.value == null || inputBuscar.value == "") {
+        iconoBuscar.classList.add('form_validacion-buscar');
+        iconoBuscar.classList.remove('form_validacion-buscar-activo');
+    } else {
+        iconoBuscar.classList.remove('form_validacion-buscar');
+        iconoBuscar.classList.add('form_validacion-buscar-activo');
+    }
+}
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     obtenerUsuarios();
 };
@@ -14,6 +34,8 @@ function obtenerUsuarios() {
     fetch('./controller/obtener-usuarios.php')
         .then(response => response.json())
         .then(data => {
+            console.log(data);
+            arrayUsuarios = [];
             data.forEach(element => {
                 if ('username' in element) {
                     var usuario = new Usuario();
@@ -37,6 +59,51 @@ function obtenerUsuarios() {
             modalError(error, tipo.obtener);
         });
 }
+function buscarUsuarios() {
+    stringBuscar = inputBuscar.value;
+    var arrayBuscar = stringBuscar.split(" ")
+    if (arrayBuscar.length < 6) {
+        datos = JSON.stringify(arrayBuscar);
+        console.log(datos);
+        fetch('./controller/buscar-usuarios.php', {
+            method: 'POST',
+            body: datos
+        })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                console.log(data);
+                if (data != null) {
+                    arrayUsuarios = [];
+                    if (Array.isArray(data)) {
+                        data.forEach(element => {
+                            if ('username' in element) {
+                                var usuario = new Usuario();
+                                usuario.username = element.username;
+                                usuario.nombre = element.nombre;
+                                usuario.apellidoPaterno = element.apellidoPaterno;
+                                usuario.apellidoMaterno = element.apellidoMaterno;
+                                usuario.telefono = element.telefono;
+                                usuario.correo = element.correo;
+                                usuario.tipoUsuario = element.tipoUsuario;
+                                arrayUsuarios.push(usuario);
+                            } else {
+                                modalError(element, tipo.obtener);
+                                return;
+                            }
+                        });
+                    }
+                }
+                tablaUsuarios();
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    } else {
+        modalError("palabras", tipo.obtener);
+    }
+}
 tUsuarios.addEventListener('click', function (e) {
     e.preventDefault();
     if (e.target.classList.contains('editar-usuario')) {
@@ -56,6 +123,7 @@ botonNuevoUsuario.addEventListener('click', function (e) {
 });
 function tablaUsuarios() {
     tUsuarios.replaceChildren();
+    notabla.replaceChildren();
     if (arrayUsuarios.length > 0) {
         const thead = document.createElement('thead');
         const propiedades = document.createElement('tr');

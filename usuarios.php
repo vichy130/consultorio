@@ -67,6 +67,7 @@ unset($_SESSION['id_usuario']);
                     </tr>
                 </thead>-->
             </table>
+            <div id="no-tabla"></div>
         </div>
         <?php require ("./layout/footer.php"); ?>
     </div>
