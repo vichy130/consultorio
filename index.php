@@ -1,13 +1,14 @@
 <?php
-session_start(); 
+session_start();
 
-function redirect($url) {
+function redirect($url)
+{
     ob_start();
-    header('Location:'.$url);
+    header('Location:' . $url);
     ob_end_flush();
     die();
 }
-if(!isset($_SESSION['username'])){
+if (!isset($_SESSION['username'])) {
     redirect("./iniciar-sesion.php");
     exit();
 }
@@ -27,16 +28,55 @@ if(!isset($_SESSION['username'])){
 
 <body>
     <div class="contenedor">
-        <?php require("./layout/menu.php"); ?>
-            <div class="content-general">
-                <div id="titulo"><h2>Inicio</h2></div>
-                <div class="pacientes">Pacientes</div>
-                <div class="consultas">Consultas</div>
-                <div class="medicamentos">Medicamentos</div>
-
+        <?php require ("./layout/menu.php"); ?>
+        <div class="content-index">
+            <label class="span-2 rectangulos-flex">Inicio</label>
+            <div class="rectangulos-flex">
+                <div class="rectangulo backgr-pacientes">
+                    <p>Pacientes registrados</p>
+                    <h2 class="numero pacientes-registrados" id="pacientes-registrados"></h2>
+                    <i class="icono-index fa-solid fa-hospital-user"></i>
+                    <div id="boton-agregar-paciente" class="boton-agregar-paciente">
+                        <i class="fa-solid fa-user-plus"></i>
+                    </div>
+                </div>
             </div>
-        <?php require("./layout/footer.php"); ?>
-    <!-- END contenedor -->
+            <div class="rectangulos-flex">
+                <div class="rectangulo backgr-consultas">
+                    <p>Consultas realizadas</p>
+                    <h2 class="numero consultas-realizadas" id="consultas-realizadas"></h2>
+                    <i class="icono-index fa-solid fa-calendar-check"></i>
+                </div>
+            </div>
+            <div class="rectangulos-flex span-2">
+                <div class="rectangulo-med backgr-medicamentos">
+                    <p>Medicamentos registrados</p>
+                    <div class="contenedor-absoluto">
+                        <div class="numero-med">
+                            <div class>
+                                <p>Nutrientes</p>
+                                <h2 class="medicamentos-registrados" id="nutrientes-registrados"></h2>
+                            </div>
+                            <div>
+                                <p>Alopático</p>
+                                <h2 class="medicamentos-registrados" id="alopatico-registrados"></h2>
+                            </div>
+                            <div>
+                                <p>Homeopático</p>
+                                <h2 class="medicamentos-registrados" id="homeopatico-registrados"></h2>
+                            </div>
+                        </div>
+                    </div>
+                    <i class="icono-index fa-solid fa-prescription-bottle-medical"></i>
+                    <div id="boton-agregar-medicamento" class="boton-agregar-medicamento">
+                        <i class="fa-solid fa-capsules">+</i>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- END DIV CONTENT GRAL -->
+        <?php require ("./layout/footer.php"); ?>
+    </div> <!-- END contenedor -->
 </body>
 <script src="./js/form-inicio.js"></script>
+
 </html>

@@ -16,20 +16,27 @@ body{
     grid-gap:20px;
     justify-self: center;
 }
+.content-index{
+    display: grid;
+    grid-template-columns:1fr 1fr;
+    grid-template-rows: 1rem 1fr 1fr;
+    grid-gap:20px;
+    justify-self: center;
+}
 /* grid */
 .contenedor, .contenedor-no  {
     font-size: 12px;
     color: #495464;
     background: #E8E8E8;
 }
-.contenedor .contenido, .content-pacientes, .content-general, .contenedor-no .contenido{
+.contenedor .contenido, .content-pacientes, .content-general, .content-index, .contenedor-no .contenido{
     width:90%;
     max-width: 1400px;
 }
 .nav, .contenido{
     background: #fdfdfc;
 }
-.contenedor .content-general{
+.contenedor .content-general, .contenedor .content-index{
     margin-top: 10px;
     background: rgb(255, 255, 255);
     display: grid;

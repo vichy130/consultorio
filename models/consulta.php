@@ -515,5 +515,17 @@ class Consulta
             return $e->getMessage();
         }
     }
+    function countConsultas()
+    {
+        try {
+            $query = "SELECT COUNT('id') as consultas from consulta; ";
+            $stmt = $this->conexion->getdbh()->prepare($query);
+            $stmt->execute();
+            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $resultado['consultas'];
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
 }
 ?>

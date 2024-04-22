@@ -103,5 +103,31 @@ class Medicamento
             return $e->getMessage();
         }
     }
+    function countMedicamentos()
+    {
+        try {
+            $query = "SELECT COUNT('id') as nutrientes from medicamento where tipo='nutriente'; ";
+            $stmt = $this->conexion->getdbh()->prepare($query);
+            $stmt->execute();
+            $datosN  = $stmt->fetch(PDO::FETCH_ASSOC);
+            $respuesta['nutrientes']=$datosN['nutrientes'];
+
+            $query = "SELECT COUNT('id') as alopatica from medicamento where tipo='Alopática'; ";
+            $stmt = $this->conexion->getdbh()->prepare($query);
+            $stmt->execute();
+            $datosA  = $stmt->fetch(PDO::FETCH_ASSOC);
+            $respuesta['alopatica']=$datosA['alopatica'];
+
+            $query = "SELECT COUNT('id') as homeopatica from medicamento where tipo='Homeopática'; ";
+            $stmt = $this->conexion->getdbh()->prepare($query);
+            $stmt->execute();
+            $datosH  = $stmt->fetch(PDO::FETCH_ASSOC);
+            $respuesta['homeopatica']=$datosH['homeopatica'];
+
+            return $respuesta;
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
 }
 ?>

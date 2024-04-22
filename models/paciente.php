@@ -1,5 +1,5 @@
 <?php
-include_once("../models/conexion.php");
+include_once ("../models/conexion.php");
 class Paciente
 {
     private $id;
@@ -208,10 +208,22 @@ class Paciente
         try {
             $query = "DELETE FROM paciente WHERE id=:id;";
             $stmt = $this->conexion->getdbh()->prepare($query);
-            $stmt->bindParam(':id', $this->id, PDO::PARAM_INT); 
+            $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
             return $stmt->execute();
         } catch (PDOException $e) {
-            return  $e->getMessage();
+            return $e->getMessage();
+        }
+    }
+    function countPacientes()
+    {
+        try {
+            $query = "SELECT COUNT('id') as pacientes from paciente; ";
+            $stmt = $this->conexion->getdbh()->prepare($query);
+            $stmt->execute();
+            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $resultado['pacientes'];
+        } catch (PDOException $e) {
+            return $e->getMessage();
         }
     }
 }

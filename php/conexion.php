@@ -1,8 +1,8 @@
 <?php
 
-//$dbname="agakhanc_consultorio";
-//$user="agakhanc_regular";
-//$password="DeVUVOtH68Z1";
+// private $dbname="agakhanc_consultorio";
+// private $user="agakhanc_regular";
+// private $password="ZMmWoZ.5kRAS";
 $dbname="consultorio";
 // $_ENV['dbname']=
 $user="root";

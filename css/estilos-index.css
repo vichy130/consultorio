@@ -1,0 +1,105 @@
+.rectangulos-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rectangulo {
+    height: 80%;
+    width: 95%;
+    border: 1px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+    padding: 3%;
+    color: white;
+    position: relative;
+}
+
+.boton-agregar-paciente {
+    border: 1 px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+    padding: 3%;
+    width: 70px;
+    height: 30px;
+    background-color: #cb712c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 6%;
+    right: 3%;
+    cursor:pointer;
+}
+
+.boton-agregar-medicamento {
+    border: 1 px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+    padding: 3%;
+    width: 70px;
+    height: 10px;
+    background-color: #272a93;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 6%;
+    right: 3%;
+    cursor:pointer;
+}
+.boton-agregar-paciente:hover{
+    background-color: #91501f;
+}
+.boton-agregar-medicamento:hover{
+    background-color: #0d0f32;
+}
+.rectangulo-med {
+    height: 90%;
+    width: 98%;
+    border: 1px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+    padding: 3%;
+    color: white;
+    position: relative;
+}
+
+.backgr-pacientes {
+    background: linear-gradient(to right, #e4a40d, #ca7534, #e05c23);
+}
+
+.backgr-consultas {
+    background: linear-gradient(to right, #696c6a, #396144, #226a4b);
+}
+
+.backgr-medicamentos {
+    background: linear-gradient(to right, #585a77, #536f98, #464661, #6d6d85);
+}
+
+.icono-index {
+    position: absolute;
+    top: 6%;
+    right: 3%;
+    font-size: 500%;
+}
+
+.numero {
+    position: absolute;
+    top: 40%;
+    left: 20%;
+    font-size: 300%;
+}
+.contenedor-absoluto {
+    position: absolute;
+    top: 40%;
+    width: 80%; /* Agregar un ancho explícito */
+}
+
+.numero-med {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.numero-med h2 {
+    font-size: 3em;
+    padding:10px;
+}
+

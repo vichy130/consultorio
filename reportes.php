@@ -27,23 +27,19 @@ if (!isset($_SESSION['username'])) {
 <body>
     <div class="contenedor">
         <?php require ("./layout/menu.php"); ?>
-        <div class="content-general">
-
-            <div id="modal" class="modal">
-                <div id="modal-contenido" class="modal-contenido">
-                    <span class="cerrar-modal" id="cerrarModal">&times;</span>
-                </div>
-            </div>
-
-            <label for="">Centro de reportes</label>
-            <div>
+        <div class="content-index">
+        <label class="span-2">Centro de reportes</label>
+            <div class="reportes-consulta">
                 <h2>Consultas médicas</h2>
             </div>
-            <div>
+            <div class="reportes-medicamento">
                 <h2>Medicamentos</h2>
             </div>
-            <div>
-                <h2>pacientes</h2>
+            <div class="reportes-enfermedades">
+                <h2>Enfermedades</h2>
+            </div>
+            <div class="reportes-terapias">
+                <h2>terapias</h2>
             </div>
         </div>
         <?php require ("./layout/footer.php"); ?>
