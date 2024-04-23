@@ -195,8 +195,8 @@ function buscarPacientes() {
                 const iconoEditar = document.createElement('i');
                 const iconoEliminar = document.createElement('i');
 
-                iconoEditar.className = "far fa-edit editar-paciente";
-                iconoEliminar.className = "fas fa-trash eliminar-paciente";
+                iconoEditar.className = "cursor far fa-edit editar-paciente";
+                iconoEliminar.className = "cursor fas fa-trash eliminar-paciente";
 
                 iconoEditar.dataset.id = pa.id;
                 iconoEliminar.dataset.id = pa.id;

@@ -159,9 +159,9 @@ function tablaConsultas() {
             const iconoExportar = document.createElement('i');
             const iconoEliminar = document.createElement('i');
 
-            iconoEditar.className = "far fa-edit editar-consulta";
-            iconoExportar.className = "fa-solid fa-file-pdf exportar-consulta";
-            iconoEliminar.className = "fas fa-trash eliminar-consulta";
+            iconoEditar.className = "cursor far fa-edit editar-consulta";
+            iconoExportar.className = "cursor fa-solid fa-file-pdf exportar-consulta";
+            iconoEliminar.className = "cursor fas fa-trash eliminar-consulta";
 
             iconoEditar.dataset.id = co.id;
             iconoExportar.dataset.id = co.id;

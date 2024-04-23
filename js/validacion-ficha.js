@@ -89,9 +89,9 @@ const expresiones = {
     excrementodolor: /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\s.,]{1,45}$/,
     ejercicio: /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\s.,]{1,500}$/,
     parentesco:/^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0\s]{1,200}$/,
-    familiarenfermedad: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0\s]{1,200}$/,
+    familiarenfermedad: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0\s.,]{1,200}$/,
     familiarenfermedaddescripcion: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0\s.,]{1,200}$/,
-    enfermedad:/^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0\s]{1,200}$/,
+    enfermedad:/^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0\s.,]{1,200}$/,
     enfermedadactiva:/^\d{1,2}$/,
     enfermedaddescripcion:/^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0\s.,]{1,200}$/
 }

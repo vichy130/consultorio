@@ -48,7 +48,6 @@ window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CAR
 };
 
 document.addEventListener('DOMContentLoaded', function () {// SE EJECUTA AUNQUE LOS RECURSOS NO HAN SIDO CARGADOS POR COMPLETO
-    divImprimirConsulta.style.display="none";
     obtenerMedicamentos();
     var fechaHoy = new Date();
     var dia = fechaHoy.getDate();

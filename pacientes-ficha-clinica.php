@@ -56,7 +56,7 @@ if (isset($_SESSION["id_paciente"])) {
 
                     <div class="span-4 titulo-iconos">
                         <label class="formulario_grupo">Ficha Clínica</label>
-                        <i class="fa-solid fa-file-pdf size-icon margin-left" id="boton-imprimir-ficha"></i>
+                        <i class="cursor fa-solid fa-file-pdf size-icon margin-left" id="boton-imprimir-ficha"></i>
                     </div>
 
                     <!-- Grupo: Fecha -->
@@ -569,8 +569,9 @@ if (isset($_SESSION["id_paciente"])) {
                         <label class="form_label" for="familiarenfermedad-paciente">Enfermedad</label>
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="familiarenfermedad-paciente"
-                                name="familiarenfermedad-paciente">
-                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                                name="familiarenfermedad-paciente" list="datalist-enfermedad">
+                                <datalist id="datalist-enfermedad"></datalist>
+                            <i class="form_validacion-estado select fa-solid fa-circle-xmark"></i>
                         </div>
                         <p class="form_input-error">El campo no debe estar vacío. Solo se aceptan letras</p>
                     </div><!-- end form-grupo -->
@@ -611,8 +612,9 @@ if (isset($_SESSION["id_paciente"])) {
                     <div class="formulario_grupo span-2" id="grupo_enfermedad">
                         <label class="form_label" for="enfermedad-paciente">Enfermedad</label>
                         <div class="form_grupo-input">
-                            <input class="form_input" type="text" id="enfermedad-paciente" name="enfermedad-paciente">
-                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                            <input class="form_input" type="text" id="enfermedad-paciente" name="enfermedad-paciente" list="datalist-enfermedad">
+                            <datalist id="datalist-enfermedad"></datalist>
+                            <i class="form_validacion-estado select fa-solid fa-circle-xmark"></i>
                         </div>
                         <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->
@@ -684,6 +686,7 @@ if (isset($_SESSION["id_paciente"])) {
         <?php require ("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
+    <script src="./js/base-datos-enfermedades.js"></script>
     <script src="./js/validacion-ficha.js"></script>
     <script src="./js/form-ficha.js"></script>
 

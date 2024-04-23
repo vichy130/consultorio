@@ -144,8 +144,8 @@ function tablaConsultorios() {
             const editarIcono = document.createElement('i');
             const eliminarIcono = document.createElement('i');
 
-            editarIcono.className = "far fa-edit editar-consultorio";
-            eliminarIcono.className = "fas fa-trash eliminar-consultorio";
+            editarIcono.className = "cursor far fa-edit editar-consultorio";
+            eliminarIcono.className = "cursor fas fa-trash eliminar-consultorio";
 
             editarIcono.dataset.id = c.id;
             eliminarIcono.dataset.id = c.id;

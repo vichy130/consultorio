@@ -48,7 +48,7 @@ if (!isset($_SESSION['username'])) {
 
                     <div class="span-4 titulo-iconos">
                     <label class="formulario_grupo">Informacion basica</label>
-                    <i class="fa-solid fa-file-pdf size-icon margin-left" id="boton-imprimir-paciente"></i>
+                    <i class="cursor fa-solid fa-file-pdf size-icon margin-left" id="boton-imprimir-paciente"></i>
                     </div>
 
                     <!-- Grupo: nombre paciente -->

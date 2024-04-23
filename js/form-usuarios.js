@@ -168,8 +168,8 @@ function tablaUsuarios() {
             const iconoEditar = document.createElement('i');
             const iconoEliminar = document.createElement('i');
 
-            iconoEditar.className = "fas fa-edit editar-usuario";
-            iconoEliminar.className = "fas fa-trash eliminar-usuario";
+            iconoEditar.className = "cursor fas fa-edit editar-usuario";
+            iconoEliminar.className = "cursor fas fa-trash eliminar-usuario";
 
             iconoEditar.dataset.id = u.username;
             iconoEliminar.dataset.id = u.username;

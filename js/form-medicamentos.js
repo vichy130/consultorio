@@ -166,8 +166,8 @@ function medicamentos() {
             iconoEliminar.dataset.id = m.id;
             iconoEliminar.dataset.medicamento = m.medicamento;
 
-            iconoEditar.className = "far fa-edit editar-medicamento";
-            iconoEliminar.className = "fas fa-trash eliminar-medicamento";
+            iconoEditar.className = "cursor far fa-edit editar-medicamento";
+            iconoEliminar.className = "cursor fas fa-trash eliminar-medicamento";
 
             medicamentoFila.textContent = m.medicamento;
             tipoFila.textContent = m.tipo;

@@ -21,6 +21,8 @@ var botonAnadirAFamiliares = document.getElementById('agregarAntecedenteFam');
 var botonCancelar=document.getElementById('boton-cancelar-ficha');
 var botonImprimirFicha=document.getElementById('boton-imprimir-ficha');
 
+var datalistEnfermedades=document.getElementById('datalist-enfermedad');
+
 document.addEventListener('DOMContentLoaded', function () {// SE EJECUTA AUNQUE LOS RECURSOS NO HAN SIDO CARGADOS POR COMPLETO
     var fechaHoy = new Date();
     var dia = fechaHoy.getDate();
@@ -44,6 +46,7 @@ window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CAR
     obtenerFicha();
     deshabilitarAlcohol();
     deshabilitarFuma();
+    enlistarEnfermedades();
 };
 function obtenerFicha() {
     fetch('./controller/obtener-ficha.php')
@@ -440,6 +443,13 @@ function eliminarAntecedente(id) {
 function eliminarAFamiliar(id) {
     arrayAFamiliares = arrayAFamiliares.filter(ele => ele.id != id);
     actualizarTablaAFamiliares();
+}
+function enlistarEnfermedades(){
+    enfermedades.forEach(enf=>{
+        const opcionEnf=document.createElement('option');
+        opcionEnf.value=enf;
+        datalistEnfermedades.appendChild(opcionEnf);
+    })
 }
 
 //MODAL

@@ -140,6 +140,6 @@ html{
 .contenedor {
     display: flex;
 }
-.imprimir{
-    display:none;
+.cursor{
+    cursor:pointer;
 }

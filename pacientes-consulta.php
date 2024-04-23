@@ -25,6 +25,7 @@ if (isset($_REQUEST["id"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/estilos-pacientes-informacion.css">
     <link rel="stylesheet" href="./css/estilos-pacientes.css">
+    <link rel="stylesheet" href="./css/estilos-consulta.css">
     <title>Consulta</title>
 </head>
 
@@ -49,12 +50,12 @@ if (isset($_REQUEST["id"])) {
 
                     <div class="span-4 titulo-iconos">
                         <label id="consulta-titulo" class="formulario_grupo span-4">Consulta</label>
-                        <div class="margin-left" id="imprimir">
-                            <select class="form_input size-icon" name="select-tamano" id="select-tamano">
-                                <option value="media">media-carta</option>
+                        <div class="margin-left imprimir centrar" id="imprimir">
+                            <select class="form_input-light size-icon" name="select-tamano" id="select-tamano">
+                                <option value="media">Media-Carta</option>
                                 <option value="carta">Carta</option>
                             </select>
-                            <i class="fa-solid fa-file-pdf size-icon" id="boton-imprimir-receta"></i>
+                            <i class=" cursor fa-solid fa-file-pdf size-icon" id="boton-imprimir-receta"></i>
                         </div>
                     </div>
 
