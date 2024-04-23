@@ -69,7 +69,7 @@ if (!isset($_SESSION['username'])) {
                     </div>
                     <i class="icono-index fa-solid fa-prescription-bottle-medical"></i>
                     <div id="boton-agregar-medicamento" class="boton-agregar-medicamento">
-                        <i class="fa-solid fa-capsules">+</i>
+                        <i class="fa-solid fa-capsules"> +</i>
                     </div>
                 </div>
             </div>

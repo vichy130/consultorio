@@ -20,6 +20,7 @@ if (!isset($_SESSION['username'])) {
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="./css/estilos-reportes.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Centro de reportes</title>
 </head>
@@ -27,19 +28,24 @@ if (!isset($_SESSION['username'])) {
 <body>
     <div class="contenedor">
         <?php require ("./layout/menu.php"); ?>
-        <div class="content-index">
-        <label class="span-2">Centro de reportes</label>
-            <div class="reportes-consulta">
-                <h2>Consultas médicas</h2>
+        <div class="content-reportes">
+        <label class="span-2 centrar">Centro de reportes</label>
+            <div class="reportes-consultas">
+                <select name="consultas" id="select-consultas">
+                    <option value="ultimo mes">Último més</option>
+                    <option value="ultimos tres meses">Últimos tres meses</option>
+                    <option value="ultimo año">Último año</option>
+                    <i class="fa-light fa-print"></i>
+                </select>
             </div>
-            <div class="reportes-medicamento">
-                <h2>Medicamentos</h2>
+            <div class="reportes-medicamentos">
+                
             </div>
             <div class="reportes-enfermedades">
-                <h2>Enfermedades</h2>
+                
             </div>
             <div class="reportes-terapias">
-                <h2>terapias</h2>
+                
             </div>
         </div>
         <?php require ("./layout/footer.php"); ?>

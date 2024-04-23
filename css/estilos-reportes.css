@@ -1,0 +1,42 @@
+.content-reportes{
+    margin-top: 10px;
+    background: rgb(245, 245, 245);
+    display: grid;
+    padding:50px;
+    display: grid;
+    grid-template-columns:1fr 1fr;
+    grid-template-rows: 1rem 1fr 1fr;
+    grid-gap:10px;
+    justify-self: center;
+    width:100%;
+    height:100%;
+    max-width: 1400px;
+}
+
+.reportes-consultas{
+    background-color: rgb(255, 255, 255);
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    border-radius: 1.2em;
+}
+.reportes-medicamentos{
+    background-color: rgb(255, 255, 255);
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    border-radius: 2em;
+}
+.reportes-enfermedades{
+    background-color: rgb(255, 255, 255);
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    border-radius: 2em;
+}
+.reportes-terapias{
+    background-color: rgb(255, 255, 255);
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    border-radius: 2em;
+}
+.centrar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+

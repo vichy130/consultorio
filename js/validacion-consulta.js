@@ -165,8 +165,6 @@ function validarConsultaNombreMed() {
     let validado = false;
     arrayMedicamentos.forEach(med => {
         if (inputConsultaNombreMed.value == med.medicamento) {
-            console.log(inputConsultaNombreMed.value);
-            console.log(med.medicamento);
             document.getElementById(`grupo_consultanombremed`).classList.remove('formulario_grupo-incorrecto');
             document.getElementById(`grupo_consultanombremed`).classList.add('formulario_grupo-correcto');
             document.querySelector(`#grupo_consultanombremed .form_validacion-estado`).classList.remove('fa-circle-xmark');
@@ -186,7 +184,6 @@ function validarConsultaNombreMed() {
         campos.consultanombremed = true;
 
     } else if (validado == false) {
-        console.log(inputConsultaNombreMed.value);
         document.getElementById(`grupo_consultanombremed`).classList.add('formulario_grupo-incorrecto');
         document.getElementById(`grupo_consultanombremed`).classList.remove('formulario_grupo-correcto');
         document.querySelector(`#grupo_consultanombremed .form_validacion-estado`).classList.add('fa-circle-xmark');
@@ -200,10 +197,9 @@ anadirMedicamentoIndicacion.addEventListener('click', (e) => {
     e.preventDefault();
     var i = validarConsultaNombreMed();
     if (i) {
-        console.log("el medicamento exiate");
         ingresarMedicamentoIndicacion()
     } else {
-        console.log("el medicamento no existe");
+        modalError("no existe", tipo.guardar);
     }
 });
 formConsulta.addEventListener('submit', (e) => {

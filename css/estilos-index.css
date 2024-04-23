@@ -12,6 +12,7 @@
     padding: 3%;
     color: white;
     position: relative;
+    border-radius: 1em;
 }
 
 .boton-agregar-paciente {
@@ -28,6 +29,7 @@
     bottom: 6%;
     right: 3%;
     cursor:pointer;
+    border-radius: .5em;
 }
 
 .boton-agregar-medicamento {
@@ -44,6 +46,7 @@
     bottom: 6%;
     right: 3%;
     cursor:pointer;
+    border-radius: .5em;
 }
 .boton-agregar-paciente:hover{
     background-color: #91501f;
@@ -59,6 +62,7 @@
     padding: 3%;
     color: white;
     position: relative;
+    border-radius: 1em;
 }
 
 .backgr-pacientes {

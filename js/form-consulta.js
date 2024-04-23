@@ -42,12 +42,14 @@ botonImprimirReceta.addEventListener("click", imprimirReceta);
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     fetchedData = null;
     id = null;
-    obtenerMedicamentos();
+    // obtenerMedicamentos();
     obtenerConsulta();
     obtenerConsultorios();
 };
 
 document.addEventListener('DOMContentLoaded', function () {// SE EJECUTA AUNQUE LOS RECURSOS NO HAN SIDO CARGADOS POR COMPLETO
+    divImprimirConsulta.style.display="none";
+    obtenerMedicamentos();
     var fechaHoy = new Date();
     var dia = fechaHoy.getDate();
     var mes = fechaHoy.getMonth() + 1;
@@ -151,6 +153,7 @@ function obtenerMedicamentos() { //pendiente
     fetch('./controller/obtener-medicamentos.php')
         .then(response => response.json())
         .then(data => {
+            console.log(data);
             data.forEach((m) => {
                 medicamento = new Medicamento(m.medicamento, m.tipo, m.descripcion);
                 medicamento.id = m.id;
@@ -631,6 +634,9 @@ function modalError(error, tipo) {
     } else if (tipo == "imprimir") {
         titulo.textContent = 'No se puede imprimir receta';
     }
+    if (error == "no existe") {
+        parrafo.textContent = "El medicamento no existe.";
+    } else
     if (error == "campos") {
         parrafo.textContent = "Porfavor, revisa todos los campos e intenta de nuevo.";
     } else if (error == "imprimir") {
