@@ -106,7 +106,7 @@ if (isset($_SESSION["id_paciente"])) {
                         <div class="form_grupo-input">
                             <input class="form_input form_input_small" type="text" id="hijoedad-paciente"
                                 name="hijoedad-paciente">
-                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                            <i class="form_validacion-estado spanone fa-solid fa-circle-xmark"></i>
                         </div>
                         <p class="form_input-error">Solo se permiten números</p>
                     </div><!-- end form-grupo -->
@@ -403,7 +403,7 @@ if (isset($_SESSION["id_paciente"])) {
                         <div class="form_grupo-input">
                             <input class="form_input form_input_small" type="number" id="agua-paciente"
                                 name="agua-paciente">
-                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                            <i class="form_validacion-estado spanone fa-solid fa-circle-xmark"></i>
                         </div>
                         <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->

@@ -1,13 +1,14 @@
 var consultaMes=[];
+var selectConsulta=document.getElementById('select-consultas');
 function loadCharts(){
     var ctxConsultas = document.getElementById('chart-consultas');
     var consultasChart = new Chart(ctxConsultas, {
         type: 'line',
         data: {
-            labels: ['label', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: [consultaMes[0].label, consultaMes[1].label, consultaMes[2].label, consultaMes[3].label,],
             datasets: [{
                 label: 'Consultas',
-                data: [2, 19, 3, 5, 2, 3],
+                data: [consultaMes[0].data, consultaMes[1].data, consultaMes[2].data, consultaMes[3].data],
             }]
         },
     });
@@ -67,8 +68,8 @@ function obtenerReporte(){
     .then(response => response.json())
     .then(data => {
         console.log(data);
-        consultaMes=data;
-        console.log(consultaMes[0])
+        consultaMes=data.consultaMes;
+        console.log(consultaMes)
     })// FIN FETCH
     .catch(error => {
        console.log(error);

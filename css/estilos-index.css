@@ -88,11 +88,12 @@
     position: absolute;
     top: 40%;
     left: 20%;
-    font-size: 300%;
+    font-size: 500%;
+
 }
 .contenedor-absoluto {
     position: absolute;
-    top: 40%;
+    top: 30%;
     width: 80%; /* Agregar un ancho explícito */
 }
 
@@ -100,10 +101,11 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+
 }
 
 .numero-med h2 {
-    font-size: 3em;
-    padding:10px;
+    font-size: 400%;
+    padding:1rem;
 }
 

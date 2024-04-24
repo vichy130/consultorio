@@ -1,7 +1,7 @@
 /* grid */
 .contenedor .content{
     display: grid;
-    grid-template-columns: 250px 1fr;
+    grid-template-columns: 190px 1fr;
     grid-template-rows: 50px 1fr;
     grid-template-areas: "content-informacion nav"
                 "content-informacion contenido";
@@ -45,8 +45,8 @@
 .icono-paciente{
     font-size:60px;
     color:white;
-    background: #BBBFCA;
-    padding:5px;
+    /* background: #BBBFCA; */
+    padding:1px;
 }
 .boton-nueva-consulta{
     background: #dd9000;

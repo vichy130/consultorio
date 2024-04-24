@@ -1,30 +1,38 @@
-.contenedor{ /* Master Grid */
-    min-height: 100vh; /* Permite utilizar toda la pantalla, footer */
-    display:grid;
-    grid-template-columns: 230px 1fr;
+.contenedor {
+    /* Master Grid */
+    min-height: 100vh;
+    /* Permite utilizar toda la pantalla, footer */
+    display: grid;
+    grid-template-columns: 160px 1fr;
     grid-template-rows: 1fr 30px;
-    grid-template-areas: 
-                         "navI  content"
-                         "footer footer";
+    grid-template-areas:
+        "navI  content"
+        "footer footer";
     /*align-items:start; Alinea verticalmente solo el espacio requerido*/
-    }
-
-.contenedor .content, .contenedor-no .content{ /*Contenido */
-    grid-area:content;
-    display:grid;
 }
-.contenedor-no{ /* Master Grid */
-    min-height: 100vh; /* Permite utilizar toda la pantalla, footer */
-    display:grid;
+
+.contenedor .content,
+.contenedor-no .content {
+    /*Contenido */
+    grid-area: content;
+    display: grid;
+}
+
+.contenedor-no {
+    /* Master Grid */
+    min-height: 100vh;
+    /* Permite utilizar toda la pantalla, footer */
+    display: grid;
     grid-template-columns: 230px 1fr;
     grid-template-rows: 1fr 30px;
-    grid-template-areas: 
-                         "navI  content"
-                         "footer footer";
+    grid-template-areas:
+        "navI  content"
+        "footer footer";
     /*align-items:start; Alinea verticalmente solo el espacio requerido*/
-    }
+}
 
 
-.contenedor .footer, .contenedor-no .footer{
-    grid-area:footer;
+.contenedor .footer,
+.contenedor-no .footer {
+    grid-area: footer;
 }

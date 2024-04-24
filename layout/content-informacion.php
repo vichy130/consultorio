@@ -5,15 +5,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/estilos-content-informacion.css">
 </head>
 
 <body>
     <div class="content-informacion">
         <div class="icono-paciente">
-            <i class="fas fa-user-circle"></i>
+            <img id="imagen-sexo" class="imagen-sexo" src="" alt="">
         </div>
         <div class="nombre-content-informacion">
-            <label class="derecha" name="nombre" id="nombre-content">Nombre</label>
+            <label class="derecha" name="nombre" id="nombre-content"></label>
         </div>
         <div class="iconos-content-informacion">
             <i class="fas fa-birthday-cake"></i>

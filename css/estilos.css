@@ -30,7 +30,7 @@ body{
     background: #E8E8E8;
 }
 .contenedor .contenido, .content-pacientes, .content-general, .content-index, .contenedor-no .contenido{
-    width:90%;
+    width:99%;
     max-width: 1400px;
 }
 .nav, .contenido{
@@ -146,15 +146,15 @@ body{
 }
 .form_validacion-estado.select{
     position:absolute;
-    right:20px;
-    bottom:11px;
+    right:1.5em;
+    bottom:10px;
     z-index:100px;
     opacity:0;
 }
 .form_validacion-estado.spanone{
     position:absolute;
-    right:91px;
-    bottom:12px;
+    right:53%;
+    bottom:10px;
     z-index:100px;
     opacity:0;
 }

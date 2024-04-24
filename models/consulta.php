@@ -530,7 +530,7 @@ class Consulta
         FROM consulta
         WHERE fecha BETWEEN CURDATE() - INTERVAL 1 MONTH AND CURDATE()
         GROUP BY YEARWEEK(fecha)
-        ORDER BY YEARWEEK(fecha) DESC
+        ORDER BY YEARWEEK(fecha) ASC
         LIMIT 4; ";
         try{
             $stmt=$this->conexion->getdbh()->prepare($query);

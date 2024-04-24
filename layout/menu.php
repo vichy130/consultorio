@@ -21,11 +21,18 @@
 
 <body>
     <nav class="navI">
-        <div class="boton-menu"><a href="#"><i class="fas fa-bars"></i></a></div>
+        <div class="boton-menu">
+            <a href="#">
+                <i class="fa-solid fa-caret-down"></i>
+                <p>Menú</p>
+            </a>
+        </div>
         <ul class="menu">
             <div class="logo">
-                <div class="imagen"><img src="./img/medicina.png" alt=""></div>
-                <div class="texto">Aga-Khan</div>
+                    <img src="./img/logo3.png" alt="">
+                <!-- <div class="texto">
+                    <p>AgaKhan</p>
+                </div> -->
             </div>
             <li><a href="./index.php"><i class="icono izquierda fas fa-home"></i>Inicio</a></li>
             <li><a href="./pacientes.php"><i class="icono izquierda fas fa-hospital-user"></i>Pacientes</a></li>
@@ -48,8 +55,7 @@
             <li><a href=""><i class="icono izquierda fas fa-user-circle"></i>
                     <?php if (isset($_SESSION['username'])) {
                         echo $_SESSION['nombre'] . " " . $_SESSION['apellidoPaterno'];
-                    } ?><i
-                        class="icono derecha fas fa-chevron-down"></i>
+                    } ?><i class="icono derecha fas fa-chevron-down"></i>
                 </a>
                 <ul>
                     <li><a href="./mi-perfil.php"><i class="icono izquierda fas fa-id-badge"></i>Mi perfil</a></li>
