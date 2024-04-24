@@ -345,9 +345,10 @@ if (isset($_REQUEST["id"])) {
                     <div class="formulario_grupo span-4" id="grupo_consultaterapia">
                         <label class="form_label span-4" for="consultaterapia-paciente">Terapia</label>
                         <div class="form_grupo-input">
-                            <textarea class="form_textarea" id="consultaterapia-paciente"
-                                name="consultaterapia-paciente" rows="4" cols="50"></textarea>
-                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                            <input class="form_textarea" id="consultaterapia-paciente"
+                                name="consultaterapia-paciente"list="datalist-terapias">
+                                <datalist id="datalist-terapias"></datalist>
+                            <i class="form_validacion-estado select fa-solid fa-circle-xmark"></i>
                         </div>
                         <p class="form_input-error">El campo no debe estar vacío. Solo se aceptan letras y números</p>
                     </div><!-- end form-grupo -->
@@ -382,6 +383,7 @@ if (isset($_REQUEST["id"])) {
     </div>
     <!-- end contenedor -->
 </body>
+<script src="./js/base-datos-terapias.js"></script>
 <script src="./js/validacion-consulta.js"></script>
 <script src="./js/form-consulta.js"></script>
 

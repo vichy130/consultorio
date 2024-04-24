@@ -44,7 +44,7 @@ class MedicamentoIndicacion
             $stmt->bindParam(':hora', $this->hora);
             $stmt->bindParam(':indicaciones', $this->indicaciones);
             $stmt->bindParam(':receta', $this->receta);
-            return $stmt->execute();
+             $stmt->execute();
         } catch (PDOException $e) {
             return $e->getMessage();
         }

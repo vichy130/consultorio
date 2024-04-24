@@ -19,10 +19,8 @@ class Receta {
             $stmt=$this->conexion->getdbh()->prepare($query);
             $stmt->bindParam(':id', $this->id);
             $stmt->execute();
-            return true;
         }catch(PDOException $e){
-            "Error al insertar Receta".$e->getMessage();
-            return false;
+            return $e->getMessage();
         }
     }
 }

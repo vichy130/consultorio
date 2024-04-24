@@ -131,8 +131,8 @@ class Consulta
     {
         foreach ($medicamentosIndicacion as $m) {
             $medicamentoIndicacion = new MedicamentoIndicacion($m->_id, $m->_medicamento, $m->_hora, $m->_indicaciones, $m->_receta);
-            $medicamentoIndicacion->insertar();
             $this->medicamentosIndicacion[] = $medicamentoIndicacion;
+            $medicamentoIndicacion->insertar();
         }
     }
     public function getMedicamentosIndicacion()
@@ -191,7 +191,7 @@ class Consulta
         }
         return $terapiasAplicadas;
     }
-    public function insertar($consultasP, $estudiosSolicitados, $medicamentoIndicaciones, $terapiasAplicadas)
+    public function insertar()
     {
         $query = "INSERT INTO consulta (fecha, usuario, paciente,ta,oxigeno,pulso,peso,estatura,temperatura, motivoConsulta, exploracion, indicaciones, receta, consultorio) 
     VALUES (:fecha,:usuario,:paciente,:ta,:oxigeno,:pulso,:peso,:estatura,:temperatura,:motivoConsulta,:exploracion,:indicaciones,:receta,:consultorio); ";
@@ -212,12 +212,9 @@ class Consulta
             $stmt->bindParam(':receta', $this->receta);
             $stmt->bindParam(':consultorio', $this->consultorio);
             $stmt->execute();
-            $this->setCPrevias($consultasP);
-            $this->setEstudiosSolicitados($estudiosSolicitados);
-            $this->setMedicamentosIndicacion($medicamentoIndicaciones);
-            $this->setTerapiasAplicadas($terapiasAplicadas);
             $this->id = $this->conexion->getdbh()->lastInsertId();
             return $this->getValues();
+            
         } catch (PDOException $e) {
             return $e->getMessage();
         }
@@ -348,8 +345,8 @@ class Consulta
             $stmt->bindParam(':consultorio', $this->consultorio);
             $stmt->execute();
             $this->actualizarConsultaPrevia($consultasP);
-            $respuestaEstudiosSolicitados=$this->actualizarEstudiosSolicitados($estudiosSolicitados);
-            if($respuestaEstudiosSolicitados!=true){
+            $respuestaEstudiosSolicitados = $this->actualizarEstudiosSolicitados($estudiosSolicitados);
+            if ($respuestaEstudiosSolicitados != true) {
                 return $respuestaEstudiosSolicitados;
             }
             $this->actualizarMedicamentoIndicacion($medicamentoIndicaciones);
@@ -526,6 +523,29 @@ class Consulta
         } catch (PDOException $e) {
             return $e->getMessage();
         }
+    }
+    function getReporte(){
+        $consultaMes=array();
+        $query="SELECT DATE_FORMAT(fecha, '%d-%m-%Y') AS semana, COUNT(*) AS numero
+        FROM consulta
+        WHERE fecha BETWEEN CURDATE() - INTERVAL 1 MONTH AND CURDATE()
+        GROUP BY YEARWEEK(fecha)
+        ORDER BY YEARWEEK(fecha) DESC
+        LIMIT 4; ";
+        try{
+            $stmt=$this->conexion->getdbh()->prepare($query);
+            $stmt->execute();
+            while($res=$stmt->fetch(PDO::FETCH_ASSOC)){
+                $valor=array();
+                $valor['label']=$res['semana'];
+                $valor['data']=$res['numero'];
+                $consultaMes[]=$valor;
+            }
+            return $consultaMes;
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+
     }
 }
 ?>

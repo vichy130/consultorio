@@ -27,7 +27,6 @@ class TerapiaAplicada
             $stmt->bindParam(':terapia',$this->terapia);
             $stmt->bindParam(':consulta',$this->consulta);
             $stmt->execute();
-            return true;
         }catch(PDOException $e){
             return $e->getMessage();
         }

@@ -29,7 +29,7 @@ class EstudioSolicitado
             $stmt->bindParam(':id', $this->id);
             $stmt->bindParam(':estudio', $this->estudio);
             $stmt->bindParam(':receta', $this->receta);
-            return $stmt->execute();
+            $stmt->execute();
         } catch (PDOException $e) {
             return $e->getMessage();
         }

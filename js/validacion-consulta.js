@@ -45,7 +45,7 @@ const expresiones = {
     consultanombremed: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s]{0,100}$/,
     indicacionesmed: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s.,]{0,500}$/,
     estudiossolicitados: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s.,]{0,100}$/,
-    consultaterapia: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s.,]{0,500}$/,
+    consultaterapia: /^$|^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\d\s.,:\[\]()]{0,500}$/,
 }
 const campos = {
     vitalesta: false,

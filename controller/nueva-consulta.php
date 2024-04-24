@@ -1,19 +1,21 @@
 <?php
 session_start();
+// error_reporting(E_ALL);
+// ini_set('display_errors', '1');
 function redirect($url)
 {
-    ob_start();
-    header('Location:' . $url);
-    ob_end_flush();
-    die();
+  ob_start();
+  header('Location:' . $url);
+  ob_end_flush();
+  die();
 }
 if (!isset($_SESSION['username'])) {
-    redirect("./iniciar-sesion.php");
-    exit();
+  redirect("./iniciar-sesion.php");
+  exit();
 }
 include_once ("../models/consulta.php");
 include_once ("../models/receta.php");
-$respuesta;
+$respuesta = array();
 try {
   $consulta = new consulta();
   $receta = new Receta();
@@ -47,10 +49,15 @@ try {
   $receta->setValues($recetaId);
   $receta->insertar();
   $consulta->setValues($fecha, $usuario, $paciente, $ta, $oxigeno, $pulso, $peso, $estatura, $temperatura, $motivoConsulta, $exploracion, $indicaciones, $receta->getValues(), $consultorio);
-
-  $respuesta=$consulta->insertar($consultasP, $estudiosSolicitados, $medicamentoIndicaciones, $terapiasAplicadas);
+  $consulta->setMedicamentosIndicacion($MedicamentoIndicaciones);
+  $consulta->insertar();
+  $consulta->setCPrevias($consultasP);
+  $consulta->setEstudiosSolicitados($estudiosSolicitados);
+  $consulta->setMedicamentosIndicacion($medicamentoIndicaciones);
+  $consulta->setTerapiasAplicadas($terapiasAplicadas);
+  $respuesta = $consulta->getValues();
   $_SESSION['id_consulta'] = $consulta->getId();
-  
+
 } catch (Exception $e) {
   $respuesta = $e->getMessage();
 }

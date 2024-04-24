@@ -30,7 +30,7 @@ class ConsultaPrevia
             $stmt->bindParam(':estudios', $this->estudios);
             $stmt->bindParam(':tratamiento', $this->tratamiento);
             $stmt->bindParam(':consulta', $this->consulta);
-            return $stmt->execute();
+            $stmt->execute();
         } catch (PDOException $e) {
             return $e->getMessage();
         }

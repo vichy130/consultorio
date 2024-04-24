@@ -17,6 +17,7 @@ var tablaMedicamentoIndicacion = document.getElementById("tabla-medicamento-indi
 var tablaTerapiasAplicadas = document.getElementById("tabla-terapias-aplicadas");
 var tablaEstudiosSolicitados = document.getElementById("tabla-estudios-solicitados");
 var inputIndicacionesMedicamento = document.getElementById("indicacionesmed-paciente"); //INPUT
+var dataListTerapias=document.getElementById('datalist-terapias');
 //TABLA
 var selectConsultorio = document.getElementById("select-consultorio"); //SELECT
 var selectMedicamentoHora = document.getElementById("select-medicamento-hora");
@@ -49,6 +50,7 @@ window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CAR
 
 document.addEventListener('DOMContentLoaded', function () {// SE EJECUTA AUNQUE LOS RECURSOS NO HAN SIDO CARGADOS POR COMPLETO
     obtenerMedicamentos();
+    obtenerDataListTerapias();
     var fechaHoy = new Date();
     var dia = fechaHoy.getDate();
     var mes = fechaHoy.getMonth() + 1;
@@ -70,12 +72,20 @@ document.addEventListener('DOMContentLoaded', function () {// SE EJECUTA AUNQUE 
 
 //FUNCIONES : OBTENER
 //FUNCIONES : OBTENER
+function obtenerDataListTerapias(){
+    terapias.forEach(ter=>{
+        const opcion= document.createElement('option');
+        opcion.value=ter;
+        dataListTerapias.appendChild(opcion);
+    });
+}
 function obtenerConsulta() {
     fetch('./controller/obtener-consulta.php')
         .then(response => response.json())
         .then(data => {
             console.log(data);
             if (data != null) {
+                console.log(data);
                 if ('id' in data) {
                     consultaObjeto = new Consulta(data.fecha, data.usuario, data.paciente, data.ta, data.oxigeno, data.pulso, data.peso, data.estatura, data.temperatura, data.motivoConsulta, data.exploracion, data.indicaciones, data.receta, data.consultorio);
                     receta = data.receta;
@@ -345,8 +355,9 @@ function enviarFormConsulta() {
                 return response.json();
             })
             .then(function (data) {
-                if (data = !null) {
-                    if ('id' in data) {
+                console.log(data);
+                if (data != null) {
+                    if (data.id !== undefined) {
                         consultaObjeto = new Consulta(data.fecha, data.usuario, data.paciente, data.ta, data.oxigeno, data.pulso, data.peso, data.estatura, data.temperatura, data.motivoConsulta, data.exploracion, data.indicaciones, data.receta, data.consultorio);
                         receta = data.receta;
                         consultaObjeto.id = data.id;
@@ -354,10 +365,12 @@ function enviarFormConsulta() {
                         modalExito();
                     } else {
                         modalError(data, tipo.guardar);
+                        console.log(data);
                     }
                 }
             })
             .catch(function (error) {
+                console.log(error);
                 modalError(error, tipo.guardar);
             });
     }
