@@ -214,7 +214,7 @@ class Consulta
             $stmt->execute();
             $this->id = $this->conexion->getdbh()->lastInsertId();
             return $this->getValues();
-            
+
         } catch (PDOException $e) {
             return $e->getMessage();
         }
@@ -524,28 +524,90 @@ class Consulta
             return $e->getMessage();
         }
     }
-    function getReporte(){
-        $consultaMes=array();
-        $query="SELECT DATE_FORMAT(fecha, '%d-%m-%Y') AS semana, COUNT(*) AS numero
+    function getReporte()
+    {
+        $consultaMes = array();
+        $consultaSeis = array();
+        $consultaAno = array();
+        $consultas = array();
+        $query = "SELECT DATE_FORMAT(fecha, '%d-%m-%Y') AS semana, COUNT(*) AS numero
         FROM consulta
         WHERE fecha BETWEEN CURDATE() - INTERVAL 1 MONTH AND CURDATE()
         GROUP BY YEARWEEK(fecha)
         ORDER BY YEARWEEK(fecha) ASC
         LIMIT 4; ";
-        try{
-            $stmt=$this->conexion->getdbh()->prepare($query);
+        try {
+            $stmt = $this->conexion->getdbh()->prepare($query);
             $stmt->execute();
-            while($res=$stmt->fetch(PDO::FETCH_ASSOC)){
-                $valor=array();
-                $valor['label']=$res['semana'];
-                $valor['data']=$res['numero'];
-                $consultaMes[]=$valor;
+            while ($res = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $valor = array();
+                $valor['label'] = $res['semana'];
+                $valor['data'] = $res['numero'];
+                $consultaMes[] = $valor;
             }
-            return $consultaMes;
-        }catch(PDOException $e){
+            $consultas[] = $consultaMes;
+        } catch (PDOException $e) {
             return $e->getMessage();
         }
 
+        $query = "SELECT 	MONTH(fecha) as mes ,count(*) as numero
+        from consulta
+        where fecha BETWEEN CURDATE() - INTERVAL 6 month AND CURDATE()
+        group by MONTH(fecha)
+        order by yearweek(fecha) ASC; ";
+        try {
+            $stmt = $this->conexion->getdbh()->prepare($query);
+            $stmt->execute();
+            while ($res = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $valor = array();
+                $valor['label'] = $res['mes'];
+                $valor['data'] = $res['numero'];
+                $consultaSeis[] = $valor;
+            }
+            $consultas[] = $consultaSeis;
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+
+        $query = "SELECT MONTH(fecha) as mes ,count(*) as numero
+        from consulta
+        where fecha BETWEEN CURDATE() - INTERVAL 12 month AND CURDATE()
+        group by MONTH(fecha)
+        order by yearweek(fecha) ASC; ";
+        try {
+            $stmt = $this->conexion->getdbh()->prepare($query);
+            $stmt->execute();
+            while ($res = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $valor = array();
+                $valor['label'] = $res['mes'];
+                $valor['data'] = $res['numero'];
+                $consultaAno[] = $valor;
+            }
+            $consultas[] = $consultaAno;
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+
+        $query = "SELECT YEAR(fecha) as ano,count(*) as numero
+        from consulta
+        group by YEAR(fecha)
+        order by YEAR(fecha) ASC
+        limit 12; ";
+        try {
+            $stmt = $this->conexion->getdbh()->prepare($query);
+            $stmt->execute();
+            while ($res = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $valor = array();
+                $valor['label'] = $res['ano'];
+                $valor['data'] = $res['numero'];
+                $consultaTodo[] = $valor;
+            }
+            $consultas[] = $consultaTodo;
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+
+        return $consultas;
     }
 }
 ?>

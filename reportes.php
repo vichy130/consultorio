@@ -34,13 +34,14 @@ if (!isset($_SESSION['username'])) {
             <div class="reportes-consultas">
                 <div class="grid-reportes">
                     <select class="form_input-reportes" name="consultas" id="select-consultas">
-                        <option value="ultimo mes">Último mes</option>
-                        <option value="ultimos tres meses">Últimos seis meses</option>
-                        <option value="ultimo año">Último año</option>
+                        <option value="0">Último mes</option>
+                        <option value="1">Últimos seis meses</option>
+                        <option value="2">Último año</option>
+                        <option value="3">Todos los registros</option>
                     </select>
                     <i class="icono-reportes fa-regular fa-file-pdf"></i>
                 </div>
-                <canvas id="chart-consultas"></canvas>
+                <canvas class="chart-consultas" id="chart-consultas"></canvas>
             </div>
             <div class="reportes-medicamentos">
                 <div class="grid-reportes">

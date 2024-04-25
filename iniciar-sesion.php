@@ -37,7 +37,6 @@ if (isset($_SESSION['username'])) {
 
         <div class="content">
             <form id="form-iniciar-sesion">
-                <div class="g-recaptcha" data-sitekey="6LfFi7cpAAAAAE_XSP3nk8E3nseLWT7yUiHL2UH6"></div>
                 <!-- Grupo usuario -->
                 <div class="formulario__grupo" id="grupo__usuario">
                     <label class="formulario_label">Usuario</label>
@@ -70,6 +69,8 @@ if (isset($_SESSION['username'])) {
                 </div>
 
                 <div class="texto"><a class="" href=""> ¿Olvidaste tu contraseña?</a></div>
+
+                <div class="g-recaptcha" data-sitekey="6LfFi7cpAAAAAE_XSP3nk8E3nseLWT7yUiHL2UH6"></div>
             </form>
             <!-- end form -->
         </div>

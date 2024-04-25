@@ -15,7 +15,7 @@ include_once '../models/consulta.php';
 $respuesta=array();
 try{
 $consulta=new Consulta();
-$respuesta['consultaMes']=$consulta->getReporte();
+$respuesta['consulta']=$consulta->getReporte();
 
 }catch(PDOException $e){
     $respuesta= $e->getMessage();
