@@ -39,7 +39,7 @@ if (!isset($_SESSION['username'])) {
                         <option value="2" selected>Último año</option>
                         <option value="3">Todos los registros</option>
                     </select>
-                    <i class="icono-reportes fa-regular fa-file-pdf"></i>
+                    <i class="icono-reportes cursor fa-regular fa-file-pdf" id="consulta-pdf"></i>
                 </div>
                 <canvas class="chart-consultas" id="chart-consultas"></canvas>
             </div>

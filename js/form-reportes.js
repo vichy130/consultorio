@@ -21,6 +21,7 @@ var selectConsulta = document.getElementById('select-consultas');
 var selectMedicamento = document.getElementById('select-medicamentos');
 var selectEnfermedad = document.getElementById('select-enfermedades');
 var selectTerapia = document.getElementById('select-terapias');
+var consultaPdf=document.getElementById("consulta-pdf");
 
 selectConsulta.addEventListener('change', e => {
     switch (selectConsulta.value) {
@@ -67,6 +68,11 @@ selectTerapia.addEventListener('change', e => {
         case "3": changeCharts(terapiasChart, terTodo);
             break;
     }
+})
+consultaPdf.addEventListener('click', e => {
+    e.preventDefault();
+    idExportar=selectConsulta.value;
+    window.open("./print/consultas-reporte.php?selected=" + idExportar, "_blank");
 })
 function loadCharts() {
     var ctxConsultas = document.getElementById('chart-consultas');
