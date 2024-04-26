@@ -167,7 +167,7 @@ class Ficha
         ];
     }
     //SET GET
-    function insertar($hijos,$antecedentes,$antecedentesFam)
+    function insertar($hijos, $antecedentes, $antecedentesFam)
     {
         if ($this->fechaMenstruacion == null || $this->embarazo == null || $this->partos == null || $this->cesareas == null || $this->abortos == null || $this->muertos == null || $this->enfs == null || $this->mensPeriodicidad == null || $this->mensMolestias == null) {
             $query = "INSERT INTO ficha (paciente, tipoSangre, quienRecomendo, fuma, cigarrosDia, fumaAntiguedad, alcohol, alcFrecuencia, alcoholCantidad, alcoholTipos, adicciones, alergias, desayuno, comida, cena, entreComidas, vasoAguaDia, otrosLiquidos, intolerancias, orinaDia, orinaNoche, orinaColor, orinaOlor, orinaMolestias, excrementoDia, exConsistencia, exOlor, exColor, exDolor, ejercicioSemana, fecha, hora, usuario) 
@@ -434,7 +434,7 @@ class Ficha
             hora = :hora, 
             usuario = :usuario 
             WHERE id = :id; ";
-        }else{
+        } else {
             $query = "UPDATE ficha SET 
             paciente = :paciente, 
             tipoSangre = :tipoSangre, 
@@ -485,7 +485,7 @@ class Ficha
             $stmt->bindParam(':paciente', $this->paciente);
             $stmt->bindParam(':tipoSangre', $this->tipoSangre);
             $stmt->bindParam(':quienRecomendo', $this->quienRecomendo);
-            if($this->embarazo != null || $this->partos!=null || $this->cesareas !=null || $this->abortos != null || $this->muertos!= null || $this->enfs != null ){
+            if ($this->embarazo != null || $this->partos != null || $this->cesareas != null || $this->abortos != null || $this->muertos != null || $this->enfs != null) {
                 $stmt->bindParam(':embarazo', $this->embarazo);
                 $stmt->bindParam(':partos', $this->partos);
                 $stmt->bindParam(':cesareas', $this->cesareas);
@@ -519,10 +519,10 @@ class Ficha
             $stmt->bindParam(':exOlor', $this->exOlor);
             $stmt->bindParam(':exColor', $this->exColor);
             $stmt->bindParam(':exDolor', $this->exDolor);
-            if($this->fechaMenstruacion != null  || $this->mensPeriodicidad !=null || $this->mensMolestias!= null){
-            $stmt->bindParam(':fechaMenstruacion', $this->fechaMenstruacion);
-            $stmt->bindParam(':mensPeriodicidad', $this->mensPeriodicidad);
-            $stmt->bindParam(':mensMolestias', $this->mensMolestias);
+            if ($this->fechaMenstruacion != null || $this->mensPeriodicidad != null || $this->mensMolestias != null) {
+                $stmt->bindParam(':fechaMenstruacion', $this->fechaMenstruacion);
+                $stmt->bindParam(':mensPeriodicidad', $this->mensPeriodicidad);
+                $stmt->bindParam(':mensMolestias', $this->mensMolestias);
             }
             $stmt->bindParam(':ejercicioSemana', $this->ejercicioSemana);
             $stmt->bindParam(':fecha', $this->fecha);
@@ -645,6 +645,55 @@ class Ficha
         }
         if (!empty($arrayGuardar)) {
             $this->setAntecedentesFam($arrayGuardar);
+        }
+    }
+    function getReporte()
+    {
+        $enfermedades = [];
+        $querySeis = "SELECT enfermedad, COUNT(*) AS numero
+        FROM antecedentes
+        JOIN ficha ON antecedentes.ficha = ficha.id
+        WHERE ficha.fecha >= DATE_SUB(CURRENT_DATE(), INTERVAL 6 MONTH)
+        GROUP BY enfermedad
+        ORDER BY numero DESC
+        LIMIT 5;";
+        $enfermedades['seis'] = $this->executeReporte($querySeis);
+
+        $queryAno = "SELECT enfermedad, COUNT(*) AS numero
+        FROM antecedentes
+        JOIN ficha ON antecedentes.ficha = ficha.id
+        WHERE ficha.fecha >= DATE_SUB(CURRENT_DATE(), INTERVAL 12 MONTH)
+        GROUP BY enfermedad
+        ORDER BY numero DESC
+        LIMIT 5;";
+        $enfermedades['ano'] = $this->executeReporte($queryAno);
+
+        $queryTodo = "SELECT enfermedad, COUNT(*) AS numero
+        FROM antecedentes
+        JOIN ficha ON antecedentes.ficha = ficha.id
+        GROUP BY enfermedad
+        ORDER BY numero DESC
+        LIMIT 5;";
+        $enfermedades['todo'] = $this->executeReporte($queryTodo);
+
+        return $enfermedades;
+    }
+
+    function executeReporte($query)
+    {
+        $consultaPeriodo = array();
+        try {
+            $stmt = $this->conexion->getdbh()->prepare($query);
+            $stmt->execute();
+            while ($res = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $valor = array();
+                $valor['label'] = $res['enfermedad'];
+                $valor['data'] = $res['numero'];
+                $consultaPeriodo[] = $valor;
+            }
+            return $consultaPeriodo;
+        } catch (PDOException $e) {
+            return $e->getMessage();
         }
     }
 }

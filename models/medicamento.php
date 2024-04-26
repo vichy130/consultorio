@@ -129,5 +129,65 @@ class Medicamento
             return $e->getMessage();
         }
     }
+
+    function getReporte(){
+        $medicamentos=[];
+        $query="SELECT  medicamento.medicamento, COUNT(*) as numero
+        FROM medicamentoIndicacion 
+        JOIN receta on medicamentoIndicacion.receta=receta.id
+        JOIN medicamento on medicamentoIndicacion.medicamento=medicamento.id
+        JOIN consulta on receta.id=consulta.receta
+        WHERE consulta.fecha>= DATE_SUB(CURRENT_DATE(), INTERVAL 3 MONTH)
+        GROUP BY medicamento
+        ORDER 	BY numero DESC
+        LIMIT 5; ";
+        $medicamentos['tres']=$this->executeReporte($query);
+
+        $queryAno="SELECT  medicamento.medicamento, COUNT(*) as numero
+        FROM medicamentoIndicacion 
+        JOIN receta on medicamentoIndicacion.receta=receta.id
+        JOIN medicamento on medicamentoIndicacion.medicamento=medicamento.id
+        JOIN consulta on receta.id=consulta.receta
+        WHERE consulta.fecha>= DATE_SUB(CURRENT_DATE(), INTERVAL 12 MONTH)
+        GROUP BY medicamento
+        ORDER 	BY numero DESC
+        LIMIT 5; ";
+        $medicamentos['ano']=$this->executeReporte($queryAno);
+
+        $queryTodo="SELECT  medicamento.medicamento, COUNT(*) as numero
+        FROM medicamentoIndicacion 
+        JOIN receta on medicamentoIndicacion.receta=receta.id
+        JOIN medicamento on medicamentoIndicacion.medicamento=medicamento.id
+        JOIN consulta on receta.id=consulta.receta
+        GROUP BY medicamento
+        ORDER 	BY numero DESC
+        LIMIT 12; ";
+
+        $medicamentos['todo']=$this->executeReporte($queryTodo);
+
+        $queryTipo="SELECT medicamento.tipo as medicamento,count(*) as numero
+        from medicamentoIndicacion join medicamento ON medicamento.id=medicamentoIndicacion.medicamento
+        join receta on receta.id=medicamentoIndicacion.receta join consulta on consulta.receta=receta.id group by medicamento order by numero desc; ";
+
+        $medicamentos['tipo']=$this->executeReporte($queryTipo);
+
+        return $medicamentos;
+    }
+    function executeReporte($query){
+        $consultaPeriodo=array();
+        try{
+            $stmt=$this->conexion->getdbh()->prepare($query);
+            $stmt->execute();
+            while($res = $stmt->fetch(PDO::FETCH_ASSOC)){
+                $valor = array();
+                $valor['label'] = $res['medicamento'];
+                $valor['data'] = $res['numero'];
+                $consultaPeriodo[] = $valor;
+            }
+            return $consultaPeriodo;
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+    }
 }
 ?>

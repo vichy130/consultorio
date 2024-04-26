@@ -48,5 +48,38 @@ class TerapiaAplicada
             'consulta'=>$this->consulta
         ];
     }
+    function getReporte(){
+        $terapias=[];
+        $query="SELECT terapia, count(*) as numero from terapiasAplicadas join consulta on consulta.id=terapiasAplicadas.consulta where consulta.fecha>= DATE_SUB(CURRENT_DATE(), INTERVAL 3 MONTH) group by terapia order by numero desc limit 5; ";
+        $terapias['tres']=$this->executeReporte($query);
+
+        $querySeis="SELECT terapia, count(*) as numero from terapiasAplicadas join consulta on consulta.id=terapiasAplicadas.consulta where consulta.fecha>= DATE_SUB(CURRENT_DATE(), INTERVAL 6 MONTH) group by terapia order by numero desc limit 5; ";
+        $terapias['seis']=$this->executeReporte($querySeis);
+
+        $queryAno="SELECT terapia, count(*) as numero from terapiasAplicadas join consulta on consulta.id=terapiasAplicadas.consulta where consulta.fecha>= DATE_SUB(CURRENT_DATE(), INTERVAL 12 MONTH) group by terapia order by numero desc limit 5; ";
+        $terapias['ano']=$this->executeReporte($queryAno);
+
+        $queryTodo="SELECT terapia, count(*) as numero from terapiasAplicadas join consulta on consulta.id=terapiasAplicadas.consulta group by terapia order by numero desc limit 10; ";
+        $terapias['todo']=$this->executeReporte($queryTodo);
+
+        return $terapias;
+    }
+    function executeReporte($query)
+    {
+        $consultaPeriodo = array();
+        try {
+            $stmt = $this->conexion->getdbh()->prepare($query);
+            $stmt->execute();
+            while ($res = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $valor = array();
+                $valor['label'] = $res['terapia'];
+                $valor['data'] = $res['numero'];
+                $consultaPeriodo[] = $valor;
+            }
+            return $consultaPeriodo;
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
 }
 ?>

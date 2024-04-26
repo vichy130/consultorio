@@ -529,6 +529,7 @@ class Consulta
         $consultaMes = array();
         $consultaSeis = array();
         $consultaAno = array();
+        $consultaTodo=array();
         $consultas = array();
         $query = "SELECT DATE_FORMAT(fecha, '%d-%m-%Y') AS semana, COUNT(*) AS numero
         FROM consulta

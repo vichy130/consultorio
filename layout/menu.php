@@ -9,14 +9,14 @@
     <link rel="stylesheet" href="./css/grid.css">
     <link rel="stylesheet" href="./css/estilos-menu.css">
     <link rel="stylesheet" href="./css/mediaqueries.css">
-    <link rel="icon" href="./img/logobb.png">
+    <!-- <link rel="icon" href="./img/logobb.png"> -->
     <!-- roboto -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300&display=swap"
         rel="stylesheet">
     <!-- roboto -->
-    <script src="https://kit.fontawesome.com/0d1f50c390.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/1af08fd608.js" crossorigin="anonymous"></script>
 </head>
 
 <body>

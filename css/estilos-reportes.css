@@ -17,21 +17,25 @@
     background-color: rgb(255, 255, 255);
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
     border-radius: .2em;
+    width:100%;
 }
 .reportes-medicamentos{
     background-color: rgb(255, 255, 255);
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
     border-radius: .2em;
+    width:100%;
 }
 .reportes-enfermedades{
     background-color: rgb(255, 255, 255);
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
     border-radius: .2em;
+    width:100%;
 }
 .reportes-terapias{
     background-color: rgb(255, 255, 255);
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
     border-radius: .2em;
+    width:100%;
 }
 .centrar {
     display: flex;

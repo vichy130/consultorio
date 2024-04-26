@@ -66,5 +66,7 @@ class AntecedentePaciente
             return  $e->getMessage();
         }
     }
+
+ 
 }
 ?>

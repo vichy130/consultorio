@@ -11,15 +11,49 @@ if (!isset($_SESSION['username'])) {
     redirect("./iniciar-sesion.php");
     exit();
 }
+// CONSULTAS //
 include_once '../models/consulta.php';
-$respuesta=array();
-try{
-$consulta=new Consulta();
-$respuesta['consulta']=$consulta->getReporte();
+$respuesta = array();
+try {
+    $consulta = new Consulta();
+    $respuesta['consulta'] = $consulta->getReporte();
 
-}catch(PDOException $e){
-    $respuesta= $e->getMessage();
+} catch (PDOException $e) {
+    $respuesta = $e->getMessage();
 }
+// CONSULTAS //
+
+// MEDS  //
+include_once '../models/medicamento.php';
+try {
+    $medicamento = new Medicamento();
+    $respuesta['medicamento'] = $medicamento->getReporte();
+
+} catch (PDOException $e) {
+    $respuesta = $e->getMessage();
+}
+// MEDS  //
+
+//ENFS  //
+include_once '../models/ficha-clinica.php';
+$antecedente = new Ficha();
+try {
+    $respuesta['antecedente'] = $antecedente->getReporte();
+} catch (PDOException $e) {
+    $respuesta = $e->getMessage();
+}
+// ENFS //
+
+// // TERAPIAS  //
+include_once '../models/terapia-aplicada.php';
+try {
+    $terapia = new TerapiaAplicada("","","");
+    $respuesta['terapia'] = $terapia->getReporte();
+} catch (PDOException $e) {
+    $respuesta = $e->getMessage();
+}
+// TERAPIAS  //
+
 header('Content-Type: application/json');
 $jsonRespuesta = json_encode($respuesta);
 echo $jsonRespuesta;

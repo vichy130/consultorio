@@ -9,7 +9,7 @@
     .span-4{
         grid-column: span 1;
     }
-    .contenedor .content-general, .contenedor .content-pacientes, .contenedor-no .content-general, .contenedor-no .content-pacientes{
+    .contenedor .content-general, .contenedor .content-pacientes, .contenedor-no .content-general, .contenedor-no .content-pacientes, .content-index, .content-reportes{
         display:grid;
         grid-template-columns: 1fr;
     }
@@ -29,7 +29,34 @@
         grid-column-end:2;
     }
 }
-
+ /* cuando la pantalla sea menor que 820 px*/
+ @media screen and (max-width: 820px){
+    .content .content-informacion{
+        display: none;
+    }
+    .contenedor .content{
+        display:grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 50px 1fr;
+        grid-template-areas: "nav"
+                             "contenido"  ;                   
+        }
+    .boton{
+        width: 100px;
+    }
+    .logo{
+        display:none;
+    } 
+    .navI{
+        margin:0px;
+    }
+    .boton-menu{
+        display: block;
+    }
+    .navI .menu{
+        display: none;
+    }
+}
 @media screen and (max-width: 1020px){ /* cuando la pantalla sea menor que 1020 px*/
 
     .contenedor, .contenedor-no{ /* Master Grid */
@@ -68,21 +95,6 @@
     } */
 } /* End media querie*/
 
-@media screen and (max-width: 820px){ /* cuando la pantalla sea menor que 1200 px*/
-    .content .content-informacion{
-        display: none;
-    }
-    .contenedor .content{
-        display:grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 50px 1fr;
-        grid-template-areas: "nav"
-                             "contenido"  ;                   
-        }
-    .boton{
-        width: 100px;
-    }
-}
 @media screen and (min-width: 1700px){ /* cuando la pantalla sea mayor que 1700 px*/
 .form, .contenedor .content-pacientes, .contenedor-no .content-pacientes{
     padding:50px; /* padding del formulario de informacion */
