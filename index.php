@@ -33,7 +33,7 @@ if (!isset($_SESSION['username'])) {
             <label class="span-2 rectangulos-flex">Inicio</label>
             <div class="rectangulos-flex">
                 <div class="rectangulo backgr-pacientes">
-                    <p>Pacientes registrados</p>
+                    <p class="titulo">Pacientes registrados</p>
                     <h2 class="numero pacientes-registrados" id="pacientes-registrados"></h2>
                     <i class="icono-index fa-solid fa-hospital-user"></i>
                     <div id="boton-agregar-paciente" class="boton-agregar-paciente">
@@ -43,14 +43,14 @@ if (!isset($_SESSION['username'])) {
             </div>
             <div class="rectangulos-flex">
                 <div class="rectangulo backgr-consultas">
-                    <p>Consultas realizadas</p>
+                    <p class="titulo">Consultas realizadas</p>
                     <h2 class="numero consultas-realizadas" id="consultas-realizadas"></h2>
                     <i class="icono-index fa-solid fa-calendar-check"></i>
                 </div>
             </div>
-            <div class="rectangulos-flex span-2">
+            <div class="rectangulos-flex">
                 <div class="rectangulo-med backgr-medicamentos">
-                    <p>Medicamentos registrados</p>
+                    <p class="titulo">Medicamentos registrados</p>
                     <div class="contenedor-absoluto">
                         <div class="numero-med">
                             <div class>

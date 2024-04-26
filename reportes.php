@@ -39,42 +39,42 @@ if (!isset($_SESSION['username'])) {
                         <option value="2" selected>Último año</option>
                         <option value="3">Todos los registros</option>
                     </select>
-                    <i class="icono-reportes cursor fa-regular fa-file-pdf" id="consulta-pdf"></i>
+                    <i class="icono-reportes cursor fa-regular fa-file-pdf" id="icono-consulta-pdf"></i>
                 </div>
                 <canvas class="chart-consultas" id="chart-consultas"></canvas>
             </div>
             <div class="reportes-medicamentos">
                 <div class="grid-reportes">
                     <select class="form_input-reportes" name="medicamentos" id="select-medicamentos">
-                        <option value="0">Últimos tres meses</option>
-                        <option value="1">Último año</option>
-                        <option value="2" selected>Todos los registros</option>
-                        <option value="3">Por tipo de medicamento</option>
+                        <option value="tres">Últimos tres meses</option>
+                        <option value="ano">Último año</option>
+                        <option value="todo" selected>Todos los registros</option>
+                        <option value="tipo">Por tipo de medicamento</option>
                     </select>
-                    <i class="icono-reportes fa-regular fa-file-pdf"></i>
+                    <i class="icono-reportes fa-regular fa-file-pdf"id="icono-medicamento-pdf"></i>
                 </div>
                 <canvas class="chart" id="chart-medicamentos"></canvas>
             </div>
             <div class="reportes-enfermedades">
                 <div class="grid-reportes">
                     <select class="form_input-reportes" name="enfermedades" id="select-enfermedades">
-                        <option value="0">Últimos seis meses</option>
-                        <option value="1">Último año</option>
-                        <option value="2">Todos los registros</option>
+                        <option value="seis">Últimos seis meses</option>
+                        <option value="ano">Último año</option>
+                        <option value="todo">Todos los registros</option>
                     </select>
-                    <i class="icono-reportes fa-regular fa-file-pdf"></i>
+                    <i class="icono-reportes fa-regular fa-file-pdf" id="icono-enfermedad-pdf"></i>
                 </div>
                 <canvas id="chart-enfermedades"></canvas>
             </div>
             <div class="reportes-terapias">
                 <div class="grid-reportes">
                     <select class="form_input-reportes" name="terapias" id="select-terapias">
-                        <option value="0">Últimos tres meses</option>
-                        <option value="1">Últimos seis meses</option>
-                        <option value="2">Último año</option>
-                        <option value="2">Todos los registros</option>
+                        <option value="tres">Últimos tres meses</option>
+                        <option value="seis">Últimos seis meses</option>
+                        <option value="ano">Último año</option>
+                        <option value="todo">Todos los registros</option>
                     </select>
-                    <i class="icono-reportes fa-regular fa-file-pdf"></i>
+                    <i class="icono-reportes fa-regular fa-file-pdf" id="icono-terapia-pdf"></i>
                 </div>
                 <canvas id="chart-terapias"></canvas>
             </div>

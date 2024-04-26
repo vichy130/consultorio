@@ -1,7 +1,7 @@
 <?php
 require ('./fpdf/fpdf.php');
 
-class ConsultaReportePDF extends FPDF
+class MedicamentoReportePDF extends FPDF
 {
     private $reporte = [];
     private $tipo;
@@ -17,7 +17,7 @@ class ConsultaReportePDF extends FPDF
     {
         $date = new DateTime();
         $date_string = $date->format('Y-m-d');
-        $titulo = $this->convertir("Informe de consultas");
+        $titulo = $this->convertir("Informe de medicamentos");
         $fecha = $this->convertir("Fecha: " . $date_string);
         $this->SetFont('Times', 'BI', 16);
         // CELL (width, height, text, border, end line, align)
@@ -30,27 +30,26 @@ class ConsultaReportePDF extends FPDF
     function cuerpo()
     {
         switch ($this->tipo) {
-            case 0:
-                $texto = $this->convertir("en último mes");
+            case "tres":
+                $texto = $this->convertir("en últimos 3 meses");
                 break;
-            case 1:$texto = $this->convertir("en últimos seis meses");
+            case "ano":$texto = $this->convertir("en último año");
                 break;
-            case 2: $texto = $this->convertir("en último año");
+            case "tipo": $texto = $this->convertir("por tipo");
                 break;
-            case 3: $texto="";
+            case "todo": $texto="";
                 break;
         }
         $this->SetFont('Times', '', 12);
-        $this->Cell(189, 5, "Historial de Consultas registradas " . $texto, 0, 1, '');
+        $this->Cell(189, 5, "Historial de Medicamentos prescritos " . $texto, 0, 1, '');
         $this->Ln(2);
         $this->SetFont('Times', 'B', 12);
-        $this->Cell(94.5, 5, "Fecha: ", 0, 0, '');
-        $this->Cell(94.5, 5, "Cantidad: ", 0, 1, '');
+        $this->Cell(94.5, 5, "Medicamento: ", 0, 0, '');
+        $this->Cell(94.5, 5, "Cantidad:", 0, 1, '');
         $this->SetFont('Times', '', 12);
-
         foreach ($this->reporte as $rep) {
-            $this->Cell(94.5, 5, $this->convertirMeses($rep['label']), 0, 0, '');
-            $this->Cell(94.5, 5, $rep['data'], 0, 1, '');
+            $this->Cell(94.5, 5, $this->convertir($rep['label']), 0, 0, '');
+            $this->Cell(94.5, 5, $this->convertir($rep['data']), 0, 1, '');
         }
     }
     function footer()
@@ -62,16 +61,6 @@ class ConsultaReportePDF extends FPDF
     function convertir($texto)
     {
         return iconv('UTF-8', 'ISO-8859-1', $texto);
-    }
-    function convertirMeses($numero){
-        $numeros=[1,2,3,4,5,6,7,8,9,10,11,12];
-        $meses=[1=>"Enero", 2=>"Febrero", 3=>"Marzo", 4=>"Abril",5=> "Mayo", 6=>"Junio", 7=>"Julio", 8=>"Agosto", 9=>"Septiembre", 10=>"Octubre", 11=>"Noviembre", 12=>"Diciembre"];
-        foreach($numeros as $n){
-            if($numero==$n){
-                return $meses[$n];
-            }
-        }
-        return $numero;
     }
 
 }

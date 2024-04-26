@@ -38,7 +38,7 @@
     padding: 3%;
     width: 70px;
     height: 10px;
-    background-color: #272a93;
+    background-color: #ffc830;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -52,11 +52,11 @@
     background-color: #91501f;
 }
 .boton-agregar-medicamento:hover{
-    background-color: #0d0f32;
+    background-color: #8d4f2b;
 }
 .rectangulo-med {
     height: 90%;
-    width: 98%;
+    width: 95%;
     border: 1px;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
     padding: 3%;
@@ -74,7 +74,7 @@
 }
 
 .backgr-medicamentos {
-    background: linear-gradient(to right, #585a77, #536f98, #464661, #6d6d85);
+    background: linear-gradient(to right, #e1a961, #c39c3b, #e2a710);
 }
 
 .icono-index {
@@ -107,5 +107,9 @@
 .numero-med h2 {
     font-size: 400%;
     padding:1rem;
+}
+
+.titulo{
+    font-size:120%;
 }
 

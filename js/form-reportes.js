@@ -21,7 +21,10 @@ var selectConsulta = document.getElementById('select-consultas');
 var selectMedicamento = document.getElementById('select-medicamentos');
 var selectEnfermedad = document.getElementById('select-enfermedades');
 var selectTerapia = document.getElementById('select-terapias');
-var consultaPdf=document.getElementById("consulta-pdf");
+var consultaPdf=document.getElementById("icono-consulta-pdf");
+var medicamentoPdf=document.getElementById("icono-medicamento-pdf");
+var enfermedadPdf=document.getElementById("icono-enfermedad-pdf");
+var terapiaPdf=document.getElementById("icono-terapia-pdf");
 
 selectConsulta.addEventListener('change', e => {
     switch (selectConsulta.value) {
@@ -37,23 +40,23 @@ selectConsulta.addEventListener('change', e => {
 })
 selectMedicamento.addEventListener('change', e => {
     switch (selectMedicamento.value) {
-        case "0": changeCharts(medicamentosChart, medTres);
+        case "tres": changeCharts(medicamentosChart, medTres);
             break;
-        case "1": changeCharts(medicamentosChart, medAno);
+        case "ano": changeCharts(medicamentosChart, medAno);
             break;
-        case "2": changeCharts(medicamentosChart, medTodo);
+        case "todo": changeCharts(medicamentosChart, medTodo);
             break;
-        case "3": changeCharts(medicamentosChart, medTipo);
+        case "tipo": changeCharts(medicamentosChart, medTipo);
             break;
     }
 })
 selectEnfermedad.addEventListener('change', e => {
     switch (selectEnfermedad.value) {
-        case "0": changeCharts(enfermedadesChart, enfSeis);
+        case "seis": changeCharts(enfermedadesChart, enfSeis);
             break;
-        case "1": changeCharts(enfermedadesChart, enfAno);
+        case "ano": changeCharts(enfermedadesChart, enfAno);
             break;
-        case "2": changeCharts(enfermedadesChart, enfTodo);
+        case "todo": changeCharts(enfermedadesChart, enfTodo);
             break;
     }
 })
@@ -73,6 +76,21 @@ consultaPdf.addEventListener('click', e => {
     e.preventDefault();
     idExportar=selectConsulta.value;
     window.open("./print/consultas-reporte.php?selected=" + idExportar, "_blank");
+})
+medicamentoPdf.addEventListener('click', e => {
+    e.preventDefault();
+    idExportar=selectMedicamento.value;
+    window.open("./print/medicamentos-reporte.php?selected=" + idExportar, "_blank");
+})
+enfermedadPdf.addEventListener('click', e => {
+    e.preventDefault();
+    idExportar=selectEnfermedad.value;
+    window.open("./print/enfermedades-reporte.php?selected=" + idExportar, "_blank");
+})
+terapiaPdf.addEventListener('click', e => {
+    e.preventDefault();
+    idExportar=selectTerapia.value;
+    window.open("./print/terapias-reporte.php?selected=" + idExportar, "_blank");
 })
 function loadCharts() {
     var ctxConsultas = document.getElementById('chart-consultas');
