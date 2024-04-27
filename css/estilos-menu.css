@@ -26,7 +26,7 @@
 }
 .navI .menu .icono{
     font-size: 12px;
-    line-height: 18px;
+    line-height: 12px;
 }
 .navI .menu .icono.izquierda{
 float:left;
@@ -34,7 +34,7 @@ margin-right: 10px;
 }
 .navI .menu .icono.derecha{
     float:right;
-    margin-left: 10px;
+    margin-left: 1px;
 }
 
 .navI ul{

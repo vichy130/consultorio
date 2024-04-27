@@ -170,6 +170,8 @@ function tablaUsuarios() {
 
             iconoEditar.className = "cursor fas fa-edit editar-usuario";
             iconoEliminar.className = "cursor fas fa-trash eliminar-usuario";
+            telefonoFila.className = "column-to-hide";
+            correoFila.className = "column-to-hide";
 
             iconoEditar.dataset.id = u.username;
             iconoEliminar.dataset.id = u.username;
