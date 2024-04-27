@@ -20,10 +20,11 @@ if (!isset($_SESSION['username'])) {
 $consultorios=array();
 $respuesta;
 include '../models/consultorio.php';
-include '../php/conexion.php';
+include_once(__DIR__ ."/../models/conexion.php");
+$con= new Conexion();
 try {
 $query= 'SELECT id FROM consultorio; ';
-$stmt = $dbh->prepare($query);
+$stmt = $con->getdbh()->prepare($query);
 $stmt->execute();
 while($lista = $stmt->fetch(PDO::FETCH_ASSOC)){
     $consultorio=new Consultorio();

@@ -1,5 +1,7 @@
 <?php
 session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 function redirect($url)
 {
     ob_start();
@@ -18,7 +20,8 @@ if (isset($_SESSION["id_paciente"])) {
 }
 unset($_SESSION['id_con']);
 
-require ("./php/conexion.php");
+// include_once (__DIR__ . '/php/conexion.php');
+// echo "ESTE ES EL DIR". __DIR__ . '/php/conexion.php';
 ?>
 
 <!DOCTYPE html>

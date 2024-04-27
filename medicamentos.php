@@ -18,7 +18,6 @@ unset($_SESSION['id_med']);
 unset($_REQUEST['id']);
 unset($_SESSION['id_con']);
 
-require ("./php/conexion.php");
 ?>
 
 <!DOCTYPE html>

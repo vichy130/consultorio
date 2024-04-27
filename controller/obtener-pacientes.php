@@ -1,5 +1,7 @@
 <?php
 session_start();
+// error_reporting(E_ALL);
+// ini_set('display_errors', '1');
 function redirect($url)
 {
     ob_start();
@@ -13,11 +15,14 @@ if (!isset($_SESSION['username'])) {
 }
 $pacientes = array();
 $respuesta;
-include '../models/paciente.php';
-include '../php/conexion.php';
+include_once '../models/paciente.php';
+// include_once (__DIR__ . '/../php/conexion.php');
+include_once(__DIR__ ."/../models/conexion.php");
+
 try {
     $query = 'SELECT id FROM paciente; ';
-    $stmt = $dbh->prepare($query);
+    $con= new Conexion();
+    $stmt = $con->getdbh()->prepare($query);
     $stmt->execute();
     while ($lista = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $paciente = new Paciente();

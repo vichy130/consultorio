@@ -62,6 +62,7 @@ function obtenerPacientes() {
     fetch('./controller/obtener-pacientes.php')
         .then(response => response.json())
         .then(data => {
+            console.log(data);
             if (data != null) {
                 array = [];
                 data.forEach((p) => {
@@ -78,6 +79,7 @@ function obtenerPacientes() {
             tablaPacientes();
         })// FIN FETCH
         .catch(error => {
+            console.log(error);
             modalError(error, tipo.obtener);
         });
 }

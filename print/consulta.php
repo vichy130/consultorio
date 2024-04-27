@@ -9,7 +9,9 @@ include '../models/ficha-clinica.php';
 include '../models/consultorio.php';
 include '../models/medicamento.php';
 include '../print/models/Consulta.php';
-include '../php/conexion.php';
+// include '../php/conexion.php';
+include_once(__DIR__ ."/../models/conexion.php");
+$con= new Conexion();
 
 // obtener consulta
 try {
@@ -59,7 +61,7 @@ try {
 // Obtener medicamentos
 try {
     $query = 'SELECT id FROM medicamento; ';
-    $stmt = $dbh->prepare($query);
+    $stmt = $con->getdbh()->prepare($query);
     $stmt->execute();
     while ($lista = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $medicamento = new Medicamento();

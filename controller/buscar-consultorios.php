@@ -16,7 +16,8 @@ if (!isset($_SESSION['username'])) {
 $consultorios = array();
 $respuesta = array();
 include '../models/consultorio.php';
-include '../php/conexion.php';
+include_once(__DIR__ ."/../models/conexion.php");
+$con= new Conexion();
 
 $jsonData = file_get_contents('php://input');
 $data = json_decode($jsonData, true);
@@ -44,7 +45,7 @@ for ($i = 0; $i < count($data); $i++) {
 $query .= ") as busqueda order by id asc; ";
 
 try {
-    $stmt = $dbh->prepare($query);
+    $stmt = $con->getdbh()->prepare($query);
     for ($i = 0; $i < count($data); $i++) {
         $stmt->bindParam($palabra[$i], $data[$i]);
     }

@@ -19,7 +19,7 @@ $respuesta;
 $jsonRespuesta;
 $valor_consulta;
 include '../models/consulta.php';
-include '../php/conexion.php';
+include_once(__DIR__ ."/../models/conexion.php");
 
 $jsonData = file_get_contents('php://input');
 $data = json_decode($jsonData, true);
@@ -29,11 +29,13 @@ if (isset($data['fecha'])) {
     $paciente = $_SESSION['id_paciente'];
     $query = "SELECT * FROM consulta where paciente=:paciente and fecha=:fecha; ";
     try {
-        $stmt = $dbh->prepare($query);
+        $con= new Conexion();
+        $stmt = $con->getdbh()->prepare($query);
         $stmt->bindParam(":paciente", $paciente);
         $stmt->bindParam(":fecha", $fecha);
         $stmt->execute();
         while ($datos = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $id = $datos["id"];
             $fecha = $datos["fecha"];
             $usuario = $datos["usuario"];
             $paciente = $datos["paciente"];
@@ -66,6 +68,7 @@ if (isset($data['fecha'])) {
                 $receta,
                 $consultorio
             );
+            $consulta->setId($id);
             $consultas[] = $consulta->getValues();
         }
         $respuesta = $consultas;

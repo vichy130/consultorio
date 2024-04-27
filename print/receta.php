@@ -23,7 +23,9 @@ include '../models/medicamento.php';
 include '../models/usuario.php';
 include '../models/consultorio.php';
 include '../print/models/Receta.php';
-include '../php/conexion.php';
+// include '../php/conexion.php';
+include_once(__DIR__ ."/../models/conexion.php");
+$con= new Conexion();
 $consulta = new Consulta();
 $paciente = new Paciente();
 $medicamentos = array();
@@ -34,7 +36,7 @@ $usuarioDatos;
 // Obtener medicamentos
 try {
     $query = 'SELECT id FROM medicamento; ';
-    $stmt = $dbh->prepare($query);
+    $stmt = $con->getdbh()->prepare($query);
     $stmt->execute();
     while ($lista = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $medicamento = new Medicamento();

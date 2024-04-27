@@ -14,10 +14,11 @@ if (!isset($_SESSION['username'])) {
 $medicamentos = array();
 $respuesta;
 include '../models/medicamento.php';
-include '../php/conexion.php';
+include_once(__DIR__ ."/../models/conexion.php");
+$con= new Conexion();
 try {
     $query = 'SELECT id FROM medicamento; ';
-    $stmt = $dbh->prepare($query);
+    $stmt = $con->getdbh()->prepare($query);
     $stmt->execute();
     while ($lista = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $medicamento = new Medicamento();

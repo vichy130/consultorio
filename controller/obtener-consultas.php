@@ -17,10 +17,12 @@ $respuesta;
 $jsonRespuesta;
 $valor_consulta;
 include '../models/consulta.php';
-include '../php/conexion.php';
+include_once(__DIR__ ."/../models/conexion.php");
+$con= new Conexion();
+
 $query = 'SELECT id FROM consulta; ';
 try {
-    $stmt = $dbh->prepare($query);
+    $stmt = $con->getdbh()->prepare($query);
     $stmt->execute();
     while ($lista = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $consulta = new Consulta();

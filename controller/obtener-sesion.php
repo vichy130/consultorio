@@ -1,6 +1,12 @@
 <?php
+// error_reporting(E_ALL);
+// ini_set('display_errors', '1');
+
 session_start();
+
 include '../models/usuario.php';
+$username;
+$password;
 $respuesta;
 $validate;
 try {
@@ -9,6 +15,7 @@ try {
     $usuario = new Usuario();
     $usuario->setUsername($username);
     $usuario->setContrasena($password);
+    $respuesta=$usuario->obtener();
     $respuesta=$usuario->validar();
     if($respuesta===true){
         $_SESSION['username'] = $usuario->getUsername();
@@ -20,7 +27,7 @@ try {
 } catch (PDOException $e) {
     $respuesta = $e->getMessage();
 }
-header('Content-Type: application/json');
-$jsonRespuesta = json_encode($respuesta);
-echo $jsonRespuesta;
+// header('Content-Type: application/json');
+// $jsonRespuesta = json_encode($respuesta);
+// echo $jsonRespuesta;
 ?>

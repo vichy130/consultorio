@@ -18,10 +18,12 @@ if (!isset($_SESSION['username'])) {
 }
 $usuarios = array();
 include '../models/usuario.php';
-include '../php/conexion.php';
+include_once(__DIR__ ."/../models/conexion.php");
+
+$con= new Conexion();
 try {
     $query = 'SELECT username FROM usuario; ';
-    $stmt = $dbh->prepare($query);
+    $stmt = $con->getdbh()->prepare($query);
     $stmt->execute();
     while ($lista = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $usuario = new Usuario();
