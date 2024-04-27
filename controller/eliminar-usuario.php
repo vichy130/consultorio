@@ -10,11 +10,6 @@ function redirect($url)
 if (!isset($_SESSION['username'])) {
     redirect("./iniciar-sesion.php");
     exit();
-}else{
-    if($_SESSION['tipoUsuario']!="A"){
-        redirect("./index.php");
-        exit();
-    }
 }
 $respuesta;
 include_once("../models/usuario.php");

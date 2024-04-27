@@ -3,16 +3,14 @@ botonIniciarSesion = document.getElementById('boton-iniciar-sesion');
 
 function enviarFormIniciarSesion() {
     datosIniciarSesion = new FormData(formIniciarSesion);
-    console.log(datosIniciarSesion);
     fetch('./controller/obtener-sesion.php', {
         method: 'POST',
         body: datosIniciarSesion
     })
         .then(function (response) {
-            return response.text();
+            return response.json();
         })
         .then(function (data) {
-            console.log(data);
             if(data===true){
                 index();
             }else{

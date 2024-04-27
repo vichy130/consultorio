@@ -11,6 +11,7 @@ if (!isset($_SESSION['username'])) {
     redirect("./iniciar-sesion.php");
     exit();
 }
+
 include_once ("../models/consulta.php");
 try {
     $json = json_decode(file_get_contents('php://input'), true);

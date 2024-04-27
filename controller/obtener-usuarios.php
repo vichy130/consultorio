@@ -11,7 +11,7 @@ if (!isset($_SESSION['username'])) {
     redirect("./iniciar-sesion.php");
     exit();
 }else{
-    if($_SESSION['tipoUsuario']!="A"){
+    if($_SESSION['tipoUsuario']!="S"){
         redirect("./index.php");
         exit();
     }

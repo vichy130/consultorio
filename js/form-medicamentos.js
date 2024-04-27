@@ -62,6 +62,25 @@ function editarMedicamento(elementoEditar) {
 function medicamentoEditar(idEditar) {
     window.location.href = "./pacientes-informacion.php?id=" + idEditar;
 }
+function obtenerSesion(){
+    fetch('./controller/obtener-sessions.php')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        if (data != null) {
+            tipoUsuario=data.tipoUsuario;
+        }
+        if (tipoUsuario=="A" || tipoUsuario=="S"){
+            medicamentosF();
+        }else{
+            medicamentos();
+        }
+    })// FIN FETCH
+    .catch(error => {
+        console.log(error);
+        modalError(error, tipo.obtener);
+    });
+}
 function obtenerMedicamentos() { //pendiente 
     fetch('./controller/obtener-medicamentos.php')
         .then(response => response.json())
@@ -78,7 +97,7 @@ function obtenerMedicamentos() { //pendiente
                     }
                 });
             }
-            medicamentos();
+            obtenerSesion();
         })// FIN FETCH
         .catch(error => {
             modalError(error, tipo.obtener);
@@ -114,7 +133,7 @@ function buscarMedicamentos() {
                         });
                     }
                 }
-                medicamentos();
+                obtenerSesion();
             })
             .catch(function (error) {
                 console.log(error);
@@ -124,6 +143,62 @@ function buscarMedicamentos() {
     }
 }
 function medicamentos() {
+    clearDiv(tablaMedicamentos);
+    clearDiv(notabla);
+    if (arrayMedicamentos.length > 0) {
+        const thead = document.createElement('thead');
+        const propiedades = document.createElement('tr');
+        const medicamento = document.createElement('th');
+        const tipo = document.createElement('th');
+        const descripcion = document.createElement('th');
+        const editar = document.createElement('th');
+
+        medicamento.textContent = "Nombre";
+        tipo.textContent = "Tipo";
+        descripcion.textContent = "Descripción";
+        descripcion.className = "column-to-hide";
+        editar.textContent = "Editar";
+
+        propiedades.appendChild(medicamento);
+        propiedades.appendChild(tipo);
+        propiedades.appendChild(descripcion);
+        propiedades.appendChild(editar);
+        thead.appendChild(propiedades);
+        tablaMedicamentos.appendChild(thead);
+
+        const tbody = document.createElement('tbody');
+        arrayMedicamentos.forEach((m) => {
+            const celda = document.createElement('tr');
+            const medicamentoFila = document.createElement('td');
+            const tipoFila = document.createElement('td');
+            const descripcionFila = document.createElement('td');
+            const editarFila = document.createElement('td');
+
+            const iconoEditar = document.createElement('i');
+
+            iconoEditar.dataset.id = m.id;
+
+            iconoEditar.className = "cursor far fa-edit editar-medicamento";
+
+            medicamentoFila.textContent = m.medicamento;
+            tipoFila.textContent = m.tipo;
+            descripcionFila.textContent = m.descripcion;
+
+            editarFila.appendChild(iconoEditar);
+            celda.appendChild(medicamentoFila);
+            celda.appendChild(tipoFila);
+            celda.appendChild(descripcionFila);
+            celda.appendChild(editarFila);
+            tbody.appendChild(celda);
+        });
+        tablaMedicamentos.appendChild(tbody);
+    } else {
+        const mensaje = document.createElement('p');
+        mensaje.textContent = "No existen registros";
+        notabla.appendChild(mensaje);
+    }
+}
+function medicamentosF() {
     clearDiv(tablaMedicamentos);
     clearDiv(notabla);
     if (arrayMedicamentos.length > 0) {

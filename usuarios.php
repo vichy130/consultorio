@@ -10,12 +10,13 @@ function redirect($url)
 if (!isset($_SESSION['username'])) {
     redirect("./iniciar-sesion.php");
     exit();
-}else{
-    if($_SESSION['tipoUsuario']!="A"){
-        redirect("./index.php");
-        exit();
-    }
 }
+// else{
+//     if($_SESSION['tipoUsuario']!="S"){
+//         redirect("./index.php");
+//         exit();
+//     }
+// }
 unset($_SESSION['id_usuario']);
 ?>
 
@@ -49,7 +50,7 @@ unset($_SESSION['id_usuario']);
                     <i id="icono-buscar" class="form_validacion-buscar fa-solid fa-xmark"></i>
                 </div>
             </div>
-            
+
             <button class="boton azul" id="boton-buscar-usuario"><i class="fas fa-search"></i> Buscar</button>
 
             <button class="boton azul" id="boton-nuevo-usuario"><i class="fas fa-user-plus"></i> Nuevo

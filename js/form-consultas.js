@@ -37,7 +37,25 @@ tabla.addEventListener('click', function (e) {
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     obtenerConsultas();
 };
-
+function obtenerSesion(){
+    fetch('./controller/obtener-sessions.php')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        if (data != null) {
+            tipoUsuario=data.tipoUsuario;
+        }
+        if (tipoUsuario=="A" || tipoUsuario=="S"){
+            tablaConsultasF()
+        }else{
+            tablaConsultas();
+        }
+    })// FIN FETCH
+    .catch(error => {
+        console.log(error);
+        modalError(error, tipo.obtener);
+    });
+}
 function obtenerConsultas() {
     fetch('./controller/obtener-consultas.php')
         .then(response => response.json())
@@ -54,7 +72,7 @@ function obtenerConsultas() {
                     return;
                 }
             });
-            tablaConsultas();
+            obtenerSesion();
         })// FIN FETCH
         .catch(error => {
             modalError(error, tipo.obtener);
@@ -86,7 +104,7 @@ function buscarConsultas(fecha) { //TODO
                         return;
                     }
                 });
-                tablaConsultas();
+                obtenerSesion();
             })
             .catch(function (error) {
                 console.log(error);
@@ -120,6 +138,65 @@ function eliminarConsulta() {
         });
 }
 function tablaConsultas() {
+    clearDiv(tabla);
+    clearDiv(notabla);
+    if (array.length > 0) {
+        const thead = document.createElement('thead');
+        const propiedades = document.createElement('tr');
+        const fecha = document.createElement('th');
+        const motivo = document.createElement('th');
+        const editar = document.createElement('th');
+        const exportar = document.createElement('th');
+
+        fecha.textContent = "Fecha";
+        motivo.textContent = "Motivo de consulta";
+        motivo.className = "column-to-hide";
+        editar.textContent = "Editar";
+        exportar.textContent = "Exportar";
+
+        propiedades.appendChild(fecha);
+        propiedades.appendChild(motivo);
+        propiedades.appendChild(editar);
+        propiedades.appendChild(exportar);
+        thead.appendChild(propiedades);
+        tabla.appendChild(thead);
+
+        const tbody = document.createElement('tbody');
+
+        array.forEach(co => {
+            const celda = document.createElement('tr');
+            const filaFecha = document.createElement('td');
+            const filaMotivo = document.createElement('td');
+            const filaEditar = document.createElement('td');
+            const filaExportar = document.createElement('td');
+            const iconoEditar = document.createElement('i');
+            const iconoExportar = document.createElement('i');
+
+            iconoEditar.className = "cursor far fa-edit editar-consulta";
+            iconoExportar.className = "cursor fa-solid fa-file-pdf exportar-consulta";
+
+            iconoEditar.dataset.id = co.id;
+            iconoExportar.dataset.id = co.id;
+
+            filaFecha.textContent = co.fecha;
+            filaMotivo.textContent = co.motivoConsulta;
+            filaEditar.appendChild(iconoEditar);
+            filaExportar.appendChild(iconoExportar);
+
+            celda.appendChild(filaFecha);
+            celda.appendChild(filaMotivo);
+            celda.appendChild(filaEditar);
+            celda.appendChild(filaExportar);
+            tbody.appendChild(celda);
+        });
+        tabla.appendChild(tbody);
+    } else {
+        const mensaje = document.createElement('p');
+        mensaje.textContent = "No existen registros";
+        notabla.appendChild(mensaje);
+    }
+}
+function tablaConsultasF() {
     clearDiv(tabla);
     clearDiv(notabla);
     if (array.length > 0) {

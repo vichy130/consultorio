@@ -7,15 +7,13 @@ var botonBuscar = document.getElementById('boton-buscar-paciente');
 var inputBuscar = document.getElementById('input-buscar');
 var botonNuevoPaciente = document.getElementById('nuevo-paciente-boton');
 var iconoBuscar = document.getElementById('icono-buscar');
-var array = []; //array pacientes
+let array = []; //array pacientes
 const tipo = { obtener: "obtener", guardar: "guardar", eliminar: "eliminar" };
-
 
 botonNuevoPaciente.addEventListener('click', function (e) {
     e.preventDefault();
     paciente();
 });
-
 
 botonBuscar.addEventListener('click', function (e) {
     e.preventDefault();
@@ -52,12 +50,30 @@ function iconoBuscarActivar() {
         iconoBuscar.classList.add('form_validacion-buscar-activo');
     }
 }
-
 // BOTONES
-
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     obtenerPacientes();
 };
+function obtenerSesion(){
+    fetch('./controller/obtener-sessions.php')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        if (data != null) {
+            tipoUsuario=data.tipoUsuario;
+        }
+        if (tipoUsuario=="A" || tipoUsuario=="S"){
+            tablaPacientesF();
+        }else{
+            tablaPacientes();
+        }
+    })// FIN FETCH
+    .catch(error => {
+        console.log(error);
+        modalError(error, tipo.obtener);
+    });
+}
+
 function obtenerPacientes() {
     fetch('./controller/obtener-pacientes.php')
         .then(response => response.json())
@@ -76,7 +92,7 @@ function obtenerPacientes() {
                     }
                 });
             }
-            tablaPacientes();
+            obtenerSesion();
         })// FIN FETCH
         .catch(error => {
             console.log(error);
@@ -114,8 +130,7 @@ function buscarPacientes() {
                         });
                     }
                 }
-                tablaPacientes();
-
+                obtenerSesion();
             })
             .catch(function (error) {
                 console.log(error);
@@ -163,6 +178,78 @@ function buscarPacientes() {
             const registro = document.createElement('th');
             const nombre = document.createElement('th');
             const apellidos = document.createElement('th');
+            const fechaNac= document.createElement('th');
+            const telefono = document.createElement('th');
+            const editar = document.createElement('th');
+
+            registro.textContent = "Registro";
+            nombre.textContent = "Nombre(s)";
+            apellidos.textContent = "Apellidos";
+            fechaNac.textContent="Fecha de nacimiento"
+            telefono.textContent = "Teléfono";
+            editar.textContent = "Editar";
+            telefono.className = "column-to-hide";
+            fechaNac.className="column-to-hide";
+
+            propiedades.appendChild(registro);
+            propiedades.appendChild(nombre);
+            propiedades.appendChild(apellidos);
+            propiedades.appendChild(fechaNac);
+            propiedades.appendChild(telefono);
+            propiedades.appendChild(editar);
+            thead.appendChild(propiedades);
+            tabla.appendChild(thead);
+
+            const tbody = document.createElement('tbody');
+
+            array.forEach(pa => {
+                const celda = document.createElement('tr');
+                const idFila = document.createElement('td');
+                const nombreFila = document.createElement('td');
+                const apellidosFila = document.createElement('td');
+                const fechaNacFila=document.createElement('td');
+                const telefonoFila = document.createElement('td');
+                const editarFila = document.createElement('td');
+                const iconoEditar = document.createElement('i');
+
+                iconoEditar.className = "cursor far fa-edit editar-paciente";
+                fechaNacFila.className="column-to-hide";
+                telefonoFila.className = "column-to-hide";
+
+                iconoEditar.dataset.id = pa.id;
+
+                idFila.textContent = pa.id;
+                nombreFila.textContent = pa.nombre;
+                apellidosFila.textContent = pa.apellidoPaterno + " " + pa.apellidoMaterno;
+                telefonoFila.textContent = pa.celular;
+                fechaNacFila.textContent=pa.fechaNacimiento;
+
+                editarFila.appendChild(iconoEditar);
+                celda.appendChild(idFila);
+                celda.appendChild(nombreFila);
+                celda.appendChild(apellidosFila);
+                celda.appendChild(fechaNacFila);
+                celda.appendChild(telefonoFila);
+                celda.appendChild(editarFila);
+                tbody.appendChild(celda);
+            });
+            tabla.appendChild(tbody);
+        } else {
+            const mensaje = document.createElement('p');
+            mensaje.textContent = "No existen registros";
+            notabla.appendChild(mensaje);
+        }
+    }
+    function tablaPacientesF() {
+        clearDiv(tabla);
+        clearDiv(notabla);
+        if (array.length > 0) {
+            const thead = document.createElement('thead');
+            const propiedades = document.createElement('tr');
+            const registro = document.createElement('th');
+            const nombre = document.createElement('th');
+            const apellidos = document.createElement('th');
+            const fechaNac= document.createElement('th');
             const telefono = document.createElement('th');
             const editar = document.createElement('th');
             const eliminar = document.createElement('th');
@@ -170,14 +257,17 @@ function buscarPacientes() {
             registro.textContent = "Registro";
             nombre.textContent = "Nombre(s)";
             apellidos.textContent = "Apellidos";
+            fechaNac.textContent="Fecha de nacimiento"
             telefono.textContent = "Teléfono";
             editar.textContent = "Editar";
             eliminar.textContent = "Eliminar";
             telefono.className = "column-to-hide";
+            fechaNac.className="column-to-hide";
 
             propiedades.appendChild(registro);
             propiedades.appendChild(nombre);
             propiedades.appendChild(apellidos);
+            propiedades.appendChild(fechaNac);
             propiedades.appendChild(telefono);
             propiedades.appendChild(editar);
             propiedades.appendChild(eliminar);
@@ -191,6 +281,7 @@ function buscarPacientes() {
                 const idFila = document.createElement('td');
                 const nombreFila = document.createElement('td');
                 const apellidosFila = document.createElement('td');
+                const fechaNacFila=document.createElement('td');
                 const telefonoFila = document.createElement('td');
                 const editarFila = document.createElement('td');
                 const eliminarFila = document.createElement('td');
@@ -199,6 +290,8 @@ function buscarPacientes() {
 
                 iconoEditar.className = "cursor far fa-edit editar-paciente";
                 iconoEliminar.className = "cursor fas fa-trash eliminar-paciente";
+                fechaNacFila.className="column-to-hide";
+                telefonoFila.className = "column-to-hide";
 
                 iconoEditar.dataset.id = pa.id;
                 iconoEliminar.dataset.id = pa.id;
@@ -210,12 +303,14 @@ function buscarPacientes() {
                 nombreFila.textContent = pa.nombre;
                 apellidosFila.textContent = pa.apellidoPaterno + " " + pa.apellidoMaterno;
                 telefonoFila.textContent = pa.celular;
+                fechaNacFila.textContent=pa.fechaNacimiento;
 
                 editarFila.appendChild(iconoEditar);
                 eliminarFila.appendChild(iconoEliminar);
                 celda.appendChild(idFila);
                 celda.appendChild(nombreFila);
                 celda.appendChild(apellidosFila);
+                celda.appendChild(fechaNacFila);
                 celda.appendChild(telefonoFila);
                 celda.appendChild(editarFila);
                 celda.appendChild(eliminarFila);

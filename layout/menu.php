@@ -39,7 +39,7 @@
             <li><a href="./medicamentos.php"><i class="icono izquierda fas fa-hospital-user"></i>Medicamentos</a></li>
             <li><a href="./reportes.php"><i class="icono izquierda fas fa-file"></i>Centro de reportes</a></li>
             <?php if (isset($_SESSION['username'])) {
-                if ($_SESSION['tipoUsuario'] == 'A') {
+                if ($_SESSION['tipoUsuario'] == 'S') {
                     ?>
                     <li><a href="#"><i class="icono izquierda fas fa-cog"></i>Configuración<i
                                 class="icono derecha fas fa-chevron-down"></i></a>

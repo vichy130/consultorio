@@ -11,12 +11,13 @@ function redirect($url)
 if (!isset($_SESSION['username'])) {
     redirect("./iniciar-sesion.php");
     exit();
-}else{
-    if($_SESSION['tipoUsuario']!="A"){
-        redirect("./index.php");
-        exit();
-    }
 }
+// }else{
+//     if($_SESSION['tipoUsuario']!="S"){
+//         redirect("./index.php");
+//         exit();
+//     }
+// }
 unset($_SESSION['id_con']);
 
 ?>

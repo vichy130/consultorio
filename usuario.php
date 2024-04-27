@@ -11,12 +11,13 @@ function redirect($url)
 if (!isset($_SESSION['username'])) {
     redirect("./iniciar-sesion.php");
     exit();
-} else {
-    if ($_SESSION['tipoUsuario'] != "A") {
-        redirect("./index.php");
-        exit();
-    }
 }
+//else {
+//     if ($_SESSION['tipoUsuario'] != "A") {
+//         redirect("./index.php");
+//         exit();
+//     }
+// }
 
 if (isset($_REQUEST["id"])) {
     $_SESSION['id_usuario'] = $_REQUEST["id"];
@@ -55,7 +56,8 @@ if (isset($_REQUEST["id"])) {
                         placeholder="John123">
                     <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                 </div>
-                <p class="form_input-error">El usuario tiene que ser de 4 a 16 dígitos y solo puede contener números, letras y guion bajo.</p>
+                <p class="form_input-error">El usuario tiene que ser de 4 a 16 dígitos y solo puede contener números,
+                    letras y guion bajo.</p>
             </div><!-- end form-grupo -->
 
             <!-- Grupo: nombre -->
@@ -118,9 +120,14 @@ if (isset($_REQUEST["id"])) {
                 <div class="form_grupo-input">
                     <select name="tipo-usuario" id="tipo-usuario" class="form_input">
                         <option value="">Selecciona una opción...</option>
+                        <?php if (isset($_SESSION['tipoUsuario'])) {
+                            if ($_SESSION['tipoUsuario'] == "S") { ?>
+                                <option value="S">Super Usuario</option>
+                            <?php } ?>
+                        <?php } ?>
                         <option value="A">Administrador</option>
                         <option value="M">Médico</option>
-                        <option value="S">Asistente</option>
+                        <option value="E">Asistente</option>
                     </select>
                     <i class="form_validacion-estado select fa-solid fa-circle-xmark"></i>
                 </div>
@@ -164,7 +171,8 @@ if (isset($_REQUEST["id"])) {
                     <input class="form_input" type="password" id="contrasena-usuario" name="contrasena-usuario">
                     <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                 </div>
-                <p class="form_input-error">La contraseña deberá ser de 8 a 16 dígitos. Debe contener mayúsculas, minúsculas, números y símbolos.</p>
+                <p class="form_input-error">La contraseña deberá ser de 8 a 16 dígitos. Debe contener mayúsculas,
+                    minúsculas, números y símbolos.</p>
             </div><!-- end form-grupo -->
 
             <!-- Grupo: contrasena 2 -->
@@ -193,7 +201,8 @@ if (isset($_REQUEST["id"])) {
                 </p>
             </div>
 
-            <button class="input_submit boton amarillo span-2 modal-boton" id="boton-cancelar-usuario"><i class="fa-solid fa-left-long"></i> Regresar</button>
+            <button class="input_submit boton amarillo span-2 modal-boton" id="boton-cancelar-usuario"><i
+                    class="fa-solid fa-left-long"></i> Regresar</button>
 
             <div class="formulario_grupo formulario_btn-enviar span-2 modal-boton">
                 <button class="input_submit boton azul" type="submit" id="boton-guardar-usuario">Guardar</button>
