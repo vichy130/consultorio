@@ -193,8 +193,9 @@ if (!isset($_SESSION['username'])) {
         <?php require ("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
-    <script src="./js/validacion-perfil.js"></script>
+
     <script src="./js/form-perfil.js"></script>
+    <script src="./js/validacion-perfil.js"></script>
 
 </body>
 

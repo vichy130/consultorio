@@ -25,7 +25,7 @@ try {
     $tipoUsuario = $_POST['tipo-usuario'];
     $usuario = new Usuario();
     $usuario->setUsername($username);
-    $usuario->setValues($nombre, $apellidoPaterno, $apellidoMaterno, $telefono, $correo, $tipoUsuario);
+    $usuario->setValues($nombre, $apellidoPaterno, $apellidoMaterno, $telefono, $correo, $_SESSION['tipoUsuario']);
     if($_POST['especialidad-usuario']!=null && $_POST['universidad-usuario'] && $_POST['cedula-usuario']){
         $especialidad=$_POST['especialidad-usuario'];
         $universidad= $_POST['universidad-usuario'];
@@ -37,7 +37,7 @@ try {
         $usuario->setContrasena($contrasena);
         $usuario->actualizarContrasena();
     }
-    $respuesta=$usuario->actualizarPerfil();
+    $respuesta=$usuario->actualizar();
     
 } catch (Exception $e) {
     $respuesta = $e->getMessage();

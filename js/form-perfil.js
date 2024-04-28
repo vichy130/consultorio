@@ -1,6 +1,7 @@
 var usuario;
 const tipo = { obtener: "obtener", guardar: "guardar", eliminar: "eliminar", imprimir:"imprimir" };
 var botonGuardarPerfil = document.getElementById('boton-guardar-perfil');
+formPerfil = document.getElementById('form-perfil');
 var botonCancelar=document.getElementById('boton-cancelar-perfil');
 
 window.onload = function () {
@@ -52,7 +53,7 @@ function enviarFormPerfil() {
     datosPerfil = new FormData(formPerfil);
         fetch('./controller/editar-perfil.php', {
             method: 'POST',
-            body: datosUsuario
+            body: datosPerfil
         })
             .then(function (response) {
                 return response.json();

@@ -24,8 +24,6 @@ const campos = {
     contrasena: false
 }
 const validarCampo = (expresion, input, campo) => {
-    datosIncorrectos.classList.remove('formulario_datos-incorrectos-activo');
-    datosIncorrectos.classList.add('formulario_datos-incorrectos');
     captchaError.classList.remove('formulario_captcha-error-activo');
     captchaError.classList.add('formulario_captcha-error');
 
@@ -54,16 +52,21 @@ function captchaErrorActivo() {
     captchaError.classList.remove('formulario_captcha-error');
 }
 inputs.forEach((input) => {
-    // input.addEventListener('keyup', validarFormulario);
+    input.addEventListener('keyup', validarFormulario);
     input.addEventListener('blur', validarFormulario);
-
+    input.addEventListener('change', function (e){
+        datosIncorrectos.classList.remove('formulario_datos-incorrectos-activo');
+        datosIncorrectos.classList.add('formulario_datos-incorrectos');
+    })
 });
+
 function validarIniciarSesion() {
     validarCampo(expresiones.usuario, inputUsername.value, 'usuario');
     validarCampo(expresiones.password, inputContrasena.value, 'contrasena');
 }
 formIniciarSesion.addEventListener('submit', (e) => {
     e.preventDefault();
+    validarIniciarSesion() 
     var i = true;
     for (key in campos) {
         if (campos[key] === false) {
@@ -84,6 +87,5 @@ formIniciarSesion.addEventListener('submit', (e) => {
         enviarFormIniciarSesion();
     } else {
         validarIniciarSesion();
-        console.log("no se pudo enviar");
     }
 });

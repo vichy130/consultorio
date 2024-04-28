@@ -1,5 +1,5 @@
 const formPerfil = document.getElementById('form-perfil');
-const inputs = document.querySelectorAll('#form-usuario input, #form-usuario select');
+const inputs = document.querySelectorAll('#form-perfil input, #form-perfil select');
 var inputUsername = document.getElementById('username-usuario');
 var inputNombre = document.getElementById('nombre-usuario');
 var inputApellidoPaterno = document.getElementById('apellidoPaterno-usuario');
@@ -130,6 +130,7 @@ const validarConstrasena2 = () => {
     }
 }
 inputContrasenaUno.addEventListener('keyup', validarContrasenaActivo);
+// inputContrasenaDos.addEventListener('keyup', validarConstrasena2)
 inputs.forEach((input) => {
     input.addEventListener('keyup', validarFormulario);
     input.addEventListener('blur', validarFormulario);
@@ -194,7 +195,7 @@ formPerfil.addEventListener('submit', (e) => {
         }
     }
     if (i) {
-        enviarFormUsuario();
+        enviarFormPerfil();
     } else {
         console.log("else en formusuario")
         validarMedico();
