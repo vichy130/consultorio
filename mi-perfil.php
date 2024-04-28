@@ -21,25 +21,181 @@ if (!isset($_SESSION['username'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/estilos-pacientes.css">
     <title>Mi perfil</title>
 </head>
 
 <body>
     <div class="contenedor">
         <?php require ("./layout/menu.php"); ?>
-        <div class="content-general">
 
-            <div id="modal" class="modal">
-                <div id="modal-contenido" class="modal-contenido">
-                    <span class="cerrar-modal" id="cerrarModal">&times;</span>
-                </div>
+        <div id="modal" class="modal">
+            <div id="modal-contenido" class="modal-contenido">
+                <span class="cerrar-modal" id="cerrarModal">&times;</span>
             </div>
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia necessitatibus voluptate inventore placeat minus? Est, iste, beatae porro quod sunt aliquam suscipit nesciunt sit obcaecati alias ratione illo soluta aspernatur!
-            <label for="">Mi perfil</label>
         </div>
+
+        <form class="content-general formulario" id="form-perfil">
+
+            <label class="formulario_grupo span-4">Usuario</label>
+            <!-- Grupo: Username -->
+            <div class="formulario_grupo" id="grupo_usuario">
+                <label class="form_label" for="username-usuario">Nombre de usuario</label>
+                <div class="form_grupo-input">
+                    <input class="form_input" type="text" id="username-usuario" name="username-usuario"
+                        placeholder="John123">
+                    <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                </div>
+                <p class="form_input-error">El usuario tiene que ser de 4 a 16 dígitos y solo puede contener
+                    números,
+                    letras y guion bajo.</p>
+            </div><!-- end form-grupo -->
+
+            <!-- Grupo: nombre -->
+            <div class=" formulario_grupo" id="grupo_nombre">
+                <label class="form_label" for="nombre-usuario">Nombre</label>
+                <div class="form_grupo-input">
+                    <input class="form_input" type="text" id="nombre-usuario" name="nombre-usuario" placeholder="John">
+                    <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                </div>
+                <p class="form_input-error">El nombre solo puede contener letras y no puede estar vacio.</p>
+            </div><!-- end form-grupo -->
+
+            <!-- Grupo: Apellido Paterno -->
+            <div class="formulario_grupo" id="grupo_apellidoPaterno">
+                <label class="form_label" for="apellidoPaterno-usuario">Apellido paterno</label>
+                <div class="form_grupo-input">
+                    <input class="form_input" type="text" id="apellidoPaterno-usuario" name="apellidoPaterno-usuario"
+                        placeholder="Doe">
+                    <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                </div>
+                <p class="form_input-error">El apellido solo puede contener letras y no puede estar vacio.</p>
+            </div><!-- end form-grupo -->
+
+            <!-- Grupo: Apellido materno -->
+            <div class="formulario_grupo" id="grupo_apellidoMaterno">
+                <label class="form_label" for="apellidoMaterno-usuario">Apellido materno</label>
+                <div class="form_grupo-input">
+                    <input class="form_input" type="text" id="apellidoMaterno-usuario" name="apellidoMaterno-usuario">
+                    <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                </div>
+                <p class="form_input-error">El apellido solo puede contener letras.</p>
+            </div><!-- end form-grupo -->
+
+            <!-- Grupo: telefono -->
+            <div class="formulario_grupo" id="grupo_telefono">
+                <label class="form_label" for="telefono-usuario">Teléfono</label>
+                <div class="form_grupo-input">
+                    <input class="form_input" type="text" id="telefono-usuario" name="telefono-usuario"
+                        placeholder="33 3333 3333">
+                    <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                </div>
+                <p class="form_input-error">El telefono solo puede contener números y el maximo son 14 dígitos.</p>
+            </div><!-- end form-grupo -->
+
+            <!-- Grupo: correo -->
+            <div class="formulario_grupo" id="grupo_correo">
+                <label class="form_label" for="correo-usuario">Correo electrónico</label>
+                <div class="form_grupo-input">
+                    <input class="form_input" type="text" id="correo-usuario" name="correo-usuario"
+                        placeholder="correo@correo.com">
+                    <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                </div>
+                <p class="form_input-error">El correo solo puede contener letras, numeros, puntos, guiones y guion
+                    bajo.
+                </p>
+            </div><!-- end form-grupo -->
+
+            <!-- Grupo: tipo Usuario -->
+            <div class="formulario_grupo" id="grupo_tipo">
+                <label class="form_label" for="tipo-usuario">Tipo de usuario</label>
+                <div class="form_grupo-input">
+                    <select name="tipo-usuario" id="tipo-usuario" class="form_input" disabled>
+                        <option value="">Selecciona una opción...</option>
+                        <?php if (isset($_SESSION['tipoUsuario'])) {
+                            if ($_SESSION['tipoUsuario'] == "S") { ?>
+                                <option value="S">Super Usuario</option>
+                            <?php } ?>
+                        <?php } ?>
+                        <option value="A">Administrador</option>
+                        <option value="M">Médico</option>
+                        <option value="E">Asistente</option>
+                    </select>
+                    <i class="form_validacion-estado select fa-solid fa-circle-xmark"></i>
+                </div>
+                <p class="form_input-error">Selecciona un tipo de Usuario.</p>
+            </div><!-- end form-grupo -->
+
+            <!-- Grupo: especialidad -->
+            <div class="formulario_grupo" id="grupo_especialidad">
+                <label class="form_label" for="especialidad-usuario">Especialidad</label>
+                <div class="form_grupo-input">
+                    <input class="form_input" type="text" id="especialidad-usuario" name="especialidad-usuario">
+                    <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                </div>
+                <p class="form_input-error">La especialidad solo puede contener letras y no debe estar vacío.</p>
+            </div><!-- end form-grupo -->
+
+            <!-- Grupo: universidad -->
+            <div class="formulario_grupo" id="grupo_universidad">
+                <label class="form_label" for="universidad-usuario">Universidad</label>
+                <div class="form_grupo-input">
+                    <input class="form_input" type="text" id="universidad-usuario" name="universidad-usuario">
+                    <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                </div>
+                <p class="form_input-error">Solo se puede contener letras y no debe estar vacío.</p>
+            </div><!-- end form-grupo -->
+
+            <!-- Grupo: cedula-->
+            <div class="formulario_grupo" id="grupo_cedula">
+                <label class="form_label" for="cedula-usuario">Cédula Profesional</label>
+                <div class="form_grupo-input">
+                    <input class="form_input" type="text" id="cedula-usuario" name="cedula-usuario">
+                    <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                </div>
+                <p class="form_input-error">Solo se puede contener números y no debe estar vacío.</p>
+            </div><!-- end form-grupo -->
+
+            <!-- Grupo: contrasena -->
+            <div class="formulario_grupo" id="grupo_contrasena">
+                <label class="form_label" for="contrasena-usuario">Contraseña</label>
+                <div class="form_grupo-input">
+                    <input class="form_input" type="password" id="contrasena-usuario" name="contrasena-usuario">
+                    <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                </div>
+                <p class="form_input-error">La contraseña deberá ser de 8 a 16 dígitos. Debe contener mayúsculas,
+                    minúsculas, números y símbolos.</p>
+            </div><!-- end form-grupo -->
+
+            <!-- Grupo: contrasena 2 -->
+            <div class="formulario_grupo" id="grupo_contrasena2">
+                <label class="form_label" for="contrasena-usuario"> Repetir contraseña</label>
+                <div class="form_grupo-input">
+                    <input class="form_input" type="password" id="contrasena-usuario2" name="contrasena-usuario2">
+                    <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                </div>
+                <p class="form_input-error">Ambas contraseñas deben ser iguales.</p>
+            </div><!-- end form-grupo -->
+
+            <div class="form_mensaje span-4" id="form_mensaje">
+                <p><i class="fa-solid fa-circle-exclamation"></i> Error: Porfavor rellena el formulario
+                    correctamente.
+                </p>
+            </div>
+
+            <button class="input_submit boton amarillo span-2 modal-boton" id="boton-cancelar-perfil"><i
+                    class="fa-solid fa-left-long"></i> Regresar</button>
+
+            <div class="formulario_grupo formulario_btn-enviar span-2 modal-boton">
+                <button class="input_submit boton azul" type="submit" id="boton-guardar-perfil">Guardar</button>
+            </div>
+        </form>
         <?php require ("./layout/footer.php"); ?>
     </div>
     <!-- end contenedor -->
+    <script src="./js/validacion-perfil.js"></script>
+    <script src="./js/form-perfil.js"></script>
+
 </body>
 
 </html>

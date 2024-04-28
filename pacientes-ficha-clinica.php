@@ -16,7 +16,9 @@ if (isset($_SESSION["id_paciente"])) {
 } else {
     redirect("./pacientes-informacion.php");
 }
-
+if (isset($_SESSION["id_consulta"])) {
+    unset($_SESSION["id_consulta"]);
+}
 ?>
 
 <!DOCTYPE html>

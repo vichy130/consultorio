@@ -12,7 +12,6 @@ function obtenerPaciente() {
         .then(response => response.json())
         .then(data => {
             if (data != null) {
-                console.log(data);
                 if ('id' in data) {
                     paciente = new Paciente(data.nombre, data.apellidoPaterno, data.apellidoMaterno, data.sexo, data.fechaNacimiento, data.lugarNacimiento, data.calle, data.colonia, data.ciudad, data.codigoPostal, data.telCasa, data.telOficina, data.celular, data.edoCivil, data.ocupacion, data.escolaridad, data.correo);
                     paciente.id = data.id;
@@ -51,9 +50,11 @@ function obtenerPaciente() {
             console.log(error);
             modalError(error, tipo.obtener);
         });
+        // loadPaciente();
 }
 //LOAD HTML
 document.addEventListener('DOMContentLoaded', function () {// SE EJECUTA AUNQUE LOS RECURSOS NO HAN SIDO CARGADOS POR COMPLETO
+
 });
 botonImprimirPaciente.addEventListener('click', imprimirPaciente);
 //FETCH FORMULARIO Y ARRAYS

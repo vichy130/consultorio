@@ -28,19 +28,9 @@
             <label class="genero-content" name="genero-content" id="genero-content">    </label>
             <label class="tipo-sangre-content" name="tipo-sangre-content" id="tipo-sangre-content">    </label>
         </div>
-        <button class="boton-nueva-consulta span-2" onClick="redirectNuevaConsulta()"><i class="fas fa-plus"></i>Nueva
+        <button class="boton-nueva-consulta span-2" id="boton-nueva-content"><i class="fas fa-plus"></i>Nueva
             consulta</button>
-        <div class="antecedentes-content-informacion span-2">
-            <label class="antecedentes-patologicos-content" name="antecedentes-patologicos-content"
-                id="antecedentes-patologicos-content">Antecedentes Patólogicos</label>
-            <label class="enfermedad-content" id="enfermedad-content"></label>
-            <label class="descripcion-content" id="descripcion-content"></label>
 
-        </div>
-        <div class="consultas-content-informacion span-2">
-            <label class="consultasAnteriores-content" name="consultasAnteriores-content"
-                id="consultasAnteriores-content">Consultas Anteriores</label>
-        </div>
     </div>
     <script src="./js/form-content-informacion.js"></script>
 </body>

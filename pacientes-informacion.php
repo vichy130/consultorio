@@ -13,6 +13,10 @@ if (!isset($_SESSION['username'])) {
 } else if (isset($_REQUEST["id"])) {
     $_SESSION["id_paciente"] = $_REQUEST["id"];
 }
+
+if (isset($_SESSION["id_consulta"])) {
+    unset($_SESSION["id_consulta"]);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -264,6 +268,7 @@ if (!isset($_SESSION['username'])) {
     <!-- end contenedor -->
     <script src="./js/validacion-informacion.js"></script>
     <script src="./js/form-informacion.js"></script>
+    <!-- <script src="./js/form-content-informacion.js"></script> -->
 </body>
 
 </html>

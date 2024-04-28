@@ -222,6 +222,52 @@ class usuario
             return $e->getMessage();
         }
     }
+    public function actualizarPerfil()
+    {
+        if($this->especialidad!=null && $this->universidad!=null && $this->cedula!=null){
+            $query = "UPDATE usuario set
+            username=:username,
+            nombre=:nombre,
+            apellidoPaterno=:apellidoPaterno,
+            apellidoMaterno=:apellidoMaterno,
+            telefono=:telefono,
+            correo=:correo,
+            especialidad=:especialidad,
+            universidad=:universidad,
+            cedula=:cedula
+            WHERE username=:username; ";
+        }else{
+            $query = "UPDATE usuario set
+            username=:username,
+            nombre=:nombre,
+            apellidoPaterno=:apellidoPaterno,
+            apellidoMaterno=:apellidoMaterno,
+            telefono=:telefono,
+            correo=:correo,
+            WHERE username=:username; ";
+        }
+
+        try {
+            $stmt = $this->conexion->getdbh()->prepare($query);
+            $stmt->bindParam(":username", $this->username);
+            $stmt->bindParam(":nombre", $this->nombre);
+            $stmt->bindParam(":apellidoPaterno", $this->apellidoPaterno);
+            $stmt->bindParam(":apellidoMaterno", $this->apellidoMaterno);
+            $stmt->bindParam(":telefono", $this->telefono);
+            $stmt->bindParam(":correo", $this->correo);
+            $stmt->bindParam(":username", $this->username);
+            if($this->especialidad!=null && $this->universidad!=null && $this->cedula!=null){
+                $stmt->bindParam(":especialidad", $this->especialidad);
+                $stmt->bindParam(":universidad", $this->universidad);
+                $stmt->bindParam(":cedula", $this->cedula);
+            }
+            $stmt->execute();
+            return $this->getValues();
+
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
     function actualizarContrasena()
     {
         $this->encriptar();

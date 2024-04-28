@@ -133,6 +133,9 @@ function obtenerConsulta() {
                     console.log(data);
                     modalError(data, tipo.obtener);
                 }
+            }else {
+                console.log("else");
+                divImprimirConsulta.style.display="none";
             }
         })// FIN FETCH
         .catch(error => {
@@ -162,9 +165,8 @@ function obtenerMedicamentos() { //pendiente
     fetch('./controller/obtener-medicamentos.php')
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             data.forEach((m) => {
-                medicamento = new Medicamento(m.medicamento, m.tipo, m.descripcion);
+                let medicamento = new Medicamento(m.medicamento, m.tipo, m.descripcion);
                 medicamento.id = m.id;
                 arrayMedicamentos.push(medicamento);
             });
@@ -196,6 +198,9 @@ function obtenerUsuario() {
                 }else {
                     divImprimirConsulta.style.display="block";
                 }
+            }else {
+                console.log("else");
+                divImprimirConsulta.style.display="none";
             }
         })// FIN FETCH
         .catch(error => {
