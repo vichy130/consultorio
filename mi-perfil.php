@@ -183,7 +183,7 @@ if (!isset($_SESSION['username'])) {
                 </p>
             </div>
 
-            <button class="input_submit boton amarillo span-2 modal-boton" id="boton-cancelar-perfil"><i
+            <button class="input_submit boton amarillo  span-2 modal-boton" id="boton-cancelar-perfil"><i
                     class="fa-solid fa-left-long"></i> Regresar</button>
 
             <div class="formulario_grupo formulario_btn-enviar span-2 modal-boton">

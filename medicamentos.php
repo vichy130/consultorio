@@ -44,7 +44,7 @@ unset($_SESSION['id_con']);
             </div>
 
             <label class="span-4">Medicamentos</label>
-            
+
             <div class="formulario_grupo span-2">
                 <div class="form_grupo-input">
                     <input class="form_input" type="text" id="input-buscar">
@@ -53,8 +53,10 @@ unset($_SESSION['id_con']);
             </div>
 
             <button class="boton azul" id="boton-buscar-medicamento"><i class="fas fa-search"></i> Buscar</button>
-            <button class="boton azul" id="boton-nuevo-medicamento"><i class="fas fa-user-plus"></i> Nuevo
-                medicamento</button>
+            <div class="div-boton">
+                <button class="boton azul" id="boton-nuevo-medicamento"><i class="fas fa-user-plus"></i> Nuevo
+                    medicamento</button>
+            </div>
             <table class="table span-4" id="tabla-medicamentos">
                 <!--<thead>
                     <tr>

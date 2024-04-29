@@ -1,11 +1,97 @@
+.content-informacion{
+    min-height: 100vh;
+    grid-area:content-informacion;
+    background:#F4F4F2;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 90px 100px 50px minmax(min-content, max-content);
+    /* grid-template-rows: 0.2fr 0.4fr .2fr 1fr 1fr; */
+    align-self: start;  /* start content informacion */
+}
+
+/* degradados */
+.content-informacion{
+    box-shadow: 3px 0px 10px rgba(163, 163, 163, 0.4);
+}
+.boton-nueva-consulta{
+    background: #dd9000;
+    height:35px;
+    line-height: 35px;
+    width:99%;
+    color: white;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: .1s ease all;
+    border-radius: 3px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    align-self: center;
+}
+.boton-nueva-consulta:hover{
+    box-shadow: 3px 0 px 30px rgba(163,163,163,1);
+    background-color: #bb7b04;
+}
 .imagen-sexo{
     width:70px;
 }
+.icono-paciente{
+    justify-self: center;
+    align-self: center;
+}
+.iconos-content-informacion, .datos-content-informacion{
+    display: grid;
+    margin-top: 10px;
+}
 .nombre-content-informacion{
     font-size:18px;
-    height:60px;
+    height:100%;
     display:flex;
-    justify-content: space-between;
-    align-items: center;
     line-height: 1; 
+    align-items: center;
+    justify-content: left;
+}
+
+.iconos-content-informacion{
+    justify-self: center;
+}
+.icono-paciente{
+    padding:5px;
+}
+.cuadro{
+    /* box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3); */
+    background-color: rgb(255, 255, 255);
+}
+.antecedentes, .consultas-anteriores{
+    padding-top:6px;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+.division-enfermedades{
+    margin:5px;
+    background-color: rgb(244, 244, 244);
+    padding:5px;
+    color: rgb(35, 36, 36);
+    border-radius: 3px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+/* .division-consultas{
+    margin:5px;
+    padding:5px;
+    color: rgb(35, 36, 36);
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border-top: 2px solid black; 
+    border-bottom: none; 
+} */
+.division-consultas{
+    margin:5px;
+    background-color: rgb(244, 244, 244);
+    padding:5px;
+    color: rgb(35, 36, 36);
+    border-radius: 3px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.titulo{
+    margin-top: 12px;
+    margin-bottom:2px;
 }

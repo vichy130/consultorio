@@ -114,20 +114,25 @@ if (isset($_SESSION["id_consulta"])) {
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: sexo -->
-                    <div class="formulario_grupo radio span-4" id="grupo_hijosexo">
-                        <label for="sexo-hijo"><i class="izquierda fas fa-male"></i>Hombre</label>
-                        <input type="radio" id="hombre" name="sexo-hijo" value="Hombre">
-                        <label for="sexo-hijo"><i class="izquierda fas fa-female"></i>Mujer</label>
-                        <input type="radio" id="mujer" name="sexo-hijo" value="Mujer">
-                        <label for="sexo-hijo">Otro</label>
-                        <input type="radio" id="otro" name="sexo-hijo" checked="checked" value="Otro">
-                        <p class="form_input-error"></p>
+                    <div class="formulario_grupo radio form-sexo-hijo" id="grupo_hijosexo">
+                        <div>
+                            <label for="sexo-hijo"><i class="izquierda fas fa-male"></i>Hombre</label>
+                            <input type="radio" id="hombre" name="sexo-hijo" value="Hombre">
+                        </div>
+                        <div>
+                            <label for="sexo-hijo"><i class="izquierda fas fa-female"></i>Mujer</label>
+                            <input type="radio" id="mujer" name="sexo-hijo" value="Mujer">
+                        </div>
+                        <div>
+                            <label for="sexo-hijo">Otro</label>
+                            <input type="radio" id="otro" name="sexo-hijo" checked="checked" value="Otro">
+                        </div>
                     </div><!-- end form-grupo -->
 
-                    <button class="boton azul boton-agregar-hijo" id="agregarHijo" type="button"><i
-                            class="fas fa-plus"></i> Añadir
-                        Hijo</button>
-
+                    <div class="boton-agregar-hijo span-2">
+                        <button class="boton azul" id="agregarHijo" type="button"><i class="fas fa-plus"></i> Añadir
+                            Hijo</button>
+                    </div>
                     <table class="table span-4 tabla-hijos" id="tabla-hijos">
                         <!-- <thead>
                                 <tr>
@@ -572,7 +577,7 @@ if (isset($_SESSION["id_consulta"])) {
                         <div class="form_grupo-input">
                             <input class="form_input" type="text" id="familiarenfermedad-paciente"
                                 name="familiarenfermedad-paciente" list="datalist-enfermedad">
-                                <datalist id="datalist-enfermedad"></datalist>
+                            <datalist id="datalist-enfermedad"></datalist>
                             <i class="form_validacion-estado select fa-solid fa-circle-xmark"></i>
                         </div>
                         <p class="form_input-error">El campo no debe estar vacío. Solo se aceptan letras</p>
@@ -588,10 +593,10 @@ if (isset($_SESSION["id_consulta"])) {
                         </div>
                         <p class="form_input-error">El campo no debe estar vacío. Solo se aceptan letras</p>
                     </div><!-- end form-grupo -->
-
-                    <button class="boton azul" type="button" id="agregarAntecedenteFam"><i
-                            class="fas fa-plus"></i>Añadir</button>
-
+                    <div class="span-4 boton-derecha">
+                        <button class="boton azul" type="button" id="agregarAntecedenteFam"><i
+                                class="fas fa-plus"></i>Añadir</button>
+                    </div>
                     <table class="table span-4 tabla-antecedentes-familiares" id="tabla-antecedentes-familiares">
                         <!--
                         <thead>
@@ -614,7 +619,8 @@ if (isset($_SESSION["id_consulta"])) {
                     <div class="formulario_grupo span-2" id="grupo_enfermedad">
                         <label class="form_label" for="enfermedad-paciente">Enfermedad</label>
                         <div class="form_grupo-input">
-                            <input class="form_input" type="text" id="enfermedad-paciente" name="enfermedad-paciente" list="datalist-enfermedad">
+                            <input class="form_input" type="text" id="enfermedad-paciente" name="enfermedad-paciente"
+                                list="datalist-enfermedad">
                             <datalist id="datalist-enfermedad"></datalist>
                             <i class="form_validacion-estado select fa-solid fa-circle-xmark"></i>
                         </div>
@@ -645,9 +651,10 @@ if (isset($_SESSION["id_consulta"])) {
                         </div>
                         <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->
-
-                    <button class="boton azul" type="button" id="agregarAntecedente"><i class="fas fa-plus"></i>
-                        Añadir</button>
+                    <div class="boton-derecha span-4">
+                        <button class="boton azul" type="button" id="agregarAntecedente"><i class="fas fa-plus"></i>
+                            Añadir</button>
+                    </div>
 
                     <table class="table span-4 tabla-antecedentes" id="tabla-antecedentes">
                         <!-- <thead>
@@ -675,7 +682,8 @@ if (isset($_SESSION["id_consulta"])) {
                         <p class="form_input-error">El campo no debe estar vacío</p>
                     </div>end form-grupo -->
 
-                    <button class="input_submit boton amarillo span-2" id="boton-cancelar-ficha"><i class="fa-solid fa-left-long"></i> Regresar</button>
+                    <button class="input_submit boton amarillo span-2" id="boton-cancelar-ficha"><i
+                            class="fa-solid fa-left-long"></i> Regresar</button>
 
                     <button class="input_submit boton azul span-2" type="submit">Guardar</button>
 

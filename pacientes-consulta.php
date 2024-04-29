@@ -216,9 +216,10 @@ if (isset($_REQUEST["id"])) {
                         <p class="form_input-error">El campo no debe estar vacío. Solo se aceptan letras y números</p>
                     </div><!-- end form-grupo -->
 
-                    <button class="boton azul" id="boton-consulta-previa" type="button"><i
-                            class="fas fa-plus"></i>Añadir</button>
-
+                    <div class="boton-derecha span-4">
+                        <button class="boton azul" id="boton-consulta-previa" type="button"><i
+                                class="fas fa-plus"></i>Añadir</button>
+                    </div>
                     <table class="table span-4" id="tabla-consultas-previas">
                         <!--<thead>
                             <tr>
@@ -301,9 +302,10 @@ if (isset($_REQUEST["id"])) {
                         </div>
                         <p class="form_input-error">El campo no debe estar vacío. Solo se aceptan letras</p>
                     </div><!-- end form-grupo -->
-
-                    <button class="boton azul" id="boton-medicamento-indicacion" type="button"><i
-                            class="fas fa-plus"></i> Añadir</button>
+                    <div class="boton-derecha span-4">
+                        <button class="boton azul" id="boton-medicamento-indicacion" type="button"><i
+                                class="fas fa-plus"></i> Añadir</button>
+                    </div>
 
                     <table class="table span-4" id="tabla-medicamento-indicacion">
                         <!--<thead>
@@ -327,9 +329,11 @@ if (isset($_REQUEST["id"])) {
                         </div>
                         <p class="form_input-error">El campo no debe estar vacío. Solo se aceptan letras y números</p>
                     </div><!-- end form-grupo -->
-
-                    <button class="boton azul" id="boton-estudios-solicitados" type="button"><i class="fas fa-plus"></i>
-                        Añadir</button>
+                    <div class="boton-derecha span-4">
+                        <button class="boton azul" id="boton-estudios-solicitados" type="button"><i
+                                class="fas fa-plus"></i>
+                            Añadir</button>
+                    </div>
                     <table class="table span-4" id="tabla-estudios-solicitados">
                         <!--<thead>
                             <tr>
@@ -343,19 +347,19 @@ if (isset($_REQUEST["id"])) {
 
                     <!-- grupo: -->
                     <div class="formulario_grupo span-4" id="grupo_consultaterapia">
-                        <label class="form_label span-4" for="consultaterapia-paciente">Terapia</label>
+                        <label class="form_label" for="consultaterapia-paciente">Terapia</label>
                         <div class="form_grupo-input">
-                            <input class="form_textarea" id="consultaterapia-paciente"
-                                name="consultaterapia-paciente"list="datalist-terapias">
-                                <datalist id="datalist-terapias"></datalist>
+                            <input class="form_textarea" id="consultaterapia-paciente" name="consultaterapia-paciente"
+                                list="datalist-terapias">
+                            <datalist id="datalist-terapias"></datalist>
                             <i class="form_validacion-estado select fa-solid fa-circle-xmark"></i>
                         </div>
                         <p class="form_input-error">El campo no debe estar vacío. Solo se aceptan letras y números</p>
                     </div><!-- end form-grupo -->
-
-                    <button class="boton azul" id="boton-terapia" type="button"><i class="fas fa-plus"></i>
-                        Añadir</button>
-
+                    <div class="boton-derecha span-4">
+                        <button class="boton azul" id="boton-terapia" type="button"><i class="fas fa-plus"></i>
+                            Añadir</button>
+                    </div>
                     <table class="table span-4" id="tabla-terapias-aplicadas">
                         <!--<thead>
                             <tr>

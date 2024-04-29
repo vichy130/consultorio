@@ -67,14 +67,16 @@ unset($_SESSION['id_con']);
 
             <div class="formulario_grupo span-2">
                 <div class="form_grupo-input">
-                <input class="form_input" type="text" id="input-buscar">
-                <i id="icono-buscar" class="form_validacion-buscar fa-solid fa-xmark"></i>
+                    <input class="form_input" type="text" id="input-buscar">
+                    <i id="icono-buscar" class="form_validacion-buscar fa-solid fa-xmark"></i>
                 </div>
             </div>
-            
+
             <button class="boton azul" id="boton-buscar-paciente"><i class="fas fa-search"></i> Buscar</button>
-            <button class="boton azul" id="nuevo-paciente-boton"><i class="fas fa-user-plus"></i> Nuevo
-                paciente</button>
+            <div class="div-boton">
+                <button class="boton azul" id="nuevo-paciente-boton"><i class="fas fa-user-plus"></i> Nuevo
+                    paciente</button>
+            </div>
             <table class="table span-4" id="tabla-pacientes">
                 <!--<thead>
                     <tr>

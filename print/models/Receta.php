@@ -78,7 +78,7 @@ class Receta extends FPDF
         $universidadMedico = $this->convertir($this->universidad);
         //set font to times, Italica, 11
         // $this->SetFont('Times', 'B', 12);
-        $this->SetFont('Times', 'I', 10);
+        $this->SetFont('Times', 'BI', 12);
         // CELL (width, height, text, border, end line, align)
         // $this->Cell(60, 5, '', 0, 0);
         $this->Cell(189, 5, $nombreMedico, 0, 1, 'C');
@@ -105,29 +105,29 @@ class Receta extends FPDF
 
     function Footer()
     {
-        //FIRMA
-        if ($this->tamano == "carta") {
-            $this->setXY(160, 240);
-            $this->SetFont('Arial', 'B', 11);
-            //SetLineWidth(float width)
-            $this->SetLineWidth(.2);
-            // LINE (x,y coordenada inicio y x,y coordenada fin)
-            $this->Line(150, 240, 193, 240);
-            $firmaMedico = $this->convertir("Firma Médico");
-            $this->Cell(100, 5, $firmaMedico, 0, 1, '');
-            $this->Ln(1);
-        } else { //tamano media carta
-            $this->setXY(160, 105);
-            $this->SetFont('Arial', 'B', 10);
-            //SetLineWidth(float width)
-            $this->SetLineWidth(.2);
-            // LINE (x,y coordenada inicio y x,y coordenada fin)
-            $this->Line(150, 105, 193, 105);
-            $firmaMedico = $this->convertir("Firma Médico");
-            $this->Cell(100, 5, $firmaMedico, 0, 1, '');
-            $this->Ln(1);
-        }
-        //FIRMA
+        // //FIRMA
+        // if ($this->tamano == "carta") {
+        //     $this->setXY(160, 240);
+        //     $this->SetFont('Arial', 'B', 11);
+        //     //SetLineWidth(float width)
+        //     $this->SetLineWidth(.2);
+        //     // LINE (x,y coordenada inicio y x,y coordenada fin)
+        //     $this->Line(150, 240, 193, 240);
+        //     $firmaMedico = $this->convertir("Firma Médico");
+        //     $this->Cell(100, 5, $firmaMedico, 0, 1, '');
+        //     $this->Ln(1);
+        // } else { //tamano media carta
+        //     $this->setXY(160, 105);
+        //     $this->SetFont('Arial', 'B', 10);
+        //     //SetLineWidth(float width)
+        //     $this->SetLineWidth(.2);
+        //     // LINE (x,y coordenada inicio y x,y coordenada fin)
+        //     $this->Line(150, 105, 193, 105);
+        //     $firmaMedico = $this->convertir("Firma Médico");
+        //     $this->Cell(100, 5, $firmaMedico, 0, 1, '');
+        //     $this->Ln(1);
+        // }
+        // //FIRMA
         $this->domicilio = $this->convertir($this->calleConsultorio . ", " . $this->coloniaConsultorio);
         if ($this->ciudadConsultorio == "Zapopan" || $this->ciudadConsultorio == "Guadalajara") {
             $estado = "Jalisco";

@@ -51,8 +51,8 @@ if (isset($_SESSION["id_consulta"])) {
                 <form class="form" id="form-paciente">
 
                     <div class="span-4 titulo-iconos">
-                    <label class="formulario_grupo">Informacion basica</label>
-                    <i class="cursor fa-solid fa-file-pdf size-icon margin-left" id="boton-imprimir-paciente"></i>
+                        <label class="formulario_grupo">Informacion basica</label>
+                        <i class="cursor fa-solid fa-file-pdf size-icon margin-left" id="boton-imprimir-paciente"></i>
                     </div>
 
                     <!-- Grupo: nombre paciente -->
@@ -88,17 +88,23 @@ if (isset($_SESSION["id_consulta"])) {
                         <p class="form_input-error">El campo no debe estar vacío</p>
                     </div><!-- end form-grupo -->
 
+                    <label class="span-4">Sexo</label>
                     <!-- Grupo: Sexo paciente -->
                     <div class="formulario_grupo radio span-4" id="grupo_sexo">
-                        <div class="form_grupo-input">
-                            <label for="sexo-paciente"><i class=" fas fa-male"></i> Hombre</label>
-                            <input type="radio" id="masculino" name="sexo" value="masculino">
-                            <label for="sexo-paciente"><i class=" fas fa-female"></i> Mujer</label>
-                            <input type="radio" id="femenino" name="sexo" value="femenino">
-                            <label for="sexo-paciente">Otro</label>
-                            <input type="radio" id="otro" name="sexo" value="otro" checked>
-
-                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                        <div class="form_grupo-input form-sexo ">
+                            <div>
+                                <label for="sexo-paciente"><i class=" fas fa-male"></i> Hombre</label>
+                                <input type="radio" id="masculino" name="sexo" value="masculino">
+                            </div>
+                            <div>
+                                <label for="sexo-paciente"><i class=" fas fa-female"></i> Mujer</label>
+                                <input type="radio" id="femenino" name="sexo" value="femenino">
+                            </div>
+                            <div>
+                                <label for="sexo-paciente">Otro</label>
+                                <input type="radio" id="otro" name="sexo" value="otro" checked>
+                                <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                            </div>
                         </div>
                         <p class="form_input-error">Selecciona el sexo</p>
                     </div><!-- end form-grupo -->
@@ -252,7 +258,8 @@ if (isset($_SESSION["id_consulta"])) {
                     </div><!-- end form-grupo -->
 
                     <div class="formulario_grupo span-2 modal-boton">
-                        <button class="input_submit boton amarillo" type="button" id="boton-cancelar-paciente"><i class="fa-solid fa-left-long"></i> Regresar</button>
+                        <button class="input_submit boton amarillo" type="button" id="boton-cancelar-paciente"><i
+                                class="fa-solid fa-left-long"></i> Regresar</button>
                     </div>
 
                     <div class="formulario_grupo formulario_btn-enviar span-2">
@@ -261,7 +268,6 @@ if (isset($_SESSION["id_consulta"])) {
                 </form>
                 <!-- end form -->
             </div>
-
         </div>
         <?php require ("./layout/footer.php"); ?>
     </div>

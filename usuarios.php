@@ -53,8 +53,10 @@ unset($_SESSION['id_usuario']);
 
             <button class="boton azul" id="boton-buscar-usuario"><i class="fas fa-search"></i> Buscar</button>
 
+            <div class="div-boton">
             <button class="boton azul" id="boton-nuevo-usuario"><i class="fas fa-user-plus"></i> Nuevo
                 Usuario</button>
+                </div>
             <table class="table span-4" id="tabla-usuarios">
                 <!--<thead>
                     <tr>

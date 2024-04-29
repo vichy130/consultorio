@@ -52,9 +52,10 @@ unset($_SESSION['id_con']);
                 </div>
             </div>
             <button class="boton azul" id="boton-buscar-consultorio"><i class="fas fa-search"></i> Buscar</button>
-
-            <button class="boton azul" id="boton-nuevo-consultorio"><i class="fas fa-user-plus"></i> Nuevo
-                consultorio</button>
+            <div class="div-boton">
+                <button class="boton azul" id="boton-nuevo-consultorio"><i class="fas fa-user-plus"></i> Nuevo
+                    consultorio</button>
+            </div>
             <table class="table span-4" id="tabla-consultorios">
                 <!--<thead>
                     <tr>

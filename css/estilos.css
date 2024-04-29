@@ -219,18 +219,39 @@ body{
 .azul{
     background: #0d85ca;
 }
+.azul:hover{
+    box-shadow: 3px 0 px 30px rgba(163,163,163,1);
+    background: #08496e;
+}
 .amarillo{
     background: #dd9000;
 }
+.amarillo:hover{
+    box-shadow: 3px 0 px 30px rgba(163,163,163,1);
+    background: #ad7712;
+}
 .rojo{
     background: #c14228;
+}
+.rojo:hover{
+    box-shadow: 3px 0 px 30px rgba(163,163,163,1);
+    background: #872d1b;
 }
 .blanco{
     background: #ffffff;
     color: #3d3b3e;
 }
+.blanco:hover{
+    box-shadow: 3px 0 px 30px rgba(163,163,163,1);
+    background: #c5c5c5;
+    color: #3d3b3e;
+}
 .gris{
     background: #8a8a8a;
+    color: #3d3b3e;
+}
+.gris:hover{
+    background: #6b6b6b;
     color: #3d3b3e;
 }
 .span-2{
@@ -239,6 +260,9 @@ body{
 .span-4{
     grid-column: span 4;
 }
+/* .span-3{
+    grid-column: span 3;
+} */
 
 /* --- Estilos para validacion --- */
 .formulario_grupo-correcto .form_validacion-estado{

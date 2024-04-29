@@ -23,14 +23,19 @@
             <i class="fas fa-tint"></i>
         </div>
         <div class="datos-content-informacion">
-            <label class="cumpleanos-content" name="cumpleanos-content" id="cumpleanos-content">    </label>
-            <label class="telefono-content" name="telefono-content" id="telefono-content">    </label>
-            <label class="genero-content" name="genero-content" id="genero-content">    </label>
-            <label class="tipo-sangre-content" name="tipo-sangre-content" id="tipo-sangre-content">    </label>
+            <label class="cumpleanos-content" name="cumpleanos-content" id="cumpleanos-content"> </label>
+            <label class="telefono-content" name="telefono-content" id="telefono-content"> </label>
+            <label class="genero-content" name="genero-content" id="genero-content"> </label>
+            <label class="tipo-sangre-content" name="tipo-sangre-content" id="tipo-sangre-content"> </label>
         </div>
         <button class="boton-nueva-consulta span-2" id="boton-nueva-content"><i class="fas fa-plus"></i>Nueva
             consulta</button>
-
+            <div id="enfermedades-content" class="span-2 cuadro antecedentes">
+                <!-- <h4>Enfermedades del paciente:</h4> -->
+            </div>
+        <div id="consultas-content" class="span-2 cuadro consultas-anteriores">
+            <!-- <h4>Consultas:</h4> -->
+        </div>
     </div>
     <script src="./js/form-content-informacion.js"></script>
 </body>
