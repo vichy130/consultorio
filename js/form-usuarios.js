@@ -34,7 +34,6 @@ function obtenerUsuarios() {
     fetch('./controller/obtener-usuarios.php')
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             arrayUsuarios = [];
             data.forEach(element => {
                 if ('username' in element) {
@@ -64,7 +63,6 @@ function buscarUsuarios() {
     var arrayBuscar = stringBuscar.split(" ")
     if (arrayBuscar.length < 6) {
         datos = JSON.stringify(arrayBuscar);
-        console.log(datos);
         fetch('./controller/buscar-usuarios.php', {
             method: 'POST',
             body: datos
@@ -73,7 +71,6 @@ function buscarUsuarios() {
                 return response.json();
             })
             .then(function (data) {
-                console.log(data);
                 if (data != null) {
                     arrayUsuarios = [];
                     if (Array.isArray(data)) {
@@ -111,8 +108,6 @@ tUsuarios.addEventListener('click', function (e) {
     }
     if (e.target.classList.contains('eliminar-usuario')) {
         modal.dataset.id = e.target.dataset.id;
-        console.log("modal dataset:");
-        console.log(modal.dataset.id);
         modal.dataset.nombre = e.target.dataset.nombre;
         modalBlock();
     }
@@ -209,7 +204,6 @@ function usuarioEditar(idEditar) {
     window.location.href = './usuario.php?id=' + idEditar;
 }
 function eliminarUsuario() {
-    console.log("eliminar usuario ()" + modal.dataset.id);
     var datos = { id: modal.dataset.id };
     jsonDatos = JSON.stringify(datos);
     fetch('./controller/eliminar-usuario.php', {
@@ -221,7 +215,6 @@ function eliminarUsuario() {
         })
         .then(function (data) {
             clearDiv(modalContent);
-            console.log(data);
             if (data === "true") {
                 modalExito();
             } else {

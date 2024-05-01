@@ -132,7 +132,6 @@ function obtenerConsulta() {
                     modalError(data, tipo.obtener);
                 }
             }else {
-                console.log("else");
                 divImprimirConsulta.style.display="none";
             }
         })// FIN FETCH
@@ -178,7 +177,6 @@ function obtenerUsuario() {
     fetch('./controller/obtener-usuario-receta.php?id=' + consultaObjeto.usuario)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             if (data != null && 'nombre' in data) {
                 usuario = new Usuario();
                 usuario.username = data.username;
@@ -197,7 +195,6 @@ function obtenerUsuario() {
                     divImprimirConsulta.style.display="block";
                 }
             }else {
-                console.log("else");
                 divImprimirConsulta.style.display="none";
             }
         })// FIN FETCH
@@ -331,7 +328,6 @@ function enviarFormConsulta() {
                 return response.json();
             })
             .then(function (data) {
-                console.log(data);
                 if (data != null) {
                     if (data.id !== undefined) {
                         consultaObjeto = new Consulta(data.fecha, data.usuario, data.paciente, data.ta, data.oxigeno, data.pulso, data.peso, data.estatura, data.temperatura, data.motivoConsulta, data.exploracion, data.indicaciones, data.receta, data.consultorio);
@@ -358,7 +354,6 @@ function enviarFormConsulta() {
                 return response.json();
             })
             .then(function (data) {
-                console.log(data);
                 if (data != null) {
                     if (data.id !== undefined) {
                         consultaObjeto = new Consulta(data.fecha, data.usuario, data.paciente, data.ta, data.oxigeno, data.pulso, data.peso, data.estatura, data.temperatura, data.motivoConsulta, data.exploracion, data.indicaciones, data.receta, data.consultorio);

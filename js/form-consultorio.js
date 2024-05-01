@@ -46,7 +46,6 @@ function enviarFormConsultorio(){
                 return response.json();
             })
             .then(function (data) {
-                console.log(data);
                 if (data!=null){
                     if('id' in data){
                         consultorio = new Consultorio(data.nombre, data.calle, data.colonia, data.ciudad, data.codigoPostal, data.telefono);
@@ -72,7 +71,6 @@ function enviarFormConsultorio(){
             return response.json();
         })
         .then(function (data){
-            console.log(data);
             if (data!=null){
                 if('id' in data){
                     consultorio = new Consultorio(data.nombre, data.calle, data.colonia, data.ciudad, data.codigoPostal, data.telefono);

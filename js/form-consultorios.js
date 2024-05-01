@@ -65,7 +65,6 @@ function buscarConsultorios() {
 
     if (arrayBuscar.length < 6) {
         datos = JSON.stringify(arrayBuscar);
-        console.log(datos);
         fetch('./controller/buscar-consultorios.php', {
             method: 'POST',
             body: datos
@@ -74,7 +73,6 @@ function buscarConsultorios() {
                 return response.json();
             })
             .then(function (data) {
-                console.log(data);
                 if (data != null) {
                     arrayConsultorios = [];
                     if (Array.isArray(data)) {

@@ -33,7 +33,6 @@ function validarCodigoPostal() {
         if (client.readyState == 4) {
             if (client.status == 200) { // Verifica si la solicitud fue exitosa
                 arrayCodigos = JSON.parse(client.responseText);
-                console.log("Respuesta de la API:", arrayCodigos);
                 if (arrayCodigos.places && arrayCodigos.places.length > 0) {
                     colonias = arrayCodigos.places;
                     actualizarDL();
@@ -50,7 +49,6 @@ function actualizarDL() {
         inputColonia.value = places[0]['place name'];
     } else {
         places.forEach(element => {
-            console.log(element['place name']);
             const opcion = document.createElement('option');
             opcion.value = element['place name'];
             dataListColonia.appendChild(opcion);

@@ -11,7 +11,6 @@ function obtenerPerfil() {
     fetch('./controller/obtener-perfil.php')
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             if (data != null) {
                 if ('username' in data) {
                     usuario = new Usuario();
@@ -59,7 +58,7 @@ function enviarFormPerfil() {
                 return response.json();
             })
             .then(function (data) {
-                console.log(data);
+
                 if (data != null) {
                     if ('username' in data) {
                         usuario = new Usuario();

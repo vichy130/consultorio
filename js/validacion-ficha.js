@@ -412,20 +412,17 @@ function deshabilitarAlcohol() {
     });
 }
 function obtenerPaciente() {
-    console.log("obtenerpaciente");
     fetch('./controller/obtener-paciente.php')
         .then(response => response.json())
         .then(data => {
             if (data && data.id != null) {
                 if (data.sexo != "femenino") {
-                    console.log("femenino");
                     deshabilitarFemenino();
                 }
             }
         })// FIN FETCH
         .catch(error => {
             console.error('Error:', error);
-            console.log("catch");
         });
 }
 function deshabilitarFemenino() {

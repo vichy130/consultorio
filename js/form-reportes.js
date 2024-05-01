@@ -62,13 +62,13 @@ selectEnfermedad.addEventListener('change', e => {
 })
 selectTerapia.addEventListener('change', e => {
     switch (selectTerapia.value) {
-        case "0": changeCharts(terapiasChart, terTres);
+        case "tres": changeCharts(terapiasChart, terTres);
             break;
-        case "1": changeCharts(terapiasChart, terSeis);
+        case "seis": changeCharts(terapiasChart, terSeis);
             break;
-        case "2": changeCharts(terapiasChart, terAno);
+        case "ano": changeCharts(terapiasChart, terAno);
             break;
-        case "3": changeCharts(terapiasChart, terTodo);
+        case "todo": changeCharts(terapiasChart, terTodo);
             break;
     }
 })

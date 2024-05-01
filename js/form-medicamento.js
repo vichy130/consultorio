@@ -64,7 +64,6 @@ function enviarFormMedicamento() {
                 return response.json();
             })
             .then(function (data) {
-                console.log(data);
                 if (data != null) {
                     if ('id' in data) {
                         medicamento = new Medicamento(data.medicamento, data.tipo, data.descripcion);

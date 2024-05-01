@@ -86,7 +86,6 @@ formConsultorio.addEventListener('submit', (e)=>{
     }
     if(i){
         enviarFormConsultorio();
-        console.log("enviado");
     }else{
         validarConsultorio();
         modalError("campos", tipo.guardar);

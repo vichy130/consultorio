@@ -34,7 +34,6 @@ function obtenerUsuario() {
                     inputEspecialidad.value=usuario.especialidad;
                     inputUniversidad.value=usuario.universidad;
                     inputCedula.value=usuario.cedula;
-                    console.log(usuario.cedula);
                     validarUsuarioExistente();
                     validarUsuario();
                     validarMedico();
@@ -60,7 +59,6 @@ function enviarFormUsuario() {
                 return response.json();
             })
             .then(function (data) {
-                console.log(data);
                 if (data != null) {
                     if ('username' in data) {
                         usuario = new Usuario();
@@ -91,7 +89,6 @@ function enviarFormUsuario() {
                 return response.json();
             })
             .then(function (data) {
-                console.log(data);
                 if (data != null) {
                     const expresion=/SQLSTATE\[23000\]/;
                     if (expresion.test(data)){

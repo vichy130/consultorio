@@ -71,8 +71,6 @@ formulario.addEventListener('submit', (e)=>{
     if(campos.nuevacontrasena){
         document.querySelectorAll('formulario__grupo-correcto').forEach((icono) => {
             icono.classList.remove('formulario__grupo-correcto');
-            console.log('VALIDO');
-            
         });
     }else{
         e.preventDefault();

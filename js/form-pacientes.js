@@ -58,7 +58,6 @@ function obtenerSesion(){
     fetch('./controller/obtener-sessions.php')
     .then(response => response.json())
     .then(data => {
-        console.log(data);
         if (data != null) {
             tipoUsuario=data.tipoUsuario;
         }
@@ -78,7 +77,6 @@ function obtenerPacientes() {
     fetch('./controller/obtener-pacientes.php')
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             if (data != null) {
                 array = [];
                 data.forEach((p) => {
@@ -105,7 +103,6 @@ function buscarPacientes() {
 
     if (arrayBuscar.length < 6) {
         datos = JSON.stringify(arrayBuscar);
-        console.log(datos);
         fetch('./controller/buscar-pacientes.php', {
             method: 'POST',
             body: datos
@@ -114,7 +111,6 @@ function buscarPacientes() {
                 return response.json();
             })
             .then(function (data) {
-                console.log(data);
                 if (data != null) {
                     array = [];
                     if (Array.isArray(data)) {

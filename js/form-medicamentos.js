@@ -66,7 +66,6 @@ function obtenerSesion(){
     fetch('./controller/obtener-sessions.php')
     .then(response => response.json())
     .then(data => {
-        console.log(data);
         if (data != null) {
             tipoUsuario=data.tipoUsuario;
         }
@@ -108,7 +107,6 @@ function buscarMedicamentos() {
     var arrayBuscar = stringBuscar.split(" ")
     if (arrayBuscar.length < 6) {
         datos = JSON.stringify(arrayBuscar);
-        console.log(datos);
         // datos={hola: "hola"};
         fetch('./controller/buscar-medicamentos.php', {
             method: 'POST',
@@ -118,7 +116,6 @@ function buscarMedicamentos() {
                 return response.json();
             })
             .then(function (data) {
-                console.log(data);
                 if (data != null) {
                     arrayMedicamentos = [];
                     if (Array.isArray(data)) {
@@ -276,7 +273,6 @@ function eliminarMedicamento() {
         })
         .then(function (data) {
             clearDiv(modalContent);
-            console.log(data);
             if (data === "true") {
                 modalExito();
             } else {

@@ -190,14 +190,12 @@ formPerfil.addEventListener('submit', (e) => {
     for (key in campos) {
         if (campos[key] === false) {
             i = false;
-            console.log(i);
             break;
         }
     }
     if (i) {
         enviarFormPerfil();
     } else {
-        console.log("else en formusuario")
         validarMedico();
         validarUsuario();
         modalError("campos", tipo.guardar);

@@ -41,7 +41,6 @@ function obtenerSesion(){
     fetch('./controller/obtener-sessions.php')
     .then(response => response.json())
     .then(data => {
-        console.log(data);
         if (data != null) {
             tipoUsuario=data.tipoUsuario;
         }
@@ -60,7 +59,6 @@ function obtenerConsultas() {
     fetch('./controller/obtener-consultas.php')
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             array = [];
             data.forEach((c) => {
                 if ('id' in c) {
@@ -80,7 +78,6 @@ function obtenerConsultas() {
 }//END FUNCTION OBTENERCONSULTAS
 function buscarConsultas(fecha) { //TODO
     datos = JSON.stringify({ fecha: fecha });
-    console.log(fecha);
     if (fecha == "") {
         obtenerConsultas();
     } else {
@@ -93,7 +90,6 @@ function buscarConsultas(fecha) { //TODO
             })
             .then(function (data) {
                 array = [];
-                console.log(data);
                 data.forEach((c) => {
                     if ('id' in c) {
                         var consulta = new Consulta(c.fecha, c.usuario, c.paciente, c.ta, c.oxigeno, c.pulso, c.peso, c.estatura, c.temperatura, c.motivoConsulta, c.exploracion, c.receta, c.consultorio);

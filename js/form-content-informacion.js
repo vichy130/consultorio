@@ -72,7 +72,6 @@ function obtenerConsultasContent() {
     fetch('./controller/obtener-consultas.php')
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             consultas=data;
             mostrarConsultas();
         })// FIN FETCH
@@ -132,7 +131,6 @@ consultasDiv.addEventListener('click', function (e) {
     e.preventDefault();
     if (e.target.classList.contains("division-consultas")) {
         const elementoConsulta = e.target.dataset.id;
-        console.log(elementoConsulta);
     }
 });
 
