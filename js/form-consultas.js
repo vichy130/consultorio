@@ -6,6 +6,9 @@ var botonEliminarConsulta;
 var botonBuscar = document.getElementById('boton-buscar-consulta');
 var inputBuscar = document.getElementById('input-buscar');
 var array = []; // array consultas
+const tbody = document.createElement('tbody');
+const arrow = document.createElement('i');
+arrow.className="fa-solid fa-chevron-down";
 
 botonNuevaConsulta = document.getElementById('nueva-consulta-boton');
 botonNuevaConsulta.addEventListener('click', function (e) {
@@ -37,23 +40,19 @@ tabla.addEventListener('click', function (e) {
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     obtenerConsultas();
 };
-function obtenerSesion(){
+function obtenerSesion() {
     fetch('./controller/obtener-sessions.php')
-    .then(response => response.json())
-    .then(data => {
-        if (data != null) {
-            tipoUsuario=data.tipoUsuario;
-        }
-        if (tipoUsuario=="A" || tipoUsuario=="S"){
-            tablaConsultasF()
-        }else{
+        .then(response => response.json())
+        .then(data => {
+            if (data != null) {
+                tipoUsuario = data.tipoUsuario;
+            }
             tablaConsultas();
-        }
-    })// FIN FETCH
-    .catch(error => {
-        console.log(error);
-        modalError(error, tipo.obtener);
-    });
+        })// FIN FETCH
+        .catch(error => {
+            console.log(error);
+            modalError(error, tipo.obtener);
+        });
 }
 function obtenerConsultas() {
     fetch('./controller/obtener-consultas.php')
@@ -136,65 +135,7 @@ function eliminarConsulta() {
 function tablaConsultas() {
     clearDiv(tabla);
     clearDiv(notabla);
-    if (array.length > 0) {
-        const thead = document.createElement('thead');
-        const propiedades = document.createElement('tr');
-        const fecha = document.createElement('th');
-        const motivo = document.createElement('th');
-        const editar = document.createElement('th');
-        const exportar = document.createElement('th');
-
-        fecha.textContent = "Fecha";
-        motivo.textContent = "Motivo de consulta";
-        motivo.className = "column-to-hide";
-        editar.textContent = "Editar";
-        exportar.textContent = "Exportar";
-
-        propiedades.appendChild(fecha);
-        propiedades.appendChild(motivo);
-        propiedades.appendChild(editar);
-        propiedades.appendChild(exportar);
-        thead.appendChild(propiedades);
-        tabla.appendChild(thead);
-
-        const tbody = document.createElement('tbody');
-
-        array.forEach(co => {
-            const celda = document.createElement('tr');
-            const filaFecha = document.createElement('td');
-            const filaMotivo = document.createElement('td');
-            const filaEditar = document.createElement('td');
-            const filaExportar = document.createElement('td');
-            const iconoEditar = document.createElement('i');
-            const iconoExportar = document.createElement('i');
-
-            iconoEditar.className = "cursor far fa-edit editar-consulta";
-            iconoExportar.className = "cursor fa-solid fa-file-pdf exportar-consulta";
-
-            iconoEditar.dataset.id = co.id;
-            iconoExportar.dataset.id = co.id;
-
-            filaFecha.textContent = co.fecha;
-            filaMotivo.textContent = co.motivoConsulta;
-            filaEditar.appendChild(iconoEditar);
-            filaExportar.appendChild(iconoExportar);
-
-            celda.appendChild(filaFecha);
-            celda.appendChild(filaMotivo);
-            celda.appendChild(filaEditar);
-            celda.appendChild(filaExportar);
-            tbody.appendChild(celda);
-        });
-        tabla.appendChild(tbody);
-    } else {
-        const mensaje = document.createElement('p');
-        mensaje.textContent = "No existen registros";
-        notabla.appendChild(mensaje);
-    }
-}
-function tablaConsultasF() {
-    clearDiv(tabla);
-    clearDiv(notabla);
+    clearDiv(tbody);
     if (array.length > 0) {
         const thead = document.createElement('thead');
         const propiedades = document.createElement('tr');
@@ -204,62 +145,71 @@ function tablaConsultasF() {
         const exportar = document.createElement('th');
         const eliminar = document.createElement('th');
 
-        fecha.textContent = "Fecha";
+        fecha.textContent = "Fecha ";
+        fecha.className="tabla-selected cursor down"
         motivo.textContent = "Motivo de consulta";
         motivo.className = "column-to-hide";
         editar.textContent = "Editar";
         exportar.textContent = "Exportar";
         eliminar.textContent = "Eliminar";
 
+        fecha.appendChild(arrow);
+
         propiedades.appendChild(fecha);
         propiedades.appendChild(motivo);
         propiedades.appendChild(editar);
         propiedades.appendChild(exportar);
-        propiedades.appendChild(eliminar);
+        if (tipoUsuario == "A" || tipoUsuario == "S") {
+            propiedades.appendChild(eliminar);
+        }
         thead.appendChild(propiedades);
         tabla.appendChild(thead);
 
-        const tbody = document.createElement('tbody');
+        tbodyConsultas();
 
-        array.forEach(co => {
-            const celda = document.createElement('tr');
-            const filaFecha = document.createElement('td');
-            const filaMotivo = document.createElement('td');
-            const filaEditar = document.createElement('td');
-            const filaExportar = document.createElement('td');
-            const filaEliminar = document.createElement('td');
-            const iconoEditar = document.createElement('i');
-            const iconoExportar = document.createElement('i');
-            const iconoEliminar = document.createElement('i');
-
-            iconoEditar.className = "cursor far fa-edit editar-consulta";
-            iconoExportar.className = "cursor fa-solid fa-file-pdf exportar-consulta";
-            iconoEliminar.className = "cursor fas fa-trash eliminar-consulta";
-
-            iconoEditar.dataset.id = co.id;
-            iconoExportar.dataset.id = co.id;
-            iconoEliminar.dataset.id = co.id;
-            iconoEliminar.dataset.fecha = co.fecha;
-
-            filaFecha.textContent = co.fecha;
-            filaMotivo.textContent = co.motivoConsulta;
-            filaEditar.appendChild(iconoEditar);
-            filaExportar.appendChild(iconoExportar);
-            filaEliminar.appendChild(iconoEliminar);
-
-            celda.appendChild(filaFecha);
-            celda.appendChild(filaMotivo);
-            celda.appendChild(filaEditar);
-            celda.appendChild(filaExportar);
-            celda.appendChild(filaEliminar);
-            tbody.appendChild(celda);
-        });
         tabla.appendChild(tbody);
     } else {
         const mensaje = document.createElement('p');
         mensaje.textContent = "No existen registros";
         notabla.appendChild(mensaje);
     }
+}
+function tbodyConsultas() {
+    array.forEach(co => {
+        const celda = document.createElement('tr');
+        const filaFecha = document.createElement('td');
+        const filaMotivo = document.createElement('td');
+        const filaEditar = document.createElement('td');
+        const filaExportar = document.createElement('td');
+        const filaEliminar = document.createElement('td');
+        const iconoEditar = document.createElement('i');
+        const iconoExportar = document.createElement('i');
+        const iconoEliminar = document.createElement('i');
+
+        iconoEditar.className = "cursor far fa-edit editar-consulta";
+        iconoExportar.className = "cursor fa-solid fa-file-pdf exportar-consulta";
+        iconoEliminar.className = "cursor fas fa-trash eliminar-consulta";
+
+        iconoEditar.dataset.id = co.id;
+        iconoExportar.dataset.id = co.id;
+        iconoEliminar.dataset.id = co.id;
+        iconoEliminar.dataset.fecha = co.fecha;
+
+        filaFecha.textContent = co.fecha;
+        filaMotivo.textContent = co.motivoConsulta;
+        filaEditar.appendChild(iconoEditar);
+        filaExportar.appendChild(iconoExportar);
+        filaEliminar.appendChild(iconoEliminar);
+
+        celda.appendChild(filaFecha);
+        celda.appendChild(filaMotivo);
+        celda.appendChild(filaEditar);
+        celda.appendChild(filaExportar);
+        if (tipoUsuario == "A" || tipoUsuario == "S") {
+            celda.appendChild(filaEliminar);
+        }
+        tbody.appendChild(celda);
+    });
 }
 //FUNCION BORRAR TABLA
 function clearDiv(div) {
@@ -400,6 +350,48 @@ modal.addEventListener('click', function (e) {
         modal.style.display = "none";
     }
 })
+tabla.addEventListener('click', function (e){
+    e.preventDefault();
+    if(e.target.classList.contains('tabla-selected')){
+        if(e.target.classList.contains('down')){
+            arrow.className="fa-solid fa-chevron-up";
+            e.target.classList.add('up');
+            e.target.classList.remove('down');
+            array.sort(function (a,b){
+                var dateA = new Date(a.fecha);
+                var dateB = new Date(b.fecha);
+                if(dateA > dateB){
+                    return 1;
+                }
+                if (dateA < dateB){
+                    return -1;
+                }
+                return 0;
+            });
+            console.log(array);
+            tbody.replaceChildren();
+            tbodyConsultas();
+        } else if(e.target.classList.contains('up')){
+            arrow.className="fa-solid fa-chevron-down";
+            e.target.classList.add('down');
+            e.target.classList.remove('up');
+            array.sort(function (a,b){
+                var dateA = new Date(a.fecha);
+                var dateB = new Date(b.fecha);
+                if(dateA < dateB){
+                    return 1;
+                }
+                if (dateA > dateB){
+                    return -1;
+                }
+                return 0;
+            });
+            console.log(array);
+            tbody.replaceChildren();
+            tbodyConsultas();
+        }
+    }
+});
 //MODAL END
 //CLASES
 class Consulta {

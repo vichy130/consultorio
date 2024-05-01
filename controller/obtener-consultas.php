@@ -20,7 +20,7 @@ include '../models/consulta.php';
 include_once(__DIR__ ."/../models/conexion.php");
 $con= new Conexion();
 
-$query = 'SELECT id FROM consulta; ';
+$query = 'SELECT id FROM consulta order by fecha desc; ';
 try {
     $stmt = $con->getdbh()->prepare($query);
     $stmt->execute();

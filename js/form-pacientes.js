@@ -64,7 +64,7 @@ function obtenerSesion() {
         .then(data => {
             if (data != null) {
                 tipoUsuario = data.tipoUsuario;
-                tablaPacientesF();
+                tablaPacientes();
             }
         })// FIN FETCH
         .catch(error => {
@@ -167,86 +167,7 @@ function eliminarPaciente() {
 function tablaPacientes() {
     clearDiv(tabla);
     clearDiv(notabla);
-    if (array.length > 0) {
-        const thead = document.createElement('thead');
-        const propiedades = document.createElement('tr');
-        const registro = document.createElement('th');
-        const nombre = document.createElement('th');
-        const apellidoPaterno = document.createElement('th');
-        const apellidoMaterno = document.createElement('th');
-        const fechaNac = document.createElement('th');
-        const telefono = document.createElement('th');
-        const editar = document.createElement('th');
-
-        registro.textContent = "Registro";
-        nombre.textContent = "Nombre(s)";
-        apellidoPaterno.textContent = "Apellido paterno";
-        apellidoMaterno.textContent = "Apellido materno";
-        fechaNac.textContent = "Fecha de nacimiento"
-        telefono.textContent = "Teléfono";
-        editar.textContent = "Editar";
-        telefono.className = "column-to-hide";
-        apellidoMaterno.className = "column-to-hide";
-        fechaNac.className = "column-to-hide";
-        apellidoMaterno.className = "column-to-hide";
-
-        propiedades.appendChild(registro);
-        propiedades.appendChild(nombre);
-        propiedades.appendChild(apellidoPaterno);
-        propiedades.appendChild(apellidoMaterno);
-        propiedades.appendChild(fechaNac);
-        propiedades.appendChild(telefono);
-        propiedades.appendChild(editar);
-        thead.appendChild(propiedades);
-        tabla.appendChild(thead);
-
-        const tbody = document.createElement('tbody');
-
-        array.forEach(pa => {
-            const celda = document.createElement('tr');
-            const idFila = document.createElement('td');
-            const nombreFila = document.createElement('td');
-            const apellidoPFila = document.createElement('td');
-            const apellidoMFila = document.createElement('td');
-            const fechaNacFila = document.createElement('td');
-            const telefonoFila = document.createElement('td');
-            const editarFila = document.createElement('td');
-            const iconoEditar = document.createElement('i');
-
-            iconoEditar.className = "cursor far fa-edit editar-paciente";
-            fechaNacFila.className = "column-to-hide";
-            telefonoFila.className = "column-to-hide";
-            apellidoMFila.className = "column-to-hide";
-
-            iconoEditar.dataset.id = pa.id;
-
-            idFila.textContent = pa.id;
-            nombreFila.textContent = pa.nombre;
-            apellidoPFila.textContent = pa.apellidoPaterno;
-            apellidoMFila.textContent = pa.apellidoMaterno;
-            telefonoFila.textContent = pa.celular;
-            fechaNacFila.textContent = pa.fechaNacimiento;
-
-            editarFila.appendChild(iconoEditar);
-            celda.appendChild(idFila);
-            celda.appendChild(nombreFila);
-            celda.appendChild(apellidoPFila);
-            celda.appendChild(apellidoMFila);
-            celda.appendChild(fechaNacFila);
-            celda.appendChild(telefonoFila);
-            celda.appendChild(editarFila);
-            tbody.appendChild(celda);
-        });
-        tabla.appendChild(tbody);
-    } else {
-        const mensaje = document.createElement('p');
-        mensaje.textContent = "No existen registros";
-        notabla.appendChild(mensaje);
-    }
-}
-function tablaPacientesF() {
-    clearDiv(tabla);
-    clearDiv(notabla);
+    clearDiv(tbody);
     if (array.length > 0) {
         const thead = document.createElement('thead');
         const propiedades = document.createElement('tr');

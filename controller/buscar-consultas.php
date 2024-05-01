@@ -27,7 +27,7 @@ $data = json_decode($jsonData, true);
 if (isset($data['fecha'])) {
     $fecha = $data['fecha'];
     $paciente = $_SESSION['id_paciente'];
-    $query = "SELECT * FROM consulta where paciente=:paciente and fecha=:fecha; ";
+    $query = "SELECT * FROM consulta where paciente=:paciente and fecha=:fecha order by fecha desc; ";
     try {
         $con= new Conexion();
         $stmt = $con->getdbh()->prepare($query);
