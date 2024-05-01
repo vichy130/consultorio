@@ -1,28 +1,63 @@
 const formPaciente = document.getElementById('form-paciente');
 const inputsPaciente = document.querySelectorAll('#form-paciente input');
-const radio=document.getElementsByName('sexo');
+const radio = document.getElementsByName('sexo');
+let temp;
+let arrayCodigos;
+//INPUTS
+//INPUTS
+var inputNombre = document.getElementById('nombre-paciente');
+var inputApellidoPaterno = document.getElementById('apellidop-paciente');
+var inputApellidoMaterno = document.getElementById('apellidom-paciente');
+var inputNacimiento = document.getElementById('nacimiento-paciente');
+var inputLugar = document.getElementById('lugar-paciente');
+var inputCalle = document.getElementById('calle-paciente');
+var inputColonia = document.getElementById('colonia-paciente');
+var inputCiudad = document.getElementById('ciudad-paciente');
+var inputCp = document.getElementById('cp-paciente');
+var inputCasa = document.getElementById('telefono-casa-paciente');
+var inputOficina = document.getElementById('telefono-oficina-paciente');
+var inputCel = document.getElementById('telefono-cel-paciente');
+var inputCivil = document.getElementById('civil-paciente');
+var inputOcupacion = document.getElementById('ocupacion-paciente');
+var inputEscolaridad = document.getElementById('escolaridad-paciente');
+var inputEmail = document.getElementById('email-paciente');
+var dataListColonia = document.getElementById('datalist-colonia');
 
+// inputCp.addEventListener('keyup', validarCodigoPostal);
 //INPUTS
 //INPUTS
-var inputNombre=document.getElementById('nombre-paciente');
-var inputApellidoPaterno=document.getElementById('apellidop-paciente');
-var inputApellidoMaterno=document.getElementById('apellidom-paciente');
-var inputNacimiento=document.getElementById('nacimiento-paciente');
-var inputLugar=document.getElementById('lugar-paciente');
-var inputCalle=document.getElementById('calle-paciente');
-var inputColonia=document.getElementById('colonia-paciente');
-var inputCiudad=document.getElementById('ciudad-paciente');
-var inputCp=document.getElementById('cp-paciente');
-var inputCasa=document.getElementById('telefono-casa-paciente');
-var inputOficina=document.getElementById('telefono-oficina-paciente');
-var inputCel=document.getElementById('telefono-cel-paciente');
-var inputCivil=document.getElementById('civil-paciente');
-var inputOcupacion=document.getElementById('ocupacion-paciente');
-var inputEscolaridad=document.getElementById('escolaridad-paciente');
-var inputEmail=document.getElementById('email-paciente');
-
-//INPUTS
-//INPUTS
+function validarCodigoPostal() {
+    var client = new XMLHttpRequest();
+    client.open("GET", "http://api.zippopotam.us/MX/" + inputCp.value, true);
+    client.onreadystatechange = function () {
+        if (client.readyState == 4) {
+            if (client.status == 200) { // Verifica si la solicitud fue exitosa
+                arrayCodigos = JSON.parse(client.responseText);
+                console.log("Respuesta de la API:", arrayCodigos);
+                if (arrayCodigos.places && arrayCodigos.places.length > 0) {
+                    colonias = arrayCodigos.places;
+                    actualizarDL();
+                }
+            }
+        };
+    }
+    client.send();
+}
+function actualizarDL() {
+    clearDiv(dataListColonia);
+    places = arrayCodigos.places;
+    if (places.length == 1) {
+        inputColonia.value = places[0]['place name'];
+    } else {
+        places.forEach(element => {
+            console.log(element['place name']);
+            const opcion = document.createElement('option');
+            opcion.value = element['place name'];
+            dataListColonia.appendChild(opcion);
+        })
+    }
+    inputCiudad.value = places[0].state;
+}
 const expresiones = {
     nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
     apellidop: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
@@ -88,6 +123,10 @@ const validarFormulario = (e) => {
             break;
         case "cp-paciente":
             validarCampo(expresiones.cp, e.target.value, 'cp');
+            if (campos.cp == true && inputCp.value != temp) {
+                temp = inputCp.value;
+                validarCodigoPostal();
+            }
             break;
         case "telefono-casa-paciente":
             validarCampo(expresiones.casa, e.target.value, 'casa');
@@ -134,7 +173,7 @@ inputsPaciente.forEach((input) => {
     input.addEventListener('keyup', validarFormulario);
     input.addEventListener('blur', validarFormulario);
 });
-function validarInformacion(){
+function validarInformacion() {
     validarCampo(expresiones.nombre, inputNombre.value, 'nombre');
     validarCampo(expresiones.apellidop, inputApellidoPaterno.value, 'apellidop');
     validarCampo(expresiones.apellidom, inputApellidoMaterno.value, 'apellidom');
@@ -155,10 +194,10 @@ function validarInformacion(){
 }
 formPaciente.addEventListener('submit', (e) => {
     e.preventDefault();
-    var i=true;
-    for(const key in campos){
-        if(campos[key]===false){
-            i=false;
+    var i = true;
+    for (const key in campos) {
+        if (campos[key] === false) {
+            i = false;
             break;
         }
     }
@@ -172,6 +211,6 @@ formPaciente.addEventListener('submit', (e) => {
     } else {
         //todo
         validarInformacion();
-        modalError("campos",tipo.guardar)
+        modalError("campos", tipo.guardar)
     }
 });

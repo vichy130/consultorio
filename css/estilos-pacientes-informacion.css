@@ -1,18 +1,19 @@
 /* grid */
-.contenedor .content{
+.contenedor .content {
     display: grid;
     grid-template-columns: 190px 1fr;
     grid-template-rows: 50px 1fr;
     grid-template-areas: "content-informacion nav"
-                "content-informacion contenido";
+        "content-informacion contenido";
 }
-.contenedor-no .content{
-    display:grid;
+
+.contenedor-no .content {
+    display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 50px 1fr;
     grid-template-areas: "nav"
-                         "contenido"                       
-    }
+        "contenido"
+}
 
 
 /* grid */
@@ -22,44 +23,49 @@
 /* .content-informacion{
     padding:15px 10px;
 } */
-.content-informacion .icono.izquierda{
-    float:left;
+.content-informacion .icono.izquierda {
+    float: left;
     margin-right: 10px;
 }
 
-.contenedor-no .content .content-informacion{
+.contenedor-no .content .content-informacion {
     display: none;
 }
-.icono-paciente{
-    font-size:60px;
-    color:white;
+
+.icono-paciente {
+    font-size: 60px;
+    color: white;
     /* background: #BBBFCA; */
-    padding:1px;
+    padding: 1px;
 }
 
 /* degradados */
 
-.form_input_small{
-    width:50%;
-   }
-.form-sexo{
-    /* height:20px; */
-    display:flex;
-    align-items: baseline;
-    justify-content:space-around;
+.form_input_small {
     width: 50%;
-   }
-   .form-sexo div{
-    display:flex;
-    align-items:center;
-   }
-   .form-sexo div label{
+}
+
+.form-sexo {
+    /* height:20px; */
+    display: flex;
+    align-items: baseline;
+    justify-content: space-around;
+    width: 50%;
+}
+
+.form-sexo div {
+    display: flex;
+    align-items: center;
+}
+
+.form-sexo div label {
     margin-right: 5px;
-   }
-
-
-
-
-
-
-
+}
+/* .data-colonia{
+    position:relative;
+} */
+.datalist::-webkit-calendar-picker-indicator {
+    position: relative;  
+    top: 50%; 
+    transform: translateY(-50%); 
+  }

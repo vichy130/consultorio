@@ -252,11 +252,11 @@ if (isset($_REQUEST["id"])) {
                     <div class="formulario_grupo span-2" id="grupo_consultanombremed">
                         <label class="form_label" for="consultanombremed-paciente">Nombre del medicamento</label>
                         <div class="form_grupo-input">
-                            <input class="form_input" list="datalist-consultanombremed-paciente"
+                            <input class="form_input datalist" list="datalist-consultanombremed-paciente"
                                 id="consultanombremed-paciente">
                             <datalist class="form_input" id="datalist-consultanombremed-paciente">
                             </datalist>
-                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                            <i class="form_validacion-estado select fa-solid fa-circle-xmark"></i>
                         </div>
                         <p class="form_input-error">Solo se permiten medicamentos previamente registrados</p>
                     </div><!-- end form-grupo -->

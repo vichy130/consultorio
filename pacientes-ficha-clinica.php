@@ -575,7 +575,7 @@ if (isset($_SESSION["id_consulta"])) {
                     <div class="formulario_grupo span-2" id="grupo_familiarenfermedad">
                         <label class="form_label" for="familiarenfermedad-paciente">Enfermedad</label>
                         <div class="form_grupo-input">
-                            <input class="form_input" type="text" id="familiarenfermedad-paciente"
+                            <input class="form_input datalist" type="text" id="familiarenfermedad-paciente"
                                 name="familiarenfermedad-paciente" list="datalist-enfermedad">
                             <datalist id="datalist-enfermedad"></datalist>
                             <i class="form_validacion-estado select fa-solid fa-circle-xmark"></i>
@@ -619,7 +619,7 @@ if (isset($_SESSION["id_consulta"])) {
                     <div class="formulario_grupo span-2" id="grupo_enfermedad">
                         <label class="form_label" for="enfermedad-paciente">Enfermedad</label>
                         <div class="form_grupo-input">
-                            <input class="form_input" type="text" id="enfermedad-paciente" name="enfermedad-paciente"
+                            <input class="form_input datalist" type="text" id="enfermedad-paciente" name="enfermedad-paciente"
                                 list="datalist-enfermedad">
                             <datalist id="datalist-enfermedad"></datalist>
                             <i class="form_validacion-estado select fa-solid fa-circle-xmark"></i>

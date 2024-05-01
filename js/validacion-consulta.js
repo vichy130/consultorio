@@ -64,7 +64,7 @@ const campos = {
     consultanombremed: true,
     indicacionesmed: true,
     estudiossolicitados: false,
-    consultaterapia: false,
+    consultaterapia: true,
 }
 const validarFormulario = (e) => {
     switch (e.target.name) {
@@ -204,6 +204,7 @@ anadirMedicamentoIndicacion.addEventListener('click', (e) => {
 });
 formConsulta.addEventListener('submit', (e) => {
     e.preventDefault();
+    validarConsulta();
     var i = true;
     for (const key in campos) {
         if (campos[key] === false) {

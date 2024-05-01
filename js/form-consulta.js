@@ -83,9 +83,7 @@ function obtenerConsulta() {
     fetch('./controller/obtener-consulta.php')
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             if (data != null) {
-                console.log(data);
                 if ('id' in data) {
                     consultaObjeto = new Consulta(data.fecha, data.usuario, data.paciente, data.ta, data.oxigeno, data.pulso, data.peso, data.estatura, data.temperatura, data.motivoConsulta, data.exploracion, data.indicaciones, data.receta, data.consultorio);
                     receta = data.receta;

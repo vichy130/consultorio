@@ -149,8 +149,11 @@ if (isset($_SESSION["id_consulta"])) {
                     <div class="formulario_grupo grupo_colonia" id="grupo_colonia">
                         <label class="form_label" for="colonia-paciente">Colonia</label>
                         <div class="form_grupo-input">
-                            <input class="form_input" type="text" id="colonia-paciente" name="colonia-paciente">
-                            <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
+                            <input class="form_input datalist" type="text" id="colonia-paciente" name="colonia-paciente" list="datalist-colonia">
+                            <datalist class="datalist-colonia" id="datalist-colonia">
+                                <option value="HOLA"></option>
+                            </datalist>
+                            <i class="form_validacion-estado select fa-solid fa-circle-xmark"></i>
                         </div>
                         <p class="form_input-error">El campo no debe estar vacío. Solo debe contener letras</p>
                     </div><!-- end form-grupo -->
@@ -173,7 +176,7 @@ if (isset($_SESSION["id_consulta"])) {
                                 placeholder="55555">
                             <i class="form_validacion-estado spanone fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío. Debe contener 5 dígitos</p>
+                        <p class="form_input-error">EL campo debe contener 5 dígitos y ser un código postal válido</p>
                     </div><!-- end form-grupo -->
 
                     <label class="formulario_grupo span-4">Telefono de contacto</label>
