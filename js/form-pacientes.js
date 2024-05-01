@@ -1,4 +1,5 @@
 var tabla = document.getElementById('tabla-pacientes');
+const tbody = document.createElement('tbody');
 var notabla = document.getElementById('no-tabla');
 var botonNuevoPaciente;
 var botonEditarPaciente;
@@ -8,8 +9,11 @@ var inputBuscar = document.getElementById('input-buscar');
 var botonNuevoPaciente = document.getElementById('nuevo-paciente-boton');
 var iconoBuscar = document.getElementById('icono-buscar');
 let array = []; //array pacientes
+const arrow = document.createElement('i');
+// arrow.className = "fa-solid fa-up-down";
+arrow.className="fa-solid fa-chevron-down";
 const tipo = { obtener: "obtener", guardar: "guardar", eliminar: "eliminar" };
-
+let tipoUsuario;
 botonNuevoPaciente.addEventListener('click', function (e) {
     e.preventDefault();
     paciente();
@@ -54,25 +58,20 @@ function iconoBuscarActivar() {
 window.onload = function () {// SE EJECUTA UNA VEZ QUE LOS RECURSOS HAN SIDO CARGADOS
     obtenerPacientes();
 };
-function obtenerSesion(){
+function obtenerSesion() {
     fetch('./controller/obtener-sessions.php')
-    .then(response => response.json())
-    .then(data => {
-        if (data != null) {
-            tipoUsuario=data.tipoUsuario;
-        }
-        if (tipoUsuario=="A" || tipoUsuario=="S"){
-            tablaPacientesF();
-        }else{
-            tablaPacientes();
-        }
-    })// FIN FETCH
-    .catch(error => {
-        console.log(error);
-        modalError(error, tipo.obtener);
-    });
+        .then(response => response.json())
+        .then(data => {
+            if (data != null) {
+                tipoUsuario = data.tipoUsuario;
+                tablaPacientesF();
+            }
+        })// FIN FETCH
+        .catch(error => {
+            console.log(error);
+            modalError(error, tipo.obtener);
+        });
 }
-
 function obtenerPacientes() {
     fetch('./controller/obtener-pacientes.php')
         .then(response => response.json())
@@ -131,438 +130,635 @@ function buscarPacientes() {
             .catch(function (error) {
                 console.log(error);
             });
-    }else{
+    } else {
         modalError("palabras", tipo.obtener);
     }
-    }
-    //FUNCION BORRAR TABLA
-    function clearDiv(div) {
-        div.replaceChildren();
-    }
+}
+//FUNCION BORRAR TABLA
+function clearDiv(div) {
+    div.replaceChildren();
+}
 
-    function eliminarPaciente() {
-        var datos = { id: modal.dataset.id };
-        var json = JSON.stringify(datos);
-        fetch('./controller/eliminar-paciente.php', {// Enviar los datos a PHP utilizando fetch
-            method: 'POST',
-            body: json// El JSON que contiene los datos 
-        })
-            .then(function (response) {
-                return response.text();
-            })
-            .then(function (data) {
-                clearDiv(modalContent);
-                if (data === "true") {
-                    modalExito();
-                } else {
-                    modalError(data.toString(), tipo.eliminar);
-                }
-                array = [];
-                clearDiv(tabla);
-                obtenerPacientes();
-            })
-            .catch(function (error) {
-                modalError(error, tipo.eliminar);
-            });
-    }
-    function tablaPacientes() {
-        clearDiv(tabla);
-        clearDiv(notabla);
-        if (array.length > 0) {
-            const thead = document.createElement('thead');
-            const propiedades = document.createElement('tr');
-            const registro = document.createElement('th');
-            const nombre = document.createElement('th');
-            const apellidoPaterno = document.createElement('th');
-            const apellidoMaterno = document.createElement('th');
-            const fechaNac= document.createElement('th');
-            const telefono = document.createElement('th');
-            const editar = document.createElement('th');
-
-            registro.textContent = "Registro";
-            nombre.textContent = "Nombre(s)";
-            apellidoPaterno.textContent = "Apellido paterno";
-            apellidoMaterno.textContent = "Apellido materno";
-            fechaNac.textContent="Fecha de nacimiento"
-            telefono.textContent = "Teléfono";
-            editar.textContent = "Editar";
-            telefono.className = "column-to-hide";
-            apellidoMaterno.className = "column-to-hide";
-            fechaNac.className="column-to-hide";
-            apellidoMaterno.className = "column-to-hide";
-
-            propiedades.appendChild(registro);
-            propiedades.appendChild(nombre);
-            propiedades.appendChild(apellidoPaterno);
-            propiedades.appendChild(apellidoMaterno);
-            propiedades.appendChild(fechaNac);
-            propiedades.appendChild(telefono);
-            propiedades.appendChild(editar);
-            thead.appendChild(propiedades);
-            tabla.appendChild(thead);
-
-            const tbody = document.createElement('tbody');
-
-            array.forEach(pa => {
-                const celda = document.createElement('tr');
-                const idFila = document.createElement('td');
-                const nombreFila = document.createElement('td');
-                const apellidoPFila = document.createElement('td');
-                const apellidoMFila = document.createElement('td');
-                const fechaNacFila=document.createElement('td');
-                const telefonoFila = document.createElement('td');
-                const editarFila = document.createElement('td');
-                const iconoEditar = document.createElement('i');
-
-                iconoEditar.className = "cursor far fa-edit editar-paciente";
-                fechaNacFila.className="column-to-hide";
-                telefonoFila.className = "column-to-hide";
-                apellidoMFila.className = "column-to-hide";
-
-                iconoEditar.dataset.id = pa.id;
-
-                idFila.textContent = pa.id;
-                nombreFila.textContent = pa.nombre;
-                apellidoPFila.textContent = pa.apellidoPaterno;
-                apellidoMFila.textContent=pa.apellidoMaterno;
-                telefonoFila.textContent = pa.celular;
-                fechaNacFila.textContent=pa.fechaNacimiento;
-
-                editarFila.appendChild(iconoEditar);
-                celda.appendChild(idFila);
-                celda.appendChild(nombreFila);
-                celda.appendChild(apellidoPFila);
-                celda.appendChild(apellidoMFila);
-                celda.appendChild(fechaNacFila);
-                celda.appendChild(telefonoFila);
-                celda.appendChild(editarFila);
-                tbody.appendChild(celda);
-            });
-            tabla.appendChild(tbody);
-        } else {
-            const mensaje = document.createElement('p');
-            mensaje.textContent = "No existen registros";
-            notabla.appendChild(mensaje);
-        }
-    }
-    function tablaPacientesF() {
-        clearDiv(tabla);
-        clearDiv(notabla);
-        if (array.length > 0) {
-            const thead = document.createElement('thead');
-            const propiedades = document.createElement('tr');
-            const registro = document.createElement('th');
-            const nombre = document.createElement('th');
-            const apellidoPaterno = document.createElement('th');
-            const apellidoMaterno = document.createElement('th');
-            const fechaNac= document.createElement('th');
-            const telefono = document.createElement('th');
-            const editar = document.createElement('th');
-            const eliminar = document.createElement('th');
-
-            registro.textContent = "Registro";
-            nombre.textContent = "Nombre(s)";
-            apellidoPaterno.textContent = "Apellido paterno";
-            apellidoMaterno.textContent = "Apellido materno";
-            fechaNac.textContent="Fecha de nacimiento"
-            telefono.textContent = "Teléfono";
-            editar.textContent = "Editar";
-            eliminar.textContent = "Eliminar";
-            telefono.className = "column-to-hide";
-            fechaNac.className="column-to-hide";
-            apellidoMaterno.className = "column-to-hide";
-
-            propiedades.appendChild(registro);
-            propiedades.appendChild(nombre);
-            propiedades.appendChild(apellidoPaterno);
-            propiedades.appendChild(apellidoMaterno);
-            propiedades.appendChild(fechaNac);
-            propiedades.appendChild(telefono);
-            propiedades.appendChild(editar);
-            propiedades.appendChild(eliminar);
-            thead.appendChild(propiedades);
-            tabla.appendChild(thead);
-
-            const tbody = document.createElement('tbody');
-
-            array.forEach(pa => {
-                const celda = document.createElement('tr');
-                const idFila = document.createElement('td');
-                const nombreFila = document.createElement('td');
-                const apellidoPFila = document.createElement('td');
-                const apellidoMFila = document.createElement('td');
-                const fechaNacFila=document.createElement('td');
-                const telefonoFila = document.createElement('td');
-                const editarFila = document.createElement('td');
-                const eliminarFila = document.createElement('td');
-                const iconoEditar = document.createElement('i');
-                const iconoEliminar = document.createElement('i');
-
-                iconoEditar.className = "cursor far fa-edit editar-paciente";
-                iconoEliminar.className = "cursor fas fa-trash eliminar-paciente";
-                fechaNacFila.className="column-to-hide";
-                telefonoFila.className = "column-to-hide";
-                apellidoMFila.className = "column-to-hide";
-
-                iconoEditar.dataset.id = pa.id;
-                iconoEliminar.dataset.id = pa.id;
-                iconoEliminar.dataset.nombre = pa.nombre;
-                iconoEliminar.dataset.apellidoPaterno = pa.apellidoPaterno;
-                iconoEliminar.dataset.apellidoMaterno = pa.apellidoMaterno;
-
-                idFila.textContent = pa.id;
-                nombreFila.textContent = pa.nombre;
-                apellidoPFila.textContent = pa.apellidoPaterno;
-                apellidoMFila.textContent=pa.apellidoMaterno;
-                telefonoFila.textContent = pa.celular;
-                fechaNacFila.textContent=pa.fechaNacimiento;
-
-                editarFila.appendChild(iconoEditar);
-                eliminarFila.appendChild(iconoEliminar);
-                celda.appendChild(idFila);
-                celda.appendChild(nombreFila);
-                celda.appendChild(apellidoPFila);
-                celda.appendChild(apellidoMFila);
-                celda.appendChild(fechaNacFila);
-                celda.appendChild(telefonoFila);
-                celda.appendChild(editarFila);
-                celda.appendChild(eliminarFila);
-                tbody.appendChild(celda);
-            });
-            tabla.appendChild(tbody);
-        } else {
-            const mensaje = document.createElement('p');
-            mensaje.textContent = "No existen registros";
-            notabla.appendChild(mensaje);
-        }
-    }
-    function paciente() {
-        window.location.href = "./pacientes-informacion.php";
-    }
-    function pacienteEditar(idEditar) {
-        window.location.href = "./pacientes-informacion.php?id=" + idEditar;
-    }
-    //MODAL
-    //MODAL
-    var modal = document.getElementById("modal");
-    var modalContent = document.getElementById("modal-contenido");
-    const botonModalAceptarEliminar = document.createElement('button');
-    botonModalAceptarEliminar.textContent = "Aceptar";
-    botonModalAceptarEliminar.className = "boton rojo aceptar-eliminar-paciente";
-    const botonModalCancelarEliminar = document.createElement('button');
-    botonModalCancelarEliminar.textContent = "Cancelar";
-    botonModalCancelarEliminar.className = "boton azul cancelar-eliminar-paciente";
-    botonModalAceptarCerrar = document.createElement('button');
-    botonModalAceptarCerrar.textContent = "Cerrar";
-    botonModalAceptarCerrar.className = "boton azul modal-cerrar";
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-    function modalBlock() {
-        clearDiv(modalContent);
-        modalContent.classList.remove('modal-contenido-exito');
-        modalContent.classList.remove('modal-contenido-error');
-        modalContent.classList.remove('modal-contenido-un-column');
-        botonModalAceptarCerrar.className = "boton azul modal-cerrar";
-        // modalContent.style.gridTemplateRows = '1fr 1fr';
-
-        modal.style.display = "block";
-        const divMensaje = document.createElement('div');
-        const divBoton = document.createElement('div');
-        const divBotonDos = document.createElement('div');
-        const titulo = document.createElement('h2');
-        const parrafo = document.createElement('p');
-        const strongElement = document.createElement('strong');
-        var nombre = modal.dataset.nombre + " " + modal.dataset.apellidoPaterno + " " + modal.dataset.apellidoMaterno;
-        const nombreNodo = document.createTextNode(nombre);
-
-        divMensaje.className = "modal-mensaje";
-        divBoton.className = "modal-boton";
-        divBotonDos.className = "modal-boton";
-
-        titulo.textContent = "Confirmar Eliminación";
-        parrafo.textContent = "¿Seguro que desea eliminar al paciente ";
-        strongElement.appendChild(nombreNodo);
-        strongElement.style.fontWeight = 'bold';
-        parrafo.appendChild(strongElement);
-
-        divMensaje.appendChild(titulo);
-        divMensaje.appendChild(parrafo);
-        parrafo.textContent += "?";
-
-        modalContent.appendChild(divMensaje);
-        divBoton.appendChild(botonModalAceptarEliminar);
-        divBotonDos.appendChild(botonModalCancelarEliminar);
-        modalContent.appendChild(divBoton);
-        modalContent.appendChild(divBotonDos);
-    }
-    function modalExito() {
-        clearDiv(modalContent);
-        modalContent.classList.add('modal-contenido-exito');
-        modalContent.classList.add('modal-contenido-un-column');
-        modalContent.classList.remove('modal-contenido-error');
-        botonModalAceptarCerrar.className = "boton azul modal-cerrar";
-
-        const divMensaje = document.createElement('div');
-        const divBoton = document.createElement('div');
-        const titulo = document.createElement('h2');
-        const parrafo = document.createElement('p');
-
-        titulo.textContent = "¡Paciente eliminado!";
-        parrafo.textContent = "Los datos se han eliminado con éxito.";
-
-        divMensaje.className = "modal-mensaje";
-        divBoton.className = "modal-boton modal-boton-dos-espacios";
-
-        divMensaje.appendChild(titulo);
-        divMensaje.appendChild(parrafo);
-
-        modalContent.appendChild(divMensaje);
-        divBoton.appendChild(botonModalAceptarCerrar);
-        modalContent.appendChild(divBoton);
-    }
-    function modalError(error, tipo) {
-        clearDiv(modalContent);
-        modal.style.display = "block";
-        modalContent.classList.add('modal-contenido-error');
-        modalContent.classList.add('modal-contenido-un-column');
-        modalContent.classList.remove('modal-contenido-exito');
-        botonModalAceptarCerrar.className = "boton blanco modal-cerrar";
-
-        const divMensaje = document.createElement('div');
-        const divBoton = document.createElement('div');
-        const titulo = document.createElement('h2');
-        const parrafo = document.createElement('p');
-        const iconoAlerta = document.createElement('i');
-        iconoAlerta.className = "fa-solid fa-bell";
-
-        divMensaje.className = "modal-mensaje";
-        divBoton.className = "modal-boton modal-boton-dos-espacios";
-
-        if (tipo == "eliminar") {
-            titulo.textContent = '¡El paciente NO ha sido eliminado!';
-        } else if (tipo == "obtener") {
-            titulo.textContent = '¡La información no pudo ser obtenida!';
-        }
-        if(error=="palabras"){
-            parrafo.textContent = "Solo permite búsqueda de máximo 5 palabras";
-        }
-        else if (error != "false") {
-            parrafo.textContent = "Contacta a tu administrador, Error: " + error;
-        } else {
-            parrafo.textContent = "Porfavor, revisa la información e intenta de nuevo.";
-        }
-        divMensaje.appendChild(titulo);
-        divMensaje.appendChild(parrafo);
-
-        modalContent.appendChild(divMensaje);
-        divBoton.appendChild(botonModalAceptarCerrar);
-        modalContent.appendChild(divBoton);
-    }
-    modal.addEventListener('click', function (e) {
-        e.preventDefault();
-        if (e.target.classList.contains("aceptar-eliminar-paciente")) {
-            eliminarPaciente();
-        };
-        if (e.target.classList.contains("cancelar-eliminar-paciente")) {
-            modal.style.display = "none";
-        }
-        if (e.target.classList.contains("modal-cerrar")) {
-            modal.style.display = "none";
-        }
+function eliminarPaciente() {
+    var datos = { id: modal.dataset.id };
+    var json = JSON.stringify(datos);
+    fetch('./controller/eliminar-paciente.php', {// Enviar los datos a PHP utilizando fetch
+        method: 'POST',
+        body: json// El JSON que contiene los datos 
     })
-    //MODAL END
-    //CLASES
-    class Paciente {
-        constructor(
-            nombre, apellidoPaterno, apellidoMaterno, sexo, fechaNacimiento, lugarNacimiento, calle, colonia, ciudad, codigoPostal, telCasa, telOficina, celular, edoCivil, ocupacion, escolaridad, correo
-        ) {
-            this._nombre = nombre;
-            this._apellidoPaterno = apellidoPaterno;
-            this._apellidoMaterno = apellidoMaterno;
-            this._sexo = sexo;
-            this._fechaNacimiento = fechaNacimiento;
-            this._lugarNacimiento = lugarNacimiento;
-            this._calle = calle;
-            this._colonia = colonia;
-            this._ciudad = ciudad;
-            this._codigoPostal = codigoPostal;
-            this._telCasa = telCasa;
-            this._telOficina = telOficina;
-            this._celular = celular;
-            this._edoCivil = edoCivil;
-            this._ocupacion = ocupacion;
-            this._escolaridad = escolaridad;
-            this._correo = correo;
-        }
-        set id(id) {
-            this._id = id;
-        }
-        get id() {
-            return this._id;
-        }
-        get nombre() {
-            return this._nombre;
-        }
+        .then(function (response) {
+            return response.text();
+        })
+        .then(function (data) {
+            clearDiv(modalContent);
+            if (data === "true") {
+                modalExito();
+            } else {
+                modalError(data.toString(), tipo.eliminar);
+            }
+            array = [];
+            clearDiv(tabla);
+            obtenerPacientes();
+        })
+        .catch(function (error) {
+            modalError(error, tipo.eliminar);
+        });
+}
+function tablaPacientes() {
+    clearDiv(tabla);
+    clearDiv(notabla);
+    if (array.length > 0) {
+        const thead = document.createElement('thead');
+        const propiedades = document.createElement('tr');
+        const registro = document.createElement('th');
+        const nombre = document.createElement('th');
+        const apellidoPaterno = document.createElement('th');
+        const apellidoMaterno = document.createElement('th');
+        const fechaNac = document.createElement('th');
+        const telefono = document.createElement('th');
+        const editar = document.createElement('th');
 
-        get apellidoPaterno() {
-            return this._apellidoPaterno;
-        }
+        registro.textContent = "Registro";
+        nombre.textContent = "Nombre(s)";
+        apellidoPaterno.textContent = "Apellido paterno";
+        apellidoMaterno.textContent = "Apellido materno";
+        fechaNac.textContent = "Fecha de nacimiento"
+        telefono.textContent = "Teléfono";
+        editar.textContent = "Editar";
+        telefono.className = "column-to-hide";
+        apellidoMaterno.className = "column-to-hide";
+        fechaNac.className = "column-to-hide";
+        apellidoMaterno.className = "column-to-hide";
 
-        get apellidoMaterno() {
-            return this._apellidoMaterno;
-        }
-        get sexo() {
-            return this._sexo;
-        }
-        get fechaNacimiento() {
-            return this._fechaNacimiento;
-        }
-        get lugarNacimiento() {
-            return this._lugarNacimiento;
-        }
-        get calle() {
-            return this._calle;
-        }
+        propiedades.appendChild(registro);
+        propiedades.appendChild(nombre);
+        propiedades.appendChild(apellidoPaterno);
+        propiedades.appendChild(apellidoMaterno);
+        propiedades.appendChild(fechaNac);
+        propiedades.appendChild(telefono);
+        propiedades.appendChild(editar);
+        thead.appendChild(propiedades);
+        tabla.appendChild(thead);
 
-        get colonia() {
-            return this._colonia;
-        }
+        const tbody = document.createElement('tbody');
 
-        get ciudad() {
-            return this._ciudad;
-        }
+        array.forEach(pa => {
+            const celda = document.createElement('tr');
+            const idFila = document.createElement('td');
+            const nombreFila = document.createElement('td');
+            const apellidoPFila = document.createElement('td');
+            const apellidoMFila = document.createElement('td');
+            const fechaNacFila = document.createElement('td');
+            const telefonoFila = document.createElement('td');
+            const editarFila = document.createElement('td');
+            const iconoEditar = document.createElement('i');
 
-        get codigoPostal() {
-            return this._codigoPostal;
-        }
+            iconoEditar.className = "cursor far fa-edit editar-paciente";
+            fechaNacFila.className = "column-to-hide";
+            telefonoFila.className = "column-to-hide";
+            apellidoMFila.className = "column-to-hide";
 
-        get telCasa() {
-            return this._telCasa;
-        }
+            iconoEditar.dataset.id = pa.id;
 
-        get telOficina() {
-            return this._telOficina;
-        }
-        get celular() {
-            return this._celular;
-        }
+            idFila.textContent = pa.id;
+            nombreFila.textContent = pa.nombre;
+            apellidoPFila.textContent = pa.apellidoPaterno;
+            apellidoMFila.textContent = pa.apellidoMaterno;
+            telefonoFila.textContent = pa.celular;
+            fechaNacFila.textContent = pa.fechaNacimiento;
 
-        get edoCivil() {
-            return this._edoCivil;
-        }
-
-        get ocupacion() {
-            return this._ocupacion;
-        }
-
-        get escolaridad() {
-            return this._escolaridad;
-        }
-
-        get correo() {
-            return this._correo;
-        }
+            editarFila.appendChild(iconoEditar);
+            celda.appendChild(idFila);
+            celda.appendChild(nombreFila);
+            celda.appendChild(apellidoPFila);
+            celda.appendChild(apellidoMFila);
+            celda.appendChild(fechaNacFila);
+            celda.appendChild(telefonoFila);
+            celda.appendChild(editarFila);
+            tbody.appendChild(celda);
+        });
+        tabla.appendChild(tbody);
+    } else {
+        const mensaje = document.createElement('p');
+        mensaje.textContent = "No existen registros";
+        notabla.appendChild(mensaje);
     }
+}
+function tablaPacientesF() {
+    clearDiv(tabla);
+    clearDiv(notabla);
+    if (array.length > 0) {
+        const thead = document.createElement('thead');
+        const propiedades = document.createElement('tr');
+        const registro = document.createElement('th');
+        const nombre = document.createElement('th');
+        const apellidoPaterno = document.createElement('th');
+        const apellidoMaterno = document.createElement('th');
+        const fechaNac = document.createElement('th');
+        const telefono = document.createElement('th');
+        const editar = document.createElement('th');
+        const eliminar = document.createElement('th');
+
+        registro.className = "tabla-registro tabla-selected cursor down";
+        nombre.className = "tabla-nombre cursor up";
+        apellidoPaterno.className = "tabla-apellidoPaterno cursor up";
+        apellidoMaterno.className = "tabla-apellidoMaterno column-to-hide cursor up";
+        fechaNac.className = "tabla-fecha column-to-hide"
+        telefono.className = "column-to-hide"
+
+        registro.textContent = "Registro ";
+        nombre.textContent = "Nombre(s) ";
+        apellidoPaterno.textContent = "Apellido paterno ";
+        apellidoMaterno.textContent = "Apellido materno ";
+        fechaNac.textContent = "Fecha de nacimiento "
+        telefono.textContent = "Teléfono ";
+        editar.textContent = "Editar";
+        eliminar.textContent = "Eliminar";
+
+        registro.appendChild(arrow);
+
+        propiedades.appendChild(registro);
+        propiedades.appendChild(nombre);
+        propiedades.appendChild(apellidoPaterno);
+        propiedades.appendChild(apellidoMaterno);
+        propiedades.appendChild(fechaNac);
+        propiedades.appendChild(telefono);
+        propiedades.appendChild(editar);
+        if (tipoUsuario == "A" || tipoUsuario == "S") {
+            propiedades.appendChild(eliminar);
+        }
+        thead.appendChild(propiedades);
+        tabla.appendChild(thead);
+
+        tbodyPacientes();
+
+        tabla.appendChild(tbody);
+    } else {
+        const mensaje = document.createElement('p');
+        mensaje.textContent = "No existen registros";
+        notabla.appendChild(mensaje);
+    }
+}
+function tbodyPacientes() {
+    array.forEach(pa => {
+        const celda = document.createElement('tr');
+        const idFila = document.createElement('td');
+        const nombreFila = document.createElement('td');
+        const apellidoPFila = document.createElement('td');
+        const apellidoMFila = document.createElement('td');
+        const fechaNacFila = document.createElement('td');
+        const telefonoFila = document.createElement('td');
+        const editarFila = document.createElement('td');
+        const eliminarFila = document.createElement('td');
+        const iconoEditar = document.createElement('i');
+        const iconoEliminar = document.createElement('i');
+
+        iconoEditar.className = "cursor far fa-edit editar-paciente";
+        iconoEliminar.className = "cursor fas fa-trash eliminar-paciente";
+        fechaNacFila.className = "column-to-hide";
+        telefonoFila.className = "column-to-hide";
+        apellidoMFila.className = "column-to-hide";
+
+        iconoEditar.dataset.id = pa.id;
+        iconoEliminar.dataset.id = pa.id;
+        iconoEliminar.dataset.nombre = pa.nombre;
+        iconoEliminar.dataset.apellidoPaterno = pa.apellidoPaterno;
+        iconoEliminar.dataset.apellidoMaterno = pa.apellidoMaterno;
+
+        idFila.textContent = pa.id;
+        nombreFila.textContent = pa.nombre;
+        apellidoPFila.textContent = pa.apellidoPaterno;
+        apellidoMFila.textContent = pa.apellidoMaterno;
+        telefonoFila.textContent = pa.celular;
+        fechaNacFila.textContent = pa.fechaNacimiento;
+
+        editarFila.appendChild(iconoEditar);
+        eliminarFila.appendChild(iconoEliminar);
+        celda.appendChild(idFila);
+        celda.appendChild(nombreFila);
+        celda.appendChild(apellidoPFila);
+        celda.appendChild(apellidoMFila);
+        celda.appendChild(fechaNacFila);
+        celda.appendChild(telefonoFila);
+        celda.appendChild(editarFila);
+        if (tipoUsuario == "A" || tipoUsuario == "S") {
+            celda.appendChild(eliminarFila);
+        }
+        tbody.appendChild(celda);
+    });
+}
+function paciente() {
+    window.location.href = "./pacientes-informacion.php";
+}
+function pacienteEditar(idEditar) {
+    window.location.href = "./pacientes-informacion.php?id=" + idEditar;
+}
+//MODAL
+//MODAL
+var modal = document.getElementById("modal");
+var modalContent = document.getElementById("modal-contenido");
+const botonModalAceptarEliminar = document.createElement('button');
+botonModalAceptarEliminar.textContent = "Aceptar";
+botonModalAceptarEliminar.className = "boton rojo aceptar-eliminar-paciente";
+const botonModalCancelarEliminar = document.createElement('button');
+botonModalCancelarEliminar.textContent = "Cancelar";
+botonModalCancelarEliminar.className = "boton azul cancelar-eliminar-paciente";
+botonModalAceptarCerrar = document.createElement('button');
+botonModalAceptarCerrar.textContent = "Cerrar";
+botonModalAceptarCerrar.className = "boton azul modal-cerrar";
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+function modalBlock() {
+    clearDiv(modalContent);
+    modalContent.classList.remove('modal-contenido-exito');
+    modalContent.classList.remove('modal-contenido-error');
+    modalContent.classList.remove('modal-contenido-un-column');
+    botonModalAceptarCerrar.className = "boton azul modal-cerrar";
+    // modalContent.style.gridTemplateRows = '1fr 1fr';
+
+    modal.style.display = "block";
+    const divMensaje = document.createElement('div');
+    const divBoton = document.createElement('div');
+    const divBotonDos = document.createElement('div');
+    const titulo = document.createElement('h2');
+    const parrafo = document.createElement('p');
+    const strongElement = document.createElement('strong');
+    var nombre = modal.dataset.nombre + " " + modal.dataset.apellidoPaterno + " " + modal.dataset.apellidoMaterno;
+    const nombreNodo = document.createTextNode(nombre);
+
+    divMensaje.className = "modal-mensaje";
+    divBoton.className = "modal-boton";
+    divBotonDos.className = "modal-boton";
+
+    titulo.textContent = "Confirmar Eliminación";
+    parrafo.textContent = "¿Seguro que desea eliminar al paciente ";
+    strongElement.appendChild(nombreNodo);
+    strongElement.style.fontWeight = 'bold';
+    parrafo.appendChild(strongElement);
+
+    divMensaje.appendChild(titulo);
+    divMensaje.appendChild(parrafo);
+    parrafo.textContent += "?";
+
+    modalContent.appendChild(divMensaje);
+    divBoton.appendChild(botonModalAceptarEliminar);
+    divBotonDos.appendChild(botonModalCancelarEliminar);
+    modalContent.appendChild(divBoton);
+    modalContent.appendChild(divBotonDos);
+}
+function modalExito() {
+    clearDiv(modalContent);
+    modalContent.classList.add('modal-contenido-exito');
+    modalContent.classList.add('modal-contenido-un-column');
+    modalContent.classList.remove('modal-contenido-error');
+    botonModalAceptarCerrar.className = "boton azul modal-cerrar";
+
+    const divMensaje = document.createElement('div');
+    const divBoton = document.createElement('div');
+    const titulo = document.createElement('h2');
+    const parrafo = document.createElement('p');
+
+    titulo.textContent = "¡Paciente eliminado!";
+    parrafo.textContent = "Los datos se han eliminado con éxito.";
+
+    divMensaje.className = "modal-mensaje";
+    divBoton.className = "modal-boton modal-boton-dos-espacios";
+
+    divMensaje.appendChild(titulo);
+    divMensaje.appendChild(parrafo);
+
+    modalContent.appendChild(divMensaje);
+    divBoton.appendChild(botonModalAceptarCerrar);
+    modalContent.appendChild(divBoton);
+}
+function modalError(error, tipo) {
+    clearDiv(modalContent);
+    modal.style.display = "block";
+    modalContent.classList.add('modal-contenido-error');
+    modalContent.classList.add('modal-contenido-un-column');
+    modalContent.classList.remove('modal-contenido-exito');
+    botonModalAceptarCerrar.className = "boton blanco modal-cerrar";
+
+    const divMensaje = document.createElement('div');
+    const divBoton = document.createElement('div');
+    const titulo = document.createElement('h2');
+    const parrafo = document.createElement('p');
+    const iconoAlerta = document.createElement('i');
+    iconoAlerta.className = "fa-solid fa-bell";
+
+    divMensaje.className = "modal-mensaje";
+    divBoton.className = "modal-boton modal-boton-dos-espacios";
+
+    if (tipo == "eliminar") {
+        titulo.textContent = '¡El paciente NO ha sido eliminado!';
+    } else if (tipo == "obtener") {
+        titulo.textContent = '¡La información no pudo ser obtenida!';
+    }
+    if (error == "palabras") {
+        parrafo.textContent = "Solo permite búsqueda de máximo 5 palabras";
+    }
+    else if (error != "false") {
+        parrafo.textContent = "Contacta a tu administrador, Error: " + error;
+    } else {
+        parrafo.textContent = "Porfavor, revisa la información e intenta de nuevo.";
+    }
+    divMensaje.appendChild(titulo);
+    divMensaje.appendChild(parrafo);
+
+    modalContent.appendChild(divMensaje);
+    divBoton.appendChild(botonModalAceptarCerrar);
+    modalContent.appendChild(divBoton);
+}
+modal.addEventListener('click', function (e) {
+    e.preventDefault();
+    if (e.target.classList.contains("aceptar-eliminar-paciente")) {
+        eliminarPaciente();
+    };
+    if (e.target.classList.contains("cancelar-eliminar-paciente")) {
+        modal.style.display = "none";
+    }
+    if (e.target.classList.contains("modal-cerrar")) {
+        modal.style.display = "none";
+    }
+})
+tabla.addEventListener('click', function (e) {
+    e.preventDefault();
+    if (e.target.classList.contains("tabla-registro")) {
+        ordenarRegistro();
+    }
+    if (e.target.classList.contains("tabla-nombre")) {
+        ordenarNombre();
+    }
+    if (e.target.classList.contains("tabla-apellidoPaterno")) {
+        ordenarApellidoPaterno();
+    }
+    if (e.target.classList.contains("tabla-apellidoMaterno")) {
+        ordenarApellidoMaterno();
+    }
+})
+//MODAL END
+
+function ordenarRegistro() {
+    tabla.rows[0].cells[0].appendChild(arrow);
+    if (tabla.rows[0].cells[0].classList.contains('down')) {
+        arrow.className="fa-solid fa-chevron-up";
+        tabla.rows[0].cells[0].classList.add('up');
+        tabla.rows[0].cells[0].classList.remove('down');
+        array.sort((a, b) => (
+            a.id < b.id ? 1 : b.id < a.id ? -1 : 0));
+        tbody.replaceChildren();
+        tbodyPacientes();
+
+    } else if (tabla.rows[0].cells[0].classList.contains('up')) {
+        arrow.className="fa-solid fa-chevron-down";
+        tabla.rows[0].cells[0].classList.add('down');
+        tabla.rows[0].cells[0].classList.remove('up');
+        array.sort((a, b) => (
+            a.id > b.id ? 1 : b.id > a.id ? -1 : 0));
+        tbody.replaceChildren();
+        tbodyPacientes();
+    }
+    tabla.rows[0].cells[0].classList.add('tabla-selected');
+    // tabla.rows[0].cells[0].classList.remove('tabla-selected'); //Registro
+    tabla.rows[0].cells[1].classList.remove('tabla-selected'); //nombre
+    tabla.rows[0].cells[2].classList.remove('tabla-selected'); //apellidoMaterno
+    tabla.rows[0].cells[3].classList.remove('tabla-selected'); //apellidoMaterno
+}
+function ordenarNombre() {
+    tabla.rows[0].cells[1].appendChild(arrow);
+    if (tabla.rows[0].cells[1].classList.contains('down')) {
+        arrow.className="fa-solid fa-chevron-up";
+        tabla.rows[0].cells[1].classList.add('up');
+        tabla.rows[0].cells[1].classList.remove('down');
+        array.sort(function (a, b) {
+            var nombreA = a.nombre.toUpperCase();
+            var nombreB = b.nombre.toUpperCase();
+
+            if (nombreA > nombreB) {
+                return -1;
+            }
+            if (nombreA < nombreB) {
+                return 1;
+            }
+            return 0;
+        });
+        tbody.replaceChildren();
+        tbodyPacientes();
+
+    } else if (tabla.rows[0].cells[1].classList.contains('up')) {
+        arrow.className="fa-solid fa-chevron-down";
+        tabla.rows[0].cells[1].classList.add('down');
+        tabla.rows[0].cells[1].classList.remove('up');
+
+        array.sort(function (a, b) {
+            var nombreA = a.nombre.toUpperCase();
+            var nombreB = b.nombre.toUpperCase();
+
+            if (nombreA < nombreB) {
+                return -1;
+            }
+            if (nombreA > nombreB) {
+                return 1;
+            }
+            return 0;
+        });
+        // array.sort((a, b) => (
+        //     a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0));
+        tbody.replaceChildren();
+        tbodyPacientes();
+    }
+    tabla.rows[0].cells[1].classList.add('tabla-selected');
+    tabla.rows[0].cells[0].classList.remove('tabla-selected'); //Registro
+    // tabla.rows[0].cells[1].classList.remove('tabla-selected'); //nombre
+    tabla.rows[0].cells[2].classList.remove('tabla-selected'); //apellidoMaterno
+    tabla.rows[0].cells[3].classList.remove('tabla-selected'); //apellidoMaterno
+}
+function ordenarApellidoPaterno() {
+    console.log("ordenar apellidoPaterno");
+    tabla.rows[0].cells[2].appendChild(arrow);
+    if (tabla.rows[0].cells[2].classList.contains('down')) {
+        arrow.className="fa-solid fa-chevron-up";
+        tabla.rows[0].cells[2].classList.add('up');
+        tabla.rows[0].cells[2].classList.remove('down');
+        array.sort(function (a, b) {
+            var nombreA = a.apellidoPaterno.toUpperCase();
+            var nombreB = b.apellidoPaterno.toUpperCase();
+
+            if (nombreA > nombreB) {
+                return -1;
+            }
+            if (nombreA < nombreB) {
+                return 1;
+            }
+            return 0;
+        });
+        tbody.replaceChildren();
+        tbodyPacientes();
+
+    } else if (tabla.rows[0].cells[2].classList.contains('up')) {
+        arrow.className="fa-solid fa-chevron-down";
+        tabla.rows[0].cells[2].classList.add('down');
+        tabla.rows[0].cells[2].classList.remove('up');
+        array.sort(function (a, b) {
+            var nombreA = a.apellidoPaterno.toUpperCase();
+            var nombreB = b.apellidoPaterno.toUpperCase();
+
+            if (nombreA < nombreB) {
+                return -1;
+            }
+            if (nombreA > nombreB) {
+                return 1;
+            }
+            return 0;
+        });
+        tbody.replaceChildren();
+        tbodyPacientes();
+    }
+    tabla.rows[0].cells[2].classList.add('tabla-selected');
+    tabla.rows[0].cells[0].classList.remove('tabla-selected'); //Registro
+    tabla.rows[0].cells[1].classList.remove('tabla-selected'); //nombre
+    // tabla.rows[0].cells[2].classList.remove('tabla-selected'); //apellidoMaterno
+    tabla.rows[0].cells[3].classList.remove('tabla-selected'); //apellidoMaterno
+}
+function ordenarApellidoMaterno() {
+    console.log("ordenar apellidoMaterno");
+    tabla.rows[0].cells[3].appendChild(arrow);
+    if (tabla.rows[0].cells[3].classList.contains('down')) {
+        arrow.className="fa-solid fa-chevron-up";
+        tabla.rows[0].cells[3].classList.add('up');
+        tabla.rows[0].cells[3].classList.remove('down');
+        array.sort(function (a, b) {
+            var nombreA = a.apellidoMaterno.toUpperCase();
+            var nombreB = b.apellidoMaterno.toUpperCase();
+
+            if (nombreA > nombreB) {
+                return -1;
+            }
+            if (nombreA < nombreB) {
+                return 1;
+            }
+            return 0;
+        });
+        tbody.replaceChildren();
+        tbodyPacientes();
+
+    } else if (tabla.rows[0].cells[3].classList.contains('up')) {
+        arrow.className="fa-solid fa-chevron-down";
+        tabla.rows[0].cells[3].classList.add('down');
+        tabla.rows[0].cells[3].classList.remove('up');
+        array.sort(function (a, b) {
+            var nombreA = a.apellidoMaterno.toUpperCase();
+            var nombreB = b.apellidoMaterno.toUpperCase();
+
+            if (nombreA < nombreB) {
+                return -1;
+            }
+            if (nombreA > nombreB) {
+                return 1;
+            }
+            return 0;
+        });
+        tbody.replaceChildren();
+        tbodyPacientes();
+    }
+    tabla.rows[0].cells[3].classList.add('tabla-selected');
+    tabla.rows[0].cells[0].classList.remove('tabla-selected'); //Registro
+    tabla.rows[0].cells[1].classList.remove('tabla-selected'); //nombre
+    tabla.rows[0].cells[2].classList.remove('tabla-selected'); //apellidoMaterno
+    // tabla.rows[0].cells[3].classList.remove('tabla-selected'); //apellidoMaterno
+}
+//CLASES
+class Paciente {
+    constructor(
+        nombre, apellidoPaterno, apellidoMaterno, sexo, fechaNacimiento, lugarNacimiento, calle, colonia, ciudad, codigoPostal, telCasa, telOficina, celular, edoCivil, ocupacion, escolaridad, correo
+    ) {
+        this._nombre = nombre;
+        this._apellidoPaterno = apellidoPaterno;
+        this._apellidoMaterno = apellidoMaterno;
+        this._sexo = sexo;
+        this._fechaNacimiento = fechaNacimiento;
+        this._lugarNacimiento = lugarNacimiento;
+        this._calle = calle;
+        this._colonia = colonia;
+        this._ciudad = ciudad;
+        this._codigoPostal = codigoPostal;
+        this._telCasa = telCasa;
+        this._telOficina = telOficina;
+        this._celular = celular;
+        this._edoCivil = edoCivil;
+        this._ocupacion = ocupacion;
+        this._escolaridad = escolaridad;
+        this._correo = correo;
+    }
+    set id(id) {
+        this._id = id;
+    }
+    get id() {
+        return this._id;
+    }
+    get nombre() {
+        return this._nombre;
+    }
+
+    get apellidoPaterno() {
+        return this._apellidoPaterno;
+    }
+
+    get apellidoMaterno() {
+        return this._apellidoMaterno;
+    }
+    get sexo() {
+        return this._sexo;
+    }
+    get fechaNacimiento() {
+        return this._fechaNacimiento;
+    }
+    get lugarNacimiento() {
+        return this._lugarNacimiento;
+    }
+    get calle() {
+        return this._calle;
+    }
+
+    get colonia() {
+        return this._colonia;
+    }
+
+    get ciudad() {
+        return this._ciudad;
+    }
+
+    get codigoPostal() {
+        return this._codigoPostal;
+    }
+
+    get telCasa() {
+        return this._telCasa;
+    }
+
+    get telOficina() {
+        return this._telOficina;
+    }
+    get celular() {
+        return this._celular;
+    }
+
+    get edoCivil() {
+        return this._edoCivil;
+    }
+
+    get ocupacion() {
+        return this._ocupacion;
+    }
+
+    get escolaridad() {
+        return this._escolaridad;
+    }
+
+    get correo() {
+        return this._correo;
+    }
+}
