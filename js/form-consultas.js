@@ -368,7 +368,6 @@ tabla.addEventListener('click', function (e){
                 }
                 return 0;
             });
-            console.log(array);
             tbody.replaceChildren();
             tbodyConsultas();
         } else if(e.target.classList.contains('up')){
@@ -386,7 +385,6 @@ tabla.addEventListener('click', function (e){
                 }
                 return 0;
             });
-            console.log(array);
             tbody.replaceChildren();
             tbodyConsultas();
         }

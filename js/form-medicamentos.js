@@ -6,6 +6,9 @@ var notabla = document.getElementById('no-tabla');
 var botonBuscar = document.getElementById('boton-buscar-medicamento');
 var inputBuscar = document.getElementById('input-buscar');
 var iconoBuscar = document.getElementById('icono-buscar');
+const tbody = document.createElement('tbody');
+var arrow = document.createElement('i');
+arrow.className = "fa-solid fa-chevron-down";
 const tipo = { obtener: "obtener", guardar: "guardar", eliminar: "eliminar", imprimir: "imprimir" };
 //VARIABLES
 
@@ -62,23 +65,19 @@ function editarMedicamento(elementoEditar) {
 function medicamentoEditar(idEditar) {
     window.location.href = "./pacientes-informacion.php?id=" + idEditar;
 }
-function obtenerSesion(){
+function obtenerSesion() {
     fetch('./controller/obtener-sessions.php')
-    .then(response => response.json())
-    .then(data => {
-        if (data != null) {
-            tipoUsuario=data.tipoUsuario;
-        }
-        if (tipoUsuario=="A" || tipoUsuario=="S"){
-            medicamentosF();
-        }else{
+        .then(response => response.json())
+        .then(data => {
+            if (data != null) {
+                tipoUsuario = data.tipoUsuario;
+            }
             medicamentos();
-        }
-    })// FIN FETCH
-    .catch(error => {
-        console.log(error);
-        modalError(error, tipo.obtener);
-    });
+        })// FIN FETCH
+        .catch(error => {
+            console.log(error);
+            modalError(error, tipo.obtener);
+        });
 }
 function obtenerMedicamentos() { //pendiente 
     fetch('./controller/obtener-medicamentos.php')
@@ -142,62 +141,7 @@ function buscarMedicamentos() {
 function medicamentos() {
     clearDiv(tablaMedicamentos);
     clearDiv(notabla);
-    if (arrayMedicamentos.length > 0) {
-        const thead = document.createElement('thead');
-        const propiedades = document.createElement('tr');
-        const medicamento = document.createElement('th');
-        const tipo = document.createElement('th');
-        const descripcion = document.createElement('th');
-        const editar = document.createElement('th');
-
-        medicamento.textContent = "Nombre";
-        tipo.textContent = "Tipo";
-        descripcion.textContent = "Descripción";
-        descripcion.className = "column-to-hide";
-        editar.textContent = "Editar";
-
-        propiedades.appendChild(medicamento);
-        propiedades.appendChild(tipo);
-        propiedades.appendChild(descripcion);
-        propiedades.appendChild(editar);
-        thead.appendChild(propiedades);
-        tablaMedicamentos.appendChild(thead);
-
-        const tbody = document.createElement('tbody');
-        arrayMedicamentos.forEach((m) => {
-            const celda = document.createElement('tr');
-            const medicamentoFila = document.createElement('td');
-            const tipoFila = document.createElement('td');
-            const descripcionFila = document.createElement('td');
-            const editarFila = document.createElement('td');
-
-            const iconoEditar = document.createElement('i');
-
-            iconoEditar.dataset.id = m.id;
-
-            iconoEditar.className = "cursor far fa-edit editar-medicamento";
-
-            medicamentoFila.textContent = m.medicamento;
-            tipoFila.textContent = m.tipo;
-            descripcionFila.textContent = m.descripcion;
-
-            editarFila.appendChild(iconoEditar);
-            celda.appendChild(medicamentoFila);
-            celda.appendChild(tipoFila);
-            celda.appendChild(descripcionFila);
-            celda.appendChild(editarFila);
-            tbody.appendChild(celda);
-        });
-        tablaMedicamentos.appendChild(tbody);
-    } else {
-        const mensaje = document.createElement('p');
-        mensaje.textContent = "No existen registros";
-        notabla.appendChild(mensaje);
-    }
-}
-function medicamentosF() {
-    clearDiv(tablaMedicamentos);
-    clearDiv(notabla);
+    clearDiv(tbody);
     if (arrayMedicamentos.length > 0) {
         const thead = document.createElement('thead');
         const propiedades = document.createElement('tr');
@@ -207,59 +151,68 @@ function medicamentosF() {
         const editar = document.createElement('th');
         const eliminar = document.createElement('th');
 
-        medicamento.textContent = "Nombre";
-        tipo.textContent = "Tipo";
+        medicamento.textContent = "Nombre ";
+        medicamento.className = "tabla-medicamento tabla-selected down cursor";
+        tipo.textContent = "Tipo ";
+        tipo.className = "tabla-tipo up cursor";
         descripcion.textContent = "Descripción";
         descripcion.className = "column-to-hide";
         editar.textContent = "Editar";
         eliminar.textContent = "Eliminar";
 
+        medicamento.appendChild(arrow)
+
         propiedades.appendChild(medicamento);
         propiedades.appendChild(tipo);
         propiedades.appendChild(descripcion);
         propiedades.appendChild(editar);
-        propiedades.appendChild(eliminar);
+        if (tipoUsuario == "A" || tipoUsuario == "S") {
+            propiedades.appendChild(eliminar);
+        }
         thead.appendChild(propiedades);
         tablaMedicamentos.appendChild(thead);
 
-        const tbody = document.createElement('tbody');
-        arrayMedicamentos.forEach((m) => {
-            const celda = document.createElement('tr');
-            const medicamentoFila = document.createElement('td');
-            const tipoFila = document.createElement('td');
-            const descripcionFila = document.createElement('td');
-            const editarFila = document.createElement('td');
-            const eliminarFila = document.createElement('td');
+        tbodyMedicamentos();
 
-            const iconoEditar = document.createElement('i');
-            const iconoEliminar = document.createElement('i');
-
-            iconoEditar.dataset.id = m.id;
-            iconoEliminar.dataset.id = m.id;
-            iconoEliminar.dataset.medicamento = m.medicamento;
-
-            iconoEditar.className = "cursor far fa-edit editar-medicamento";
-            iconoEliminar.className = "cursor fas fa-trash eliminar-medicamento";
-
-            medicamentoFila.textContent = m.medicamento;
-            tipoFila.textContent = m.tipo;
-            descripcionFila.textContent = m.descripcion;
-
-            editarFila.appendChild(iconoEditar);
-            eliminarFila.appendChild(iconoEliminar);
-            celda.appendChild(medicamentoFila);
-            celda.appendChild(tipoFila);
-            celda.appendChild(descripcionFila);
-            celda.appendChild(editarFila);
-            celda.appendChild(eliminarFila);
-            tbody.appendChild(celda);
-        });
         tablaMedicamentos.appendChild(tbody);
     } else {
         const mensaje = document.createElement('p');
         mensaje.textContent = "No existen registros";
         notabla.appendChild(mensaje);
     }
+}
+function tbodyMedicamentos() {
+    arrayMedicamentos.forEach((m) => {
+        const celda = document.createElement('tr');
+        const medicamentoFila = document.createElement('td');
+        const tipoFila = document.createElement('td');
+        const descripcionFila = document.createElement('td');
+        const editarFila = document.createElement('td');
+        const eliminarFila = document.createElement('td');
+
+        const iconoEditar = document.createElement('i');
+        const iconoEliminar = document.createElement('i');
+
+        iconoEditar.dataset.id = m.id;
+        iconoEliminar.dataset.id = m.id;
+        iconoEliminar.dataset.medicamento = m.medicamento;
+
+        iconoEditar.className = "cursor far fa-edit editar-medicamento";
+        iconoEliminar.className = "cursor fas fa-trash eliminar-medicamento";
+
+        medicamentoFila.textContent = m.medicamento;
+        tipoFila.textContent = m.tipo;
+        descripcionFila.textContent = m.descripcion;
+
+        editarFila.appendChild(iconoEditar);
+        eliminarFila.appendChild(iconoEliminar);
+        celda.appendChild(medicamentoFila);
+        celda.appendChild(tipoFila);
+        celda.appendChild(descripcionFila);
+        celda.appendChild(editarFila);
+        celda.appendChild(eliminarFila);
+        tbody.appendChild(celda);
+    });
 }
 function eliminarMedicamento() {
     var id = { id: modal.dataset.id };
@@ -391,7 +344,7 @@ function modalError(error, tipo) {
     } else if (tipo == "obtener") {
         titulo.textContent = '¡La información no pudo ser obtenida!';
     }
-    if(error=="palabras"){
+    if (error == "palabras") {
         parrafo.textContent = "Solo permite búsqueda de máximo 5 palabras";
     }
     else if (error != "false") {
@@ -418,6 +371,101 @@ modal.addEventListener('click', function (e) {
         modal.style.display = "none";
     }
 })
+tablaMedicamentos.addEventListener('click', function (e) {
+    if (e.target.classList.contains('tabla-tipo')) {
+        ordenarTipo();
+    }
+    if (e.target.classList.contains('tabla-medicamento')) {
+        ordenarMedicamento();
+    }
+});
+
+function ordenarMedicamento() {
+    tablaMedicamentos.rows[0].cells[0].appendChild(arrow);
+    tablaMedicamentos.rows[0].cells[0].classList.add('tabla-selected');
+    tablaMedicamentos.rows[0].cells[1].classList.remove('tabla-selected');
+    if (tablaMedicamentos.rows[0].cells[0].classList.contains('up')) {
+        arrow.className = "fa-solid fa-chevron-down";
+        tablaMedicamentos.rows[0].cells[0].classList.add('down');
+        tablaMedicamentos.rows[0].cells[0].classList.remove('up');
+
+        arrayMedicamentos.sort(function (a, b) {
+            var nombreA = a.medicamento.toUpperCase();
+            var nombreB = b.medicamento.toUpperCase();
+
+            if (nombreA < nombreB) {
+                return -1;
+            }
+            if (nombreA > nombreB) {
+                return 1;
+            }
+            return 0;
+        });
+        tbody.replaceChildren();
+        tbodyMedicamentos();
+    } else if (tablaMedicamentos.rows[0].cells[0].classList.contains('down')) {
+        arrow.className = "fa-solid fa-chevron-up";
+        tablaMedicamentos.rows[0].cells[0].classList.add('up');
+        tablaMedicamentos.rows[0].cells[0].classList.remove('down');
+
+        arrayMedicamentos.sort(function (a, b) {
+            var nombreA = a.medicamento.toUpperCase();
+            var nombreB = b.medicamento.toUpperCase();
+
+            if (nombreA > nombreB) {
+                return -1;
+            }
+            if (nombreA < nombreB) {
+                return 1;
+            }
+            return 0;
+        });
+        tbody.replaceChildren();
+        tbodyMedicamentos();
+    }
+}
+function ordenarTipo() {
+    tablaMedicamentos.rows[0].cells[1].appendChild(arrow);
+    tablaMedicamentos.rows[0].cells[1].classList.add('tabla-selected');
+    tablaMedicamentos.rows[0].cells[0].classList.remove('tabla-selected');
+    if (tablaMedicamentos.rows[0].cells[1].classList.contains('up')) {
+        arrow.className = "fa-solid fa-chevron-down";
+        tablaMedicamentos.rows[0].cells[1].classList.add('down');
+        tablaMedicamentos.rows[0].cells[1].classList.remove('up');
+        arrayMedicamentos.sort(function (a, b) {
+            var nombreA = a.tipo.toUpperCase();
+            var nombreB = b.tipo.toUpperCase();
+
+            if (nombreA < nombreB) {
+                return -1;
+            }
+            if (nombreA > nombreB) {
+                return 1;
+            }
+            return 0;
+        });
+        tbody.replaceChildren();
+        tbodyMedicamentos();
+    } else if (tablaMedicamentos.rows[0].cells[1].classList.contains('down')) {
+        arrow.className = "fa-solid fa-chevron-up";
+        tablaMedicamentos.rows[0].cells[1].classList.add('up');
+        tablaMedicamentos.rows[0].cells[1].classList.remove('down');
+        arrayMedicamentos.sort(function (a, b) {
+            var nombreA = a.tipo.toUpperCase();
+            var nombreB = b.tipo.toUpperCase();
+
+            if (nombreA > nombreB) {
+                return -1;
+            }
+            if (nombreA < nombreB) {
+                return 1;
+            }
+            return 0;
+        });
+        tbody.replaceChildren();
+        tbodyMedicamentos();
+    }
+}
 //MODAL
 class Medicamento {
     constructor(medicamento, tipo, descripcion) {

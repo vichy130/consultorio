@@ -498,7 +498,6 @@ function ordenarNombre() {
     tabla.rows[0].cells[3].classList.remove('tabla-selected'); //apellidoMaterno
 }
 function ordenarApellidoPaterno() {
-    console.log("ordenar apellidoPaterno");
     tabla.rows[0].cells[2].appendChild(arrow);
     if (tabla.rows[0].cells[2].classList.contains('down')) {
         arrow.className="fa-solid fa-chevron-up";
@@ -545,7 +544,6 @@ function ordenarApellidoPaterno() {
     tabla.rows[0].cells[3].classList.remove('tabla-selected'); //apellidoMaterno
 }
 function ordenarApellidoMaterno() {
-    console.log("ordenar apellidoMaterno");
     tabla.rows[0].cells[3].appendChild(arrow);
     if (tabla.rows[0].cells[3].classList.contains('down')) {
         arrow.className="fa-solid fa-chevron-up";

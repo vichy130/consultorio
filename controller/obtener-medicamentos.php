@@ -17,7 +17,7 @@ include '../models/medicamento.php';
 include_once(__DIR__ ."/../models/conexion.php");
 $con= new Conexion();
 try {
-    $query = 'SELECT id FROM medicamento; ';
+    $query = 'SELECT id FROM medicamento order by medicamento asc; ';
     $stmt = $con->getdbh()->prepare($query);
     $stmt->execute();
     while ($lista = $stmt->fetch(PDO::FETCH_ASSOC)) {
