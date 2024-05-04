@@ -210,7 +210,9 @@ function tbodyMedicamentos() {
         celda.appendChild(tipoFila);
         celda.appendChild(descripcionFila);
         celda.appendChild(editarFila);
+        if (tipoUsuario == "A" || tipoUsuario == "S") {
         celda.appendChild(eliminarFila);
+        }
         tbody.appendChild(celda);
     });
 }

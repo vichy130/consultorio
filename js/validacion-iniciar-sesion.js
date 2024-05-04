@@ -24,8 +24,6 @@ const campos = {
     contrasena: false
 }
 const validarCampo = (expresion, input, campo) => {
-    captchaError.classList.remove('formulario_captcha-error-activo');
-    captchaError.classList.add('formulario_captcha-error');
 
     if (expresion.test(input.value)) {
         document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
@@ -57,6 +55,9 @@ inputs.forEach((input) => {
     input.addEventListener('change', function (e){
         datosIncorrectos.classList.remove('formulario_datos-incorrectos-activo');
         datosIncorrectos.classList.add('formulario_datos-incorrectos');
+
+        captchaError.classList.remove('formulario_captcha-error-activo');
+        captchaError.classList.add('formulario_captcha-error');
     })
 });
 
@@ -75,14 +76,13 @@ formIniciarSesion.addEventListener('submit', (e) => {
         }
     }
     // Validar reCAPTCHA
-    // var response = grecaptcha.getResponse();
-    // if (response.length === 0) {
-    //     i = false;
-    //     captchaErrorActivo();
-    //     console.log("error activo")
-    // 
-    // }
-    //      else 
+    var response = grecaptcha.getResponse();
+    if (response.length === 0) {
+        i = false;
+        captchaErrorActivo();
+        console.log("error activo")
+    
+    }
     if (i) {
         enviarFormIniciarSesion();
     } else {

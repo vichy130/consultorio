@@ -12,6 +12,10 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 $respuesta;
+if ($_SESSION['tipoUsuario']!="A" && $_SESSION['tipoUsuario']!="S"){
+    $respuesta="No se tiene permisos para eliminar consulta";
+}else{
+
 include_once("../models/usuario.php");
 try {
     $json = json_decode(file_get_contents('php://input'), true);
@@ -23,6 +27,7 @@ try {
     }
 } catch (Exception $e) {
     $respuesta= $e->getMessage();
+}
 }
 header('Content-Type: application/json');
 $jsonrespuesta = json_encode($respuesta);

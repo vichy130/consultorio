@@ -592,7 +592,7 @@ class Consulta
         $query = "SELECT YEAR(fecha) as ano,count(*) as numero
         from consulta
         group by YEAR(fecha)
-        order by YEAR(fecha) desc
+        order by YEAR(fecha) asc
         limit 12; ";
         try {
             $stmt = $this->conexion->getdbh()->prepare($query);
