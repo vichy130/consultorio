@@ -216,8 +216,10 @@ function enviarFormFicha() {
                 return response.json();
             })
             .then(function (data) {
+                console.log(data);
                 if (data != null) {
                     if ('id' in data) {
+                        console.log(data);
                         ficha = new Ficha(data.tipoSangre, data.quienRecomendo, data.embarazo, data.partos, data.cesareas, data.abortos, data.muertos, data.enfs, data.fuma, data.cigarrosDia, data.fumaAntiguedad, data.alcohol, data.alcFrecuencia, data.alcoholCantidad, data.alcoholTipos, data.adicciones, data.alergias, data.desayuno, data.comida, data.cena, data.entreComidas, data.vasoAguaDia, data.otrosLiquidos, data.intolerancias, data.orinaDia, data.orinaNoche, data.orinaColor, data.orinaOlor, data.orinaMolestias, data.excrementoDia, data.exConsistencia, data.exOlor, data.exColor, data.exDolor, data.fechaMenstruacion, data.mensPeriodicidad, data.mensMolestias, data.ejercicioSemana, data.fecha, data.hora);
                         ficha.id = data.id;
                         ficha.paciente = data.paciente;

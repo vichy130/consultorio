@@ -428,8 +428,18 @@ function ordenarRegistro() {
         arrow.className="fa-solid fa-chevron-up";
         tabla.rows[0].cells[0].classList.add('up');
         tabla.rows[0].cells[0].classList.remove('down');
-        array.sort((a, b) => (
-            a.id < b.id ? 1 : b.id < a.id ? -1 : 0));
+        array.sort(function (a, b) {
+            var nombreA =  parseInt(a.id);
+            var nombreB =  parseInt(b.id);
+
+            if (nombreA > nombreB) {
+                return -1;
+            }
+            if (nombreA < nombreB) {
+                return 1;
+            }
+            return 0;
+        });
         tbody.replaceChildren();
         tbodyPacientes();
 
@@ -437,8 +447,18 @@ function ordenarRegistro() {
         arrow.className="fa-solid fa-chevron-down";
         tabla.rows[0].cells[0].classList.add('down');
         tabla.rows[0].cells[0].classList.remove('up');
-        array.sort((a, b) => (
-            a.id > b.id ? 1 : b.id > a.id ? -1 : 0));
+        array.sort(function (a, b) {
+            var nombreA =  parseInt(a.id);
+            var nombreB =  parseInt(b.id);
+
+            if (nombreA < nombreB) {
+                return -1;
+            }
+            if (nombreA > nombreB) {
+                return 1;
+            }
+            return 0;
+        });
         tbody.replaceChildren();
         tbodyPacientes();
     }

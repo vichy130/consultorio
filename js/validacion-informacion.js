@@ -192,6 +192,7 @@ function validarInformacion() {
 }
 formPaciente.addEventListener('submit', (e) => {
     e.preventDefault();
+    validarInformacion();
     var i = true;
     for (const key in campos) {
         if (campos[key] === false) {

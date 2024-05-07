@@ -673,7 +673,7 @@ class Ficha
         JOIN ficha ON antecedentes.ficha = ficha.id
         GROUP BY enfermedad
         ORDER BY numero DESC
-        LIMIT 5;";
+        LIMIT 12;";
         $enfermedades['todo'] = $this->executeReporte($queryTodo);
 
         return $enfermedades;

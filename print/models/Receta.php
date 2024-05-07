@@ -142,8 +142,9 @@ class Receta extends FPDF
             $this->SetLineWidth(.2);
             // LINE (x,y coordenada inicio y x,y coordenada fin)
             $this->Line(10.5, 251, 199.5, 251);
-            $this->SetY(-25);
+
         }
+        $this->SetY(-25);
         $this->SetFont('Arial', '', 9);
         // CELL (width, height, text, border, end line, align)
         $this->Cell(94.5, 5, $this->domicilio, 0, 0, 'L');

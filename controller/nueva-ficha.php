@@ -12,13 +12,13 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 include_once ("../models/ficha-clinica.php");
-/*
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
-*/
+
+// error_reporting(E_ALL);
+// ini_set('display_errors', '1');
+
 $respuesta;
 try {
-    $jsonHijos = $_POST['json-hijos'];
+    $jsonHijos = $_POST['hijos'];
     $hijos = json_decode($jsonHijos);
     $jsonAntecedentes = $_POST['json-antecedentes'];
     $antecedentes = json_decode($jsonAntecedentes);
@@ -73,6 +73,7 @@ try {
     $ficha->setValues($paciente, $tipoSangre, $quienRecomendo, $embarazo, $partos, $cesareas, $abortos, $muertos, $enfs, $fuma, $cigarrosDia, $fumaAntiguedad, $alcohol, $alcFrecuencia, $alcoholCantidad, $alcoholTipos, $adicciones, $alergias, $desayuno, $comida, $cena, $entreComidas, $vasoAguaDia, $otrosLiquidos, $intolerancias, $orinaDia, $orinaNoche, $orinaColor, $orinaOlor, $orinaMolestias, $excrementoDia, $exConsistencia, $exOlor, $exColor, $exDolor, $fechaMenstruacion, $mensPeriodicidad, $mensMolestias, $ejercicioSemana, $fecha, $hora, $usuario);
 
     $respuesta = $ficha->insertar($hijos, $antecedentes, $antecedentesFam);
+    // $respuesta=$hijos;
 
 } catch (PDOException $e) {
     $respuesta = $e->getMessage();

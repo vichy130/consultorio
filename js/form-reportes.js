@@ -186,12 +186,12 @@ function loadCharts() {
     terapiasChart = new Chart(ctxTerapias, {
         type: 'doughnut',
         data: {
-            labels: terTres.map(function (item) {
+            labels: terAno.map(function (item) {
                 return item.label
             }),
             datasets: [{
                 label: 'Terapias',
-                data: terTres.map(function (item) {
+                data: terAno.map(function (item) {
                     return item.data
                 }),
             }]

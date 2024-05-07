@@ -63,7 +63,7 @@ if (isset($_SESSION["id_consulta"])) {
                                 placeholder="María">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">El campo no debe estar vacío. Solo permite letras</p>
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: apellidop Paciente -->
@@ -74,7 +74,7 @@ if (isset($_SESSION["id_consulta"])) {
                                 placeholder="Pino">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">El campo no debe estar vacío. Solo permite letras</p>
                     </div><!-- end form-grupo -->
 
                     <!-- Grupo: apellidom Paciente -->
@@ -85,7 +85,7 @@ if (isset($_SESSION["id_consulta"])) {
                                 placeholder="Suárez">
                             <i class="form_validacion-estado fa-solid fa-circle-xmark"></i>
                         </div>
-                        <p class="form_input-error">El campo no debe estar vacío</p>
+                        <p class="form_input-error">El campo no debe estar vacío. Solo permite letras</p>
                     </div><!-- end form-grupo -->
 
                     <label class="span-4">Sexo</label>

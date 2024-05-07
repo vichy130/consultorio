@@ -71,7 +71,7 @@ if (!isset($_SESSION['username'])) {
                     <select class="form_input-reportes" name="terapias" id="select-terapias">
                         <option value="tres">Últimos tres meses</option>
                         <option value="seis">Últimos seis meses</option>
-                        <option value="ano">Último año</option>
+                        <option value="ano" selected>Último año</option>
                         <option value="todo">Todos los registros</option>
                     </select>
                     <i class="icono-reportes fa-regular fa-file-pdf" id="icono-terapia-pdf"></i>

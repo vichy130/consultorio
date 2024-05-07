@@ -11,6 +11,7 @@ function enviarFormIniciarSesion() {
             return response.json();
         })
         .then(function (data) {
+            console.log(data);
             if(data===true){
                 index();
             }else{

@@ -58,6 +58,7 @@ inputs.forEach((input) => {
 
 formMedicamento.addEventListener('submit', (e)=>{
     e.preventDefault();
+    validarMedicamento();
     var i=true;
     for (const key in campos) {
         if (campos[key] === false) {
